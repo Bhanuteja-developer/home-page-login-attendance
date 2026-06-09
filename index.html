@@ -1,65 +1,63 @@
-<!DOCTYPE html>
-
-<html class="light" lang="en" style=""><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Records - WorkforceOS</title>
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>WorkforceOS - Attendance &amp; Profile</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script id="tailwind-config">
   tailwind.config = {
     darkMode: "class",
     theme: {
       extend: {
         "colors": {
-                "surface-bright": "#f8f9ff",
-                "on-surface-variant": "#444653",
+                "tertiary-container": "#6b4200",
+                "on-primary-fixed-variant": "#173bab",
+                "on-background": "#0b1c30",
                 "on-tertiary-container": "#ffa929",
-                "outline": "#757684",
-                "inverse-primary": "#b8c4ff",
+                "surface-variant": "#d3e4fe",
+                "surface-container": "#e5eeff",
+                "surface": "#f8f9ff",
+                "on-secondary-fixed-variant": "#005236",
+                "secondary": "#006c49",
+                "on-primary": "#ffffff",
+                "inverse-surface": "#213145",
+                "surface-container-lowest": "#ffffff",
+                "on-tertiary-fixed": "#2a1700",
+                "on-tertiary": "#ffffff",
                 "primary": "#00288e",
-                "secondary-container": "#6cf8bb",
                 "surface-dim": "#cbdbf5",
                 "surface-container-highest": "#d3e4fe",
-                "surface": "#ffffff",
-                "background": "#f8f9ff",
-                "error": "#ba1a1a",
-                "on-surface": "#0b1c30",
-                "tertiary": "#4c2e00",
-                "secondary-fixed": "#6ffbbe",
-                "on-tertiary-fixed-variant": "#653e00",
-                "inverse-on-surface": "#eaf1ff",
-                "surface-container-high": "#dce9ff",
-                "primary-container": "#1e40af",
-                "on-primary-fixed-variant": "#173bab",
-                "outline-variant": "#c4c5d5",
-                "inverse-surface": "#213145",
-                "on-error-container": "#93000a",
-                "on-secondary-fixed-variant": "#005236",
-                "primary-fixed": "#dde1ff",
-                "on-secondary-fixed": "#002113",
-                "tertiary-fixed": "#ffddb8",
-                "on-secondary-container": "#00714d",
-                "on-tertiary-fixed": "#2a1700",
-                "on-error": "#ffffff",
-                "tertiary-fixed-dim": "#ffb95f",
-                "surface-container": "#e5eeff",
-                "error-container": "#ffdad6",
-                "surface-container-low": "#eff4ff",
-                "surface-container-lowest": "#ffffff",
-                "on-secondary": "#ffffff",
-                "on-primary": "#ffffff",
-                "surface-variant": "#d3e4fe",
-                "primary-fixed-dim": "#b8c4ff",
-                "on-tertiary": "#ffffff",
                 "on-primary-fixed": "#001453",
+                "inverse-primary": "#b8c4ff",
+                "surface-container-low": "#eff4ff",
+                "on-error": "#ffffff",
+                "tertiary": "#4c2e00",
+                "on-surface-variant": "#444653",
+                "on-tertiary-fixed-variant": "#653e00",
+                "on-surface": "#0b1c30",
+                "on-secondary-container": "#00714d",
+                "surface-bright": "#f8f9ff",
+                "primary-container": "#1e40af",
                 "on-primary-container": "#a8b8ff",
+                "error-container": "#ffdad6",
+                "tertiary-fixed-dim": "#ffb95f",
+                "background": "#f8f9ff",
+                "primary-fixed-dim": "#b8c4ff",
+                "error": "#ba1a1a",
+                "tertiary-fixed": "#ffddb8",
+                "secondary-fixed": "#6ffbbe",
+                "on-secondary-fixed": "#002113",
+                "secondary-container": "#6cf8bb",
+                "surface-container-high": "#dce9ff",
+                "on-error-container": "#93000a",
+                "inverse-on-surface": "#eaf1ff",
                 "secondary-fixed-dim": "#4edea3",
-                "tertiary-container": "#6b4200",
+                "on-secondary": "#ffffff",
                 "surface-tint": "#3755c3",
-                "secondary": "#006c49",
-                "on-background": "#0b1c30",
+                "outline-variant": "#c4c5d5",
+                "primary-fixed": "#dde1ff",
+                "outline": "#757684",
                 "success": "#137333",
                 "success-container": "#e6f4ea",
                 "warning": "#b06000",
@@ -70,91 +68,54 @@
                 "DEFAULT": "0.125rem",
                 "lg": "0.25rem",
                 "xl": "0.5rem",
-                "full": "0.75rem",
-                "2xl": "1rem"
+                "full": "0.75rem"
         },
         "spacing": {
-                "md": "16px",
+                "lg": "24px",
                 "base": "4px",
                 "gutter": "24px",
-                "lg": "24px",
                 "xs": "4px",
+                "md": "16px",
                 "sm": "8px",
                 "xl": "40px",
                 "container-max": "1280px"
         },
         "fontFamily": {
-                "label-md": [
-                        "IBM Plex Sans"
-                ],
-                "headline-sm": [
-                        "IBM Plex Sans"
-                ],
                 "display-lg": [
-                        "IBM Plex Sans"
-                ],
-                "headline-lg": [
-                        "IBM Plex Sans"
-                ],
-                "body-sm": [
-                        "IBM Plex Sans"
-                ],
-                "headline-lg-mobile": [
                         "IBM Plex Sans"
                 ],
                 "body-md": [
                         "IBM Plex Sans"
                 ],
+                "body-lg": [
+                        "IBM Plex Sans"
+                ],
+                "headline-lg": [
+                        "IBM Plex Sans"
+                ],
+                "label-md": [
+                        "IBM Plex Sans"
+                ],
                 "headline-md": [
                         "IBM Plex Sans"
                 ],
-                "body-lg": [
+                "headline-lg-mobile": [
+                        "IBM Plex Sans"
+                ],
+                "headline-sm": [
+                        "IBM Plex Sans"
+                ],
+                "body-sm": [
                         "IBM Plex Sans"
                 ]
         },
         "fontSize": {
-                "label-md": [
-                        "12px",
-                        {
-                                "lineHeight": "1",
-                                "letterSpacing": "0.05em",
-                                "fontWeight": "600"
-                        }
-                ],
-                "headline-sm": [
-                        "20px",
-                        {
-                                "lineHeight": "1.4",
-                                "fontWeight": "600"
-                        }
-                ],
                 "display-lg": [
                         "48px",
                         {
                                 "lineHeight": "1.2",
                                 "letterSpacing": "-0.02em",
                                 "fontWeight": "600"
-                        }
-                ],
-                "headline-lg": [
-                        "32px",
-                        {
-                                "lineHeight": "1.25",
-                                "fontWeight": "700"
-                        }
-                ],
-                "body-sm": [
-                        "14px",
-                        {
-                                "lineHeight": "1.5",
-                                "fontWeight": "400"
-                        }
-                ],
-                "headline-lg-mobile": [
-                        "28px",
-                        {
-                                "lineHeight": "1.2",
-                                "fontWeight": "700"
                         }
                 ],
                 "body-md": [
@@ -164,17 +125,53 @@
                                 "fontWeight": "400"
                         }
                 ],
-                "headline-md": [
-                        "24px",
-                        {
-                                "lineHeight": "1.3",
-                                "fontWeight": "600"
-                        }
-                ],
                 "body-lg": [
                         "18px",
                         {
                                 "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "1.25",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-md": [
+                        "12px",
+                        {
+                                "lineHeight": "1",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "1.3",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-sm": [
+                        "20px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "1.5",
                                 "fontWeight": "400"
                         }
                 ]
@@ -184,13 +181,41 @@
   }
 </script>
 <style>
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            min-height: max(884px, 100dvh);
+        }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         .material-symbols-outlined.filled {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-variation-settings: 'FILL' 1;
         }
         
+        /* Camera Focus Guides */
+        .focus-guide {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #1e40af;
+            transition: all 0.3s ease;
+        }
+        .focus-guide.tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+        .focus-guide.tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+        .focus-guide.bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+        .focus-guide.br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+        
+        @keyframes pulse-focus {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+        .focus-detecting .focus-guide {
+            animation: pulse-focus 1s infinite;
+            border-color: #006c49;
+        }
+
+        /* Timeline effects */
         @keyframes shimmer-shine {
             0% { background-position: 200% center; }
             100% { background-position: -200% center; }
@@ -250,66 +275,169 @@
                 color: #00288e;
             }
         }
+        
+        /* SPA View Management */
+        .spa-view {
+            display: none;
+        }
+        .spa-view.active {
+            display: flex;
+        }
+        #records-view.active, #profile-view.active {
+            display: block; /* Different display for these views */
+        }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-<link class="" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/></head>
-<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row pb-20 md:pb-0">
-<!-- TopAppBar (Mobile only, hidden on md) -->
-<header class="md:hidden fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface border-b border-outline-variant shadow-sm transition-colors cursor-pointer active:scale-95 transition-transform">
-<div class="flex items-center gap-sm">
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col antialiased pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface shadow-sm border-b border-outline-variant">
+<div class="flex items-center gap-sm"><button aria-label="Go to Home" class="flex items-center justify-center p-1 rounded-full hover:bg-surface-container-low transition-colors active:scale-95 mr-1" onclick="document.querySelector('[data-target=\'clockin-view\']').click()">
+  
+</button>
 <span class="material-symbols-outlined text-primary text-2xl">fingerprint</span>
 <span class="font-headline-sm text-headline-sm font-bold text-primary">WorkforceOS</span>
 </div>
-<img alt="Enterprise Logo" class="w-8 h-8 rounded-full object-cover shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8g7qEKX-DGocAUvcdNbg8OzRmAoMmb3fjm6n7aNnwPEhE-_AUhBxDF6SsBt2cQsef4yXbLcszxfN-wMgCFUrpxoH7cfeMUjJnvMKNzypjki0I-2CmuYxGHsHrYPO_mz3vgKBbog55MHMikEX26DtOPQw5D76DEvPG7vDEf0Nua6ttHOt6CtfCqPusW3YB4XUMNoXFHT9f5Ns3dkUiJ-pa0IEwKWvu7hheDfpfC1HuXvkA7yUlh_KZyy2ghCSusMmPhlN9eWhy94E"/>
+<div class="relative">
+<button aria-label="Profile Menu" class="flex items-center gap-xs cursor-pointer active:scale-95 transition-transform">
+
+</button>
+</div>
 </header>
-<!-- NavigationDrawer (Desktop only) -->
-<aside class="hidden md:flex flex-col h-screen w-[280px] fixed left-0 top-0 bg-surface border-r border-outline-variant shadow-md py-lg px-md z-40 transition-all duration-200 ease-in-out">
-<!-- Header -->
-<div class="flex items-center gap-md mb-8 px-md">
-<span class="material-symbols-outlined text-primary text-3xl">fingerprint</span>
-<span class="font-headline-sm text-headline-sm font-bold text-primary">WorkforceOS</span>
-</div>
-<!-- Profile Header -->
-<div class="flex items-center gap-md mb-8 px-md">
-<img alt="User Avatar" class="w-12 h-12 rounded-full object-cover border-2 border-surface-container-high shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8g7qEKX-DGocAUvcdNbg8OzRmAoMmb3fjm6n7aNnwPEhE-_AUhBxDF6SsBt2cQsef4yXbLcszxfN-wMgCFUrpxoH7cfeMUjJnvMKNzypjki0I-2CmuYxGHsHrYPO_mz3vgKBbog55MHMikEX26DtOPQw5D76DEvPG7vDEf0Nua6ttHOt6CtfCqPusW3YB4XUMNoXFHT9f5Ns3dkUiJ-pa0IEwKWvu7hheDfpfC1HuXvkA7yUlh_KZyy2ghCSusMmPhlN9eWhy94E"/>
+<!-- CLOCK IN VIEW -->
+<main class="spa-view flex-grow pt-20 px-md flex-col gap-lg max-w-lg mx-auto w-full" id="clockin-view">
+<!-- Header Section -->
+<div class="flex flex-col gap-sm">
+<h1 class="font-headline-md text-headline-md text-on-background">Mark Your Attendance</h1>
+<div class="bg-surface border border-outline-variant rounded-xl p-md flex items-center justify-between shadow-sm mt-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">schedule</span>
 <div class="flex flex-col">
-<span class="font-body-md text-body-md font-semibold text-on-surface">Alex Rivera</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">Senior Associate</span>
-<span class="font-label-md text-label-md text-outline mt-1">Last Login: 08:45 AM</span>
+<span class="font-label-md text-label-md text-on-surface-variant">CURRENT TIME (IST)</span>
+<span class="font-body-md text-body-md font-medium text-on-surface" id="current-datetime">09 Jun 2026 22:53:48</span>
 </div>
 </div>
-<!-- Navigation Links -->
-<nav class="flex-1 space-y-sm">
-<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-highest rounded-full transition-colors font-body-md text-body-md" href="#">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="">Dashboard</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-highest rounded-full transition-colors font-body-md text-body-md" href="#">
-<span class="material-symbols-outlined">history</span>
-<span class="">Attendance History</span>
-</a>
-<!-- Active State using Intent Fallback (Records -> Attendance History -> List View) -->
-<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-full px-md py-sm font-body-md text-body-md shadow-sm" href="#">
-<span class="material-symbols-outlined filled">list_alt</span>
-<span class="font-semibold">Records</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-highest rounded-full transition-colors font-body-md text-body-md" href="#">
-<span class="material-symbols-outlined">face</span>
-<span class="">Biometric Setup</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant px-md py-sm hover:bg-surface-container-highest rounded-full transition-colors font-body-md text-body-md mt-auto" href="#">
-<span class="material-symbols-outlined">settings</span>
-<span class="">Settings</span>
-</a>
-</nav>
-</aside>
-<!-- Main Content Canvas -->
-<main class="flex-1 md:ml-[280px] pt-16 md:pt-0 min-h-screen bg-background px-4 sm:px-gutter py-lg">
-<div class="max-w-container-max mx-auto space-y-lg">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+</div>
+<!-- Initial Action State (Visible before capture) -->
+<div class="flex-col gap-md hidden" id="initial-view">
+<div class="bg-surface rounded-xl border border-outline-variant p-xl flex flex-col items-center justify-center text-center gap-md shadow-sm min-h-[300px]">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">photo_camera</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-[200px]">We need your live location and a quick photo to verify your attendance.</p>
+<button class="w-full bg-primary text-on-primary font-body-md text-body-md py-sm px-md rounded-xl flex items-center justify-center gap-sm mt-sm active:scale-95 transition-transform shadow-sm" onclick="startCaptureFlow()">
+<span class="material-symbols-outlined text-sm">my_location</span>
+                    Capture Live Location &amp; Photo
+                </button>
+</div>
+</div>
+<!-- Camera Interface (Hidden by default) -->
+<div class="flex-col gap-md hidden" id="camera-view">
+<div class="relative bg-black rounded-xl overflow-hidden aspect-[3/4] flex items-center justify-center shadow-md">
+<!-- Simulated Camera Feed -->
+<img alt="Simulated camera feed of an employee" class="w-full h-full object-cover opacity-80" data-alt="A simulated smartphone camera view of a modern professional standing in a well-lit office lobby. The lighting is clean and corporate, suggesting a secure workplace check-in moment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqvcUbJ-Ve9RVKpBaZn6YGJRu6iu1udBCmcbjKS6qS_HuB9n3VV26fiddMjoL0vp3XUmGL9BuNHukCr4hBmc5akMxLSVxlCM2FzUaPFS6ZIm1mlLoU0DKcv3xBFI15h_7iPPFYw-i1nDIW8aY1whYgVCMAwOwrhgA3GGf84ECM4IgcDyHsJUA4to8E3kX43tsrlG0fVDgmhCE0TycU9J6J1_FiCAfgdCg_c7Ul6wDTsdJHnE5qFsqBudZeMzODLtYSrMm8kTliAYY">
+<!-- Scrim & Cutout -->
+<div class="absolute inset-0 bg-black/40 pointer-events-none">
+<div class="absolute inset-0 m-auto w-64 h-80 rounded-[40px] shadow-[0_0_0_9999px_rgba(0,0,0,0.6)]"></div>
+</div>
+<!-- Focus Guides -->
+<div class="absolute inset-0 m-auto w-64 h-80 pointer-events-none focus-detecting">
+<div class="focus-guide tl"></div>
+<div class="focus-guide tr"></div>
+<div class="focus-guide bl"></div>
+<div class="focus-guide br"></div>
+</div>
+<!-- UI Overlays -->
+<div class="absolute top-4 right-4 flex items-center gap-xs bg-black/50 px-sm py-xs rounded-full backdrop-blur-sm">
+<div class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></div>
+<span class="font-label-md text-label-md text-white">LIVE</span>
+</div>
+<div class="absolute top-4 left-4 bg-black/50 px-sm py-xs rounded-full backdrop-blur-sm">
+<span class="font-label-md text-label-md text-white" id="countdown">00:27</span>
+</div>
+<button class="absolute bottom-6 right-6 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white border border-white/20 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">flip_camera_ios</span>
+</button>
+<!-- Capture Button -->
+<button class="absolute bottom-6 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border-2 border-white/50 active:scale-90 transition-transform" onclick="takePhoto()">
+<div class="w-12 h-12 bg-white rounded-full"></div>
+</button>
+</div>
+<p class="text-center font-body-sm text-body-sm text-on-surface-variant">Position your face within the frame.</p>
+</div>
+<!-- Post-Capture Display (Hidden by default) -->
+<div class="flex-col gap-md flex" id="result-view">
+<!-- Photo & Watermark -->
+<div class="relative rounded-xl overflow-hidden shadow-sm aspect-[4/3]">
+<img alt="Captured Photo" class="w-full h-full object-cover" data-alt="A clean, clear photo of a professional employee looking directly at the camera in a corporate setting. The image serves as a secure biometric attendance record." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4BqJ2hBOBADSyLmxrH-te3Mbiux8TXfc8M5kWdxXPK3RufyO_moTC0AW1jBQbVaGD4sT6g8ipk80BgDjM56bQe1M074x7-piTlA7sqOzv6y6cjC09EGfiFl-I-hTy11GD-BNl_H0OZoS2rPHAeC17Aavy5_sFkd2LL4grvoDCfD7EpqKLNIrf3FaBxP-LdUCGXBBv_DDKVGFkjtcefOGLlDzyCR9gSLW5oS5n2mGCce9obCKUD_OybstnrEQRevA7SZ3jym2_ST0">
+<!-- Watermark -->
+<div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-md pt-lg flex flex-col gap-xs text-white">
+<span class="font-label-md text-label-md text-white/80">15/Oct/2023, 08:46:12 IST</span>
+<span class="font-body-sm text-body-sm truncate text-white/90">Lat: 19.0760° N, Long: 72.8777° E</span>
+<span class="font-body-sm text-body-sm truncate text-white/70">BKC, Bandra East, Mumbai, 400051</span>
+</div>
+</div>
+<!-- Location Details -->
+<div class="bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<!-- Simulated Map -->
+<div class="h-32 bg-surface-container-high relative w-full overflow-hidden" data-location="Mumbai, India">
+<img alt="Map View" class="w-full h-full object-cover opacity-80" data-alt="A stylized, low-contrast top-down map view of a metropolitan corporate district, featuring a prominent blue location pin marker indicating the user's current secure check-in location." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_h2tlPcl1mYcJuCRzXYIbUj5QAY7eZSFGLc5o_dcgQzcnjnTxZNisWMEchOxbscV5ALGJ7QFJ3EFt_0xIBAI_VVLMROF_PvSu7W86qa3N_RwqUP2uoUBSb39vvLKJM65vaPMzXC9USdbR0DbltqVjPoqxuGEKni08DXl_a51swWHVkqa3Cr6hdQ9i8NrFT3dmfvcJyhnSlJMa9ShU5kqSPFlZiv3OFTsv99FlR0TW1zCBkU4t1AQPseQ-BcNagYhfEuWk1N_LHAA">
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl drop-shadow-md fill">location_on</span>
+</div>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5">explore</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">GPS Coordinates</p>
+<p class="font-body-md text-body-md text-on-surface mt-xs">Lat: 19.0601° N | Long: 72.8650° E</p>
+</div>
+</div>
+<div class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5">pin_drop</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Detected Location</p>
+<p class="font-body-md text-body-md text-on-surface mt-xs">One BKC, C-Wing, Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra 400051, India</p>
+</div>
+</div>
+<button class="w-full bg-transparent text-primary font-body-sm text-body-sm py-sm px-md rounded-xl flex items-center justify-center gap-sm active:scale-95 transition-transform border border-outline-variant mt-sm hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-sm">map</span>
+Open with Map
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-sm mt-sm">
+<button class="w-full bg-primary text-on-primary font-body-md text-body-md py-sm px-md rounded flex items-center justify-center gap-sm active:scale-95 transition-transform shadow-sm hover:bg-primary-container" onclick="showConfirmModal()">
+                Submit Attendance
+            </button>
+<button class="w-full bg-transparent text-primary font-body-sm text-body-sm py-sm px-md rounded flex items-center justify-center active:scale-95 transition-transform border border-outline-variant hover:bg-surface-container-low" onclick="resetFlow()">
+                Retake Photo
+            </button>
+</div>
+</div>
+<!-- Success View (Hidden by default) -->
+<div class="hidden flex-col items-center justify-center gap-lg py-xl text-center" id="success-view">
+<div class="relative">
+<img alt="User Avatar" class="w-24 h-24 rounded-full object-cover border-4 border-surface shadow-md" data-alt="A professional headshot of an employee, identical to the header avatar but larger, symbolizing successful verification." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu9QFuXFFPoI00sUtdXLct_w-xzYvTzv3ZXQCeDotwoA65RaNyg2DrxU3hTuaktcyJGP2Xck4twlrlxg4L8XDNs4c7YiOsy9uBS6YYOpVdOSZcnnPEy2gKMzBUieMZ-ArlgAjL4IEgj_Cmyq6grGloQjBbCwy3fI_hrJBRPQJfUa1WlH7odIIIfMU2vau7eKqvMLUzI5DNghCRc710B4xljoljndx1tZN_mZxZdWmYujvkJt3WuW_FSed--RoN--aWzhhS5V3fhGk">
+<div class="absolute bottom-0 right-0 w-8 h-8 bg-secondary-container rounded-full flex items-center justify-center border-2 border-surface">
+<span class="material-symbols-outlined text-on-secondary-container text-sm font-bold">check</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-background">Attendance Logged</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Your attendance has been successfully submitted for today.</p>
+</div>
+<button class="w-full bg-primary text-on-primary font-body-md text-body-md py-sm px-md rounded flex items-center justify-center gap-sm mt-md active:scale-95 transition-transform shadow-md" onclick="location.reload()">
+<span class="material-symbols-outlined text-sm">home</span>
+                Go to Home Page
+            </button>
+</div>
+</main>
+<!-- RECORDS VIEW -->
+<main class="spa-view pt-16 md:pt-0 min-h-screen px-4 sm:px-gutter py-lg" id="records-view">
+<div class="max-w-container-max mx-auto space-y-lg mt-4">
 <!-- Page Header -->
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4">
 <div>
@@ -326,7 +454,7 @@
 </button></div>
 </div>
 <!-- Daily Progress Summary -->
-<div class="bg-surface border border-outline-variant rounded-2xl p-md shadow-sm mb-lg"><button class="w-full flex justify-between items-center group" onclick="const content = this.nextElementSibling; const icon = this.querySelector('.expand-icon'); if(content.classList.contains('hidden')) { content.classList.remove('hidden'); content.classList.add('block'); icon.style.transform = 'rotate(180deg)'; } else { content.classList.add('hidden'); content.classList.remove('block'); icon.style.transform = 'rotate(0deg)'; }">
+<div class="bg-surface border border-outline-variant rounded-xl p-md shadow-sm mb-lg"><button class="w-full flex justify-between items-center group" onclick="const content = this.nextElementSibling; const icon = this.querySelector('.expand-icon'); if(content.classList.contains('hidden')) { content.classList.remove('hidden'); content.classList.add('block'); icon.style.transform = 'rotate(180deg)'; } else { content.classList.add('hidden'); content.classList.remove('block'); icon.style.transform = 'rotate(0deg)'; }">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">filter_list</span>
 <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Filter Records</h2>
@@ -339,14 +467,14 @@
 <label class="block font-label-md text-label-md text-on-surface-variant mb-2">From</label>
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">calendar_today</span>
-<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" type="date"/>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" type="date">
 </div>
 </div>
 <div class="flex-1 w-full">
 <label class="block font-label-md text-label-md text-on-surface-variant mb-2">To</label>
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">calendar_today</span>
-<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" type="date"/>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" type="date">
 </div>
 </div>
 <button class="w-full sm:w-auto px-6 py-2 bg-primary text-on-primary rounded font-body-sm text-body-sm font-semibold hover:opacity-90 transition-all shadow-sm flex items-center justify-center gap-2">
@@ -354,7 +482,7 @@
       Apply Filter
     </button>
 </div>
-</div></div><div class="bg-surface border border-outline-variant rounded-2xl p-md shadow-sm">
+</div></div><div class="bg-surface border border-outline-variant rounded-xl p-md shadow-sm">
 <div class="flex justify-between items-center mb-4">
 <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Today's Progress</h2>
 <span class="font-label-md text-label-md px-2 py-1 rounded font-semibold bg-secondary-container text-on-secondary-container">3 of 5 Check-ins Complete</span>
@@ -389,7 +517,7 @@
 <div class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center ring-4 ring-background z-10 transition-transform group-hover:scale-110">
 <span class="material-symbols-outlined text-[14px] text-secondary font-bold">check</span>
 </div>
-<div class="bg-surface border border-outline-variant rounded-2xl p-4 shadow-sm flex flex-col gap-3 ml-2 hover:border-outline transition-colors">
+<div class="bg-surface border border-outline-variant rounded-xl p-4 shadow-sm flex flex-col gap-3 ml-2 hover:border-outline transition-colors">
 <div class="flex justify-between items-start">
 <div>
 <div class="font-label-md text-label-md text-outline tracking-wider font-medium">10:00 AM SLOT</div>
@@ -398,7 +526,7 @@
 <span class="px-2 py-1 bg-success-container text-success text-xs rounded font-bold border border-[#CEEAD6]">ON TIME</span>
 </div>
 <div class="flex items-center gap-3 bg-surface-container-lowest p-2 rounded-lg border border-outline-variant/50">
-<img alt="Check-in Photo" class="w-12 h-12 rounded object-cover border border-outline-variant shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFQVWfrdE0nP3YMcx9DjQo5RPi6ijRsG2sO_W8A89y4FFquxuOV5ZZYKeha6v5fdRq6rkN-sI62DsE0wYIs36g3aLUdFj742VbumIZWqHD57LxCEdHTydvlUAo9C9nDs6t0IadJ9kLZhlPEL83KYb9ko38tsYFyqtc3iizkHFygOGnkB9iW_dIFvIxbZlQ3l1myL_EOUS_jmZ1GygWKG8Bn7Sz8rJJB5vJ-gzYEJ9qLsVU3PnESKDfYmnix2EjO_1KI_k9aWL-U0k"/>
+<img alt="Check-in Photo" class="w-12 h-12 rounded object-cover border border-outline-variant shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFQVWfrdE0nP3YMcx9DjQo5RPi6ijRsG2sO_W8A89y4FFquxuOV5ZZYKeha6v5fdRq6rkN-sI62DsE0wYIs36g3aLUdFj742VbumIZWqHD57LxCEdHTydvlUAo9C9nDs6t0IadJ9kLZhlPEL83KYb9ko38tsYFyqtc3iizkHFygOGnkB9iW_dIFvIxbZlQ3l1myL_EOUS_jmZ1GygWKG8Bn7Sz8rJJB5vJ-gzYEJ9qLsVU3PnESKDfYmnix2EjO_1KI_k9aWL-U0k">
 <div class="flex flex-col gap-1">
 <div class="flex items-center gap-1.5 text-on-surface font-body-sm text-sm">
 <span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
@@ -416,7 +544,7 @@
 <div class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center ring-4 ring-background z-10 transition-transform group-hover:scale-110">
 <span class="material-symbols-outlined text-[14px] text-secondary font-bold">check</span>
 </div>
-<div class="bg-surface border border-outline-variant rounded-2xl p-4 shadow-sm flex flex-col gap-3 ml-2 hover:border-outline transition-colors">
+<div class="bg-surface border border-outline-variant rounded-xl p-4 shadow-sm flex flex-col gap-3 ml-2 hover:border-outline transition-colors">
 <div class="flex justify-between items-start">
 <div>
 <div class="font-label-md text-label-md text-outline tracking-wider font-medium">12:00 PM SLOT</div>
@@ -425,7 +553,7 @@
 <span class="px-2 py-1 bg-success-container text-success text-xs rounded font-bold border border-[#CEEAD6]">ON TIME</span>
 </div>
 <div class="flex items-center gap-3 bg-surface-container-lowest p-2 rounded-lg border border-outline-variant/50">
-<img alt="Check-in Photo" class="w-12 h-12 rounded object-cover border border-outline-variant shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs50-QhFNT6JzTUk7ys41HtU-ej-Qak4150GlZK1IfD2X5fIMn4uPb4jTkLEGsnBLhGx4o-hO7iMVeM3WrvJIn7A60nHb8vpdKegCtQapBiXHU--9w6ZSpCG90lNcOCR5IUeIpntXYnuLq1aiNh9LIXJ_WKiHPbANp3cSU8t-NMz1Vtut8z778dDI-3dGI6Rl3x9meJAIbdxtT5vKgqbC4_wN2Eg0IThaghwO_empHVg5xm7nJ4LCEFQbNDd2Q354NZeT-TSN3xjY"/>
+<img alt="Check-in Photo" class="w-12 h-12 rounded object-cover border border-outline-variant shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs50-QhFNT6JzTUk7ys41HtU-ej-Qak4150GlZK1IfD2X5fIMn4uPb4jTkLEGsnBLhGx4o-hO7iMVeM3WrvJIn7A60nHb8vpdKegCtQapBiXHU--9w6ZSpCG90lNcOCR5IUeIpntXYnuLq1aiNh9LIXJ_WKiHPbANp3cSU8t-NMz1Vtut8z778dDI-3dGI6Rl3x9meJAIbdxtT5vKgqbC4_wN2Eg0IThaghwO_empHVg5xm7nJ4LCEFQbNDd2Q354NZeT-TSN3xjY">
 <div class="flex flex-col gap-1">
 <div class="flex items-center gap-1.5 text-on-surface font-body-sm text-sm">
 <span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
@@ -443,7 +571,7 @@
 <div class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-warning-container flex items-center justify-center ring-4 ring-background z-10 transition-transform group-hover:scale-110">
 <span class="material-symbols-outlined text-[14px] text-warning font-bold">schedule</span>
 </div>
-<div class="bg-surface border border-warning-border rounded-2xl p-4 shadow-sm flex flex-col gap-3 ml-2">
+<div class="bg-surface border border-warning-border rounded-xl p-4 shadow-sm flex flex-col gap-3 ml-2">
 <div class="flex justify-between items-start">
 <div>
 <div class="font-label-md text-label-md text-warning tracking-wider font-medium">02:00 PM SLOT</div>
@@ -452,7 +580,7 @@
 <span class="px-2 py-1 bg-warning-container text-warning text-xs rounded font-bold border border-warning-border">LATE (18m)</span>
 </div>
 <div class="flex items-center gap-3 bg-surface-container-lowest p-2 rounded-lg border border-outline-variant/50">
-<img alt="Check-in Photo" class="w-12 h-12 rounded object-cover border border-outline-variant shadow-sm grayscale opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfEvgJ2XzGFy7HiAE11SrtP2N2ZfMpL6CqG7Ndb1O4z8HEobzFYkJ0jkNRmyiIGeepx5oaT94oXwumQFWedz42z27yapaE-HGE7cWBo_IZd5U4ehZCPITQabwDcoLvKWh7TdZVHI1VVxSsU98TZj_3ZW42DIrcJBi01Lzvj18ZXkrAA1VnWFvLlkIQd9WzQfMe1X4Jr99A_wPxwCv2ItQg7HWO4o3ak2cvV9MxB2oCDzzxKe7UiWv9PsLjI2TO2Gd8xJWIvg4xeys"/>
+<img alt="Check-in Photo" class="w-12 h-12 rounded object-cover border border-outline-variant shadow-sm grayscale opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfEvgJ2XzGFy7HiAE11SrtP2N2ZfMpL6CqG7Ndb1O4z8HEobzFYkJ0jkNRmyiIGeepx5oaT94oXwumQFWedz42z27yapaE-HGE7cWBo_IZd5U4ehZCPITQabwDcoLvKWh7TdZVHI1VVxSsU98TZj_3ZW42DIrcJBi01Lzvj18ZXkrAA1VnWFvLlkIQd9WzQfMe1X4Jr99A_wPxwCv2ItQg7HWO4o3ak2cvV9MxB2oCDzzxKe7UiWv9PsLjI2TO2Gd8xJWIvg4xeys">
 <div class="flex flex-col gap-1">
 <div class="flex items-center gap-1.5 text-on-surface font-body-sm text-sm"><span class="material-symbols-outlined text-[16px] text-primary">location_on</span>Lat: 19.0760° N | Long: 72.8777° E</div>
 <div class="flex items-start gap-2 text-on-surface-variant font-body-sm text-xs mt-1 leading-relaxed">
@@ -467,7 +595,7 @@
 <div class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center ring-4 ring-background z-10">
 <div class="w-2 h-2 rounded-full bg-outline"></div>
 </div>
-<div class="bg-surface border border-outline-variant border-dashed rounded-2xl p-4 flex justify-between items-center opacity-70 ml-2">
+<div class="bg-surface border border-outline-variant border-dashed rounded-xl p-4 flex justify-between items-center opacity-70 ml-2 shadow-sm">
 <div>
 <div class="font-label-md text-label-md text-outline tracking-wider font-medium">04:00 PM SLOT</div>
 <div class="font-body-sm text-body-sm text-on-surface-variant mt-1">Awaiting check-in...</div>
@@ -479,7 +607,7 @@
 <div class="absolute -left-6 top-1 w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center ring-4 ring-background z-10">
 <div class="w-2 h-2 rounded-full bg-outline"></div>
 </div>
-<div class="bg-surface border border-outline-variant border-dashed rounded-2xl p-4 flex justify-between items-center opacity-70 ml-2">
+<div class="bg-surface border border-outline-variant border-dashed rounded-xl p-4 flex justify-between items-center opacity-70 ml-2 shadow-sm">
 <div>
 <div class="font-label-md text-label-md text-outline tracking-wider font-medium">06:00 PM SLOT</div>
 <div class="font-body-sm text-body-sm text-on-surface-variant mt-1">Awaiting check-in...</div>
@@ -494,7 +622,7 @@
 <div class="flex justify-between items-center mb-4">
 <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Previous Days History</h3>
 </div>
-<div class="bg-surface border border-outline-variant rounded-2xl shadow-sm overflow-hidden divide-y divide-outline-variant">
+<div class="bg-surface border border-outline-variant rounded-xl shadow-sm overflow-hidden divide-y divide-outline-variant">
 <div class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors cursor-pointer">
 <div>
 <div class="font-body-md text-body-md font-medium text-on-surface">Yesterday, Oct 24</div>
@@ -550,20 +678,152 @@
 </div>
 </div>
 </main>
-<!-- BottomNavBar (Mobile only, hidden on md) -->
-<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container rounded-t-xl border-t border-outline-variant shadow-lg">
-<a class="flex flex-col items-center justify-center text-on-surface-variant px-6 py-1 hover:bg-surface-variant active:scale-90 transition-transform duration-150 rounded-full" href="#">
+<!-- PROFILE VIEW -->
+<main class="spa-view max-w-container-max mx-auto px-md md:px-gutter py-lg flex-col gap-lg gap-xl mt-16 active" id="profile-view">
+<!-- Profile Header Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm p-lg flex flex-col md:flex-row items-center md:items-start gap-lg">
+<div class="relative">
+<img alt="Alex Rivera Avatar" class="w-24 h-24 rounded-full border-2 border-primary p-1 bg-surface shadow-md" data-alt="A highly detailed, professional headshot of a male senior associate in a brightly lit modern office setting. He is wearing a crisp light blue shirt, looking directly at the camera with a confident, approachable expression. The background is a soft-focus glass office wall, emphasizing a clean, corporate light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4RXbd1-xhJToWgC4pxAm3a4WMVt7aXQA_WhxJhZiaLgeMbGSEmCI1x5tBzv1EUN9cGwyHdyt2_CM4khTDEyddC8xucEG6O5e87oGA0PX7A0ZXZ6FMnMI1NyWnhzwttEjOFeQxQtsCMKYSzV942yJore-aRgzYQKssWUOplRmhh96fNg3U2fcFiywc4G3gnRopqxLKVN0es93LS02-MU-D0VXrljlddey2f8CJfAKECR49YRBl9sHhOdPfQc3Xdu0xl8MzMIbXAa8">
+<button class="absolute bottom-0 right-0 bg-primary text-on-primary rounded-full p-1 shadow-md hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span>
+</button>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h1 class="font-headline-md text-headline-md text-on-surface mb-xs">Alex Rivera</h1>
+<p class="font-body-sm text-body-sm text-primary font-normal mt-xs mb-sm">Senior Associate</p>
+</div>
+<div class="w-full md:w-auto flex justify-center mt-md md:mt-0">
+<button class="flex items-center justify-center gap-sm bg-primary text-on-primary font-label-md text-label-md py-2 px-8 rounded-full hover:bg-primary-container transition-all duration-200 shadow-md active:scale-95 w-full md:w-auto">
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+<span class="">Edit Profile</span>
+</button>
+</div>
+</section>
+<!-- Bento Grid for Settings -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm p-lg flex flex-col gap-lg mt-4"><div class="flex flex-col gap-xs"><label class="font-label-md text-label-md text-outline uppercase tracking-wider mb-xs">Email Address</label><div class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 font-body-md text-on-surface shadow-sm">alex.rivera@workforceos.com</div></div><div class="border-t border-outline-variant pt-lg"><button class="flex items-center justify-center gap-md py-3 px-8 rounded-xl bg-error-container border border-error/20 hover:bg-error/10 transition-all duration-200 text-error w-full md:w-max font-medium"><span class="material-symbols-outlined">logout</span><span class="font-headline-sm">Log Out</span></button></div></section></main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 rounded-t-xl shadow-lg border-t border-outline-variant bg-background">
+<button class="nav-item flex flex-col items-center justify-center rounded-full px-6 py-1 active:scale-90 transition-transform duration-150 text-on-surface-variant hover:bg-surface-variant" data-target="clockin-view">
 <span class="material-symbols-outlined">alarm_on</span>
 <span class="font-label-md text-label-md mt-1">Clock In</span>
-</a>
-<!-- Active State -->
-<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-6 py-1 active:scale-90 transition-transform duration-150" href="#">
-<span class="material-symbols-outlined filled">list_alt</span>
+</button>
+<button class="nav-item flex flex-col items-center justify-center px-6 py-1 rounded-full active:scale-90 transition-transform duration-150 text-on-surface-variant hover:bg-surface-variant" data-target="records-view">
+<span class="material-symbols-outlined">list_alt</span>
 <span class="font-label-md text-label-md mt-1">Records</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant px-6 py-1 hover:bg-surface-variant active:scale-90 transition-transform duration-150 rounded-full" href="#">
-<span class="material-symbols-outlined">account_circle</span>
+</button>
+<button class="nav-item flex flex-col items-center justify-center px-6 py-1 rounded-full active:scale-90 transition-transform duration-150 bg-secondary-container text-on-secondary-container" data-target="profile-view">
+<span class="material-symbols-outlined filled">account_circle</span>
 <span class="font-label-md text-label-md mt-1">Profile</span>
-</a>
+</button>
 </nav>
+<!-- Confirmation Modal -->
+<div class="fixed inset-0 z-[100] hidden items-center justify-center p-md" id="confirm-modal">
+<div class="absolute inset-0 bg-on-background/40 backdrop-blur-sm" onclick="hideConfirmModal()"></div>
+<div class="relative bg-surface rounded-xl shadow-[0_10px_15px_rgba(0,0,0,0.1)] p-lg w-full max-w-sm flex flex-col gap-md border border-outline-variant">
+<h3 class="font-headline-sm text-headline-sm text-on-background">Confirm Submission</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Would you like to submit the attendance with the captured location and photo?</p>
+<div class="flex gap-md mt-sm justify-end">
+<button class="font-body-md text-body-md text-primary px-md py-sm rounded hover:bg-surface-container-high transition-colors" onclick="hideConfirmModal()">Cancel</button>
+<button class="bg-primary text-on-primary font-body-md text-body-md px-md py-sm rounded active:scale-95 transition-transform shadow-sm" onclick="submitSuccess()">Submit</button>
+</div>
+</div>
+</div>
+<script>
+        // SPA Navigation Logic
+        const navItems = document.querySelectorAll('.nav-item');
+        const views = document.querySelectorAll('.spa-view');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active classes from all nav items
+                navItems.forEach(nav => {
+                    nav.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+                    nav.classList.add('text-on-surface-variant', 'hover:bg-surface-variant');
+                    nav.querySelector('.material-symbols-outlined').classList.remove('filled');
+                });
+
+                // Add active class to clicked item
+                item.classList.remove('text-on-surface-variant', 'hover:bg-surface-variant');
+                item.classList.add('bg-secondary-container', 'text-on-secondary-container');
+                item.querySelector('.material-symbols-outlined').classList.add('filled');
+
+                // Hide all views
+                views.forEach(view => {
+                    view.classList.remove('active');
+                });
+
+                // Show target view
+                const targetId = item.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // Simple View Management for Clock In
+        const vInitial = document.getElementById('initial-view');
+        const vCamera = document.getElementById('camera-view');
+        const vResult = document.getElementById('result-view');
+        const vSuccess = document.getElementById('success-view');
+        const mConfirm = document.getElementById('confirm-modal');
+
+        function hideAllClockIn() {
+            [vInitial, vCamera, vResult, vSuccess].forEach(el => el.classList.add('hidden'));
+            [vInitial, vCamera, vResult, vSuccess].forEach(el => el.classList.remove('flex'));
+        }
+
+        function showClockInView(viewEl) {
+            hideAllClockIn();
+            viewEl.classList.remove('hidden');
+            viewEl.classList.add('flex');
+        }
+
+        function startCaptureFlow() {
+            showClockInView(vCamera);
+            // Simulate timer
+            let timeLeft = 30;
+            const timerEl = document.getElementById('countdown');
+            const interval = setInterval(() => {
+                timeLeft--;
+                timerEl.innerText = `00:${timeLeft.toString().padStart(2, '0')}`;
+                if (timeLeft <= 0 || !vCamera.classList.contains('flex')) clearInterval(interval);
+            }, 1000);
+        }
+
+        function takePhoto() {
+            // Simulated capture delay
+            setTimeout(() => {
+                showClockInView(vResult);
+            }, 300);
+        }
+
+        function resetFlow() {
+            showClockInView(vInitial);
+        }
+
+        function showConfirmModal() {
+            mConfirm.classList.remove('hidden');
+            mConfirm.classList.add('flex');
+        }
+
+        function hideConfirmModal() {
+            mConfirm.classList.add('hidden');
+            mConfirm.classList.remove('flex');
+        }
+
+        function submitSuccess() {
+            hideConfirmModal();
+            showClockInView(vSuccess);
+        }
+
+        // Live Clock (Simulated IST)
+        function updateClock() {
+            const now = new Date();
+            const options = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Kolkata' };
+            const timeString = now.toLocaleString('en-GB', options).replace(',', '');
+            document.getElementById('current-datetime').innerText = timeString;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
+
 </body></html>
