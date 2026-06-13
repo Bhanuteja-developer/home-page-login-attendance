@@ -1,106 +1,109 @@
-<!DOCTYPE html><html class="light" lang="en" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html class="light" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>PM - REPORT (June - 2026)</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
           theme: {
             extend: {
               "colors": {
-                      "primary-fixed-dim": "#b4c5ff",
-                      "surface-bright": "#f7f9fb",
-                      "on-primary-container": "#eeefff",
-                      "on-tertiary-fixed-variant": "#3f465c",
-                      "error-container": "#ffdad6",
-                      "primary": "#004ac6",
-                      "surface-container-low": "#f2f4f6",
-                      "on-secondary": "#ffffff",
-                      "tertiary-fixed": "#dae2fd",
-                      "on-tertiary": "#ffffff",
-                      "tertiary-fixed-dim": "#bec6e0",
-                      "on-surface-variant": "#434655",
-                      "surface": "#f7f9fb",
-                      "tertiary": "#4d556b",
-                      "on-error-container": "#93000a",
-                      "surface-variant": "#e0e3e5",
-                      "on-secondary-fixed-variant": "#38485d",
-                      "surface-dim": "#d8dadc",
-                      "on-error": "#ffffff",
-                      "inverse-surface": "#2d3133",
-                      "primary-fixed": "#dbe1ff",
-                      "secondary-fixed": "#d3e4fe",
-                      "secondary-container": "#d0e1fb",
-                      "tertiary-container": "#656d84",
-                      "on-secondary-container": "#54647a",
-                      "on-primary-fixed": "#00174b",
-                      "on-background": "#191c1e",
-                      "on-secondary-fixed": "#0b1c30",
-                      "surface-container-high": "#e6e8ea",
-                      "secondary-fixed-dim": "#b7c8e1",
-                      "on-surface": "#191c1e",
-                      "secondary": "#505f76",
-                      "on-primary-fixed-variant": "#003ea8",
-                      "background": "#f7f9fb",
-                      "surface-container-lowest": "#ffffff",
-                      "surface-tint": "#0053db",
-                      "on-tertiary-fixed": "#131b2e",
-                      "inverse-primary": "#b4c5ff",
-                      "primary-container": "#2563eb",
-                      "error": "#ba1a1a",
-                      "surface-container": "#eceef0",
-                      "on-tertiary-container": "#eef0ff",
-                      "surface-container-highest": "#e0e3e5",
-                      "on-primary": "#ffffff",
-                      "outline": "#737686",
-                      "inverse-on-surface": "#eff1f3",
-                      "outline-variant": "#c3c6d7"
+                "inverse-on-surface": "#eff1f3",
+                "on-background": "#191c1e",
+                "inverse-surface": "#2d3133",
+                "surface-container-lowest": "#ffffff",
+                "primary": "#003594",
+                "surface-container-highest": "#e0e3e5",
+                "outline-variant": "#c3c6d6",
+                "surface": "#f7f9fb",
+                "error": "#ba1a1a",
+                "on-tertiary-fixed": "#131b2e",
+                "primary-fixed-dim": "#b4c5ff",
+                "on-secondary-fixed": "#0c1c30",
+                "inverse-primary": "#b4c5ff",
+                "on-error-container": "#93000a",
+                "surface-dim": "#d8dadc",
+                "surface-container-low": "#f2f4f6",
+                "grid-pattern": "rgba(0, 0, 0, 0.05)",
+                "error-container": "#ffdad6",
+                "on-secondary": "#ffffff",
+                "tertiary-fixed-dim": "#bec6e0",
+                "on-tertiary-container": "#c1c8e3",
+                "outline": "#737685",
+                "on-primary": "#ffffff",
+                "surface-container": "#eceef0",
+                "surface-variant": "#e0e3e5",
+                "on-primary-fixed-variant": "#003ea8",
+                "on-primary-fixed": "#00174b",
+                "success-green": "#16a34a",
+                "surface-tint": "#1b55d0",
+                "secondary": "#505f76",
+                "surface-container-high": "#e6e8ea",
+                "surface-bright": "#f7f9fb",
+                "on-surface-variant": "#434654",
+                "tertiary-container": "#4c546a",
+                "tertiary-fixed": "#dae2fd",
+                "input-halo": "rgba(37, 99, 235, 0.2)",
+                "on-tertiary-fixed-variant": "#3e465c",
+                "primary-fixed": "#dbe1ff",
+                "background": "#f7f9fb",
+                "secondary-fixed-dim": "#b8c7e2",
+                "primary-container": "#004ac6",
+                "on-tertiary": "#ffffff",
+                "tertiary": "#353d52",
+                "secondary-fixed": "#d4e3ff",
+                "on-surface": "#191c1e",
+                "on-primary-container": "#b8c8ff",
+                "on-secondary-fixed-variant": "#39485e",
+                "on-secondary-container": "#56657c",
+                "secondary-container": "#d4e3ff",
+                "on-error": "#ffffff"
               },
               "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
               },
               "spacing": {
-                      "sm": "8px",
-                      "base": "4px",
-                      "gutter": "24px",
-                      "margin-mobile": "16px",
-                      "md": "16px",
-                      "lg": "24px",
-                      "xs": "4px",
-                      "margin-desktop": "32px",
-                      "xl": "32px"
+                "gutter": "24px",
+                "margin-desktop": "32px",
+                "lg": "24px",
+                "margin-mobile": "16px",
+                "sm": "8px",
+                "xs": "4px",
+                "xl": "32px",
+                "base": "4px",
+                "md": "16px"
               },
               "fontFamily": {
-                      "body-lg": ["Inter"],
-                      "label-lg": ["Inter"],
-                      "display-lg": ["Inter"],
-                      "code-md": ["JetBrains Mono"],
-                      "title-md": ["Inter"],
-                      "body-md": ["Inter"],
-                      "title-lg": ["Inter"],
-                      "headline-lg": ["Inter"],
-                      "label-md": ["Inter"],
-                      "headline-md": ["Inter"],
-                      "headline-lg-mobile": ["Inter"]
+                "title-md": ["Inter"],
+                "label-lg": ["Inter"],
+                "headline-lg": ["Inter"],
+                "title-lg": ["Inter"],
+                "headline-md": ["Inter"],
+                "display-lg": ["Inter"],
+                "body-md": ["Inter"],
+                "body-lg": ["Inter"],
+                "label-md": ["Inter"],
+                "code-md": ["JetBrains Mono"]
               },
               "fontSize": {
-                      "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                      "label-lg": ["14px", {"lineHeight": "1.2", "fontWeight": "500"}],
-                      "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                      "code-md": ["13px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "title-md": ["16px", {"lineHeight": "1.5", "fontWeight": "600"}],
-                      "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "title-lg": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                      "headline-lg": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                      "label-md": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "500"}],
-                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                      "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+                "title-md": ["16px", { "lineHeight": "1.5", "fontWeight": "600" }],
+                "label-lg": ["14px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                "headline-lg": ["32px", { "lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                "title-lg": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                "body-md": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                "label-md": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                "code-md": ["13px", { "lineHeight": "1.5", "fontWeight": "400" }]
               }
             }
           }
@@ -108,16 +111,19 @@
     </script>
 <style>
         .material-symbols-outlined {
-          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+
         .filled-icon {
-          font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+
         input:focus-visible, select:focus-visible, textarea:focus-visible {
             outline: none;
             border-color: #2563EB !important;
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3) !important;
         }
+
         .form-input {
             width: 100%;
             border-radius: 0.25rem;
@@ -129,6 +135,7 @@
             color: #191c1e;
             transition: all 0.2s ease-in-out;
         }
+
         .form-label {
             display: block;
             margin-bottom: 4px;
@@ -137,6 +144,7 @@
             font-weight: 700;
             color: #64748B;
         }
+
         .section-card {
             background-color: #FFFFFF;
             border: 1px solid #E2E8F0;
@@ -145,41 +153,41 @@
             margin-bottom: 24px;
             box-shadow: 0px 1px 3px rgba(0,0,0,0.05);
         }
+
         .section-header {
             border-bottom: 1px solid #F1F5F9;
             padding-bottom: 12px;
             margin-bottom: 16px;
         }
+
         .step-content {
             display: none;
         }
+
         .step-content.active {
             display: block;
             animation: fadeIn 0.3s ease-in-out;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .animated-gradient-bg {
-            background: linear-gradient(90deg, #AFFCAF, #12DFF3);
-            background-size: 200% 200%;
-            animation: gradientShift 10s ease infinite;
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 <style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
 </head>
-<body class="animated-gradient-bg text-on-surface font-body-lg antialiased min-h-screen flex flex-col md:flex-row">
+<body class="bg-surface-bright text-on-surface font-body-lg antialiased min-h-screen flex flex-col md:flex-row">
 <!-- Sidebar Navigation Drawer -->
 <aside class="hidden md:flex flex-col py-lg gap-base bg-surface-container-low dark:bg-surface-dim border-r border-outline-variant dark:border-outline shadow-lg h-full w-64 fixed left-0 top-0 z-40">
 <div class="px-md mb-lg flex items-center gap-sm">
@@ -224,7 +232,7 @@
 <!-- Main Content Area -->
 <main class="flex-1 md:ml-64 flex flex-col min-h-screen relative pb-24 md:pb-0">
 <!-- TopAppBar (Mobile & Web) -->
-<header class="flex items-center justify-between px-md py-sm w-full bg-surface-container-lowest/90 backdrop-blur-md dark:bg-surface-dim/90 border-b border-outline-variant dark:border-outline shadow-sm w-full top-0 sticky z-30">
+<header class="flex items-center justify-between px-md py-sm w-full bg-surface-container-lowest dark:bg-surface-dim border-b border-outline-variant dark:border-outline shadow-sm top-0 sticky z-30">
 <div class="flex items-center gap-sm md:hidden">
 <span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim text-headline-md">admin_panel_settings</span>
 <span class="font-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight font-bold">AssetFlow</span>
@@ -240,12 +248,12 @@
 </header>
 <!-- Form Canvas -->
 <div class="p-4 md:p-8 max-w-5xl mx-auto w-full" id="formContainer">
-<div class="mb-6 bg-surface-container-lowest/80 backdrop-blur-sm p-4 rounded-xl border border-surface-variant">
+<div class="mb-6">
 <h2 class="font-headline-lg text-headline-lg text-on-surface hidden md:block">System Details Input</h2>
 <p class="font-body-md text-body-md text-on-surface-variant mt-2">Complete the preventive maintenance report for the current cycle. Ensure all serial numbers and configurations are accurate.</p>
 </div>
 <!-- Progress Stepper -->
-<div class="mb-8 bg-surface-container-lowest/80 backdrop-blur-sm p-4 rounded-xl border border-surface-variant">
+<div class="mb-8">
 <div class="flex justify-between items-center mb-2">
 <span class="font-title-md text-on-surface" id="stepTitle">Step 1: Division &amp; User</span>
 <span class="font-label-md text-on-surface-variant" id="stepIndicator">Step 1 of 6</span>
@@ -258,7 +266,7 @@
 <!-- Step 1 -->
 <div class="step-content active" id="step1">
 <!-- Section 1: Division & User Details -->
-<div class="mb-6 bg-surface-container-lowest/80 backdrop-blur-sm p-4 rounded-xl border border-surface-variant relative overflow-hidden">
+<div class="section-card relative overflow-hidden">
 <div class="absolute top-0 right-0 w-32 h-32 bg-primary opacity-5 rounded-bl-full pointer-events-none"></div>
 <div class="section-header">
 <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
@@ -271,26 +279,28 @@
 <label class="form-label">Division</label>
 <select class="form-input" required="">
 <option disabled="" selected="" value="">Select Division (1-50)</option>
-<option value="1">Division 1</option><option value="2">Division 2</option><option value="3">Division 3</option><option value="4">Division 4</option><option value="5">Division 5</option><option value="6">Division 6</option><option value="7">Division 7</option><option value="8">Division 8</option><option value="9">Division 9</option><option value="10">Division 10</option><option value="11">Division 11</option><option value="12">Division 12</option><option value="13">Division 13</option><option value="14">Division 14</option><option value="15">Division 15</option><option value="16">Division 16</option><option value="17">Division 17</option><option value="18">Division 18</option><option value="19">Division 19</option><option value="20">Division 20</option><option value="21">Division 21</option><option value="22">Division 22</option><option value="23">Division 23</option><option value="24">Division 24</option><option value="25">Division 25</option><option value="26">Division 26</option><option value="27">Division 27</option><option value="28">Division 28</option><option value="29">Division 29</option><option value="30">Division 30</option><option value="31">Division 31</option><option value="32">Division 32</option><option value="33">Division 33</option><option value="34">Division 34</option><option value="35">Division 35</option><option value="36">Division 36</option><option value="37">Division 37</option><option value="38">Division 38</option><option value="39">Division 39</option><option value="40">Division 40</option><option value="41">Division 41</option><option value="42">Division 42</option><option value="43">Division 43</option><option value="44">Division 44</option><option value="45">Division 45</option><option value="46">Division 46</option><option value="47">Division 47</option><option value="48">Division 48</option><option value="49">Division 49</option><option value="50">Division 50</option>
+<script>
+                                        for(let i=1; i<=50; i++) document.write(`<option value="${i}">Division ${i}</option>`);
+                                    </script>
 </select>
 </div>
 <div>
 <label class="form-label">User Name</label>
-<input class="form-input" pattern="[A-Za-z\s]+" placeholder="Alphabet only" required="" title="Only alphabetic characters allowed" type="text">
+<input class="form-input" pattern="[A-Za-z\s]+" placeholder="Enter full name" required="" title="Only alphabetic characters allowed" type="text"/>
 </div>
 <div>
 <label class="form-label">Designation</label>
-<input class="form-input" placeholder="Enter designation" required="" type="text">
+<input class="form-input" placeholder="e.g. Senior Technician" required="" type="text"/>
 </div>
 <div>
 <label class="form-label">Phone No.</label>
-<input class="form-input" pattern="[0-9]+" placeholder="Numeric only" required="" title="Only numbers allowed" type="tel">
+<input class="form-input" pattern="[0-9]+" placeholder="e.g. 9876543210" required="" title="Only numbers allowed" type="tel"/>
 </div>
 <div class="lg:col-span-2">
 <label class="form-label">Location</label>
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-2 text-on-surface-variant">location_on</span>
-<input class="form-input pl-10" placeholder="GPS Coordinates or Building Code" required="" type="text">
+<input class="form-input pl-10" placeholder="Enter site or office location" required="" type="text"/>
 </div>
 </div>
 </div>
@@ -299,7 +309,7 @@
 <!-- Step 2 -->
 <div class="step-content" id="step2">
 <!-- Section 2: Monitor -->
-<div class="section-card bg-surface-container-lowest/90 backdrop-blur-md">
+<div class="section-card">
 <div class="section-header">
 <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">desktop_windows</span>
@@ -309,38 +319,57 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
 <div>
 <label class="form-label">Asset ID</label>
-<input class="form-input font-code-md text-code-md" placeholder="MON-XXXX" required="" type="text">
+<input class="form-input font-code-md text-code-md" placeholder="MON-XXXX" required="" type="text"/>
 </div>
 <div>
 <label class="form-label">Monitor Make</label>
 <select class="form-input" id="monitorMakeSelect" onchange="toggleOtherInput(this, 'monitorMakeOther')">
-<option value="Dell">Dell</option>
-<option value="HP">HP</option>
-<option value="Lenovo">Lenovo</option>
-<option value="Acer">Acer</option>
-<option value="OTHER">OTHER</option>
+<option class="" disabled="" selected="" value="">Select brand</option>
+<option class="" value="OTHER">OTHER</option>
+<option class="" value="ACER">ACER</option>
+<option class="" value="DELL">DELL</option>
+<option class="" value="DELL - ALL IN ONE">DELL - ALL IN ONE</option>
+<option class="" value="DELL - INSIPIRON">DELL - INSIPIRON</option>
+<option class="" value="HCL">HCL</option>
+<option class="" value="HP">HP</option>
+<option class="" value="HP - ALL IN ONE">HP - ALL IN ONE</option>
+<option class="" value="HP - COMPAQ">HP - COMPAQ</option>
+<option class="" value="INTEX">INTEX</option>
+<option class="" value="LENOVO">LENOVO</option>
+<option class="" value="LG">LG</option>
+<option class="" value="POWERX">POWERX</option>
+<option class="" value="SAMSUNG">SAMSUNG</option>
+<option class="" value="WIPRO">WIPRO</option>
+<option class="" value="WIPRO - CRT">WIPRO - CRT</option>
+<option class="" value="ZEBSTER">ZEBSTER</option>
+<option class="" value="ZEBRONICS">ZEBRONICS</option>
 </select>
-<input class="form-input mt-2 hidden" id="monitorMakeOther" placeholder="Specify Make" type="text">
+<input class="form-input mt-2 hidden" id="monitorMakeOther" type="text"/>
 </div>
 <div>
 <label class="form-label">Monitor Size</label>
 <select class="form-input" id="monitorSizeSelect" onchange="toggleOtherInput(this, 'monitorSizeOther')">
-<option value="17">17"</option>
-<option value="19">19"</option>
-<option value="21">21"</option>
-<option value="24">24"</option>
-<option value="OTHER">OTHER</option>
+<option class="" disabled="" selected="" value="">Select size</option>
+<option class="" value="OTHER">OTHER</option>
+<option class="" value="17">17"</option>
+<option class="" value="18">18"</option>
+<option class="" value="18.5">18.5"</option>
+<option class="" value="19">19"</option>
+<option class="" value="19.5">19.5"</option>
+<option class="" value="20">20"</option>
+<option class="" value="22">22"</option>
+<option class="" value="24">24"</option>
 </select>
-<input class="form-input mt-2 hidden" id="monitorSizeOther" placeholder="Specify Size" type="text">
+<input class="form-input mt-2 hidden" id="monitorSizeOther" type="text"/>
 </div>
 <div>
 <label class="form-label">Serial No.</label>
-<input class="form-input font-code-md text-code-md" placeholder="S/N" required="" type="text">
+<input class="form-input font-code-md text-code-md" placeholder="Enter serial number" required="" type="text"/>
 </div>
 </div>
 </div>
 <!-- Section 3: Keyboard & Mouse -->
-<div class="section-card bg-surface-container-lowest/90 backdrop-blur-md">
+<div class="section-card">
 <div class="section-header">
 <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">keyboard</span>
@@ -351,33 +380,42 @@
 <div>
 <label class="form-label">Keyboard Make</label>
 <select class="form-input" id="keyboardMakeSelect" onchange="toggleOtherInput(this, 'keyboardMakeOther')">
-<option value="Dell">Dell</option>
-<option value="HP">HP</option>
-<option value="Lenovo">Lenovo</option>
-<option value="Logitech">Logitech</option>
-<option value="TVS">TVS</option>
+<option disabled="" selected="" value="">Select brand</option>
 <option value="OTHER">OTHER</option>
+<option value="ACER">ACER</option>
+<option value="DELL">DELL</option>
+<option value="DSELECT">DSELECT</option>
+<option value="FRONTECH">FRONTECH</option>
+<option value="HP">HP</option>
+<option value="INTEX">INTEX</option>
+<option value="LENOVO">LENOVO</option>
+<option value="ZEBRONICS">ZEBRONICS</option>
 </select>
-<input class="form-input mt-2 hidden" id="keyboardMakeOther" placeholder="Specify Keyboard Make" type="text">
+<input class="form-input mt-2 hidden" id="keyboardMakeOther" placeholder="Enter keyboard brand" type="text"/>
 </div>
 <div>
 <label class="form-label">Keyboard S/N</label>
-<input class="form-input font-code-md text-code-md" placeholder="S/N" required="" type="text">
+<input class="form-input font-code-md text-code-md" placeholder="Enter keyboard serial number" required="" type="text"/>
 </div>
 <div>
 <label class="form-label">Mouse Make</label>
 <select class="form-input" id="mouseMakeSelect" onchange="toggleOtherInput(this, 'mouseMakeOther')">
-<option value="Dell">Dell</option>
-<option value="HP">HP</option>
-<option value="Lenovo">Lenovo</option>
-<option value="Logitech">Logitech</option>
+<option disabled="" selected="" value="">Select brand</option>
 <option value="OTHER">OTHER</option>
+<option value="ACER">ACER</option>
+<option value="DELL">DELL</option>
+<option value="DSELECT">DSELECT</option>
+<option value="FRONTECH">FRONTECH</option>
+<option value="HP">HP</option>
+<option value="INTEX">INTEX</option>
+<option value="LENOVO">LENOVO</option>
+<option value="ZEBRONICS">ZEBRONICS</option>
 </select>
-<input class="form-input mt-2 hidden" id="mouseMakeOther" placeholder="Specify Mouse Make" type="text">
+<input class="form-input mt-2 hidden" id="mouseMakeOther" placeholder="Enter mouse brand" type="text"/>
 </div>
 <div>
 <label class="form-label">Mouse S/N</label>
-<input class="form-input font-code-md text-code-md" placeholder="S/N" required="" type="text">
+<input class="form-input font-code-md text-code-md" placeholder="Enter mouse serial number" required="" type="text"/>
 </div>
 </div>
 </div>
@@ -385,7 +423,7 @@
 <!-- Step 3 -->
 <div class="step-content" id="step3">
 <!-- Section 4: CPU Configuration -->
-<div class="section-card bg-surface-container-lowest/90 backdrop-blur-md">
+<div class="section-card">
 <div class="section-header">
 <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">memory</span>
@@ -395,27 +433,52 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
 <div>
 <label class="form-label">Asset ID</label>
-<input class="form-input font-code-md text-code-md" placeholder="CPU-XXXX" required="" type="text">
+<input class="form-input font-code-md text-code-md" placeholder="CPU-XXXX" required="" type="text"/>
 </div>
 <div>
 <label class="form-label">Make</label>
-<input class="form-input" placeholder="Enter Make" required="" type="text">
+<select class="form-input" id="cpuMakeSelect" onchange="toggleOtherInput(this, 'cpuMakeOther')" required="">
+<option disabled="" selected="" value="">Select Make</option>
+<option value="OTHER">OTHER</option>
+<option value="ACER">ACER</option>
+<option value="DELL">DELL</option>
+<option value="FINGERS">FINGERS</option>
+<option value="FRONTECH">FRONTECH</option>
+<option value="HCL">HCL</option>
+<option value="HP">HP</option>
+<option value="IBALL">IBALL</option>
+<option value="INTEX">INTEX</option>
+<option value="LENOVO">LENOVO</option>
+<option value="MERCURY">MERCURY</option>
+<option value="WIPRO">WIPRO</option>
+<option value="ZEBION">ZEBION</option>
+<option value="ZEBRONICS">ZEBRONICS</option>
+</select>
+<input class="form-input mt-2 hidden" id="cpuMakeOther" placeholder="Enter Make" type="text"/>
 </div>
 <div>
 <label class="form-label">Model</label>
-<input class="form-input" placeholder="Enter Model" required="" type="text">
+<input class="form-input" placeholder="EX: 280 PRO G1 MT, VERITON, OPTIPLEX 7040 ..." required="" type="text"/>
 </div>
 <div>
 <label class="form-label">Serial No.</label>
-<input class="form-input font-code-md text-code-md" placeholder="S/N" required="" type="text">
+<input class="form-input font-code-md text-code-md" placeholder="Enter CPU serial number" required="" type="text"/>
 </div>
 <div class="lg:col-span-2">
 <label class="form-label">Processor</label>
-<input class="form-input" placeholder="Enter Processor details" required="" type="text">
+<input class="form-input" placeholder="EX : i3-4 GEN, i5-12 GEN" required="" type="text"/>
 </div>
 <div class="lg:col-span-2">
 <label class="form-label">Operating System</label>
-<input class="form-input" placeholder="Enter OS" required="" type="text">
+<select class="form-input" required="">
+<option disabled="" selected="" value="">Select OS</option>
+<option value="WIN 7">WIN 7</option>
+<option value="WIN 7 PRO">WIN 7 PRO</option>
+<option value="WIN 10">WIN 10</option>
+<option value="WIN 10 PRO">WIN 10 PRO</option>
+<option value="WIN 11">WIN 11</option>
+<option value="WIN 11 PRO">WIN 11 PRO</option>
+</select>
 </div>
 <div>
 <label class="form-label">RAM-DDR Type</label>
@@ -436,14 +499,14 @@
 <option value="4">4 Sticks</option>
 </select>
 <div class="flex-1 flex gap-2" id="ramInputContainer">
-<input class="form-input w-20 ram-val" oninput="calculateTotalRam()" placeholder="GB" type="number" value="">
+<input class="form-input w-20 ram-val" oninput="calculateTotalRam()" placeholder="GB" type="number" value=""/>
 </div>
 </div>
 <div class="text-xs text-primary mt-1 font-bold" id="totalRamLabel">Total: 0 GB</div>
 </div>
 <div>
 <label class="form-label">HDD/SSD</label>
-<input class="form-input" placeholder="e.g., 500GB HDD, 256GB SSD" required="" type="text">
+<input class="form-input" placeholder="e.g., 500GB HDD, 256GB SSD" required="" type="text"/>
 </div>
 </div>
 </div>
@@ -451,7 +514,7 @@
 <!-- Step 4 -->
 <div class="step-content" id="step4">
 <!-- Section 5: Network -->
-<div class="section-card bg-surface-container-lowest/90 backdrop-blur-md">
+<div class="section-card">
 <div class="section-header">
 <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">router</span>
@@ -460,28 +523,33 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
 <div>
-<label class="form-label">Internet Status</label>
-<select class="form-input" required="">
-<option value="Connected">Connected</option>
-<option value="Disconnected">Disconnected</option>
+<label class="form-label">Select ISP</label>
+<select class="form-input" id="ispSelect" onchange="toggleOtherInput(this, 'ispOther')" required="">
+<option disabled="" selected="" value="">Select ISP</option>
+<option value="OTHER">OTHER</option>
+<option value="ACT">ACT</option>
+<option value="AIRTEL DONGLE">AIRTEL DONGLE</option>
+<option value="BSNL">BSNL</option>
+<option value="NO INTERNET">NO INTERNET</option>
 </select>
+<input class="form-input mt-2 hidden" id="ispOther" placeholder="Specify ISP" type="text"/>
 </div>
 <div>
 <label class="form-label">Speed</label>
-<input class="form-input" placeholder="Mbps/Gbps" required="" type="text">
+<input class="form-input" placeholder="Mbps/Gbps" required="" type="text"/>
 </div>
 <div>
 <label class="form-label">Switch Port</label>
-<input class="form-input" placeholder="Port No." required="" type="text">
+<input class="form-input" placeholder="EX: 4, 8, 16, 24 ..." required="" type="number"/>
 </div>
 <div>
 <label class="form-label">Static IP</label>
-<input class="form-input font-code-md text-code-md" placeholder="192.168.x.x" required="" type="text">
+<input class="form-input font-code-md text-code-md" placeholder="192.168.x.x" required="" type="text"/>
 </div>
 </div>
 </div>
 <!-- Section 6: U.P.S & BATTERIES -->
-<div class="section-card bg-surface-container-lowest/90 backdrop-blur-md">
+<div class="section-card">
 <div class="section-header">
 <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">battery_charging_full</span>
@@ -497,16 +565,16 @@
 <option value="Luminous">Luminous</option>
 <option value="OTHER">OTHER</option>
 </select>
-<input class="form-input mt-2 hidden" id="upsOther" placeholder="Specify UPS" type="text">
+<input class="form-input mt-2 hidden" id="upsOther" placeholder="Specify UPS" type="text"/>
 </div>
 <div>
 <label class="form-label">Battery Capacity</label>
-<input class="form-input" placeholder="Ah rating" required="" type="text">
+<input class="form-input" placeholder="Ah rating" required="" type="text"/>
 </div>
 </div>
 </div>
 <!-- Section 9: ESCAN -->
-<div class="section-card bg-surface-container-lowest/90 backdrop-blur-md">
+<div class="section-card">
 <div class="section-header">
 <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">security</span>
@@ -517,9 +585,9 @@
 <div>
 <label class="form-label">Status</label>
 <select class="form-input" required="">
-<option value="Active">Active</option>
-<option value="Inactive">Inactive</option>
-<option value="Not Installed">Not Installed</option>
+<option value="UPDATED">UPDATED</option>
+<option value="SOFTWARE NOT INSTALLED">SOFTWARE NOT INSTALLED</option>
+<option value="OTHER">OTHER</option>
 </select>
 </div>
 </div>
@@ -528,7 +596,7 @@
 <!-- Step 5 -->
 <div class="step-content" id="step5">
 <!-- Section 7: Printer -->
-<div class="section-card bg-surface-container-lowest/90 backdrop-blur-md" id="printerSection">
+<div class="section-card" id="printerSection">
 <div class="section-header flex justify-between items-center">
 <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">print</span>
@@ -539,24 +607,34 @@
 <div class="printer-entry grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md mb-4 pb-4 border-b border-surface-variant last:border-0">
 <div>
 <label class="form-label">Asset ID</label>
-<input class="form-input font-code-md text-code-md" placeholder="PRN-XXXX" type="text">
+<input class="form-input font-code-md text-code-md" placeholder="Enter Printer Asset ID" type="text"/>
 </div>
 <div>
 <label class="form-label">Make</label>
-<input class="form-input" placeholder="Make" type="text">
+<select class="form-input" onchange="toggleOtherInput(this, 'printer1Other')">
+<option disabled="" selected="" value="">Select Make</option>
+<option value="NO-PRINTER">NO-PRINTER</option>
+<option value="OTHER">OTHER</option>
+<option value="BROTHER">BROTHER</option>
+<option value="CANON">CANON</option>
+<option value="EPSON">EPSON</option>
+<option value="HP">HP</option>
+<option value="TVS">TVS</option>
+</select>
+<input class="form-input mt-2 hidden" id="printer1Other" placeholder="Specify Printer Make" type="text"/>
 </div>
 <div>
 <label class="form-label">Model</label>
-<input class="form-input" placeholder="Model" type="text">
+<input class="form-input" placeholder="Enter Printer Model No EX: 1020 PLUS, M208DW ..." type="text"/>
 </div>
 <div>
 <label class="form-label">Serial No.</label>
-<input class="form-input font-code-md text-code-md" placeholder="S/N" type="text">
+<input class="form-input font-code-md text-code-md" placeholder="Enter Printer Serial No" type="text"/>
 </div>
 </div>
 </div>
 <!-- Section 8: Scanner -->
-<div class="section-card bg-surface-container-lowest/90 backdrop-blur-md" id="scannerSection">
+<div class="section-card" id="scannerSection">
 <div class="section-header flex justify-between items-center">
 <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">scanner</span>
@@ -567,19 +645,29 @@
 <div class="scanner-entry grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md mb-4 pb-4 border-b border-surface-variant last:border-0">
 <div>
 <label class="form-label">Asset ID</label>
-<input class="form-input font-code-md text-code-md" placeholder="SCN-XXXX" type="text">
+<input class="form-input font-code-md text-code-md" placeholder="Enter Scanner Asset ID" type="text"/>
 </div>
 <div>
 <label class="form-label">Make</label>
-<input class="form-input" placeholder="Make" type="text">
+<select class="form-input" onchange="toggleOtherInput(this, 'scanner1Other')">
+<option disabled="" selected="" value="">Select Make</option>
+<option value="NO-SCANNER">NO-SCANNER</option>
+<option value="OTHER">OTHER</option>
+<option value="BROTHER">BROTHER</option>
+<option value="CANON">CANON</option>
+<option value="EPSON">EPSON</option>
+<option value="HP">HP</option>
+<option value="TVS">TVS</option>
+</select>
+<input class="form-input mt-2 hidden" id="scanner1Other" placeholder="Specify Scanner Make" type="text"/>
 </div>
 <div>
 <label class="form-label">Model</label>
-<input class="form-input" placeholder="Model" type="text">
+<input class="form-input" placeholder="Enter Scanner Model No EX: 1020 PLUS, M208DW ..." type="text"/>
 </div>
 <div>
 <label class="form-label">Serial No.</label>
-<input class="form-input font-code-md text-code-md" placeholder="S/N" type="text">
+<input class="form-input font-code-md text-code-md" placeholder="Enter Snanner Serial No" type="text"/>
 </div>
 </div>
 </div>
@@ -587,7 +675,7 @@
 <!-- Step 6 -->
 <div class="step-content" id="step6">
 <!-- Section 10: REMARKS -->
-<div class="section-card bg-surface-container-lowest/90 backdrop-blur-md">
+<div class="section-card">
 <div class="section-header">
 <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">chat</span>
@@ -596,47 +684,48 @@
 </div>
 <div>
 <label class="form-label">Additional Comments</label>
-<textarea class="form-input h-24 resize-y" placeholder="Enter remarks..."></textarea>
+<textarea class="form-input h-24 resize-y" placeholder="Enter any additional observations or maintenance notes..."></textarea>
 </div>
 </div>
 <!-- Section 11: Drop Images -->
-<div class="section-card bg-surface-container-lowest/90 backdrop-blur-md">
+<div class="section-card">
 <div class="section-header">
 <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">photo_camera</span>
-                                Section 11: Drop Images
+                                Section 11: Capture Images
                             </h3>
 </div>
+<input accept="image/*" capture="camera" class="hidden" id="imageCaptureInput" type="file"/>
 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-md">
-<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors" onclick="document.getElementById('imageCaptureInput').click()">
 <span class="material-symbols-outlined text-outline mb-2">desktop_windows</span>
 <span class="text-xs font-bold text-on-surface-variant">Desktop</span>
 </div>
-<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors" onclick="document.getElementById('imageCaptureInput').click()">
 <span class="material-symbols-outlined text-outline mb-2">memory</span>
 <span class="text-xs font-bold text-on-surface-variant">CPU</span>
 </div>
-<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors" onclick="document.getElementById('imageCaptureInput').click()">
 <span class="material-symbols-outlined text-outline mb-2">keyboard</span>
 <span class="text-xs font-bold text-on-surface-variant">Keyboard</span>
 </div>
-<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors" onclick="document.getElementById('imageCaptureInput').click()">
 <span class="material-symbols-outlined text-outline mb-2">mouse</span>
 <span class="text-xs font-bold text-on-surface-variant">Mouse</span>
 </div>
-<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors" onclick="document.getElementById('imageCaptureInput').click()">
 <span class="material-symbols-outlined text-outline mb-2">print</span>
 <span class="text-xs font-bold text-on-surface-variant">Printer</span>
 </div>
-<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors" onclick="document.getElementById('imageCaptureInput').click()">
 <span class="material-symbols-outlined text-outline mb-2">scanner</span>
 <span class="text-xs font-bold text-on-surface-variant">Scanner</span>
 </div>
-<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors" onclick="document.getElementById('imageCaptureInput').click()">
 <span class="material-symbols-outlined text-outline mb-2">battery_charging_full</span>
 <span class="text-xs font-bold text-on-surface-variant">UPS &amp; Batteries</span>
 </div>
-<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors" onclick="document.getElementById('imageCaptureInput').click()">
 <span class="material-symbols-outlined text-outline mb-2">description</span>
 <span class="text-xs font-bold text-on-surface-variant">Hard-copy Report</span>
 </div>
@@ -644,23 +733,37 @@
 </div>
 </div>
 <!-- Action Bar / Navigation -->
-<div class="flex flex-row items-center justify-between gap-sm mt-8 pb-8 border-t border-outline-variant/30 dark:border-outline/30 pt-6">
-<button class="px-6 py-3 rounded-lg border border-outline-variant text-on-surface font-title-md text-title-md hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2 hidden bg-surface-container-lowest/80 backdrop-blur-sm" id="prevBtn" onclick="nextStep(-1)" type="button" style="display: none;">
+<div class="flex flex-row items-center justify-between gap-sm mt-8 pb-8 border-t border-outline-variant dark:border-outline pt-6">
+<button class="px-6 py-3 rounded-lg border border-outline-variant text-on-surface-variant font-title-md text-title-md hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2 hidden" id="prevBtn" onclick="nextStep(-1)" style="display: none;" type="button">
 <span class="material-symbols-outlined">arrow_back</span>
                         Back
                     </button>
 <div class="flex-1"></div>
-<button class="px-6 py-3 rounded-lg bg-primary text-on-primary font-title-md text-title-md font-bold hover:bg-opacity-90 shadow-md transition-all active:scale-95 flex items-center justify-center gap-2" id="nextBtn" onclick="nextStep(1)" type="button" style="display: flex;">
+<button class="px-6 py-3 rounded-lg bg-primary text-on-primary font-title-md text-title-md font-bold hover:bg-opacity-90 shadow-md transition-all active:scale-95 flex items-center justify-center gap-2" id="nextBtn" onclick="nextStep(1)" style="display: flex;" type="button">
                         Next
                         <span class="material-symbols-outlined">arrow_forward</span>
 </button>
-<button class="px-6 py-3 rounded-lg border border-primary text-primary font-title-md text-title-md font-bold hover:bg-surface-container-low transition-all active:scale-95 items-center justify-center gap-2 hidden bg-surface-container-lowest/80 backdrop-blur-sm" id="previewBtn" onclick="enterPreviewMode()" type="button"><span class="material-symbols-outlined">visibility</span> Preview Report</button><button class="px-6 py-3 rounded-lg bg-primary-container text-on-primary-container font-title-md text-title-md font-bold hover:bg-opacity-90 shadow-md transition-all active:scale-95 items-center justify-center gap-2 hidden" id="submitBtn" type="submit" style="display: none;"><span class="material-symbols-outlined">check_circle</span> Confirm &amp; Submit</button>
+<button class="px-6 py-3 rounded-lg border border-primary text-primary font-title-md text-title-md font-bold hover:bg-surface-container-low transition-all active:scale-95 items-center justify-center gap-2 hidden" id="previewBtn" onclick="enterPreviewMode()" type="button"><span class="material-symbols-outlined">visibility</span> Preview Report</button>
+<button class="px-6 py-3 rounded-lg bg-primary-container text-on-primary-container font-title-md text-title-md font-bold hover:bg-opacity-90 shadow-md transition-all active:scale-95 items-center justify-center gap-2 hidden" id="submitBtn" style="display: none;" type="submit"><span class="material-symbols-outlined">check_circle</span> Confirm &amp; Submit</button>
 </div>
-<div class="step-content" id="stepPreview"><div class="section-card bg-surface-container-lowest/90 backdrop-blur-md"><div class="section-header flex justify-between items-center"><h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-primary">visibility</span>Review Report Summary</h3><button class="text-primary flex items-center gap-1 font-bold text-sm hover:underline" onclick="currentStep=1; showStep(1)" type="button"><span class="material-symbols-outlined text-sm">edit</span> Edit All</button></div><div class="space-y-8" id="previewSummaryContent"><div class="p-4 bg-surface-container-low/50 rounded-lg border border-outline-variant"><p class="text-on-surface-variant text-body-md italic">Summary of all entered data will appear here. Please verify all details before final submission.</p></div></div></div></div></form>
+<div class="step-content" id="stepPreview">
+<div class="section-card">
+<div class="section-header flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-primary">visibility</span>Review Report Summary</h3>
+<button class="text-primary flex items-center gap-1 font-bold text-sm hover:underline" onclick="currentStep=1; showStep(1)" type="button"><span class="material-symbols-outlined text-sm">edit</span> Edit All</button>
+</div>
+<div class="space-y-8" id="previewSummaryContent">
+<div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
+<p class="text-on-surface-variant text-body-md italic">Summary of all entered data will appear here. Please verify all details before final submission.</p>
+</div>
+</div>
+</div>
+</div>
+</form>
 </div>
 </main>
 <!-- BottomNavBar (Mobile Only) -->
-<nav class="md:hidden flex justify-around items-center h-16 w-full px-sm pb-safe bg-surface-container-lowest/90 backdrop-blur-md dark:bg-surface-dim/90 border-t border-outline-variant dark:border-outline shadow-md fixed bottom-0 z-50">
+<nav class="md:hidden flex justify-around items-center h-16 w-full px-sm pb-safe bg-surface-container-lowest dark:bg-surface-dim border-t border-outline-variant dark:border-outline shadow-md fixed bottom-0 z-50">
 <a class="flex flex-col items-center justify-center text-secondary" href="#">
 <span class="material-symbols-outlined">dashboard</span>
 <span class="font-label-md text-label-md mt-1">Dashboard</span>
@@ -706,11 +809,21 @@
             document.getElementById("prevBtn").style.display = n === 1 ? "none" : "flex";
             if (n === totalSteps) {
                 document.getElementById("nextBtn").style.display = "none";
+                // Show both Preview and Submit side-by-side or Preview first
+                document.getElementById("previewBtn").style.display = "flex";
+                document.getElementById("previewBtn").classList.remove("hidden");
                 document.getElementById("submitBtn").style.display = "flex";
                 document.getElementById("submitBtn").classList.remove("hidden");
+            } else if (n === 7) { // Preview step
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("previewBtn").style.display = "none";
+                document.getElementById("submitBtn").style.display = "flex";
+                document.getElementById("submitBtn").classList.remove("hidden");
+                document.getElementById("prevBtn").style.display = "none";
             } else {
                 document.getElementById("nextBtn").style.display = "flex";
                 document.getElementById("submitBtn").style.display = "none";
+                document.getElementById("previewBtn").style.display = "none";
             }
         }
 
@@ -731,7 +844,7 @@
 
             currentStep += n;
             showStep(currentStep);
-            
+
             // Scroll to top of container
             document.getElementById('formContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -752,7 +865,7 @@
             const count = parseInt(document.getElementById('ramSticks').value);
             const container = document.getElementById('ramInputContainer');
             container.innerHTML = '';
-            for(let i=0; i<count; i++) {
+            for (let i = 0; i < count; i++) {
                 container.innerHTML += `<input type="number" class="form-input w-20 ram-val" placeholder="GB" oninput="calculateTotalRam()">`;
             }
             calculateTotalRam();
@@ -763,7 +876,7 @@
             let total = 0;
             inputs.forEach(input => {
                 const val = parseFloat(input.value);
-                if(!isNaN(val)) total += val;
+                if (!isNaN(val)) total += val;
             });
             document.getElementById('totalRamLabel').textContent = `Total: ${total} GB`;
         }
@@ -776,19 +889,29 @@
                 newEntry.innerHTML = `
                     <div>
                         <label class="form-label">Asset ID 2</label>
-                        <input type="text" class="form-input font-code-md text-code-md" placeholder="PRN-XXXX">
+                        <input type="text" class="form-input font-code-md text-code-md" placeholder="Enter Printer Asset ID">
                     </div>
                     <div>
                         <label class="form-label">Make 2</label>
-                        <input type="text" class="form-input" placeholder="Make">
+                        <select class="form-input" onchange="toggleOtherInput(this, 'printer2Other')">
+                            <option disabled="" selected="" value="">Select Make</option>
+                            <option value="NO-PRINTER">NO-PRINTER</option>
+                            <option value="OTHER">OTHER</option>
+                            <option value="BROTHER">BROTHER</option>
+                            <option value="CANON">CANON</option>
+                            <option value="EPSON">EPSON</option>
+                            <option value="HP">HP</option>
+                            <option value="TVS">TVS</option>
+                        </select>
+                        <input class="form-input mt-2 hidden" id="printer2Other" placeholder="Specify Printer Make" type="text" />
                     </div>
                     <div>
                         <label class="form-label">Model 2</label>
-                        <input type="text" class="form-input" placeholder="Model">
+                        <input type="text" class="form-input" placeholder="Enter Printer Model No EX: 1020 PLUS, M208DW ...">
                     </div>
                     <div>
                         <label class="form-label">Serial No. 2</label>
-                        <input type="text" class="form-input font-code-md text-code-md" placeholder="S/N">
+                        <input type="text" class="form-input font-code-md text-code-md" placeholder="Enter Printer Serial No">
                     </div>
                 `;
                 section.appendChild(newEntry);
@@ -803,19 +926,29 @@
                 newEntry.innerHTML = `
                     <div>
                         <label class="form-label">Asset ID 2</label>
-                        <input type="text" class="form-input font-code-md text-code-md" placeholder="SCN-XXXX">
+                        <input type="text" class="form-input font-code-md text-code-md" placeholder="Enter Scanner Asset ID">
                     </div>
                     <div>
                         <label class="form-label">Make 2</label>
-                        <input type="text" class="form-input" placeholder="Make">
+                        <select class="form-input" onchange="toggleOtherInput(this, 'scanner2Other')">
+                            <option disabled="" selected="" value="">Select Make</option>
+                            <option value="NO-SCANNER">NO-SCANNER</option>
+                            <option value="OTHER">OTHER</option>
+                            <option value="BROTHER">BROTHER</option>
+                            <option value="CANON">CANON</option>
+                            <option value="EPSON">EPSON</option>
+                            <option value="HP">HP</option>
+                            <option value="TVS">TVS</option>
+                        </select>
+                        <input class="form-input mt-2 hidden" id="scanner2Other" placeholder="Specify Scanner Make" type="text" />
                     </div>
                     <div>
                         <label class="form-label">Model 2</label>
-                        <input type="text" class="form-input" placeholder="Model">
+                        <input type="text" class="form-input" placeholder="Enter Scanner Model No EX: 1020 PLUS, M208DW ...">
                     </div>
                     <div>
                         <label class="form-label">Serial No. 2</label>
-                        <input type="text" class="form-input font-code-md text-code-md" placeholder="S/N">
+                        <input type="text" class="form-input font-code-md text-code-md" placeholder="Enter Snanner Serial No">
                     </div>
                 `;
                 section.appendChild(newEntry);
@@ -823,21 +956,31 @@
         }
 
         // Form submission mock
-        document.getElementById('pmForm').addEventListener('submit', function(e) {
+        document.getElementById('pmForm').addEventListener('submit', function (e) {
             e.preventDefault();
             // Simulate WhatsApp-style sound
-            console.log('Ding!'); 
-            alert('Report Submitted Successfully');
-            this.reset();
-            document.getElementById('totalRamLabel').textContent = 'Total: 0 GB';
-            currentStep = 1;
-            showStep(currentStep);
-            document.getElementById('formContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            console.log('Ding!');
+            document.getElementById('successOverlay').classList.remove('hidden');
         });
-        
+
         // Initialize stepper
         showStep(currentStep);
-    </script>
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden" id="successOverlay"><div class="bg-surface-container-lowest p-8 rounded-xl shadow-lg max-w-md w-full mx-4 text-center animate-in fade-in zoom-in duration-300"><div class="w-20 h-20 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6"><span class="material-symbols-outlined text-5xl">verified</span></div><h2 class="font-headline-md text-on-surface mb-2">Profile Created! Welcome aboard!</h2><p class="text-on-surface-variant mb-8">Your report has been successfully submitted. A confirmation sound has been played.</p><button class="w-full py-3 bg-primary text-on-primary rounded-lg font-bold shadow-md hover:bg-opacity-90 transition-all" onclick="location.reload()">Capture New System</button></div></div><script>function enterPreviewMode() { currentStep = 7; showStep(7); document.getElementById('stepTitle').innerText = 'Final Review'; document.getElementById('stepIndicator').innerText = 'Review Summary'; document.getElementById('previewBtn').style.display = 'none'; document.getElementById('submitBtn').style.display = 'flex'; document.getElementById('submitBtn').classList.remove('hidden'); } const originalShowStep = showStep; showStep = function(n) { if (n === 6) { document.getElementById('previewBtn').style.display = 'flex'; document.getElementById('previewBtn').classList.remove('hidden'); document.getElementById('submitBtn').style.display = 'none'; } else if (n < 6) { document.getElementById('previewBtn').style.display = 'none'; } originalShowStep(n); }; document.getElementById('pmForm').onsubmit = function(e) { e.preventDefault(); document.getElementById('successOverlay').classList.remove('hidden'); console.log('Playing WhatsApp-style success sound...'); };</script>
 
+        function enterPreviewMode() {
+            // Navigate to Step 1 when preview is clicked as per requirement
+            currentStep = 1;
+            showStep(1);
+            document.getElementById('formContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden" id="successOverlay">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-lg max-w-md w-full mx-4 text-center animate-in fade-in zoom-in duration-300">
+<div class="w-20 h-20 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-5xl">verified</span>
+</div>
+<h2 class="font-headline-md text-on-surface mb-2">Profile Created! Welcome aboard!</h2>
+<p class="text-on-surface-variant mb-8">Your report has been successfully submitted. A confirmation sound has been played.</p>
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-bold shadow-md hover:bg-opacity-90 transition-all" onclick="location.reload()">Capture New System</button>
+</div>
+</div>
 </body></html>
