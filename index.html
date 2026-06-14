@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-
-<html class="light" lang="en" style=""><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 <title>RAM Configuration</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
@@ -255,10 +253,10 @@
 <!-- TopAppBar -->
 <header class="bg-surface dark:bg-inverse-surface w-full top-0 sticky border-b border-outline-variant dark:border-outline flat no shadows flex items-center px-md h-16 w-full max-w-container-max mx-auto z-40 flex-shrink-0">
 <button aria-label="Go back" class="mr-sm p-2 rounded-full hover:bg-surface-container transition-colors active:scale-95 duration-150 flex items-center justify-center text-primary dark:text-inverse-primary">
-<span class="material-symbols-outlined" style='font-variation-settings: "FILL" 0;'>arrow_back</span>
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">arrow_back</span>
 </button>
 <div class="flex items-center gap-sm">
-<span class="material-symbols-outlined text-primary dark:text-inverse-primary" style='font-variation-settings: "FILL" 1;'>memory</span>
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary" style="font-variation-settings: &quot;FILL&quot; 1;">memory</span>
 <h1 class="font-headline-md text-headline-md font-semibold text-primary dark:text-inverse-primary">RAM Configuration</h1>
 </div>
 </header>
@@ -278,7 +276,7 @@
 <div class="flex flex-col gap-xs mb-md">
 <label class="font-label-caps text-label-caps text-secondary" for="processorInput">PROCESSOR</label>
 <div class="relative group">
-<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-body-lg text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none cursor-pointer" id="processorInput" placeholder="Select or enter processor..." readonly="" type="text"/>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-body-lg text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none cursor-pointer" id="processorInput" placeholder="Select or enter processor..." readonly="" type="text">
 <span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">expand_more</span>
 </div>
 <!-- Processor Selection Expansion Area (Hidden by default, shown on focus/click) -->
@@ -286,33 +284,33 @@
 <div class="flex flex-col gap-sm">
 <!-- Option 1: Standard Text -->
 <label class="flex items-start gap-sm cursor-pointer">
-<input checked="" class="mt-1 text-primary focus:ring-primary" name="procType" type="radio" value="standard"/>
+<input checked="" class="mt-1 text-primary focus:ring-primary" name="procType" type="radio" value="standard">
 <div class="flex flex-col w-full">
 <span class="font-medium text-on-surface">Standard Text</span>
-<input class="mt-xs w-full bg-surface-container-lowest border border-outline-variant rounded px-sm text-body-sm outline-none focus:border-primary py-sm" id="procStandardInput" placeholder="e.g., Core 2 Duo, Pentium Dual-Core" type="text"/>
+<input class="mt-xs w-full bg-surface-container-lowest border border-outline-variant rounded px-sm text-body-sm outline-none focus:border-primary py-sm" id="procStandardInput" placeholder="e.g., Core 2 Duo, Pentium Dual-Core" type="text">
 </div>
 </label>
 <!-- Option 2: Structured Format -->
 <label class="flex items-start gap-sm cursor-pointer w-full">
-<input class="mt-1 text-primary focus:ring-primary" name="procType" type="radio" value="structured"/>
+<input class="mt-1 text-primary focus:ring-primary" name="procType" type="radio" value="structured">
 <div class="flex flex-col w-full">
 <span class="font-medium text-on-surface">Structured Format</span>
 <div class="flex items-center justify-center gap-md mt-sm bg-surface-container-lowest rounded-lg border border-outline-variant p-4 relative overflow-hidden">
 <span class="font-headline-md text-primary font-bold">i</span>
 <!-- Picker 1: Series -->
-<div class="relative w-16 bg-surface">
-<div class="picker-container font-code-mono text-on-surface" id="picker-series">
+<div class="relative w-16 bg-surface" style="transform: scale(1);">
+<div class="picker-container font-code-mono text-on-surface w-24" id="picker-series" style="height: 160px; padding: 8px 0;">
 <!-- JS will populate options 0-25 -->
-</div>
+<div class="picker-item"></div><div class="picker-item" data-value="0">0</div><div class="picker-item" data-value="1">1</div><div class="picker-item" data-value="2">2</div><div class="picker-item active" data-value="3">3</div><div class="picker-item" data-value="4">4</div><div class="picker-item" data-value="5">5</div><div class="picker-item" data-value="6">6</div><div class="picker-item" data-value="7">7</div><div class="picker-item" data-value="8">8</div><div class="picker-item" data-value="9">9</div><div class="picker-item" data-value="10">10</div><div class="picker-item" data-value="11">11</div><div class="picker-item" data-value="12">12</div><div class="picker-item" data-value="13">13</div><div class="picker-item" data-value="14">14</div><div class="picker-item" data-value="15">15</div><div class="picker-item" data-value="16">16</div><div class="picker-item" data-value="17">17</div><div class="picker-item" data-value="18">18</div><div class="picker-item" data-value="19">19</div><div class="picker-item" data-value="20">20</div><div class="picker-item" data-value="21">21</div><div class="picker-item" data-value="22">22</div><div class="picker-item" data-value="23">23</div><div class="picker-item" data-value="24">24</div><div class="picker-item" data-value="25">25</div><div class="picker-item"></div></div>
 <div class="picker-overlay"></div>
 <div class="picker-highlight"></div>
 </div>
 <span class="font-headline-md text-secondary">-</span>
 <!-- Picker 2: Gen -->
-<div class="relative w-16 bg-surface">
-<div class="picker-container font-code-mono text-on-surface" id="picker-gen">
+<div class="relative w-16 bg-surface" style="transform: scale(1);">
+<div class="picker-container font-code-mono text-on-surface w-24" id="picker-gen" style="height: 160px; padding: 8px 0;">
 <!-- JS will populate options 0-25 -->
-</div>
+<div class="picker-item"></div><div class="picker-item" data-value="0">0</div><div class="picker-item" data-value="1">1</div><div class="picker-item" data-value="2">2</div><div class="picker-item" data-value="3">3</div><div class="picker-item active" data-value="4">4</div><div class="picker-item" data-value="5">5</div><div class="picker-item" data-value="6">6</div><div class="picker-item" data-value="7">7</div><div class="picker-item" data-value="8">8</div><div class="picker-item" data-value="9">9</div><div class="picker-item" data-value="10">10</div><div class="picker-item" data-value="11">11</div><div class="picker-item" data-value="12">12</div><div class="picker-item" data-value="13">13</div><div class="picker-item" data-value="14">14</div><div class="picker-item" data-value="15">15</div><div class="picker-item" data-value="16">16</div><div class="picker-item" data-value="17">17</div><div class="picker-item" data-value="18">18</div><div class="picker-item" data-value="19">19</div><div class="picker-item" data-value="20">20</div><div class="picker-item" data-value="21">21</div><div class="picker-item" data-value="22">22</div><div class="picker-item" data-value="23">23</div><div class="picker-item" data-value="24">24</div><div class="picker-item" data-value="25">25</div><div class="picker-item"></div></div>
 <div class="picker-overlay"></div>
 <div class="picker-highlight"></div>
 </div>
@@ -334,30 +332,30 @@
 </div>
 <!-- Input Grid -->
 <section class="grid grid-cols-2 gap-md" id="inputGrid"><div class="flex flex-col gap-xs">
-<label class="font-label-caps text-label-caps text-secondary" for="stick1">STICK - 1 (GB)</label>
-<div class="relative">
-<input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" data-stick="1" id="stick1" min="0" placeholder="2" step="1" type="number"/>
-<span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
-</div>
-</div><div class="flex flex-col gap-xs">
-<label class="font-label-caps text-label-caps text-secondary" for="stick2">STICK - 2 (GB)</label>
-<div class="relative">
-<input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" data-stick="2" id="stick2" min="0" placeholder="2" step="1" type="number"/>
-<span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
-</div>
-</div><div class="flex flex-col gap-xs">
-<label class="font-label-caps text-label-caps text-secondary" for="stick3">STICK - 3 (GB)</label>
-<div class="relative">
-<input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" data-stick="3" id="stick3" min="0" placeholder="2" step="1" type="number"/>
-<span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
-</div>
-</div><div class="flex flex-col gap-xs">
-<label class="font-label-caps text-label-caps text-secondary" for="stick4">STICK - 4 (GB)</label>
-<div class="relative">
-<input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" data-stick="4" id="stick4" min="0" placeholder="2" step="1" type="number"/>
-<span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
-</div>
-</div></section>
+                        <label class="font-label-caps text-label-caps text-secondary" for="stick1">STICK - 1 (GB)</label>
+                        <div class="relative">
+                            <input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" id="stick1" min="0" placeholder="0" step="1" type="number" data-stick="1">
+                            <span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
+                        </div>
+                    </div><div class="flex flex-col gap-xs">
+                        <label class="font-label-caps text-label-caps text-secondary" for="stick2">STICK - 2 (GB)</label>
+                        <div class="relative">
+                            <input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" id="stick2" min="0" placeholder="0" step="1" type="number" data-stick="2">
+                            <span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
+                        </div>
+                    </div><div class="flex flex-col gap-xs">
+                        <label class="font-label-caps text-label-caps text-secondary" for="stick3">STICK - 3 (GB)</label>
+                        <div class="relative">
+                            <input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" id="stick3" min="0" placeholder="0" step="1" type="number" data-stick="3">
+                            <span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
+                        </div>
+                    </div><div class="flex flex-col gap-xs">
+                        <label class="font-label-caps text-label-caps text-secondary" for="stick4">STICK - 4 (GB)</label>
+                        <div class="relative">
+                            <input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" id="stick4" min="0" placeholder="0" step="1" type="number" data-stick="4">
+                            <span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
+                        </div>
+                    </div></section>
 <!-- Total RAM Display -->
 <div class="mt-sm bg-[#EFF6FF] border-l-2 border-primary rounded-xl p-lg relative overflow-hidden flex flex-col gap-md">
 <!-- Decorative Background Element -->
@@ -368,7 +366,7 @@
 <div class="flex flex-col gap-xs">
 <span class="font-label-caps text-label-caps text-primary uppercase tracking-wider">Total System Memory</span>
 <div class="flex items-baseline gap-xs">
-<span class="font-display-metrics text-display-metrics text-on-surface font-bold text-[#004ac6]" id="totalRamDisplay" style="opacity: 1;">2</span>
+<span class="font-display-metrics text-display-metrics text-on-surface font-bold text-[#004ac6]" id="totalRamDisplay" style="opacity: 1;">0</span>
 <span class="font-headline-md text-headline-md text-secondary">GB</span>
 </div>
 </div>
@@ -384,30 +382,33 @@
 <span class="font-body-sm text-body-sm text-on-surface font-bold" id="summarySticks">4</span>
 </div>
 <div class="flex flex-col gap-1 w-full mt-1" id="summaryDetailsList">
-<div class="flex justify-between items-center w-full">
-<span class="font-body-sm text-body-sm text-secondary">Stick 1 Size</span>
-<span class="font-body-sm text-body-sm text-on-surface font-medium">0GB</span>
-</div>
-<div class="flex justify-between items-center w-full">
-<span class="font-body-sm text-body-sm text-secondary">Stick 2 Size</span>
-<span class="font-body-sm text-body-sm text-on-surface font-medium">0GB</span>
-</div>
-<div class="flex justify-between items-center w-full">
-<span class="font-body-sm text-body-sm text-secondary">Stick 3 Size</span>
-<span class="font-body-sm text-body-sm text-on-surface font-medium">0GB</span>
-</div>
-<div class="flex justify-between items-center w-full">
-<span class="font-body-sm text-body-sm text-secondary">Stick 4 Size</span>
-<span class="font-body-sm text-body-sm text-on-surface font-medium">2GB</span>
-</div>
-</div>
+                        <div class="flex justify-between items-center w-full">
+                            <span class="font-body-sm text-body-sm text-secondary">Stick 1 Size</span>
+                            <span class="font-body-sm text-body-sm text-on-surface font-medium">0GB</span>
+                        </div>
+                    
+                        <div class="flex justify-between items-center w-full">
+                            <span class="font-body-sm text-body-sm text-secondary">Stick 2 Size</span>
+                            <span class="font-body-sm text-body-sm text-on-surface font-medium">0GB</span>
+                        </div>
+                    
+                        <div class="flex justify-between items-center w-full">
+                            <span class="font-body-sm text-body-sm text-secondary">Stick 3 Size</span>
+                            <span class="font-body-sm text-body-sm text-on-surface font-medium">0GB</span>
+                        </div>
+                    
+                        <div class="flex justify-between items-center w-full">
+                            <span class="font-body-sm text-body-sm text-secondary">Stick 4 Size</span>
+                            <span class="font-body-sm text-body-sm text-on-surface font-medium">0GB</span>
+                        </div>
+                    </div>
 </div>
 </div>
 <div class="flex-1"></div> <!-- Spacer to push button to bottom -->
 <!-- Actions -->
 <div class="mt-xl">
 <button class="w-full bg-primary hover:bg-[#003ea8] active:scale-[0.98] text-on-primary font-headline-md text-headline-md py-sm rounded-lg shadow-sm transition-all flex items-center justify-center gap-sm h-12">
-<span class="material-symbols-outlined text-[20px]" style='font-variation-settings: "FILL" 1;'>save</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: &quot;FILL&quot; 1;">save</span>
                 Save Details
             </button>
 </div>
@@ -614,4 +615,6 @@
         });
     })();
 </script>
+
+
 </body></html>
