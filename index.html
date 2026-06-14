@@ -1,912 +1,218 @@
-<html class="dark" lang="en" style=""><head></head><body class="bg-slate-900 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-950 via-slate-900 to-slate-900 text-slate-200 font-sans antialiased min-h-screen flex flex-col md:flex-row">```html
+<!DOCTYPE html>
 
-
+<html lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>PM - REPORT (June - 2026)</title>
+<title>AssetFlow - PM Report Wizard</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        "colors": {
-            "luminous-indigo": "#6366f1",
-            "luminous-indigo-hover": "#4f46e5",
-            "glass-bg": "rgba(30, 41, 59, 0.4)",
-            "glass-border": "rgba(255, 255, 255, 0.1)",
-            "glass-input": "rgba(15, 23, 42, 0.4)",
-        },
-        "fontFamily": {
-            "sans": ["Inter", "sans-serif"],
-            "code-mono": ["JetBrains Mono", "monospace"],
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'sans-serif'],
+          },
+          colors: {
+            glass: {
+              100: 'rgba(255, 255, 255, 0.7)',
+              200: 'rgba(255, 255, 255, 0.4)',
+              300: 'rgba(255, 255, 255, 0.2)',
+              border: 'rgba(255, 255, 255, 0.3)'
+            },
+            darkText: '#334155',
+            lightText: '#64748B'
+          }
         }
-      },
-    },
-  }
-</script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
+      }
+    }
+  </script>
+<style data-purpose="glassmorphism-utilities">
+    /* Glassmorphism Background Base */
+    body {
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-        .filled-icon {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
+    /* Organic Background Shapes */
+    body::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(255,200,150,0.4) 0%, rgba(255,200,150,0) 70%);
+      border-radius: 50%;
+      z-index: -1;
+      filter: blur(40px);
+    }
+    body::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      right: -10%;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(200,150,255,0.4) 0%, rgba(200,150,255,0) 70%);
+      border-radius: 50%;
+      z-index: -1;
+      filter: blur(40px);
+    }
 
-        input:focus-visible, select:focus-visible, textarea:focus-visible {
-            outline: none;
-            border-color: #6366f1 !important;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3) !important;
-            background-color: rgba(15, 23, 42, 0.6);
-        }
+    /* Reusable Glass Card Utility */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    }
+    
+    .glass-input {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: all 0.2s ease;
+    }
+    .glass-input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.8);
+      border-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+    }
 
-        .form-input {
-            width: 100%;
-            border-radius: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background-color: rgba(15, 23, 42, 0.4);
-            padding: 10px 14px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            color: #f8fafc;
-            transition: all 0.2s ease-in-out;
-        }
-        
-        .form-input option {
-            background-color: #1e293b;
-            color: #f8fafc;
-        }
+    .glass-button {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      transition: all 0.2s;
+    }
+    .glass-button:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .glass-button-primary {
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+      color: #334155;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
 
-        .form-label {
-            display: block;
-            margin-bottom: 6px;
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 500;
-            color: #94a3b8;
-        }
-
-        .section-card {
-            background-color: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-
-        .section-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 16px;
-            margin-bottom: 20px;
-        }
-
-        .step-content {
-            display: none;
-        }
-
-        .step-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
-<style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
-    </style>
-<!-- Sidebar Navigation Drawer -->
-<aside class="hidden md:flex flex-col py-6 gap-4 bg-slate-900/60 backdrop-blur-xl border-r border-white/10 shadow-[4px_0_24px_rgba(0,0,0,0.2)] h-full w-64 fixed left-0 top-0 z-40">
-<div class="px-6 mb-6 flex items-center gap-3">
-<span class="material-symbols-outlined text-luminous-indigo text-2xl">admin_panel_settings</span>
-<span class="font-semibold text-luminous-indigo text-xl tracking-tight">AssetFlow</span>
-</div>
-<div class="px-6 mb-4 flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center overflow-hidden">
-<span class="material-symbols-outlined text-slate-400">person</span>
-</div>
-<div>
-<div class="font-medium text-sm text-slate-200">Service Tech #402</div>
-<div class="text-xs text-slate-400">Enterprise Admin</div>
-<div class="text-xs text-emerald-400 flex items-center gap-1 mt-1">
-<div class="w-2 h-2 rounded-full bg-emerald-400"></div> Online
-                </div>
-</div>
-</div>
-<nav class="flex-1 flex flex-col gap-1 pr-4">
-<a class="flex items-center gap-3 py-2.5 pl-6 text-slate-400 hover:bg-white/5 hover:text-slate-200 rounded-r-full mr-4 transition-all active:scale-98" href="#">
-<span class="material-symbols-outlined">devices</span>
-<span class="text-sm font-medium">Active Assets</span>
-</a>
-<a class="flex items-center gap-3 py-2.5 pl-6 text-slate-400 hover:bg-white/5 hover:text-slate-200 rounded-r-full mr-4 transition-all active:scale-98" href="#">
-<span class="material-symbols-outlined">monitor_heart</span>
-<span class="text-sm font-medium">System Health</span>
-</a>
-<a class="flex items-center gap-3 py-2.5 pl-6 text-slate-400 hover:bg-white/5 hover:text-slate-200 rounded-r-full mr-4 transition-all active:scale-98" href="#">
-<span class="material-symbols-outlined">lan</span>
-<span class="text-sm font-medium">Network Map</span>
-</a>
-<a class="flex items-center gap-3 py-2.5 pl-6 bg-luminous-indigo/20 text-luminous-indigo font-bold rounded-r-full mr-4 hover:bg-luminous-indigo/30 transition-all active:scale-98 border border-luminous-indigo/20" href="#">
-<span class="material-symbols-outlined filled-icon">rule</span>
-<span class="text-sm font-medium">Pending Approvals</span>
-</a>
-<a class="flex items-center gap-3 py-2.5 pl-6 text-slate-400 hover:bg-white/5 hover:text-slate-200 rounded-r-full mr-4 transition-all active:scale-98" href="#">
-<span class="material-symbols-outlined">support_agent</span>
-<span class="text-sm font-medium">Support</span>
-</a>
-</nav>
-</aside>
-<!-- Main Content Area -->
-<main class="flex-1 md:ml-64 flex flex-col min-h-screen relative pb-24 md:pb-0">
-<!-- TopAppBar (Mobile & Web) -->
-<header class="flex items-center justify-between px-6 py-4 w-full bg-slate-900/60 backdrop-blur-xl border-b border-white/10 shadow-sm top-0 sticky z-30">
-<div class="flex items-center gap-3 md:hidden">
-<span class="material-symbols-outlined text-luminous-indigo text-2xl">admin_panel_settings</span>
-<span class="font-semibold text-luminous-indigo text-lg tracking-tight">AssetFlow</span>
-</div>
-<div class="hidden md:flex items-center gap-3">
-<h1 class="font-semibold text-xl text-slate-100">PM - REPORT (June - 2026)</h1>
-</div>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body class="text-darkText font-sans pb-24">
+<!-- BEGIN: Top AppBar -->
+<header class="glass-card sticky top-0 z-50 flex items-center justify-between px-4 py-3 mx-4 mt-4 rounded-full" data-purpose="top-app-bar">
 <div class="flex items-center gap-3">
-<button class="w-9 h-9 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-slate-400 hover:bg-slate-700 hover:text-slate-200 transition-colors active:opacity-80">
-<span class="material-symbols-outlined">notifications</span>
+<button aria-label="Go Back" class="w-10 h-10 rounded-full glass-button flex items-center justify-center text-darkText">
+<i class="fa-solid fa-arrow-left"></i>
+</button>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold text-sm">
+          AF
+        </div>
+<h1 class="text-lg font-bold">AssetFlow</h1>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-full glass-button flex items-center justify-center text-darkText relative">
+<i class="fa-regular fa-bell"></i>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
 </button>
 </div>
 </header>
-<!-- Form Canvas -->
-<div class="p-4 md:p-8 max-w-5xl mx-auto w-full" id="formContainer">
-<div class="mb-8">
-<h2 class="font-semibold text-2xl text-slate-100 hidden md:block">System Details Input</h2>
-<p class="text-slate-400 mt-2 text-sm md:text-base">Complete the preventive maintenance report for the current cycle. Ensure all serial numbers and configurations are accurate.</p>
+<!-- END: Top AppBar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-grow px-4 mt-6" data-purpose="main-wizard-container">
+<!-- Title Section -->
+<div class="mb-6 px-2">
+<h2 class="text-2xl font-bold mb-1">PM Report</h2>
+<p class="text-sm text-lightText font-medium">Step 1 of 11: General Info</p>
 </div>
-<!-- Progress Stepper -->
-<div class="mb-8">
-<div class="flex justify-between items-center mb-3">
-<span class="font-semibold text-sm text-slate-200" id="stepTitle">Step 1: Division &amp; User</span>
-<span class="text-xs font-medium text-slate-400" id="stepIndicator">Step 1 of 6</span>
+<!-- Wizard Form Card -->
+<div class="glass-card rounded-3xl p-6 shadow-lg mb-6">
+<!-- Progress Bar Indicator -->
+<div aria-hidden="true" class="w-full bg-white/30 rounded-full h-2 mb-8 relative overflow-hidden">
+<div class="bg-gradient-to-r from-blue-400 to-purple-500 h-2 rounded-full absolute top-0 left-0" style="width: 9%;"></div>
 </div>
-<div class="w-full bg-slate-800/60 backdrop-blur-sm rounded-full h-2.5 overflow-hidden border border-white/10">
-<div class="bg-luminous-indigo h-2.5 rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(99,102,241,0.5)]" id="progressBar" style="width: 16.6667%;"></div>
+<form class="space-y-6" id="pm-report-step1">
+<!-- Field: Service Order -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-darkText ml-1" for="serviceOrder">Service Order Number</label>
+<input class="glass-input rounded-2xl px-4 py-3 text-darkText focus:ring-0" id="serviceOrder" name="serviceOrder" type="text"/>
 </div>
-</div>
-<form class="space-y-6" id="pmForm">
-<!-- Step 1 -->
-<div class="step-content active" id="step1">
-<!-- Section 1: Division & User Details -->
-<div class="section-card relative overflow-hidden">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2">
-<span class="material-symbols-outlined text-luminous-indigo">corporate_fare</span>
-                                Section 1: Division &amp; User Details
-                            </h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<div>
-<label class="form-label">Division</label>
-<select class="form-input" required="">
-<option disabled="" selected="" value="">Select Division (1-50)</option>
-<script>
-                                        for(let i=1; i<=50; i++) document.write(`<option value="${i}">Division ${i}</option>`);
-                                    </script>
-</select>
-</div>
-<div>
-<label class="form-label">User Name</label>
-<input class="form-input" pattern="[A-Za-z\s]+" placeholder="Enter full name" required="" title="Only alphabetic characters allowed" type="text"/>
-</div>
-<div>
-<label class="form-label">Designation</label>
-<input class="form-input" placeholder="e.g. Senior Technician" required="" type="text"/>
-</div>
-<div>
-<label class="form-label">Phone No.</label>
-<input class="form-input" pattern="[0-9]+" placeholder="e.g. 9876543210" required="" title="Only numbers allowed" type="tel"/>
-</div>
-<div class="lg:col-span-2">
-<label class="form-label">Location</label>
+<!-- Field: Date -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-darkText ml-1" for="reportDate">Date</label>
 <div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-500 text-lg">location_on</span>
-<input class="form-input pl-10" placeholder="Enter site or office location" required="" type="text"/>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Step 2 -->
-<div class="step-content" id="step2">
-<!-- Section 2: Monitor -->
-<div class="section-card relative overflow-hidden">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2">
-<span class="material-symbols-outlined text-luminous-indigo">desktop_windows</span>
-                                Section 2: Monitor
-                            </h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-<div>
-<label class="form-label">Asset ID</label>
-<input class="form-input font-code-mono" placeholder="MON-XXXX" required="" type="text"/>
-</div>
-<div>
-<label class="form-label">Monitor Make</label>
-<select class="form-input" id="monitorMakeSelect" onchange="toggleOtherInput(this, 'monitorMakeOther')">
-<option class="" disabled="" selected="" value="">Select brand</option>
-<option class="" value="OTHER">OTHER</option>
-<option class="" value="ACER">ACER</option>
-<option class="" value="DELL">DELL</option>
-<option class="" value="DELL - ALL IN ONE">DELL - ALL IN ONE</option>
-<option class="" value="DELL - INSIPIRON">DELL - INSIPIRON</option>
-<option class="" value="HCL">HCL</option>
-<option class="" value="HP">HP</option>
-<option class="" value="HP - ALL IN ONE">HP - ALL IN ONE</option>
-<option class="" value="HP - COMPAQ">HP - COMPAQ</option>
-<option class="" value="INTEX">INTEX</option>
-<option class="" value="LENOVO">LENOVO</option>
-<option class="" value="LG">LG</option>
-<option class="" value="POWERX">POWERX</option>
-<option class="" value="SAMSUNG">SAMSUNG</option>
-<option class="" value="WIPRO">WIPRO</option>
-<option class="" value="WIPRO - CRT">WIPRO - CRT</option>
-<option class="" value="ZEBSTER">ZEBSTER</option>
-<option class="" value="ZEBRONICS">ZEBRONICS</option>
-</select>
-<input class="form-input mt-2 hidden" id="monitorMakeOther" type="text"/>
-</div>
-<div>
-<label class="form-label">Monitor Size</label>
-<select class="form-input" id="monitorSizeSelect" onchange="toggleOtherInput(this, 'monitorSizeOther')">
-<option class="" disabled="" selected="" value="">Select size</option>
-<option class="" value="OTHER">OTHER</option>
-<option class="" value="17">17"</option>
-<option class="" value="18">18"</option>
-<option class="" value="18.5">18.5"</option>
-<option class="" value="19">19"</option>
-<option class="" value="19.5">19.5"</option>
-<option class="" value="20">20"</option>
-<option class="" value="22">22"</option>
-<option class="" value="24">24"</option>
-</select>
-<input class="form-input mt-2 hidden" id="monitorSizeOther" type="text"/>
-</div>
-<div>
-<label class="form-label">Serial No.</label>
-<input class="form-input font-code-mono" placeholder="Enter serial number" required="" type="text"/>
-</div>
-</div>
-</div>
-<!-- Section 3: Keyboard & Mouse -->
-<div class="section-card relative overflow-hidden">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2">
-<span class="material-symbols-outlined text-luminous-indigo">keyboard</span>
-                                Section 3: Keyboard &amp; Mouse
-                            </h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-<div>
-<label class="form-label">Keyboard Make</label>
-<select class="form-input" id="keyboardMakeSelect" onchange="toggleOtherInput(this, 'keyboardMakeOther')">
-<option disabled="" selected="" value="">Select brand</option>
-<option value="OTHER">OTHER</option>
-<option value="ACER">ACER</option>
-<option value="DELL">DELL</option>
-<option value="DSELECT">DSELECT</option>
-<option value="FRONTECH">FRONTECH</option>
-<option value="HP">HP</option>
-<option value="INTEX">INTEX</option>
-<option value="LENOVO">LENOVO</option>
-<option value="ZEBRONICS">ZEBRONICS</option>
-</select>
-<input class="form-input mt-2 hidden" id="keyboardMakeOther" placeholder="Enter keyboard brand" type="text"/>
-</div>
-<div>
-<label class="form-label">Keyboard S/N</label>
-<input class="form-input font-code-mono" placeholder="Enter keyboard serial number" required="" type="text"/>
-</div>
-<div>
-<label class="form-label">Mouse Make</label>
-<select class="form-input" id="mouseMakeSelect" onchange="toggleOtherInput(this, 'mouseMakeOther')">
-<option disabled="" selected="" value="">Select brand</option>
-<option value="OTHER">OTHER</option>
-<option value="ACER">ACER</option>
-<option value="DELL">DELL</option>
-<option value="DSELECT">DSELECT</option>
-<option value="FRONTECH">FRONTECH</option>
-<option value="HP">HP</option>
-<option value="INTEX">INTEX</option>
-<option value="LENOVO">LENOVO</option>
-<option value="ZEBRONICS">ZEBRONICS</option>
-</select>
-<input class="form-input mt-2 hidden" id="mouseMakeOther" placeholder="Enter mouse brand" type="text"/>
-</div>
-<div>
-<label class="form-label">Mouse S/N</label>
-<input class="form-input font-code-mono" placeholder="Enter mouse serial number" required="" type="text"/>
-</div>
-</div>
-</div>
-</div>
-<!-- Step 3 -->
-<div class="step-content" id="step3">
-<!-- Section 4: CPU Configuration -->
-<div class="section-card relative overflow-hidden">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2">
-<span class="material-symbols-outlined text-luminous-indigo">memory</span>
-                                Section 4: CPU Configuration
-                            </h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-<div>
-<label class="form-label">Asset ID</label>
-<input class="form-input font-code-mono" placeholder="CPU-XXXX" required="" type="text"/>
-</div>
-<div>
-<label class="form-label">Make</label>
-<select class="form-input" id="cpuMakeSelect" onchange="toggleOtherInput(this, 'cpuMakeOther')" required="">
-<option disabled="" selected="" value="">Select Make</option>
-<option value="OTHER">OTHER</option>
-<option value="ACER">ACER</option>
-<option value="DELL">DELL</option>
-<option value="FINGERS">FINGERS</option>
-<option value="FRONTECH">FRONTECH</option>
-<option value="HCL">HCL</option>
-<option value="HP">HP</option>
-<option value="IBALL">IBALL</option>
-<option value="INTEX">INTEX</option>
-<option value="LENOVO">LENOVO</option>
-<option value="MERCURY">MERCURY</option>
-<option value="WIPRO">WIPRO</option>
-<option value="ZEBION">ZEBION</option>
-<option value="ZEBRONICS">ZEBRONICS</option>
-</select>
-<input class="form-input mt-2 hidden" id="cpuMakeOther" placeholder="Enter Make" type="text"/>
-</div>
-<div>
-<label class="form-label">Model</label>
-<input class="form-input" placeholder="EX: 280 PRO G1 MT, VERITON, OPTIPLEX 7040 ..." required="" type="text"/>
-</div>
-<div>
-<label class="form-label">Serial No.</label>
-<input class="form-input font-code-mono" placeholder="Enter CPU serial number" required="" type="text"/>
-</div>
-<div class="lg:col-span-2">
-<label class="form-label">Processor</label>
-<input class="form-input" placeholder="EX : i3-4 GEN, i5-12 GEN" required="" type="text"/>
-</div>
-<div class="lg:col-span-2">
-<label class="form-label">Operating System</label>
-<select class="form-input" required="">
-<option disabled="" selected="" value="">Select OS</option>
-<option value="WIN 7">WIN 7</option>
-<option value="WIN 7 PRO">WIN 7 PRO</option>
-<option value="WIN 10">WIN 10</option>
-<option value="WIN 10 PRO">WIN 10 PRO</option>
-<option value="WIN 11">WIN 11</option>
-<option value="WIN 11 PRO">WIN 11 PRO</option>
-</select>
-</div>
-<div>
-<label class="form-label">RAM-DDR Type</label>
-<select class="form-input" required="">
-<option value="DDR2">DDR2</option>
-<option value="DDR3">DDR3</option>
-<option value="DDR4">DDR4</option>
-<option value="DDR5">DDR5</option>
-</select>
-</div>
-<div class="lg:col-span-2">
-<label class="form-label">RAM Config</label>
-<div class="flex gap-2 items-center">
-<select class="form-input w-28" id="ramSticks" onchange="updateRamFields()">
-<option value="1">1 Stick</option>
-<option value="2">2 Sticks</option>
-<option value="3">3 Sticks</option>
-<option value="4">4 Sticks</option>
-</select>
-<div class="flex-1 flex gap-2" id="ramInputContainer">
-<input class="form-input w-24 ram-val" oninput="calculateTotalRam()" placeholder="GB" type="number" value=""/>
-</div>
-</div>
-<div class="text-xs text-luminous-indigo mt-2 font-bold tracking-wide" id="totalRamLabel">Total: 0 GB</div>
-</div>
-<div>
-<label class="form-label">HDD/SSD</label>
-<input class="form-input" placeholder="e.g., 500GB HDD, 256GB SSD" required="" type="text"/>
-</div>
-</div>
-</div>
-</div>
-<!-- Step 4 -->
-<div class="step-content" id="step4">
-<!-- Section 5: Network -->
-<div class="section-card relative overflow-hidden">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2">
-<span class="material-symbols-outlined text-luminous-indigo">router</span>
-                                Section 5: Network
-                            </h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-<div>
-<label class="form-label">Select ISP</label>
-<select class="form-input" id="ispSelect" onchange="toggleOtherInput(this, 'ispOther')" required="">
-<option disabled="" selected="" value="">Select ISP</option>
-<option value="OTHER">OTHER</option>
-<option value="ACT">ACT</option>
-<option value="AIRTEL DONGLE">AIRTEL DONGLE</option>
-<option value="BSNL">BSNL</option>
-<option value="NO INTERNET">NO INTERNET</option>
-</select>
-<input class="form-input mt-2 hidden" id="ispOther" placeholder="Specify ISP" type="text"/>
-</div>
-<div>
-<label class="form-label">Speed</label>
-<input class="form-input" placeholder="Mbps/Gbps" required="" type="text"/>
-</div>
-<div>
-<label class="form-label">Switch Port</label>
-<input class="form-input" placeholder="EX: 4, 8, 16, 24 ..." required="" type="number"/>
-</div>
-<div>
-<label class="form-label">Static IP</label>
-<input class="form-input font-code-mono" placeholder="192.168.x.x" required="" type="text"/>
-</div>
-</div>
-</div>
-<!-- Section 6: U.P.S & BATTERIES -->
-<div class="section-card relative overflow-hidden">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2">
-<span class="material-symbols-outlined text-luminous-indigo">battery_charging_full</span>
-                                Section 6: U.P.S &amp; BATTERIES
-                            </h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<label class="form-label">UPS Make/Model</label>
-<select class="form-input" id="upsSelect" onchange="toggleOtherInput(this, 'upsOther')">
-<option value="APC">APC</option>
-<option value="Microtek">Microtek</option>
-<option value="Luminous">Luminous</option>
-<option value="OTHER">OTHER</option>
-</select>
-<input class="form-input mt-2 hidden" id="upsOther" placeholder="Specify UPS" type="text"/>
-</div>
-<div>
-<label class="form-label">Battery Capacity</label>
-<input class="form-input" placeholder="Ah rating" required="" type="text"/>
-</div>
-</div>
-</div>
-<!-- Section 9: ESCAN -->
-<div class="section-card relative overflow-hidden">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2">
-<span class="material-symbols-outlined text-luminous-indigo">security</span>
-                                Section 9: ESCAN
-                            </h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<label class="form-label">Status</label>
-<select class="form-input" required="">
-<option value="UPDATED">UPDATED</option>
-<option value="SOFTWARE NOT INSTALLED">SOFTWARE NOT INSTALLED</option>
-<option value="OTHER">OTHER</option>
-</select>
-</div>
-</div>
-</div>
-</div>
-<!-- Step 5 -->
-<div class="step-content" id="step5">
-<!-- Section 7: Printer -->
-<div class="section-card relative overflow-hidden" id="printerSection">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header flex justify-between items-center">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2">
-<span class="material-symbols-outlined text-luminous-indigo">print</span>
-                                Section 7: Printer
-                            </h3>
-<button class="text-sm text-luminous-indigo font-semibold hover:text-indigo-400 transition-colors" onclick="addSecondPrinter()" type="button">+ Add 2nd Printer</button>
-</div>
-<div class="printer-entry grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4 pb-4 border-b border-white/10 last:border-0">
-<div>
-<label class="form-label">Asset ID</label>
-<input class="form-input font-code-mono" placeholder="Enter Printer Asset ID" type="text"/>
-</div>
-<div>
-<label class="form-label">Make</label>
-<select class="form-input" onchange="toggleOtherInput(this, 'printer1Other')">
-<option disabled="" selected="" value="">Select Make</option>
-<option value="NO-PRINTER">NO-PRINTER</option>
-<option value="OTHER">OTHER</option>
-<option value="BROTHER">BROTHER</option>
-<option value="CANON">CANON</option>
-<option value="EPSON">EPSON</option>
-<option value="HP">HP</option>
-<option value="TVS">TVS</option>
-</select>
-<input class="form-input mt-2 hidden" id="printer1Other" placeholder="Specify Printer Make" type="text"/>
-</div>
-<div>
-<label class="form-label">Model</label>
-<input class="form-input" placeholder="Enter Printer Model No EX: 1020 PLUS, M208DW ..." type="text"/>
-</div>
-<div>
-<label class="form-label">Serial No.</label>
-<input class="form-input font-code-mono" placeholder="Enter Printer Serial No" type="text"/>
-</div>
-</div>
-</div>
-<!-- Section 8: Scanner -->
-<div class="section-card relative overflow-hidden" id="scannerSection">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header flex justify-between items-center">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2">
-<span class="material-symbols-outlined text-luminous-indigo">scanner</span>
-                                Section 8: Scanner
-                            </h3>
-<button class="text-sm text-luminous-indigo font-semibold hover:text-indigo-400 transition-colors" onclick="addSecondScanner()" type="button">+ Add 2nd Scanner</button>
-</div>
-<div class="scanner-entry grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4 pb-4 border-b border-white/10 last:border-0">
-<div>
-<label class="form-label">Asset ID</label>
-<input class="form-input font-code-mono" placeholder="Enter Scanner Asset ID" type="text"/>
-</div>
-<div>
-<label class="form-label">Make</label>
-<select class="form-input" onchange="toggleOtherInput(this, 'scanner1Other')">
-<option disabled="" selected="" value="">Select Make</option>
-<option value="NO-SCANNER">NO-SCANNER</option>
-<option value="OTHER">OTHER</option>
-<option value="BROTHER">BROTHER</option>
-<option value="CANON">CANON</option>
-<option value="EPSON">EPSON</option>
-<option value="HP">HP</option>
-<option value="TVS">TVS</option>
-</select>
-<input class="form-input mt-2 hidden" id="scanner1Other" placeholder="Specify Scanner Make" type="text"/>
-</div>
-<div>
-<label class="form-label">Model</label>
-<input class="form-input" placeholder="Enter Scanner Model No EX: 1020 PLUS, M208DW ..." type="text"/>
-</div>
-<div>
-<label class="form-label">Serial No.</label>
-<input class="form-input font-code-mono" placeholder="Enter Snanner Serial No" type="text"/>
-</div>
-</div>
-</div>
-</div>
-<!-- Step 6 -->
-<div class="step-content" id="step6">
-<!-- Section 10: REMARKS -->
-<div class="section-card relative overflow-hidden">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2">
-<span class="material-symbols-outlined text-luminous-indigo">chat</span>
-                                Section 10: REMARKS
-                            </h3>
-</div>
-<div>
-<label class="form-label">Additional Comments</label>
-<textarea class="form-input h-24 resize-y" placeholder="Enter any additional observations or maintenance notes..."></textarea>
-</div>
-</div>
-<!-- Section 11: Drop Images -->
-<div class="section-card relative overflow-hidden">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2">
-<span class="material-symbols-outlined text-luminous-indigo">photo_camera</span>
-                                Section 11: Capture Images
-                            </h3>
-</div>
-<input accept="image/*" capture="camera" class="hidden" id="imageCaptureInput" type="file"/>
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-<div class="border border-dashed border-white/20 rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/5 hover:border-luminous-indigo/50 transition-all bg-slate-900/30" onclick="document.getElementById('imageCaptureInput').click()">
-<span class="material-symbols-outlined text-slate-400 mb-2">desktop_windows</span>
-<span class="text-xs font-semibold text-slate-300">Desktop</span>
-</div>
-<div class="border border-dashed border-white/20 rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/5 hover:border-luminous-indigo/50 transition-all bg-slate-900/30" onclick="document.getElementById('imageCaptureInput').click()">
-<span class="material-symbols-outlined text-slate-400 mb-2">memory</span>
-<span class="text-xs font-semibold text-slate-300">CPU</span>
-</div>
-<div class="border border-dashed border-white/20 rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/5 hover:border-luminous-indigo/50 transition-all bg-slate-900/30" onclick="document.getElementById('imageCaptureInput').click()">
-<span class="material-symbols-outlined text-slate-400 mb-2">keyboard</span>
-<span class="text-xs font-semibold text-slate-300">Keyboard</span>
-</div>
-<div class="border border-dashed border-white/20 rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/5 hover:border-luminous-indigo/50 transition-all bg-slate-900/30" onclick="document.getElementById('imageCaptureInput').click()">
-<span class="material-symbols-outlined text-slate-400 mb-2">mouse</span>
-<span class="text-xs font-semibold text-slate-300">Mouse</span>
-</div>
-<div class="border border-dashed border-white/20 rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/5 hover:border-luminous-indigo/50 transition-all bg-slate-900/30" onclick="document.getElementById('imageCaptureInput').click()">
-<span class="material-symbols-outlined text-slate-400 mb-2">print</span>
-<span class="text-xs font-semibold text-slate-300">Printer</span>
-</div>
-<div class="border border-dashed border-white/20 rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/5 hover:border-luminous-indigo/50 transition-all bg-slate-900/30" onclick="document.getElementById('imageCaptureInput').click()">
-<span class="material-symbols-outlined text-slate-400 mb-2">scanner</span>
-<span class="text-xs font-semibold text-slate-300">Scanner</span>
-</div>
-<div class="border border-dashed border-white/20 rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/5 hover:border-luminous-indigo/50 transition-all bg-slate-900/30" onclick="document.getElementById('imageCaptureInput').click()">
-<span class="material-symbols-outlined text-slate-400 mb-2">battery_charging_full</span>
-<span class="text-xs font-semibold text-slate-300">UPS &amp; Batteries</span>
-</div>
-<div class="border border-dashed border-white/20 rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/5 hover:border-luminous-indigo/50 transition-all bg-slate-900/30" onclick="document.getElementById('imageCaptureInput').click()">
-<span class="material-symbols-outlined text-slate-400 mb-2">description</span>
-<span class="text-xs font-semibold text-slate-300">Hard-copy Report</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Action Bar / Navigation -->
-<div class="flex flex-row items-center justify-between gap-4 mt-8 pb-8 border-t border-white/10 pt-6">
-<button class="px-6 py-3 rounded-lg border border-white/20 text-slate-300 font-semibold text-sm hover:bg-white/5 transition-colors flex items-center justify-center gap-2 hidden bg-slate-800/40 backdrop-blur-sm" id="prevBtn" onclick="nextStep(-1)" style="display: none;" type="button">
-<span class="material-symbols-outlined">arrow_back</span>
-                        Back
-                    </button>
-<div class="flex-1"></div>
-<button class="px-6 py-3 rounded-lg bg-luminous-indigo text-white font-semibold text-sm hover:bg-luminous-indigo-hover shadow-[0_4px_14px_rgba(99,102,241,0.39)] transition-all active:scale-95 flex items-center justify-center gap-2 border border-luminous-indigo/50" id="nextBtn" onclick="nextStep(1)" style="display: flex;" type="button">
-                        Next
-                        <span class="material-symbols-outlined">arrow_forward</span>
+<input class="glass-input rounded-2xl px-4 py-3 w-full text-darkText focus:ring-0 appearance-none" id="reportDate" name="reportDate" type="date"/>
+</div>
+</div>
+<!-- Field: Technician -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-darkText ml-1" for="technician">Technician</label>
+<input class="glass-input rounded-2xl px-4 py-3 text-darkText focus:ring-0" id="technician" name="technician" type="text"/>
+</div>
+<!-- Field: Asset ID -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-darkText ml-1" for="assetId">Asset ID</label>
+<div class="flex gap-2">
+<input class="glass-input rounded-2xl px-4 py-3 flex-grow text-darkText focus:ring-0" id="assetId" name="assetId" type="text"/>
+<button aria-label="Scan QR Code" class="glass-button rounded-2xl px-4 py-3 text-darkText flex items-center justify-center" type="button">
+<i class="fa-solid fa-qrcode"></i>
 </button>
-<button class="px-6 py-3 rounded-lg border border-luminous-indigo text-luminous-indigo font-semibold text-sm hover:bg-luminous-indigo/10 transition-all active:scale-95 items-center justify-center gap-2 hidden bg-slate-800/40 backdrop-blur-sm" id="previewBtn" onclick="enterPreviewMode()" type="button"><span class="material-symbols-outlined">visibility</span> Preview Report</button>
-<button class="px-6 py-3 rounded-lg bg-emerald-600 text-white font-semibold text-sm hover:bg-emerald-500 shadow-[0_4px_14px_rgba(5,150,105,0.39)] transition-all active:scale-95 items-center justify-center gap-2 hidden border border-emerald-500/50" id="submitBtn" style="display: none;" type="submit"><span class="material-symbols-outlined">check_circle</span> Confirm &amp; Submit</button>
-</div>
-<div class="step-content" id="stepPreview">
-<div class="section-card relative overflow-hidden">
-<div class="absolute top-0 right-0 w-48 h-48 bg-luminous-indigo opacity-[0.05] rounded-bl-full pointer-events-none blur-3xl"></div>
-<div class="section-header flex justify-between items-center">
-<h3 class="font-semibold text-lg text-slate-100 flex items-center gap-2"><span class="material-symbols-outlined text-luminous-indigo">visibility</span>Review Report Summary</h3>
-<button class="text-luminous-indigo flex items-center gap-1 font-semibold text-sm hover:text-indigo-400 transition-colors" onclick="currentStep=1; showStep(1)" type="button"><span class="material-symbols-outlined text-sm">edit</span> Edit All</button>
-</div>
-<div class="space-y-8" id="previewSummaryContent">
-<div class="p-5 bg-slate-800/50 rounded-xl border border-white/10 backdrop-blur-sm">
-<p class="text-slate-400 text-sm italic">Summary of all entered data will appear here. Please verify all details before final submission.</p>
 </div>
 </div>
-</div>
+<!-- Action Buttons inside Card -->
+<div class="flex justify-between items-center pt-4 mt-8 border-t border-white/30">
+<button class="glass-button rounded-full px-6 py-3 text-sm font-medium disabled:opacity-50" disabled="" type="button">
+            Cancel
+          </button>
+<button class="glass-button glass-button-primary rounded-full px-8 py-3 text-sm flex items-center gap-2" type="button">
+            Next Step <i class="fa-solid fa-arrow-right text-xs"></i>
+</button>
 </div>
 </form>
 </div>
 </main>
-<!-- BottomNavBar (Mobile Only) -->
-<nav class="md:hidden flex justify-around items-center h-16 w-full px-4 pb-safe bg-slate-900/80 backdrop-blur-xl border-t border-white/10 shadow-[0_-4px_24px_rgba(0,0,0,0.2)] fixed bottom-0 z-50">
-<a class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition-colors" href="#">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="text-[10px] font-semibold mt-1 tracking-wider uppercase">Dashboard</span>
-</a>
-<a class="flex flex-col items-center justify-center bg-luminous-indigo/20 text-luminous-indigo rounded-xl px-5 py-1.5 border border-luminous-indigo/10 shadow-[0_0_15px_rgba(99,102,241,0.15)]" href="#">
-<span class="material-symbols-outlined filled-icon">assignment</span>
-<span class="text-[10px] font-semibold mt-1 tracking-wider uppercase">Reports</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition-colors" href="#">
-<span class="material-symbols-outlined">inventory_2</span>
-<span class="text-[10px] font-semibold mt-1 tracking-wider uppercase">Inventory</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition-colors" href="#">
-<span class="material-symbols-outlined">settings</span>
-<span class="text-[10px] font-semibold mt-1 tracking-wider uppercase">Settings</span>
-</a>
+<!-- END: Main Content Area -->
+<!-- BEGIN: Bottom Navigation -->
+<nav class="glass-card fixed bottom-4 left-4 right-4 rounded-full flex justify-between items-center px-6 py-3 z-50 shadow-xl" data-purpose="bottom-nav">
+<button aria-label="Home" class="flex flex-col items-center justify-center text-darkText w-12 h-12">
+<i class="fa-solid fa-house text-xl mb-1"></i>
+</button>
+<button aria-label="Assets" class="flex flex-col items-center justify-center text-lightText w-12 h-12 hover:text-darkText transition-colors">
+<i class="fa-solid fa-box text-xl mb-1"></i>
+</button>
+<!-- Floating Action Button Style -->
+<div class="relative -top-6">
+<button aria-label="New Report" class="w-14 h-14 bg-white/80 backdrop-blur-md rounded-full shadow-lg flex items-center justify-center text-darkText border border-white/50 transform hover:scale-105 transition-transform">
+<i class="fa-solid fa-plus text-2xl"></i>
+</button>
+</div>
+<button aria-label="Reports" class="flex flex-col items-center justify-center text-lightText w-12 h-12 hover:text-darkText transition-colors">
+<i class="fa-solid fa-file-lines text-xl mb-1"></i>
+</button>
+<button aria-label="Settings" class="flex flex-col items-center justify-center text-lightText w-12 h-12 hover:text-darkText transition-colors">
+<i class="fa-solid fa-gear text-xl mb-1"></i>
+</button>
 </nav>
-<script>
-        let currentStep = 1;
-        const totalSteps = 6;
-        const stepTitles = [
-            "Step 1: Division & User",
-            "Step 2: Hardware",
-            "Step 3: CPU & RAM",
-            "Step 4: Network & Power",
-            "Step 5: Peripherals",
-            "Step 6: Remarks & Images"
-        ];
-
-        function showStep(n) {
-            let steps = document.getElementsByClassName("step-content");
-            for (let i = 0; i < steps.length; i++) {
-                steps[i].classList.remove("active");
-            }
-            steps[n - 1].classList.add("active");
-
-            // Update Progress Bar & Text
-            document.getElementById("progressBar").style.width = `${(n / totalSteps) * 100}%`;
-            document.getElementById("stepIndicator").innerText = `Step ${n} of ${totalSteps}`;
-            document.getElementById("stepTitle").innerText = stepTitles[n - 1];
-
-            // Toggle Buttons
-            document.getElementById("prevBtn").style.display = n === 1 ? "none" : "flex";
-            if (n === totalSteps) {
-                document.getElementById("nextBtn").style.display = "none";
-                // Show both Preview and Submit side-by-side or Preview first
-                document.getElementById("previewBtn").style.display = "flex";
-                document.getElementById("previewBtn").classList.remove("hidden");
-                document.getElementById("submitBtn").style.display = "flex";
-                document.getElementById("submitBtn").classList.remove("hidden");
-            } else if (n === 7) { // Preview step
-                document.getElementById("nextBtn").style.display = "none";
-                document.getElementById("previewBtn").style.display = "none";
-                document.getElementById("submitBtn").style.display = "flex";
-                document.getElementById("submitBtn").classList.remove("hidden");
-                document.getElementById("prevBtn").style.display = "none";
-            } else {
-                document.getElementById("nextBtn").style.display = "flex";
-                document.getElementById("submitBtn").style.display = "none";
-                document.getElementById("previewBtn").style.display = "none";
-            }
-        }
-
-        function nextStep(n) {
-            // Basic validation check before moving next
-            if (n > 0) {
-                const currentStepElement = document.getElementById(`step${currentStep}`);
-                const inputs = currentStepElement.querySelectorAll('input[required], select[required]');
-                let isValid = true;
-                inputs.forEach(input => {
-                    if (!input.checkValidity()) {
-                        input.reportValidity();
-                        isValid = false;
-                    }
-                });
-                if (!isValid) return;
-            }
-
-            currentStep += n;
-            showStep(currentStep);
-
-            // Scroll to top of container
-            document.getElementById('formContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-
-        function toggleOtherInput(selectElement, inputId) {
-            const inputField = document.getElementById(inputId);
-            if (selectElement.value === 'OTHER') {
-                inputField.classList.remove('hidden');
-                inputField.required = true;
-            } else {
-                inputField.classList.add('hidden');
-                inputField.required = false;
-            }
-        }
-
-        function updateRamFields() {
-            const count = parseInt(document.getElementById('ramSticks').value);
-            const container = document.getElementById('ramInputContainer');
-            container.innerHTML = '';
-            for (let i = 0; i < count; i++) {
-                container.innerHTML += `<input type="number" class="form-input w-24 ram-val" placeholder="GB" oninput="calculateTotalRam()">`;
-            }
-            calculateTotalRam();
-        }
-
-        function calculateTotalRam() {
-            const inputs = document.querySelectorAll('.ram-val');
-            let total = 0;
-            inputs.forEach(input => {
-                const val = parseFloat(input.value);
-                if (!isNaN(val)) total += val;
-            });
-            document.getElementById('totalRamLabel').textContent = `Total: ${total} GB`;
-        }
-
-        function addSecondPrinter() {
-            const section = document.getElementById('printerSection');
-            if (section.querySelectorAll('.printer-entry').length < 2) {
-                const newEntry = document.createElement('div');
-                newEntry.className = 'printer-entry grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4 pb-4 border-b border-white/10 last:border-0 pt-4 border-t';
-                newEntry.innerHTML = `
-                    <div>
-                        <label class="form-label">Asset ID 2</label>
-                        <input type="text" class="form-input font-code-mono" placeholder="Enter Printer Asset ID">
-                    </div>
-                    <div>
-                        <label class="form-label">Make 2</label>
-                        <select class="form-input" onchange="toggleOtherInput(this, 'printer2Other')">
-                            <option disabled="" selected="" value="">Select Make</option>
-                            <option value="NO-PRINTER">NO-PRINTER</option>
-                            <option value="OTHER">OTHER</option>
-                            <option value="BROTHER">BROTHER</option>
-                            <option value="CANON">CANON</option>
-                            <option value="EPSON">EPSON</option>
-                            <option value="HP">HP</option>
-                            <option value="TVS">TVS</option>
-                        </select>
-                        <input class="form-input mt-2 hidden" id="printer2Other" placeholder="Specify Printer Make" type="text" />
-                    </div>
-                    <div>
-                        <label class="form-label">Model 2</label>
-                        <input type="text" class="form-input" placeholder="Enter Printer Model No EX: 1020 PLUS, M208DW ...">
-                    </div>
-                    <div>
-                        <label class="form-label">Serial No. 2</label>
-                        <input type="text" class="form-input font-code-mono" placeholder="Enter Printer Serial No">
-                    </div>
-                `;
-                section.appendChild(newEntry);
-            }
-        }
-
-        function addSecondScanner() {
-            const section = document.getElementById('scannerSection');
-            if (section.querySelectorAll('.scanner-entry').length < 2) {
-                const newEntry = document.createElement('div');
-                newEntry.className = 'scanner-entry grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4 pb-4 border-b border-white/10 last:border-0 pt-4 border-t';
-                newEntry.innerHTML = `
-                    <div>
-                        <label class="form-label">Asset ID 2</label>
-                        <input type="text" class="form-input font-code-mono" placeholder="Enter Scanner Asset ID">
-                    </div>
-                    <div>
-                        <label class="form-label">Make 2</label>
-                        <select class="form-input" onchange="toggleOtherInput(this, 'scanner2Other')">
-                            <option disabled="" selected="" value="">Select Make</option>
-                            <option value="NO-SCANNER">NO-SCANNER</option>
-                            <option value="OTHER">OTHER</option>
-                            <option value="BROTHER">BROTHER</option>
-                            <option value="CANON">CANON</option>
-                            <option value="EPSON">EPSON</option>
-                            <option value="HP">HP</option>
-                            <option value="TVS">TVS</option>
-                        </select>
-                        <input class="form-input mt-2 hidden" id="scanner2Other" placeholder="Specify Scanner Make" type="text" />
-                    </div>
-                    <div>
-                        <label class="form-label">Model 2</label>
-                        <input type="text" class="form-input" placeholder="Enter Scanner Model No EX: 1020 PLUS, M208DW ...">
-                    </div>
-                    <div>
-                        <label class="form-label">Serial No. 2</label>
-                        <input type="text" class="form-input font-code-mono" placeholder="Enter Snanner Serial No">
-                    </div>
-                `;
-                section.appendChild(newEntry);
-            }
-        }
-
-        // Form submission mock
-        document.getElementById('pmForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            // Simulate WhatsApp-style sound
-            console.log('Ding!');
-            document.getElementById('successOverlay').classList.remove('hidden');
-        });
-
-        // Initialize stepper
-        showStep(currentStep);
-
-        function enterPreviewMode() {
-            // Navigate to Step 1 when preview is clicked as per requirement
-            currentStep = 1;
-            showStep(1);
-            document.getElementById('formContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    </script>
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-md hidden" id="successOverlay">
-</div></body></html>
+<!-- END: Bottom Navigation -->
+</body></html>
