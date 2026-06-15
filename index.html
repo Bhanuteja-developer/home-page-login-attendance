@@ -1,246 +1,150 @@
-<!DOCTYPE html><html class="light" lang="en" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-<title>RAM Configuration</title>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PM Report - C.P.U Configuration</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-tertiary": "#ffffff",
-                      "on-secondary-container": "#54647a",
-                      "on-primary": "#ffffff",
-                      "surface-dim": "#d8dadc",
-                      "on-tertiary-fixed": "#131b2e",
-                      "surface-tint": "#0053db",
-                      "primary-fixed-dim": "#b4c5ff",
-                      "on-error-container": "#93000a",
-                      "secondary": "#505f76",
-                      "surface-container-highest": "#e0e3e5",
-                      "surface-container-high": "#e6e8ea",
-                      "inverse-surface": "#2d3133",
-                      "surface": "#f7f9fb",
-                      "on-tertiary-container": "#eef0ff",
-                      "tertiary": "#4d556b",
-                      "on-surface-variant": "#434655",
-                      "on-tertiary-fixed-variant": "#3f465c",
-                      "on-primary-fixed-variant": "#003ea8",
-                      "surface-container-low": "#f2f4f6",
-                      "error": "#ba1a1a",
-                      "on-secondary-fixed-variant": "#38485d",
-                      "primary-container": "#2563eb",
-                      "surface-container-lowest": "#ffffff",
-                      "error-container": "#ffdad6",
-                      "background": "#f7f9fb",
-                      "secondary-fixed": "#d3e4fe",
-                      "primary-fixed": "#dbe1ff",
-                      "on-secondary": "#ffffff",
-                      "surface-container": "#eceef0",
-                      "surface-variant": "#e0e3e5",
-                      "inverse-on-surface": "#eff1f3",
-                      "on-surface": "#191c1e",
-                      "tertiary-fixed-dim": "#bec6e0",
-                      "on-secondary-fixed": "#0b1c30",
-                      "surface-bright": "#f7f9fb",
-                      "primary": "#004ac6",
-                      "outline-variant": "#c3c6d7",
-                      "tertiary-container": "#656d84",
-                      "tertiary-fixed": "#dae2fd",
-                      "on-error": "#ffffff",
-                      "on-primary-fixed": "#00174b",
-                      "secondary-container": "#d0e1fb",
-                      "outline": "#737686",
-                      "on-background": "#191c1e",
-                      "inverse-primary": "#b4c5ff",
-                      "on-primary-container": "#eeefff",
-                      "secondary-fixed-dim": "#b7c8e1"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "base": "4px",
-                      "md": "16px",
-                      "sm": "12px",
-                      "lg": "24px",
-                      "xs": "8px",
-                      "2xl": "48px",
-                      "container-max": "1200px",
-                      "gutter": "24px",
-                      "xl": "32px"
-              },
-              "fontFamily": {
-                      "headline-md": [
-                              "Inter"
-                      ],
-                      "body-lg": [
-                              "Inter"
-                      ],
-                      "code-mono": [
-                              "JetBrains Mono"
-                      ],
-                      "display-metrics": [
-                              "Inter"
-                      ],
-                      "headline-lg": [
-                              "Inter"
-                      ],
-                      "headline-lg-mobile": [
-                              "Inter"
-                      ],
-                      "label-caps": [
-                              "Inter"
-                      ],
-                      "body-sm": [
-                              "Inter"
-                      ]
-              },
-              "fontSize": {
-                      "headline-md": [
-                              "20px",
-                              {
-                                      "lineHeight": "28px",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "body-lg": [
-                              "16px",
-                              {
-                                      "lineHeight": "24px",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "code-mono": [
-                              "14px",
-                              {
-                                      "lineHeight": "20px",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "display-metrics": [
-                              "48px",
-                              {
-                                      "lineHeight": "56px",
-                                      "letterSpacing": "-0.02em",
-                                      "fontWeight": "700"
-                              }
-                      ],
-                      "headline-lg": [
-                              "30px",
-                              {
-                                      "lineHeight": "36px",
-                                      "letterSpacing": "-0.01em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "headline-lg-mobile": [
-                              "24px",
-                              {
-                                      "lineHeight": "32px",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "label-caps": [
-                              "12px",
-                              {
-                                      "lineHeight": "16px",
-                                      "letterSpacing": "0.05em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "body-sm": [
-                              "14px",
-                              {
-                                      "lineHeight": "20px",
-                                      "fontWeight": "400"
-                              }
-                      ]
-              }
-            },
-          },
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "bg-gradient-end": "#d6e0f0",
+                        "inverse-on-surface": "#ecf1ff",
+                        "on-tertiary-fixed-variant": "#41474e",
+                        "surface-container-high": "#dee8ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#cfdaf2",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f0f3ff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "success": "#10b981",
+                        "on-secondary-container": "#5c647a",
+                        "glass-surface": "rgba(255, 255, 255, 0.65)",
+                        "background": "#f9f9ff",
+                        "surface-container-highest": "#d8e3fb",
+                        "on-primary": "#ffffff",
+                        "error": "#f43f5e",
+                        "on-background": "#111c2d",
+                        "surface": "#f9f9ff",
+                        "surface-bright": "#f9f9ff",
+                        "on-tertiary-container": "#2d3339",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-tint": "#9d4300",
+                        "on-error": "#ffffff",
+                        "secondary": "#565e74",
+                        "glass-border": "rgba(255, 255, 255, 0.8)",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#e0c0b1",
+                        "primary-container": "#f97316",
+                        "on-surface-variant": "#584237",
+                        "on-surface": "#111c2d",
+                        "inverse-surface": "#263143",
+                        "secondary-fixed": "#dae2fd",
+                        "tertiary-fixed-dim": "#c1c7cf",
+                        "primary-fixed-dim": "#ffb690",
+                        "tertiary-fixed": "#dde3eb",
+                        "surface-container": "#e7eeff",
+                        "bg-gradient-start": "#e6eaf3",
+                        "primary-fixed": "#ffdbca",
+                        "outline": "#8c7164",
+                        "on-tertiary-fixed": "#161c22",
+                        "slate-muted": "#64748b",
+                        "on-primary-fixed-variant": "#783200",
+                        "on-primary-container": "#582200",
+                        "on-secondary-fixed": "#131b2e",
+                        "tertiary": "#595f66",
+                        "surface-variant": "#d8e3fb",
+                        "inverse-primary": "#ffb690",
+                        "secondary-container": "#dae2fd",
+                        "warning": "#f59e0b",
+                        "primary": "#9d4300",
+                        "tertiary-container": "#959ba2",
+                        "on-primary-fixed": "#341100"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xs": "4px",
+                        "base": "4px",
+                        "card-padding": "2rem",
+                        "lg": "24px",
+                        "md": "16px",
+                        "gutter": "1.5rem",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "section-header": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "helper-text": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "input-text": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "section-header": ["17.6px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "helper-text": ["12px", { "lineHeight": "16.8px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "input-text": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "headline-lg": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "700" }]
+                    }
+                }
+            }
         }
     </script>
 <style>
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        /* Hide scrollbar for IE, Edge and Firefox */
-        .no-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
         
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
+        .form-input {
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            color: #111c2d;
+            transition: all 0.2s ease-in-out;
         }
-        input[type=number] {
-            -moz-appearance: textfield;
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #9d4300;
+            box-shadow: 0 0 0 2px rgba(157, 67, 0, 0.2);
         }
-
-        /* Scroll Picker Styles */
-        .picker-container {
-            height: 120px;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            position: relative;
-        }
-        .picker-container::-webkit-scrollbar {
-            display: none;
-        }
-        .picker-item {
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            scroll-snap-align: center;
-            opacity: 0.3;
-            transition: all 0.2s;
-            font-size: 1.25rem;
-        }
-        .picker-item.active {
-            opacity: 1;
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: var(--tw-colors-primary);
-        }
-        .picker-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            background: linear-gradient(to bottom, 
-                var(--tw-colors-surface-container-low) 0%, 
-                transparent 40%, 
-                transparent 60%, 
-                var(--tw-colors-surface-container-low) 100%);
-        }
-        .picker-highlight {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 40px;
-            transform: translateY(-50%);
-            border-top: 1px solid var(--tw-colors-primary-container);
-            border-bottom: 1px solid var(--tw-colors-primary-container);
-            pointer-events: none;
-            background-color: var(--tw-colors-primary-container);
-            opacity: 0.1;
+        
+        .form-label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 4px;
         }
     </style>
 <style>
@@ -248,373 +152,184 @@
       min-height: max(884px, 100dvh);
     }
   </style>
-</head>
-<body class="bg-background text-on-background font-body-lg antialiased h-screen flex flex-col overflow-hidden selection:bg-primary selection:text-on-primary">
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24 font-body-lg" style="background: linear-gradient(135deg, #e6eaf3 0%, #d6e0f0 100%); background-attachment: fixed;">
 <!-- TopAppBar -->
-<header class="bg-surface dark:bg-inverse-surface w-full top-0 sticky border-b border-outline-variant dark:border-outline flat no shadows flex items-center px-md h-16 w-full max-w-container-max mx-auto z-40 flex-shrink-0">
-<button aria-label="Go back" class="mr-sm p-2 rounded-full hover:bg-surface-container transition-colors active:scale-95 duration-150 flex items-center justify-center text-primary dark:text-inverse-primary">
-<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">arrow_back</span>
+<header class="fixed top-0 w-full z-50 backdrop-blur-md border-b border-glass-border shadow-sm flex justify-between items-center px-lg h-16 bg-glass-surface">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">
+                T
+            </div>
+<h1 class="font-headline-md text-headline-md font-extrabold text-primary">PM Report</h1>
+</div>
+<button class="text-primary hover:bg-primary-container/10 transition-colors p-2 rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined">settings</span>
 </button>
-<div class="flex items-center gap-sm">
-<span class="material-symbols-outlined text-primary dark:text-inverse-primary" style="font-variation-settings: &quot;FILL&quot; 1;">memory</span>
-<h1 class="font-headline-md text-headline-md font-semibold text-primary dark:text-inverse-primary">RAM Configuration</h1>
-</div>
 </header>
-<!-- Main Content -->
-<main class="flex-1 overflow-y-auto no-scrollbar px-md py-lg w-full max-w-md mx-auto flex flex-col gap-lg pb-32">
-<!-- Descriptive Card -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-[0_4px_6px_-1px_rgb(0,0,0,0.1)]">
-<div class="flex items-start gap-sm">
-<span class="material-symbols-outlined text-tertiary mt-1 text-[20px]">info</span>
-<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                    Select the number of RAM slots and enter the capacity for each to calculate your system's total memory allocation.
-                </p>
+<!-- Main Canvas -->
+<main class="pt-24 px-lg max-w-3xl mx-auto space-y-xl">
+<!-- Header Section -->
+<div class="space-y-sm">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">memory</span>
+<span class="font-label-caps text-label-caps tracking-widest uppercase">Step 3 of 8</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-background">C.P.U Configuration</h2>
+<p class="font-body-lg text-body-lg text-secondary">Record the core processing unit and memory specifications for this asset.</p>
+</div>
+<!-- C.P.U Details Glass Card -->
+<section class="glass-panel rounded-xl p-md md:p-lg space-y-md shadow-sm">
+<div class="flex items-center gap-2 border-b border-glass-border pb-sm">
+<span class="material-symbols-outlined text-primary">developer_board</span>
+<h3 class="font-section-header text-section-header text-on-surface">Base Specifications</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div>
+<label class="form-label" for="cpu-make">Make</label>
+<input class="form-input" id="cpu-make" placeholder="e.g. Intel, AMD" type="text" value="Intel"/>
+</div>
+<div>
+<label class="form-label" for="cpu-model">Model</label>
+<input class="form-input" id="cpu-model" placeholder="e.g. Core i7" type="text" value="Core i7-12700K"/>
+</div>
+<div class="md:col-span-2">
+<label class="form-label" for="cpu-serial">Serial Number / Asset Tag</label>
+<div class="relative">
+<input class="form-input pr-10" id="cpu-serial" placeholder="Scan or enter serial" type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined">barcode_scanner</span>
+</button>
 </div>
 </div>
-<!-- Stick Selection -->
-<!-- Processor Configuration Section -->
-<div class="flex flex-col gap-xs mb-md">
-<label class="font-label-caps text-label-caps text-secondary" for="processorInput">PROCESSOR</label>
-<div class="relative group">
-<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-body-lg text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none cursor-pointer" id="processorInput" placeholder="Select or enter processor..." readonly="" type="text">
-<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">expand_more</span>
+<div>
+<label class="form-label" for="cpu-speed">Clock Speed (GHz)</label>
+<input class="form-input" id="cpu-speed" placeholder="e.g. 3.6" step="0.1" type="number"/>
 </div>
-<!-- Processor Selection Expansion Area (Hidden by default, shown on focus/click) -->
-<div class="mt-xs p-md bg-surface-container-low border border-outline-variant rounded-xl flex flex-col gap-md shadow-sm" id="processorExpansion">
-<div class="flex flex-col gap-sm">
-<!-- Option 1: Standard Text -->
-<label class="flex items-start gap-sm cursor-pointer">
-<input checked="" class="mt-1 text-primary focus:ring-primary" name="procType" type="radio" value="standard">
-<div class="flex flex-col w-full">
-<span class="font-medium text-on-surface">Standard Text</span>
-<input class="mt-xs w-full bg-surface-container-lowest border border-outline-variant rounded px-sm text-body-sm outline-none focus:border-primary py-sm" id="procStandardInput" placeholder="e.g., Core 2 Duo, Pentium Dual-Core" type="text">
-</div>
-</label>
-<!-- Option 2: Structured Format -->
-<label class="flex items-start gap-sm cursor-pointer w-full">
-<input class="mt-1 text-primary focus:ring-primary" name="procType" type="radio" value="structured">
-<div class="flex flex-col w-full">
-<span class="font-medium text-on-surface">Structured Format</span>
-<div class="flex items-center justify-center gap-md mt-sm bg-surface-container-lowest rounded-lg border border-outline-variant p-4 relative overflow-hidden">
-<span class="font-headline-md text-primary font-bold">i</span>
-<!-- Picker 1: Series -->
-<div class="relative w-16 bg-surface" style="transform: scale(1);">
-<div class="picker-container font-code-mono text-on-surface w-24" id="picker-series" style="height: 160px; padding: 8px 0;">
-<!-- JS will populate options 0-25 -->
-<div class="picker-item"></div><div class="picker-item" data-value="0">0</div><div class="picker-item" data-value="1">1</div><div class="picker-item" data-value="2">2</div><div class="picker-item active" data-value="3">3</div><div class="picker-item" data-value="4">4</div><div class="picker-item" data-value="5">5</div><div class="picker-item" data-value="6">6</div><div class="picker-item" data-value="7">7</div><div class="picker-item" data-value="8">8</div><div class="picker-item" data-value="9">9</div><div class="picker-item" data-value="10">10</div><div class="picker-item" data-value="11">11</div><div class="picker-item" data-value="12">12</div><div class="picker-item" data-value="13">13</div><div class="picker-item" data-value="14">14</div><div class="picker-item" data-value="15">15</div><div class="picker-item" data-value="16">16</div><div class="picker-item" data-value="17">17</div><div class="picker-item" data-value="18">18</div><div class="picker-item" data-value="19">19</div><div class="picker-item" data-value="20">20</div><div class="picker-item" data-value="21">21</div><div class="picker-item" data-value="22">22</div><div class="picker-item" data-value="23">23</div><div class="picker-item" data-value="24">24</div><div class="picker-item" data-value="25">25</div><div class="picker-item"></div></div>
-<div class="picker-overlay"></div>
-<div class="picker-highlight"></div>
-</div>
-<span class="font-headline-md text-secondary">-</span>
-<!-- Picker 2: Gen -->
-<div class="relative w-16 bg-surface" style="transform: scale(1);">
-<div class="picker-container font-code-mono text-on-surface w-24" id="picker-gen" style="height: 160px; padding: 8px 0;">
-<!-- JS will populate options 0-25 -->
-<div class="picker-item"></div><div class="picker-item" data-value="0">0</div><div class="picker-item" data-value="1">1</div><div class="picker-item" data-value="2">2</div><div class="picker-item" data-value="3">3</div><div class="picker-item active" data-value="4">4</div><div class="picker-item" data-value="5">5</div><div class="picker-item" data-value="6">6</div><div class="picker-item" data-value="7">7</div><div class="picker-item" data-value="8">8</div><div class="picker-item" data-value="9">9</div><div class="picker-item" data-value="10">10</div><div class="picker-item" data-value="11">11</div><div class="picker-item" data-value="12">12</div><div class="picker-item" data-value="13">13</div><div class="picker-item" data-value="14">14</div><div class="picker-item" data-value="15">15</div><div class="picker-item" data-value="16">16</div><div class="picker-item" data-value="17">17</div><div class="picker-item" data-value="18">18</div><div class="picker-item" data-value="19">19</div><div class="picker-item" data-value="20">20</div><div class="picker-item" data-value="21">21</div><div class="picker-item" data-value="22">22</div><div class="picker-item" data-value="23">23</div><div class="picker-item" data-value="24">24</div><div class="picker-item" data-value="25">25</div><div class="picker-item"></div></div>
-<div class="picker-overlay"></div>
-<div class="picker-highlight"></div>
-</div>
-<span class="font-headline-md text-secondary font-medium tracking-wide">GEN</span>
-</div>
-</div>
-</label>
-</div>
-<button class="w-full bg-primary-container/10 text-primary font-label-caps py-2 rounded border border-primary-container/20 hover:bg-primary-container/20 transition-colors mt-2" id="applyProcessor">Apply Selection</button>
-</div>
-</div><div class="flex flex-col gap-xs">
-<label class="font-label-caps text-label-caps text-secondary" for="stickCount">NUMBER OF STICKS</label>
-<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-body-lg text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none appearance-none" id="stickCount">
-<option value="1">1 Stick</option>
-<option value="2">2 Sticks</option>
-<option value="3">3 Sticks</option>
-<option selected="" value="4">4 Sticks</option>
+<div>
+<label class="form-label" for="os-version">Operating System</label>
+<select class="form-input appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_0.5rem_center] bg-[length:1.5em_1.5em] pr-10" id="os-version">
+<option>Windows 11 Pro</option>
+<option>Windows 10 Pro</option>
+<option>Ubuntu 22.04 LTS</option>
+<option>RHEL 9</option>
 </select>
 </div>
-<!-- Input Grid -->
-<section class="grid grid-cols-2 gap-md" id="inputGrid"><div class="flex flex-col gap-xs">
-                        <label class="font-label-caps text-label-caps text-secondary" for="stick1">STICK - 1 (GB)</label>
-                        <div class="relative">
-                            <input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" id="stick1" min="0" placeholder="0" step="1" type="number" data-stick="1">
-                            <span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
-                        </div>
-                    </div><div class="flex flex-col gap-xs">
-                        <label class="font-label-caps text-label-caps text-secondary" for="stick2">STICK - 2 (GB)</label>
-                        <div class="relative">
-                            <input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" id="stick2" min="0" placeholder="0" step="1" type="number" data-stick="2">
-                            <span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
-                        </div>
-                    </div><div class="flex flex-col gap-xs">
-                        <label class="font-label-caps text-label-caps text-secondary" for="stick3">STICK - 3 (GB)</label>
-                        <div class="relative">
-                            <input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" id="stick3" min="0" placeholder="0" step="1" type="number" data-stick="3">
-                            <span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
-                        </div>
-                    </div><div class="flex flex-col gap-xs">
-                        <label class="font-label-caps text-label-caps text-secondary" for="stick4">STICK - 4 (GB)</label>
-                        <div class="relative">
-                            <input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" id="stick4" min="0" placeholder="0" step="1" type="number" data-stick="4">
-                            <span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
-                        </div>
-                    </div></section>
-<!-- Total RAM Display -->
-<div class="mt-sm bg-[#EFF6FF] border-l-2 border-primary rounded-xl p-lg relative overflow-hidden flex flex-col gap-md">
-<!-- Decorative Background Element -->
-<div class="absolute -right-6 -bottom-6 opacity-[0.03] pointer-events-none">
-<span class="material-symbols-outlined text-[120px]">memory</span>
 </div>
-<div class="flex justify-between items-start relative z-10 w-full">
-<div class="flex flex-col gap-xs">
-<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider">Total System Memory</span>
-<div class="flex items-baseline gap-xs">
-<span class="font-display-metrics text-display-metrics text-on-surface font-bold text-[#004ac6]" id="totalRamDisplay" style="opacity: 1;">0</span>
-<span class="font-headline-md text-headline-md text-secondary">GB</span>
+</section>
+<!-- RAM Calculator Glass Card -->
+<section class="glass-panel rounded-xl p-md md:p-lg space-y-md shadow-sm border-l-4 border-l-primary-container">
+<div class="flex justify-between items-center border-b border-glass-border pb-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">dns</span>
+<h3 class="font-section-header text-section-header text-on-surface">RAM Configuration</h3>
+</div>
+<div class="bg-primary-container/20 px-3 py-1 rounded-full flex items-center gap-2">
+<span class="font-body-sm text-body-sm text-on-primary-container font-semibold">Total:</span>
+<span class="font-headline-md text-headline-md text-primary font-bold" id="total-ram-display">32 GB</span>
 </div>
 </div>
-<div class="bg-primary-container/10 px-2 py-1 rounded border border-primary-container/20 flex items-center gap-1">
-<div class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
-<span class="font-label-caps text-label-caps text-primary text-[10px]">REAL-TIME</span>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md items-end">
+<div>
+<label class="form-label" for="ram-sticks">Number of Sticks</label>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-variant flex items-center justify-center transition-colors" onclick="document.getElementById('ram-sticks').value = Math.max(1, parseInt(document.getElementById('ram-sticks').value || 0) - 1); calculateRAM();" type="button">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<input class="form-input text-center font-bold" id="ram-sticks" max="16" min="1" onchange="calculateRAM()" type="number" value="2"/>
+<button class="w-10 h-10 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-variant flex items-center justify-center transition-colors" onclick="document.getElementById('ram-sticks').value = parseInt(document.getElementById('ram-sticks').value || 0) + 1; calculateRAM();" type="button">
+<span class="material-symbols-outlined">add</span>
+</button>
 </div>
 </div>
-<!-- Summary Details -->
-<div class="relative z-10 flex flex-col gap-2 w-full pt-4 border-t border-primary/20">
-<div class="flex justify-between items-center w-full">
-<span class="font-body-sm text-body-sm text-secondary font-medium">No. of Sticks</span>
-<span class="font-body-sm text-body-sm text-on-surface font-bold" id="summarySticks">4</span>
+<div>
+<label class="form-label" for="ram-capacity">Capacity per Stick (GB)</label>
+<select class="form-input appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_0.5rem_center] bg-[length:1.5em_1.5em] pr-10" id="ram-capacity" onchange="calculateRAM()">
+<option value="4">4 GB</option>
+<option value="8">8 GB</option>
+<option selected="" value="16">16 GB</option>
+<option value="32">32 GB</option>
+<option value="64">64 GB</option>
+</select>
 </div>
-<div class="flex flex-col gap-1 w-full mt-1" id="summaryDetailsList">
-                        <div class="flex justify-between items-center w-full">
-                            <span class="font-body-sm text-body-sm text-secondary">Stick 1 Size</span>
-                            <span class="font-body-sm text-body-sm text-on-surface font-medium">0GB</span>
-                        </div>
-                    
-                        <div class="flex justify-between items-center w-full">
-                            <span class="font-body-sm text-body-sm text-secondary">Stick 2 Size</span>
-                            <span class="font-body-sm text-body-sm text-on-surface font-medium">0GB</span>
-                        </div>
-                    
-                        <div class="flex justify-between items-center w-full">
-                            <span class="font-body-sm text-body-sm text-secondary">Stick 3 Size</span>
-                            <span class="font-body-sm text-body-sm text-on-surface font-medium">0GB</span>
-                        </div>
-                    
-                        <div class="flex justify-between items-center w-full">
-                            <span class="font-body-sm text-body-sm text-secondary">Stick 4 Size</span>
-                            <span class="font-body-sm text-body-sm text-on-surface font-medium">0GB</span>
-                        </div>
-                    </div>
+<div class="md:col-span-2">
+<label class="form-label" for="ram-type">Memory Type</label>
+<div class="flex flex-wrap gap-2">
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="ram-type" type="radio"/>
+<div class="text-center px-4 py-2 rounded-lg border border-e2e8f0 bg-white peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:text-primary font-input-text text-input-text transition-all">DDR3</div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input checked="" class="peer sr-only" name="ram-type" type="radio"/>
+<div class="text-center px-4 py-2 rounded-lg border border-e2e8f0 bg-white peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:text-primary font-input-text text-input-text transition-all">DDR4</div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="ram-type" type="radio"/>
+<div class="text-center px-4 py-2 rounded-lg border border-e2e8f0 bg-white peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:text-primary font-input-text text-input-text transition-all">DDR5</div>
+</label>
 </div>
 </div>
-<div class="flex-1"></div> <!-- Spacer to push button to bottom -->
-<!-- Actions -->
-<div class="mt-xl">
-<button class="w-full bg-primary hover:bg-[#003ea8] active:scale-[0.98] text-on-primary font-headline-md text-headline-md py-sm rounded-lg shadow-sm transition-all flex items-center justify-center gap-sm h-12">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: &quot;FILL&quot; 1;">save</span>
-                Save Details
-            </button>
 </div>
+<script>
+                function calculateRAM() {
+                    const sticks = parseInt(document.getElementById('ram-sticks').value) || 0;
+                    const capacity = parseInt(document.getElementById('ram-capacity').value) || 0;
+                    const total = sticks * capacity;
+                    document.getElementById('total-ram-display').textContent = total + ' GB';
+                }
+            </script>
+</section>
+<!-- Storage Devices -->
+<section class="glass-panel rounded-xl p-md md:p-lg space-y-md shadow-sm">
+<div class="flex justify-between items-center border-b border-glass-border pb-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">hard_drive</span>
+<h3 class="font-section-header text-section-header text-on-surface">Storage Devices</h3>
+</div>
+<button class="text-primary hover:bg-primary-container/10 px-3 py-1 rounded-full transition-colors flex items-center gap-1 font-body-sm text-body-sm font-semibold">
+<span class="material-symbols-outlined text-sm">add</span> Add Drive
+                </button>
+</div>
+<div class="space-y-sm">
+<!-- Drive Entry 1 -->
+<div class="bg-white/50 border border-glass-border rounded-lg p-sm flex items-center justify-between group hover:bg-white/80 transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">storage</span>
+</div>
+<div>
+<p class="font-input-text text-input-text text-on-surface">Samsung 980 PRO NVMe</p>
+<p class="font-helper-text text-helper-text text-slate-muted">1 TB • M.2 PCIe 4.0 • Primary OS</p>
+</div>
+</div>
+<button class="text-slate-muted hover:text-error p-2 opacity-0 group-hover:opacity-100 transition-all">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<!-- Drive Entry 2 -->
+<div class="bg-white/50 border border-glass-border rounded-lg p-sm flex items-center justify-between group hover:bg-white/80 transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">hard_drive_2</span>
+</div>
+<div>
+<p class="font-input-text text-input-text text-on-surface">WD Blue SATA SSD</p>
+<p class="font-helper-text text-helper-text text-slate-muted">2 TB • 2.5" SATA • Data Drive</p>
+</div>
+</div>
+<button class="text-slate-muted hover:text-error p-2 opacity-0 group-hover:opacity-100 transition-all">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</section>
 </main>
-<!-- BottomNavBar (Hidden on this transactional screen as per instructions) -->
-<script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const stickCountSelect = document.getElementById('stickCount');
-            const inputGrid = document.getElementById('inputGrid');
-            const totalDisplay = document.getElementById('totalRamDisplay');
-            const summarySticks = document.getElementById('summarySticks');
-            const summaryDetailsList = document.getElementById('summaryDetailsList');
-
-            // Initial render
-            renderInputs();
-
-            stickCountSelect.addEventListener('change', renderInputs);
-
-            function renderInputs() {
-                const count = parseInt(stickCountSelect.value);
-                summarySticks.textContent = count;
-                
-                // Clear existing inputs
-                inputGrid.innerHTML = '';
-                
-                // Generate new inputs
-                for (let i = 1; i <= count; i++) {
-                    const div = document.createElement('div');
-                    div.className = 'flex flex-col gap-xs';
-                    div.innerHTML = `
-                        <label class="font-label-caps text-label-caps text-secondary" for="stick${i}">STICK - ${i} (GB)</label>
-                        <div class="relative">
-                            <input class="ram-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-sm py-sm font-code-mono text-code-mono text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-container/30 transition-all outline-none" id="stick${i}" min="0" placeholder="0" step="1" type="number" data-stick="${i}"/>
-                            <span class="absolute right-sm top-1/2 -translate-y-1/2 font-code-mono text-code-mono text-outline pointer-events-none">GB</span>
-                        </div>
-                    `;
-                    inputGrid.appendChild(div);
-                }
-
-                // Re-attach listeners to new inputs
-                const newInputs = document.querySelectorAll('.ram-input');
-                newInputs.forEach(input => {
-                    input.addEventListener('input', calculateTotal);
-                    input.addEventListener('keydown', (e) => {
-                        if(e.key === '-' || e.key === 'e') {
-                            e.preventDefault();
-                        }
-                    });
-                });
-                
-                // Recalculate based on new inputs (initially empty)
-                calculateTotal();
-            }
-
-            function calculateTotal() {
-                const inputs = document.querySelectorAll('.ram-input');
-                let total = 0;
-                let summaryHTML = '';
-
-                inputs.forEach(input => {
-                    const val = parseFloat(input.value);
-                    const stickNum = input.getAttribute('data-stick');
-                    const displayVal = (!isNaN(val) && val > 0) ? val : 0;
-                    
-                    if (!isNaN(val) && val > 0) {
-                        total += val;
-                    }
-
-                    summaryHTML += `
-                        <div class="flex justify-between items-center w-full">
-                            <span class="font-body-sm text-body-sm text-secondary">Stick ${stickNum} Size</span>
-                            <span class="font-body-sm text-body-sm text-on-surface font-medium">${displayVal}GB</span>
-                        </div>
-                    `;
-                });
-                
-                summaryDetailsList.innerHTML = summaryHTML;
-                
-                // Animate value change slightly
-                totalDisplay.style.opacity = '0.5';
-                setTimeout(() => {
-                    totalDisplay.textContent = total;
-                    totalDisplay.style.opacity = '1';
-                }, 100);
-            }
-        });
-    </script>
-<script>
-    (function() {
-        const procInput = document.getElementById('processorInput');
-        const expansion = document.getElementById('processorExpansion');
-        const applyBtn = document.getElementById('applyProcessor');
-        const standardInput = document.getElementById('procStandardInput');
-        const radios = document.getElementsByName('procType');
-
-        procInput.addEventListener('click', () => {
-            expansion.classList.toggle('hidden');
-        });
-
-        // Initialize pickers
-        function initPicker(containerId, initialValue) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-
-            // Add padding items
-            container.innerHTML += `<div class="picker-item"></div>`;
-
-            for (let i = 0; i <= 25; i++) {
-                container.innerHTML += `<div class="picker-item" data-value="${i}">${i}</div>`;
-            }
-
-            // Add padding items
-            container.innerHTML += `<div class="picker-item"></div>`;
-
-            let isScrolling;
-            let lastActiveIndex = -1;
-            const itemHeight = 40;
-
-            container.addEventListener('scroll', () => {
-                window.clearTimeout(isScrolling);
-
-                const centerPosition = container.scrollTop + (container.clientHeight / 2);
-                const items = container.querySelectorAll('.picker-item[data-value]');
-                
-                let activeIndex = -1;
-
-                items.forEach((item, index) => {
-                    const itemTop = item.offsetTop;
-                    const itemBottom = itemTop + itemHeight;
-                    
-                    if (centerPosition >= itemTop && centerPosition <= itemBottom) {
-                        item.classList.add('active');
-                        activeIndex = index;
-                    } else {
-                        item.classList.remove('active');
-                    }
-                });
-
-                if (activeIndex !== lastActiveIndex && activeIndex !== -1) {
-                    console.log(`Tick: ${activeIndex}`);
-                    // Simulate subtle tick
-                    container.parentElement.style.transform = 'scale(0.98)';
-                    setTimeout(() => container.parentElement.style.transform = 'scale(1)', 50);
-                    lastActiveIndex = activeIndex;
-                }
-
-                // Snap logic
-                isScrolling = setTimeout(function() {
-                    if (activeIndex !== -1) {
-                         const targetItem = items[activeIndex];
-                         container.scrollTo({
-                             top: targetItem.offsetTop - (container.clientHeight / 2) + (itemHeight / 2),
-                             behavior: 'smooth'
-                         });
-                    }
-                }, 150);
-            });
-
-            // Set initial value
-            setTimeout(() => {
-                const initialItem = container.querySelector(`.picker-item[data-value="${initialValue}"]`);
-                if(initialItem) {
-                     container.scrollTo({
-                         top: initialItem.offsetTop - (container.clientHeight / 2) + (itemHeight / 2),
-                         behavior: 'auto'
-                     });
-                }
-            }, 50);
-        }
-
-        // Delay init to ensure DOM is ready and visible
-        setTimeout(() => {
-             initPicker('picker-series', 3);
-             initPicker('picker-gen', 4);
-        }, 100);
-        
-
-        applyBtn.addEventListener('click', () => {
-            let selectedType = 'standard';
-            radios.forEach(r => { if(r.checked) selectedType = r.value; });
-
-            if (selectedType === 'standard') {
-                procInput.value = standardInput.value || 'Standard Processor';
-            } else {
-                const seriesPicker = document.getElementById('picker-series');
-                const genPicker = document.getElementById('picker-gen');
-                
-                const activeSeries = seriesPicker.querySelector('.picker-item.active');
-                const activeGen = genPicker.querySelector('.picker-item.active');
-
-                const series = activeSeries ? activeSeries.getAttribute('data-value') : '3';
-                const gen = activeGen ? activeGen.getAttribute('data-value') : '4';
-
-                procInput.value = `i${series}-${gen}-GEN`;
-            }
-            expansion.classList.add('hidden');
-        });
-
-        // Close expansion when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!procInput.contains(e.target) && !expansion.contains(e.target)) {
-                expansion.classList.add('hidden');
-            }
-        });
-    })();
-</script>
-
-
+<!-- Bottom Action Bar (Transactional Flow) -->
+<div class="fixed bottom-0 w-full z-50 glass-panel border-t border-glass-border px-lg py-md flex justify-between items-center pb-safe">
+<button class="font-input-text text-input-text text-secondary hover:text-on-surface px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">arrow_back</span> Back
+        </button>
+<button class="bg-primary text-on-primary font-input-text text-input-text px-8 py-3 rounded-lg shadow-[0_4px_14px_0_rgba(157,67,0,0.39)] hover:shadow-[0_6px_20px_rgba(157,67,0,0.23)] hover:bg-surface-tint transition-all active:scale-95 flex items-center gap-2">
+            Next Step <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
 </body></html>
