@@ -1,107 +1,182 @@
-<!DOCTYPE html><html class="light" lang="en" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+
+<html class="light" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>WorkforceOS - Attendance Records</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "primary-fixed": "#dde1ff",
-                        "on-error-container": "#93000a",
-                        "on-secondary-fixed-variant": "#005236",
-                        "tertiary": "#4c2e00",
-                        "primary-container": "#1e40af",
-                        "on-tertiary": "#ffffff",
-                        "inverse-primary": "#b8c4ff",
-                        "error": "#ba1a1a",
-                        "secondary": "#006c49",
-                        "on-secondary-fixed": "#002113",
-                        "on-primary": "#ffffff",
-                        "tertiary-container": "#6b4200",
-                        "on-tertiary-container": "#ffa929",
-                        "tertiary-fixed-dim": "#ffb95f",
-                        "on-tertiary-fixed": "#2a1700",
-                        "on-secondary-container": "#00714d",
-                        "surface-container-low": "#eff4ff",
-                        "on-surface": "#0b1c30",
-                        "surface-tint": "#3755c3",
-                        "secondary-container": "#6cf8bb",
-                        "on-primary-container": "#a8b8ff",
-                        "surface-container-highest": "#d3e4fe",
-                        "inverse-surface": "#213145",
-                        "error-container": "#ffdad6",
-                        "surface-dim": "#cbdbf5",
-                        "secondary-fixed-dim": "#4edea3",
-                        "primary-fixed-dim": "#b8c4ff",
-                        "on-error": "#ffffff",
-                        "surface-bright": "#f8f9ff",
-                        "surface": "#f8f9ff",
-                        "on-secondary": "#ffffff",
-                        "surface-container": "#e5eeff",
-                        "secondary-fixed": "#6ffbbe",
-                        "primary": "#00288e",
-                        "outline": "#757684",
-                        "inverse-on-surface": "#eaf1ff",
-                        "on-primary-fixed-variant": "#173bab",
-                        "outline-variant": "#c4c5d5",
-                        "tertiary-fixed": "#ffddb8",
-                        "on-surface-variant": "#444653",
-                        "surface-container-high": "#dce9ff",
-                        "on-tertiary-fixed-variant": "#653e00",
-                        "on-background": "#0b1c30",
-                        "background": "#f8f9ff",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-variant": "#d3e4fe",
-                        "on-primary-fixed": "#001453"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "sm": "8px",
-                        "lg": "24px",
-                        "base": "4px",
-                        "xs": "4px",
-                        "gutter": "16px",
-                        "xl": "40px",
-                        "md": "16px",
-                        "container-max": "1280px"
-                    },
-                    "fontFamily": {
-                        "body-lg": ["IBM Plex Sans"],
-                        "body-md": ["IBM Plex Sans"],
-                        "body-sm": ["IBM Plex Sans"],
-                        "headline-md": ["IBM Plex Sans"],
-                        "headline-lg-mobile": ["IBM Plex Sans"],
-                        "label-md": ["IBM Plex Sans"],
-                        "display-lg": ["IBM Plex Sans"],
-                        "headline-sm": ["IBM Plex Sans"],
-                        "headline-lg": ["IBM Plex Sans"]
-                    },
-                    "fontSize": {
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
-                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                        "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
-                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
-                        "headline-lg": ["32px", {"lineHeight": "1.25", "fontWeight": "600"}]
-                    }
-                }
-            }
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-primary": "#ffffff",
+                "on-secondary-fixed": "#002113",
+                "primary-fixed": "#dde1ff",
+                "error-container": "#ffdad6",
+                "surface-bright": "#f8f9ff",
+                "on-tertiary-fixed": "#2a1700",
+                "on-secondary": "#ffffff",
+                "secondary-fixed-dim": "#4edea3",
+                "tertiary-fixed-dim": "#ffb95f",
+                "surface-container-highest": "#d3e4fe",
+                "inverse-on-surface": "#eaf1ff",
+                "primary-fixed-dim": "#b8c4ff",
+                "outline": "#757684",
+                "tertiary-fixed": "#ffddb8",
+                "surface-tint": "#3755c3",
+                "background": "#f8f9ff",
+                "secondary-container": "#6cf8bb",
+                "on-surface": "#0b1c30",
+                "secondary-fixed": "#6ffbbe",
+                "on-secondary-container": "#00714d",
+                "on-primary-fixed": "#001453",
+                "on-error": "#ffffff",
+                "primary-container": "#1e40af",
+                "on-primary-container": "#a8b8ff",
+                "on-tertiary-fixed-variant": "#653e00",
+                "secondary": "#006c49",
+                "inverse-surface": "#213145",
+                "surface-container-lowest": "#ffffff",
+                "on-tertiary-container": "#ffa929",
+                "inverse-primary": "#b8c4ff",
+                "surface": "#f8f9ff",
+                "on-error-container": "#93000a",
+                "on-surface-variant": "#444653",
+                "outline-variant": "#c4c5d5",
+                "tertiary": "#4c2e00",
+                "surface-dim": "#cbdbf5",
+                "on-tertiary": "#ffffff",
+                "on-primary-fixed-variant": "#173bab",
+                "error": "#ba1a1a",
+                "surface-variant": "#d3e4fe",
+                "on-background": "#0b1c30",
+                "tertiary-container": "#6b4200",
+                "surface-container": "#e5eeff",
+                "primary": "#00288e",
+                "surface-container-high": "#dce9ff",
+                "surface-container-low": "#eff4ff",
+                "on-secondary-fixed-variant": "#005236"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "xs": "4px",
+                "gutter": "24px",
+                "xl": "40px",
+                "sm": "8px",
+                "md": "16px",
+                "container-max": "1280px",
+                "base": "4px",
+                "lg": "24px"
+        },
+        "fontFamily": {
+                "headline-md": [
+                        "IBM Plex Sans"
+                ],
+                "body-lg": [
+                        "IBM Plex Sans"
+                ],
+                "label-md": [
+                        "IBM Plex Sans"
+                ],
+                "body-sm": [
+                        "IBM Plex Sans"
+                ],
+                "headline-sm": [
+                        "IBM Plex Sans"
+                ],
+                "display-lg": [
+                        "IBM Plex Sans"
+                ],
+                "headline-lg": [
+                        "IBM Plex Sans"
+                ],
+                "body-md": [
+                        "IBM Plex Sans"
+                ],
+                "headline-lg-mobile": [
+                        "IBM Plex Sans"
+                ]
+        },
+        "fontSize": {
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "1.3",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-md": [
+                        "12px",
+                        {
+                                "lineHeight": "1",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-sm": [
+                        "20px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "500"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "1.25",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
+                        }
+                ]
         }
-    </script>
+},
+    },
+  }
+</script>
 <style>
         body { font-family: 'IBM Plex Sans', sans-serif; background-color: #f8f9ff; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
@@ -116,198 +191,327 @@
     </style>
 </head>
 <body class="bg-surface text-on-surface pb-[80px] md:hidden">
-<!-- TopAppBar (From JSON, adapted for Mobile) -->
-<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface shadow-sm border-b border-outline-variant">
-<div class="flex items-center gap-md">
-<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="fingerprint" data-weight="fill">fingerprint</span>
-<h1 class="font-headline-sm text-headline-sm font-bold text-primary">WorkforceOS</h1>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface shadow-sm border-b border-outline-variant/30 backdrop-blur-md bg-surface/90">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="fingerprint" data-weight="fill">fingerprint</span>
+</div>
+<h1 class="font-headline-sm text-headline-sm font-semibold text-on-surface tracking-tight">WorkforceOS</h1>
 </div>
 <div>
-<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant bg-surface-container-highest cursor-pointer active:scale-95 transition-transform"><img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyDCtFGo2-q-QiC2F3BIVeLbCZ1gLZRAdz6VHvJU9ALZqG66tBFOi-WpvDrwYGTZFYWJ8KR1d5mErRF9q4JxXt5CAZJ8vtO2XBJLiK6jkAtmI9uqWZZT1OeOmWJEGcuZzOnbB2MhNQ7399qwbQAOt08JdSHb40ltbQUJdb2dJeWW_QZFLPwrkmRareA1BPeUjIJ1yORFq-tAiK79YEoPDsfPKHsSQF9UVaxZ1lpmJX-LP_EJqOidOQeISnyDubcWmDvWqAYgPc8Yo"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"/>
+</div>
 </div>
 </header>
-<main class="pt-[80px] px-gutter flex flex-col gap-lg">
+<main class="pt-[88px] px-gutter flex flex-col gap-lg">
 <!-- Page Header & Actions -->
 <div class="flex justify-between items-end">
-<div>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Nov 14, 2024</p>
-<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Attendance Records</h2>
+<div class="flex flex-col gap-xs">
+<p class="font-label-md text-[13px] font-medium text-on-surface-variant uppercase tracking-wider">Nov 14, 2024</p>
+<h2 class="font-headline-lg-mobile text-[32px] leading-tight font-semibold text-on-surface tracking-tight">Attendance Records</h2>
 </div>
-<button aria-label="Refresh Records" class="w-10 h-10 rounded-[12px] bg-surface-container-lowest border border-outline-variant flex items-center justify-center shadow-sm active:scale-95 transition-transform text-on-surface-variant hover:bg-surface-container-low">
+<button aria-label="Refresh Records" class="w-10 h-10 rounded-full bg-surface-container-lowest border border-outline-variant/50 flex items-center justify-center shadow-sm active:scale-95 transition-transform text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface">
 <span class="material-symbols-outlined text-[20px]">refresh</span>
 </button>
 </div>
 <!-- Search Bar Trigger -->
-<div class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl px-md py-sm flex items-center justify-between shadow-[0_1px_3px_rgba(0,0,0,0.05)] cursor-pointer active:scale-95 transition-transform" id="search-trigger">
+<div class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-md py-sm flex items-center justify-between shadow-sm cursor-pointer active:scale-[0.98] transition-transform hover:border-outline-variant hover:shadow-md" id="search-trigger">
 <div class="flex items-center gap-sm text-on-surface-variant">
 <span class="material-symbols-outlined text-[20px]">search</span>
-<span class="font-body-md text-body-md">Search Old Records</span>
+<span class="font-body-md text-[15px] font-medium">Search Old Records</span>
 </div>
 <span class="material-symbols-outlined text-outline text-[20px]">calendar_today</span>
 </div>
 <!-- Analytics: Today's Progress -->
-<section class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_1px_3px_rgba(0,0,0,0.05)] p-md">
-<div class="flex justify-between items-center mb-md">
-<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Today's Progress</h3>
-<span class="font-label-md text-label-md bg-secondary-container text-on-secondary-container px-sm py-[2px] rounded-full font-bold">3 / 5 Complete</span>
+<section class="bg-surface-container-lowest rounded-[20px] border border-outline-variant/40 shadow-sm p-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-16 -mt-16 pointer-events-none"></div>
+<div class="flex justify-between items-center mb-md relative z-10">
+<h3 class="font-headline-sm text-[18px] font-semibold text-on-surface">Today's Progress</h3>
+<span class="font-label-md text-[11px] font-bold bg-secondary-container/30 text-on-secondary-container px-3 py-1 rounded-full border border-secondary-container/50">3 / 5 COMPLETE</span>
 </div>
 <!-- Progress Bar -->
-<div class="w-full h-[6px] bg-surface-container-high rounded-full overflow-hidden mb-sm flex">
+<div class="w-full h-[10px] bg-surface-container-highest/50 rounded-full overflow-hidden mb-md flex gap-[2px]">
+<div class="h-full bg-primary rounded-l-full" style="width: 20%;"></div>
 <div class="h-full bg-primary" style="width: 20%;"></div>
-<div class="h-full bg-primary border-l border-surface-container-highest" style="width: 20%;"></div>
-<div class="h-full bg-primary border-l border-surface-container-highest" style="width: 20%;"></div>
-<div class="h-full bg-surface-container-high border-l border-surface-container-lowest" style="width: 20%;"></div>
-<div class="h-full bg-surface-container-high border-l border-surface-container-lowest" style="width: 20%;"></div>
+<div class="h-full bg-primary" style="width: 20%;"></div>
+<div class="h-full bg-surface-container-highest/50" style="width: 20%;"></div>
+<div class="h-full bg-surface-container-highest/50 rounded-r-full" style="width: 20%;"></div>
 </div>
-<div class="flex justify-between text-on-surface-variant font-label-md text-label-md mt-sm px-xs">
-<div class="flex flex-col items-center"><span class="w-2 h-2 rounded-full bg-secondary mb-xs"></span>10 AM</div>
-<div class="flex flex-col items-center"><span class="w-2 h-2 rounded-full bg-secondary mb-xs"></span>12 PM</div>
-<div class="flex flex-col items-center"><span class="w-2 h-2 rounded-full bg-error mb-xs"></span>02 PM</div>
-<div class="flex flex-col items-center opacity-50"><span class="w-2 h-2 rounded-full bg-outline-variant mb-xs"></span>04 PM</div>
-<div class="flex flex-col items-center opacity-50"><span class="w-2 h-2 rounded-full bg-outline-variant mb-xs"></span>06 PM</div>
+<div class="flex justify-between text-on-surface-variant font-label-md text-[11px] font-semibold mt-sm px-xs relative z-10">
+<div class="flex flex-col items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest shadow-sm"></span>10 AM</div>
+<div class="flex flex-col items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest shadow-sm"></span>12 PM</div>
+<div class="flex flex-col items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f59e0b] ring-2 ring-surface-container-lowest shadow-sm"></span>02 PM</div>
+<div class="flex flex-col items-center gap-1.5 opacity-60"><span class="w-2.5 h-2.5 rounded-full bg-outline-variant ring-2 ring-surface-container-lowest"></span>04 PM</div>
+<div class="flex flex-col items-center gap-1.5 opacity-60"><span class="w-2.5 h-2.5 rounded-full bg-outline-variant ring-2 ring-surface-container-lowest"></span>06 PM</div>
 </div>
 </section>
 <!-- Timeline: Bi-hourly Check-ins -->
-<section class="flex flex-col gap-sm">
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm font-semibold">Timeline for 23-Jun-2026</h3>
+<section class="flex flex-col gap-md mt-sm">
+<h3 class="font-headline-sm text-[18px] font-semibold text-on-surface mb-xs">Timeline for 23-Jun-2026</h3>
 <!-- Timeline Item 1 -->
-<div class="relative pl-lg pb-md"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-outline-variant"></div><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-secondary-container border-2 border-surface flex items-center justify-center z-10"><span class="material-symbols-outlined text-[14px] text-on-secondary-container">check</span></div><div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm"><div class="flex justify-between items-start mb-sm"><div class="flex flex-col"><p class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">24-Jun-2026 (10:00 AM SLOT)</p><p class="font-body-md text-body-md font-bold text-on-surface text-[18px]">Checked in at 09:55 AM</p></div><span class="bg-secondary-container text-on-secondary-container px-sm py-[4px] rounded-[6px] font-label-md text-label-md font-bold uppercase">ON TIME</span></div><div class="flex gap-md bg-surface-container-low/50 p-md rounded-xl border border-outline-variant/30"><div class="w-16 h-16 rounded-lg overflow-hidden border border-outline-variant shrink-0"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"></div><div class="flex flex-col gap-xs"><div class="flex items-center gap-xs"><span class="material-symbols-outlined text-primary text-[18px]">location_on</span><span class="font-label-md text-label-md text-on-surface font-bold">Lat: 40.7128° N | Long: 74.0060° W</span></div><div class="flex items-start gap-xs"><span class="material-symbols-outlined text-outline text-[18px] opacity-0 invisible w-0 -ml-1">corporate_fare</span><p class="font-body-sm text-body-sm text-on-surface-variant leading-tight pl-[2px]">HQ Building, Main Entrance Lobby, New York City, NY 10007</p></div></div></div></div></div>
+<div class="relative pl-[32px] pb-lg">
+<div class="absolute left-[11px] top-8 bottom-[-16px] w-[2px] bg-outline-variant/30"></div>
+<div class="absolute left-[-1px] top-3 w-7 h-7 rounded-full bg-[#10b981] ring-4 ring-surface flex items-center justify-center z-10 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-white font-bold">check</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-md">
+<div class="flex flex-col gap-1">
+<p class="font-label-md text-[11px] text-primary font-bold uppercase tracking-wider">23-Jun-2026 (10:00 AM SLOT)</p>
+<p class="font-headline-sm text-[18px] font-semibold text-on-surface tracking-tight">Checked in at 09:55 AM</p>
+</div>
+<span class="bg-[#10b981]/10 text-[#047857] border border-[#10b981]/20 px-2.5 py-1 rounded-md font-label-md text-[10px] font-bold uppercase tracking-wider">ON TIME</span>
+</div>
+<div class="flex gap-md bg-surface-container-low/50 p-md rounded-2xl border border-outline-variant/30">
+<div class="w-[52px] h-[52px] rounded-xl overflow-hidden border border-outline-variant/20 shadow-sm shrink-0 bg-white p-0.5">
+<img alt="User Avatar" class="w-full h-full object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"/>
+</div>
+<div class="flex flex-col gap-1.5 justify-center">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[16px]">location_on</span>
+<span class="font-label-md text-[12px] text-on-surface font-semibold tracking-wide">Lat: 40.7128° N | Long: 74.0060° W</span>
+</div>
+<div class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-outline text-[16px] mt-0.5">corporate_fare</span>
+<p class="font-body-sm text-[13px] text-on-surface-variant leading-snug">HQ Building, Main Entrance Lobby, New York City, NY 10007</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 <!-- Timeline Item 2 -->
-<div class="relative pl-lg pb-md">
-<div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-outline-variant"></div>
-<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-secondary-container border-2 border-surface flex items-center justify-center z-10">
-<span class="material-symbols-outlined text-[14px] text-on-secondary-container">check</span>
+<div class="relative pl-[32px] pb-lg">
+<div class="absolute left-[11px] top-8 bottom-[-16px] w-[2px] bg-outline-variant/30"></div>
+<div class="absolute left-[-1px] top-3 w-7 h-7 rounded-full bg-[#10b981] ring-4 ring-surface flex items-center justify-center z-10 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-white font-bold">check</span>
 </div>
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm">
-<div class="flex justify-between items-start mb-sm">
-<div class="flex flex-col">
-<p class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">24-JUN-2026 (12:00 PM SLOT)</p>
-<p class="font-body-md text-body-md font-bold text-on-surface text-[18px]">Checked in at 11:55 AM</p>
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-md">
+<div class="flex flex-col gap-1">
+<p class="font-label-md text-[11px] text-primary font-bold uppercase tracking-wider">24-JUN-2026 (12:00 PM SLOT)</p>
+<p class="font-headline-sm text-[18px] font-semibold text-on-surface tracking-tight">Checked in at 11:55 AM</p>
 </div>
-<span class="bg-secondary-container text-on-secondary-container px-sm py-[4px] rounded-[6px] font-label-md text-label-md font-bold uppercase">ON TIME</span>
+<span class="bg-[#10b981]/10 text-[#047857] border border-[#10b981]/20 px-2.5 py-1 rounded-md font-label-md text-[10px] font-bold uppercase tracking-wider">ON TIME</span>
 </div>
-<div class="flex gap-md bg-surface-container-low/50 p-md rounded-xl border border-outline-variant/30">
-<div class="w-16 h-16 rounded-lg overflow-hidden border border-outline-variant shrink-0">
-<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E">
+<div class="flex gap-md bg-surface-container-low/50 p-md rounded-2xl border border-outline-variant/30">
+<div class="w-[52px] h-[52px] rounded-xl overflow-hidden border border-outline-variant/20 shadow-sm shrink-0 bg-white p-0.5">
+<img alt="User Avatar" class="w-full h-full object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"/>
 </div>
-<div class="flex flex-col gap-xs">
-<div class="flex items-center gap-xs">
-<span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
-<span class="font-label-md text-label-md text-on-surface font-bold">Lat: 40.7129° N | Long: 74.0062° W</span>
+<div class="flex flex-col gap-1.5 justify-center">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[16px]">location_on</span>
+<span class="font-label-md text-[12px] text-on-surface font-semibold tracking-wide">Lat: 40.7129° N | Long: 74.0062° W</span>
 </div>
-<div class="flex items-start gap-xs">
-<span class="material-symbols-outlined text-outline text-[18px]">meeting_room</span>
-<p class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Floor 4, Breakroom Area, HQ Building, New York City, NY 10007</p>
+<div class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-outline text-[16px] mt-0.5">meeting_room</span>
+<p class="font-body-sm text-[13px] text-on-surface-variant leading-snug">Floor 4, Breakroom Area, HQ Building, New York City, NY 10007</p>
 </div>
 </div>
 </div>
 </div>
 </div>
 <!-- Timeline Item 3 (Late) -->
-<div class="relative pl-lg pb-md"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-outline-variant dashed-line border-l border-dashed border-outline-variant" style="background: transparent;"></div><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-tertiary-fixed-dim border-2 border-surface flex items-center justify-center z-10"><span class="material-symbols-outlined text-[14px] text-tertiary">warning</span></div><div class="bg-surface-container-lowest border border-error-container/50 rounded-xl p-md shadow-sm"><div class="flex justify-between items-start mb-sm"><div class="flex flex-col"><p class="font-label-md text-label-md text-tertiary font-bold uppercase tracking-wider" style="color: rgb(245, 158, 11);">24-Jun-2026 (02:00 PM SLOT)</p><p class="font-body-md text-body-md font-bold text-on-surface text-[18px]">Checked in at 02:15 PM</p></div><span class="bg-tertiary-fixed-dim text-on-tertiary-fixed px-sm py-[4px] rounded-[6px] font-label-md text-label-md font-bold uppercase">LATE</span></div><div class="flex gap-md p-md rounded-xl border border-error-container/30 bg-error-container"><div class="w-16 h-16 rounded-lg overflow-hidden border border-outline-variant shrink-0"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"></div><div class="flex flex-col gap-xs"><div class="flex items-center gap-xs"><span class="material-symbols-outlined text-error text-[18px]">location_on</span><span class="font-label-md text-label-md text-on-surface font-bold">Lat: 40.7580° N | Long: 73.9855° W</span></div><div class="flex items-start gap-xs"><span class="material-symbols-outlined text-outline text-[18px]">apartment</span><p class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Client Site A, Conference Rm, Midtown Manhattan, NY 10018</p></div></div></div></div></div>
+<div class="relative pl-[32px] pb-lg">
+<div class="absolute left-[11px] top-8 bottom-[-16px] w-[2px] border-l-2 border-dashed border-outline-variant/40"></div>
+<div class="absolute left-[-1px] top-3 w-7 h-7 rounded-full bg-[#f59e0b] ring-4 ring-surface flex items-center justify-center z-10 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-white font-bold">warning</span>
+</div>
+<div class="bg-surface-container-lowest border border-[#f59e0b]/30 rounded-[20px] p-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-transparent to-[#f59e0b]/40"></div>
+<div class="flex justify-between items-start mb-md">
+<div class="flex flex-col gap-1">
+<p class="font-label-md text-[11px] text-[#d97706] font-bold uppercase tracking-wider">24-Jun-2026 (02:00 PM SLOT)</p>
+<p class="font-headline-sm text-[18px] font-semibold text-on-surface tracking-tight">Checked in at 02:15 PM</p>
+</div>
+<span class="bg-[#fef3c7] text-[#b45309] border border-[#f59e0b]/30 px-2.5 py-1 rounded-md font-label-md text-[10px] font-bold uppercase tracking-wider">LATE</span>
+</div>
+<div class="flex gap-md bg-[#fffbeb] p-md rounded-2xl border border-[#f59e0b]/20">
+<div class="w-[52px] h-[52px] rounded-xl overflow-hidden border border-[#f59e0b]/30 shadow-sm shrink-0 bg-white p-0.5">
+<img alt="User Avatar" class="w-full h-full object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"/>
+</div>
+<div class="flex flex-col gap-1.5 justify-center">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[#d97706] text-[16px]">location_on</span>
+<span class="font-label-md text-[12px] text-on-surface font-semibold tracking-wide">Lat: 40.7580° N | Long: 73.9855° W</span>
+</div>
+<div class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-outline text-[16px] mt-0.5">apartment</span>
+<p class="font-body-sm text-[13px] text-on-surface-variant leading-snug">Client Site A, Conference Rm, Midtown Manhattan, NY 10018</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 <!-- Timeline Item 4 (Pending) -->
-<div class="relative pl-lg pb-md"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-outline-variant border-l border-dashed border-outline-variant" style="background: transparent;"></div>
-<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container-highest border-2 border-surface flex items-center justify-center z-10">
-<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
-</div>
-<div class="bg-surface opacity-70 border border-outline-variant rounded-xl p-md border-dashed">
+<div class="relative pl-[32px] pb-md">
+<div class="absolute left-[11px] top-8 bottom-[-16px] w-[2px] border-l-2 border-dashed border-outline-variant/30"></div>
+<div class="absolute left-[3.5px] top-5 w-3 h-3 rounded-full bg-outline-variant ring-4 ring-surface z-10"></div>
+<div class="bg-surface/50 border border-outline-variant/40 border-dashed rounded-[16px] p-md">
 <div class="flex justify-between items-center">
-<div>
-<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Slot 4 • 04:00 PM</p>
-<p class="font-body-md text-body-md font-medium text-on-surface">Evening Check-out</p>
+<div class="flex flex-col gap-0.5">
+<p class="font-label-md text-[11px] text-on-surface-variant uppercase tracking-wider font-semibold">Slot 4 • 04:00 PM</p>
+<p class="font-body-md text-[15px] font-medium text-on-surface/70">Evening Check-out</p>
 </div>
-<span class="bg-surface-container text-on-surface-variant px-sm py-[4px] rounded-full font-label-md text-label-md font-bold">
+<span class="bg-surface-container-high text-on-surface-variant/80 border border-outline-variant/30 px-2.5 py-1 rounded-md font-label-md text-[10px] uppercase tracking-wider font-bold">
                             Pending
                         </span>
 </div>
 </div>
 </div>
 <!-- Timeline Item 5 (Pending) -->
-<div class="relative pl-lg">
-<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container-highest border-2 border-surface flex items-center justify-center z-10">
-<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
-</div>
-<div class="bg-surface opacity-70 border border-outline-variant rounded-xl p-md border-dashed">
+<div class="relative pl-[32px]">
+<div class="absolute left-[3.5px] top-5 w-3 h-3 rounded-full bg-outline-variant ring-4 ring-surface z-10"></div>
+<div class="bg-surface/50 border border-outline-variant/40 border-dashed rounded-[16px] p-md">
 <div class="flex justify-between items-center">
-<div>
-<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">SLOT 5 • 06:00 PM</p>
-<p class="font-body-md text-body-md font-medium text-on-surface">Evening Check-out</p>
+<div class="flex flex-col gap-0.5">
+<p class="font-label-md text-[11px] text-on-surface-variant uppercase tracking-wider font-semibold">SLOT 5 • 06:00 PM</p>
+<p class="font-body-md text-[15px] font-medium text-on-surface/70">Evening Check-out</p>
 </div>
-<span class="bg-surface-container text-on-surface-variant px-sm py-[4px] rounded-full font-label-md text-label-md font-bold">
+<span class="bg-surface-container-high text-on-surface-variant/80 border border-outline-variant/30 px-2.5 py-1 rounded-md font-label-md text-[10px] uppercase tracking-wider font-bold">
                             Pending
                         </span>
 </div>
 </div>
-</div></section>
+</div>
+</section>
 <!-- History Summary -->
-<section class="mb-lg">
-<div class="flex justify-between items-center mb-sm mt-md">
-<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Previous Days</h3>
-<span class="font-label-md text-label-md text-primary cursor-pointer font-bold">View All</span>
+<section class="mb-lg mt-md">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-sm text-[18px] font-semibold text-on-surface">Previous Days</h3>
+<span class="font-label-md text-[13px] font-semibold text-primary cursor-pointer hover:underline">View All</span>
 </div>
-<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_1px_3px_rgba(0,0,0,0.05)] overflow-hidden"><!-- 23-Jun-2026 -->
-<div class="history-card flex justify-between items-center p-md border-b border-outline-variant/50 cursor-pointer hover:bg-surface-container-low transition-all active:scale-[0.98] transition-transform"><div class="flex flex-col gap-xs">
-<p class="font-body-md text-body-md font-medium text-on-surface">23-Jun-2026, Tuesday</p>
-<p class="font-label-md text-label-md text-on-surface-variant">5/5 Completed • 1 Late</p>
+<div class="bg-surface-container-lowest rounded-[20px] border border-outline-variant/40 shadow-sm overflow-hidden flex flex-col divide-y divide-outline-variant/30">
+<!-- 23-Jun-2026 -->
+<div class="history-card flex justify-between items-center p-md cursor-pointer hover:bg-surface-container-low/50 transition-colors active:bg-surface-container-low group">
+<div class="flex flex-col gap-1">
+<p class="font-body-md text-[15px] font-semibold text-on-surface group-hover:text-primary transition-colors">23-Jun-2026, Tuesday</p>
+<p class="font-label-md text-[12px] text-on-surface-variant font-medium">5/5 Completed • <span class="text-[#f59e0b]">1 Late</span></p>
 </div>
 <div class="flex items-center gap-md">
-<div class="flex gap-1 h-4 items-center">
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
-<div class="w-2 h-4 rounded-full bg-tertiary-fixed-dim"></div>
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
+<div class="flex gap-1.5 items-center">
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
+<div class="w-2 h-3.5 rounded-full bg-[#f59e0b]"></div>
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
 </div>
-<span class="material-symbols-outlined text-outline chevron-icon transition-transform duration-300" style="transform: rotate(0deg);">chevron_right</span>
-</div></div>
-<div class="bg-surface-container-low p-md border-b border-outline-variant/50 flex flex-col gap-sm hidden"><div class="flex flex-col gap-md"><div class="relative pl-lg pb-md"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-outline-variant"></div><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-secondary-container border-2 border-surface flex items-center justify-center z-10"><span class="material-symbols-outlined text-[14px] text-on-secondary-container">check</span></div><div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm"><div class="flex justify-between items-start mb-sm"><div class="flex flex-col"><p class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">10:00 AM SLOT</p><p class="font-headline-sm text-headline-sm font-bold text-on-surface">Checked in at 09:55 AM</p></div><span class="bg-secondary-container text-on-secondary-container px-sm py-[2px] rounded-lg font-label-md text-label-md font-bold uppercase">ON TIME</span></div><div class="flex gap-md bg-surface-container-low p-md rounded-xl border border-outline-variant/50"><div class="w-16 h-16 rounded-lg overflow-hidden border border-outline-variant shrink-0"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"></div><div class="flex flex-col gap-xs"><div class="flex items-center gap-xs"><span class="material-symbols-outlined text-primary text-[18px]">location_on</span><span class="font-label-md text-label-md text-on-surface font-bold">HQ Building, Main Entrance</span></div></div></div></div></div><div class="relative pl-lg"><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-error-container border-2 border-surface flex items-center justify-center z-10"><span class="material-symbols-outlined text-[14px] text-on-error-container">warning</span></div><div class="bg-surface-container-lowest border border-error-container rounded-xl p-md shadow-sm"><div class="flex justify-between items-start mb-sm"><div class="flex flex-col"><p class="font-label-md text-label-md text-error font-bold uppercase tracking-wider">02:00 PM SLOT</p><p class="font-headline-sm text-headline-sm font-bold text-on-surface">Checked in at 02:15 PM</p></div><span class="bg-error text-on-error px-sm py-[2px] rounded-lg font-label-md text-label-md font-bold uppercase">LATE</span></div></div></div></div></div>
+<span class="material-symbols-outlined text-outline-variant chevron-icon transition-transform duration-300" style="transform: rotate(0deg);">chevron_right</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest/30 p-md border-t border-outline-variant/20 flex flex-col gap-sm hidden">
+<div class="flex flex-col gap-md">
+<div class="relative pl-[24px] pb-md">
+<div class="absolute left-[7px] top-6 bottom-[-16px] w-[2px] bg-outline-variant/30"></div>
+<div class="absolute left-[-1px] top-1 w-4 h-4 rounded-full bg-[#10b981] ring-2 ring-surface flex items-center justify-center z-10"></div>
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-sm shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<div class="flex flex-col">
+<p class="font-label-md text-[10px] text-primary font-bold uppercase tracking-wider">10:00 AM SLOT</p>
+<p class="font-body-sm text-[14px] font-semibold text-on-surface">Checked in at 09:55 AM</p>
+</div>
+<span class="text-[#047857] font-label-md text-[9px] font-bold uppercase">ON TIME</span>
+</div>
+</div>
+</div>
+<div class="relative pl-[24px]">
+<div class="absolute left-[-1px] top-1 w-4 h-4 rounded-full bg-[#f59e0b] ring-2 ring-surface flex items-center justify-center z-10"></div>
+<div class="bg-surface-container-lowest border border-[#f59e0b]/30 rounded-xl p-sm shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<div class="flex flex-col">
+<p class="font-label-md text-[10px] text-[#d97706] font-bold uppercase tracking-wider">02:00 PM SLOT</p>
+<p class="font-body-sm text-[14px] font-semibold text-on-surface">Checked in at 02:15 PM</p>
+</div>
+<span class="text-[#b45309] font-label-md text-[9px] font-bold uppercase">LATE</span>
+</div>
+</div>
+</div>
+</div>
+</div>
 <!-- 22-Jun-2026 -->
-<div class="history-card flex justify-between items-center p-md border-b border-outline-variant/50 cursor-pointer hover:bg-surface-container-low transition-all active:scale-[0.98] transition-transform"><div class="flex flex-col gap-xs">
-<p class="font-body-md text-body-md font-medium text-on-surface">22-Jun-2026, Monday</p>
-<p class="font-label-md text-label-md text-on-surface-variant">5/5 Completed • Perfect</p>
+<div class="history-card flex justify-between items-center p-md cursor-pointer hover:bg-surface-container-low/50 transition-colors active:bg-surface-container-low group">
+<div class="flex flex-col gap-1">
+<p class="font-body-md text-[15px] font-semibold text-on-surface group-hover:text-primary transition-colors">22-Jun-2026, Monday</p>
+<p class="font-label-md text-[12px] text-on-surface-variant font-medium">5/5 Completed • <span class="text-[#10b981]">Perfect</span></p>
 </div>
 <div class="flex items-center gap-md">
-<div class="flex gap-1 h-4 items-center">
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
+<div class="flex gap-1.5 items-center">
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
 </div>
-<span class="material-symbols-outlined text-outline chevron-icon transition-transform duration-300">chevron_right</span>
-</div></div>
-<div class="hidden bg-surface-container-low p-md border-b border-outline-variant/50 flex flex-col gap-sm"><div class="flex flex-col gap-md"><div class="relative pl-lg pb-md"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-outline-variant"></div><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-secondary-container border-2 border-surface flex items-center justify-center z-10"><span class="material-symbols-outlined text-[14px] text-on-secondary-container">check</span></div><div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm"><div class="flex justify-between items-start mb-sm"><div class="flex flex-col"><p class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">10:00 AM SLOT</p><p class="font-headline-sm text-headline-sm font-bold text-on-surface">Checked in at 09:50 AM</p></div><span class="bg-secondary-container text-on-secondary-container px-sm py-[2px] rounded-lg font-label-md text-label-md font-bold uppercase">ON TIME</span></div><div class="flex gap-md bg-surface-container-low p-md rounded-xl border border-outline-variant/50"><div class="w-16 h-16 rounded-lg overflow-hidden border border-outline-variant shrink-0"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"></div><div class="flex flex-col gap-xs"><div class="flex items-center gap-xs"><span class="material-symbols-outlined text-primary text-[18px]">location_on</span><span class="font-label-md text-label-md text-on-surface font-bold">HQ Building, Breakroom</span></div></div></div></div></div></div></div>
+<span class="material-symbols-outlined text-outline-variant chevron-icon transition-transform duration-300">chevron_right</span>
+</div>
+</div>
+<div class="hidden bg-surface-container-lowest/30 p-md border-t border-outline-variant/20 flex flex-col gap-sm">
+<div class="flex flex-col gap-md">
+<div class="relative pl-[24px]">
+<div class="absolute left-[-1px] top-1 w-4 h-4 rounded-full bg-[#10b981] ring-2 ring-surface flex items-center justify-center z-10"></div>
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-sm shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<div class="flex flex-col">
+<p class="font-label-md text-[10px] text-primary font-bold uppercase tracking-wider">10:00 AM SLOT</p>
+<p class="font-body-sm text-[14px] font-semibold text-on-surface">Checked in at 09:50 AM</p>
+</div>
+<span class="text-[#047857] font-label-md text-[9px] font-bold uppercase">ON TIME</span>
+</div>
+</div>
+</div>
+</div>
+</div>
 <!-- 20-Jun-2026 -->
-<div class="history-card flex justify-between items-center p-md cursor-pointer hover:bg-surface-container-low transition-all active:scale-[0.98] transition-transform"><div class="flex flex-col gap-xs">
-<p class="font-body-md text-body-md font-medium text-on-surface">20-Jun-2026, Saturday</p>
-<p class="font-label-md text-label-md text-error">4/5 Completed • Missed Slot</p>
+<div class="history-card flex justify-between items-center p-md cursor-pointer hover:bg-surface-container-low/50 transition-colors active:bg-surface-container-low group">
+<div class="flex flex-col gap-1">
+<p class="font-body-md text-[15px] font-semibold text-on-surface group-hover:text-primary transition-colors">20-Jun-2026, Saturday</p>
+<p class="font-label-md text-[12px] text-error font-medium">4/5 Completed • Missed Slot</p>
 </div>
 <div class="flex items-center gap-md">
-<div class="flex gap-1 h-4 items-center">
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
-<div class="w-2 h-4 rounded-full bg-error"></div>
-<div class="w-2 h-4 rounded-full bg-secondary"></div>
+<div class="flex gap-1.5 items-center">
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
+<div class="w-2 h-3.5 rounded-full bg-error"></div>
+<div class="w-2 h-3.5 rounded-full bg-[#10b981]"></div>
 </div>
-<span class="material-symbols-outlined text-outline chevron-icon transition-transform duration-300" style="transform: rotate(0deg);">chevron_right</span>
-</div></div>
-<div class="bg-surface-container-low p-md flex flex-col gap-sm hidden"><div class="flex flex-col gap-md"><div class="relative pl-lg pb-md"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-outline-variant border-l border-dashed border-outline-variant" style="background: transparent;"></div><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container-highest border-2 border-surface flex items-center justify-center z-10"><span class="material-symbols-outlined text-[14px] text-outline">cancel</span></div><div class="bg-surface opacity-60 border border-outline-variant rounded-xl p-md border-dashed"><div class="flex justify-between items-center"><div><p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">04:00 PM SLOT</p><p class="font-body-md text-body-md font-medium text-on-surface">No record found</p></div><span class="bg-error text-on-error px-sm py-[2px] rounded-full font-label-md text-label-md">MISSED</span></div></div></div></div></div></div>
+<span class="material-symbols-outlined text-outline-variant chevron-icon transition-transform duration-300" style="transform: rotate(0deg);">chevron_right</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest/30 p-md border-t border-outline-variant/20 flex flex-col gap-sm hidden">
+<div class="flex flex-col gap-md">
+<div class="relative pl-[24px]">
+<div class="absolute left-[-1px] top-1 w-4 h-4 rounded-full bg-error ring-2 ring-surface flex items-center justify-center z-10"></div>
+<div class="bg-surface-container-lowest border border-error/30 border-dashed rounded-xl p-sm">
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<p class="font-label-md text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">04:00 PM SLOT</p>
+<p class="font-body-sm text-[14px] font-medium text-on-surface/70">No record found</p>
+</div>
+<span class="text-error font-label-md text-[9px] font-bold uppercase">MISSED</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 </main>
-<!-- BottomNavBar (From JSON) -->
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest border-t border-outline-variant shadow-[0_-2px_10px_rgba(0,0,0,0.05)] rounded-t-[20px]">
-<div class="flex flex-col items-center justify-center text-on-surface-variant px-6 py-2 hover:bg-surface-container active:scale-90 transition-transform duration-150 cursor-pointer rounded-xl">
-<span class="material-symbols-outlined text-[24px]">alarm_on</span>
-<span class="font-label-md text-label-md mt-1 font-semibold">Clock In</span>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[80px] bg-surface shadow-[0_-4px_20px_rgba(0,0,0,0.05)] border-t border-outline-variant/30 pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 hover:text-primary transition-colors cursor-pointer w-full h-full">
+<span class="material-symbols-outlined text-[24px] mb-1">alarm_on</span>
+<span class="font-label-md text-[11px] font-semibold tracking-wide">Clock In</span>
 </div>
-<div class="flex flex-col items-center justify-center bg-secondary-fixed text-on-secondary-fixed rounded-xl px-8 py-2 active:scale-90 transition-transform duration-150 cursor-pointer shadow-sm">
-<span class="material-symbols-outlined text-[24px]" data-weight="fill">list_alt</span>
-<span class="font-label-md text-label-md mt-1 font-semibold">Records</span>
+<div class="flex flex-col items-center justify-center text-primary px-4 py-2 cursor-pointer w-full h-full relative">
+<div class="absolute top-0 w-12 h-1 bg-primary rounded-b-full"></div>
+<span class="material-symbols-outlined text-[24px] mb-1" data-weight="fill">list_alt</span>
+<span class="font-label-md text-[11px] font-semibold tracking-wide">Records</span>
 </div>
-<div class="flex flex-col items-center justify-center text-on-surface-variant px-6 py-2 hover:bg-surface-container active:scale-90 transition-transform duration-150 cursor-pointer rounded-xl">
-<span class="material-symbols-outlined text-[24px]">account_circle</span>
-<span class="font-label-md text-label-md mt-1 font-semibold">Profile</span>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 hover:text-primary transition-colors cursor-pointer w-full h-full">
+<span class="material-symbols-outlined text-[24px] mb-1">account_circle</span>
+<span class="font-label-md text-[11px] font-semibold tracking-wide">Profile</span>
 </div>
 </nav>
 <!-- Date Filter Modal -->
@@ -321,14 +525,14 @@
 <label class="font-label-md text-label-md text-on-surface-variant">From Date</label>
 <div class="flex items-center bg-surface border border-outline-variant rounded-lg px-md py-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
 <span class="material-symbols-outlined text-outline mr-sm">calendar_month</span>
-<input class="w-full bg-transparent border-none p-0 text-body-md font-body-md text-on-surface focus:ring-0" type="date" value="2024-11-01">
+<input class="w-full bg-transparent border-none p-0 text-body-md font-body-md text-on-surface focus:ring-0" type="date" value="2024-11-01"/>
 </div>
 </div>
 <div class="flex flex-col gap-sm">
 <label class="font-label-md text-label-md text-on-surface-variant">To Date</label>
 <div class="flex items-center bg-surface border border-outline-variant rounded-lg px-md py-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
 <span class="material-symbols-outlined text-outline mr-sm">calendar_month</span>
-<input class="w-full bg-transparent border-none p-0 text-body-md font-body-md text-on-surface focus:ring-0" type="date" value="2024-11-14">
+<input class="w-full bg-transparent border-none p-0 text-body-md font-body-md text-on-surface focus:ring-0" type="date" value="2024-11-14"/>
 </div>
 </div>
 <div class="flex gap-md mt-md">
@@ -384,6 +588,4 @@
             });
         });
     </script>
-
-
 </body></html>
