@@ -191,7 +191,7 @@
 .animate-pulse-subtle {
   animation: pulse-subtle 2s ease-in-out infinite;
 }
-</style><style>@keyframes pulse-tertiary { 0% { box-shadow: 0 0 0 0 rgba(229, 215, 255, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(229, 215, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(229, 215, 255, 0); } }</style></head>
+</style><style class="">@keyframes pulse-tertiary { 0% { box-shadow: 0 0 0 0 rgba(229, 215, 255, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(229, 215, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(229, 215, 255, 0); } }</style></head>
 <body class="bg-background text-on-background pb-[80px] md:hidden">
 <!-- TopAppBar (From JSON, adapted for Mobile) -->
 <header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface/80 backdrop-blur-md shadow-sm border-b border-outline-variant">
@@ -211,11 +211,11 @@
       <p class="font-label-md text-label-md text-on-surface-variant">Nov 14, 2024</p>
       <h2 class="font-headline-md text-headline-md text-on-surface">Attendance Records</h2>
     </div>
-    <button aria-label="Refresh Records" class="w-10 h-10 rounded-full bg-surface-container-low border border-outline-variant flex items-center justify-center shadow-sm active:scale-95 transition-transform text-on-surface-variant hover:bg-surface-container-high glass-panel animate-pulse-subtle" style="animation: 2s ease 0s infinite normal none running pulse-tertiary; --tw-shadow-color: #e5d7ff; --tw-shadow: 0 0 15px var(--tw-shadow-color);">
+    <button aria-label="Refresh Records" class="w-10 h-10 rounded-full bg-surface-container-low border border-outline-variant flex items-center justify-center shadow-sm active:scale-95 transition-transform text-on-surface-variant hover:bg-surface-container-high glass-panel animate-pulse-subtle" style="animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; animation-direction: normal; animation-fill-mode: none; animation-play-state: running; animation-name: pulse-tertiary; animation-timeline: auto; animation-range: normal; --tw-shadow-color: #e5d7ff; --tw-shadow: 0 0 15px var(--tw-shadow-color);">
       <span class="material-symbols-outlined">refresh</span>
     </button>
   </div>
-  <button id="search-trigger" class="glass-panel px-6 py-3 rounded-full flex items-center gap-3 hover:bg-white/10 transition-all group w-full relative bg-surface-container-low border border-outline-variant"><div class="flex items-center justify-between w-full relative z-10"><div class="flex items-center gap-3 text-primary"><span class="material-symbols-outlined group-hover:text-primary-container transition-colors">search</span><span class="font-label-md text-label-md tracking-wide uppercase">SEARCH OLD RECORDS</span></div><span class="material-symbols-outlined text-outline">calendar_today</span></div></button>
+  <button id="search-trigger" class="glass-panel px-6 py-3 rounded-full flex items-center gap-3 hover:bg-white/10 transition-all group w-full relative bg-surface-container-low border border-outline-variant" style="border: 1px solid rgb(137, 81, 255);"><div class="flex items-center justify-between w-full relative z-10"><div class="flex items-center gap-3 text-primary"><span class="material-symbols-outlined group-hover:text-primary-container transition-colors">search</span><span class="font-label-md text-label-md tracking-wide uppercase">SEARCH OLD RECORDS</span></div><span class="material-symbols-outlined text-outline">calendar_today</span></div></button>
 </div>
 <!-- Search Bar Trigger -->
 
@@ -407,7 +407,7 @@
 </div>
 </nav>
 <!-- Date Filter Modal -->
-<div class="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm px-gutter hidden" id="date-filter-modal">
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm px-gutter" id="date-filter-modal">
 <div class="bg-surface-container w-full max-w-[400px] rounded-[24px] shadow-2xl border border-outline-variant p-gutter flex flex-col gap-stack-md glass-panel" id="date-filter-card">
 <div class="flex justify-between items-center mb-stack-sm">
 <h3 class="font-headline-md text-headline-md text-on-surface">Filter Records</h3>
