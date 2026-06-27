@@ -183,7 +183,15 @@
         .neon-glow-error { box-shadow: 0 0 15px rgba(255, 180, 171, 0.3); }
         .glass-panel { background: rgba(30, 32, 36, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(133, 147, 153, 0.2); }
     </style>
-</head>
+<style class="">
+@keyframes pulse-subtle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+</style><style>@keyframes pulse-tertiary { 0% { box-shadow: 0 0 0 0 rgba(229, 215, 255, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(229, 215, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(229, 215, 255, 0); } }</style></head>
 <body class="bg-background text-on-background pb-[80px] md:hidden">
 <!-- TopAppBar (From JSON, adapted for Mobile) -->
 <header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface/80 backdrop-blur-md shadow-sm border-b border-outline-variant">
@@ -197,45 +205,51 @@
 </header>
 <main class="pt-[80px] px-gutter flex flex-col gap-stack-lg">
 <!-- Page Header & Actions -->
-<div class="flex justify-between items-end">
-<div>
-<p class="font-label-md text-label-md text-on-surface-variant">Nov 14, 2024</p>
-<h2 class="font-headline-md text-headline-md text-on-surface">Attendance Records</h2>
-</div>
-<button aria-label="Refresh Records" class="w-10 h-10 rounded-full bg-surface-container-low border border-outline-variant flex items-center justify-center shadow-sm active:scale-95 transition-transform text-on-surface-variant hover:bg-surface-container-high glass-panel">
-<span class="material-symbols-outlined">refresh</span>
-</button>
+<div class="flex flex-col gap-stack-md mb-stack-lg">
+  <div class="flex justify-between items-end">
+    <div>
+      <p class="font-label-md text-label-md text-on-surface-variant">Nov 14, 2024</p>
+      <h2 class="font-headline-md text-headline-md text-on-surface">Attendance Records</h2>
+    </div>
+    <button aria-label="Refresh Records" class="w-10 h-10 rounded-full bg-surface-container-low border border-outline-variant flex items-center justify-center shadow-sm active:scale-95 transition-transform text-on-surface-variant hover:bg-surface-container-high glass-panel animate-pulse-subtle" style="animation: 2s ease 0s infinite normal none running pulse-tertiary; --tw-shadow-color: #e5d7ff; --tw-shadow: 0 0 15px var(--tw-shadow-color);">
+      <span class="material-symbols-outlined">refresh</span>
+    </button>
+  </div>
+  <button id="search-trigger" class="glass-panel px-6 py-3 rounded-full flex items-center gap-3 hover:bg-white/10 transition-all group w-full relative bg-surface-container-low border border-outline-variant"><div class="flex items-center justify-between w-full relative z-10"><div class="flex items-center gap-3 text-primary"><span class="material-symbols-outlined group-hover:text-primary-container transition-colors">search</span><span class="font-label-md text-label-md tracking-wide uppercase">SEARCH OLD RECORDS</span></div><span class="material-symbols-outlined text-outline">calendar_today</span></div></button>
 </div>
 <!-- Search Bar Trigger -->
-<div class="w-full bg-surface-container-low border border-outline-variant rounded-xl px-stack-md py-stack-sm flex items-center justify-between shadow-[0_1px_3px_rgba(0,0,0,0.2)] cursor-pointer active:scale-95 transition-transform glass-panel" id="search-trigger">
-<div class="flex items-center gap-stack-sm text-on-surface-variant">
-<span class="material-symbols-outlined">search</span>
-<span class="font-body-md text-body-md">Search Old Records</span>
-</div>
-<span class="material-symbols-outlined text-outline">calendar_today</span>
-</div>
+
 <!-- Analytics: Today's Progress -->
-<section class="bg-surface-container rounded-xl border border-outline-variant shadow-[0_1px_3px_rgba(0,0,0,0.2)] p-stack-md glass-panel">
-<div class="flex justify-between items-center mb-stack-md">
-<h3 class="text-on-surface font-label-md text-label-md uppercase tracking-wider">Today's Progress</h3>
-<span class="font-label-md text-label-md bg-secondary-container/20 border border-secondary-container text-secondary-container px-stack-sm py-[2px] rounded-full neon-glow-secondary">3 / 5 Complete</span>
+<section class="bg-surface-container rounded-xl border border-outline-variant shadow-[0_1px_3px_rgba(0,0,0,0.2)] p-stack-md glass-panel"><div class="flex justify-between items-center">
+<h3 class="font-medium text-title-lg text-on-surface">Today's Progress</h3>
+<span class="font-code-sm text-code-sm text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/30">SYNC: 3/5</span>
 </div>
-<!-- Progress Bar -->
-<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden mb-stack-sm flex">
-<div class="h-full bg-primary" style="width: 20%;"></div>
-<div class="h-full bg-primary border-l border-surface-container-highest" style="width: 20%;"></div>
-<div class="h-full bg-primary border-l border-surface-container-highest" style="width: 20%;"></div>
-<div class="h-full bg-surface-container-high border-l border-surface-container-lowest" style="width: 20%;"></div>
-<div class="h-full bg-surface-container-high border-l border-surface-container-lowest" style="width: 20%;"></div>
+<div class="relative w-full h-2 bg-surface-container rounded-full overflow-hidden border border-white/5 mt-6">
+<div class="absolute top-0 left-0 h-full w-3/5 bg-gradient-to-r from-primary-fixed-dim to-secondary-container shadow-[0_0_10px_rgba(47,248,1,0.5)]"></div>
 </div>
-<div class="flex justify-between text-on-surface-variant font-label-md text-label-md mt-stack-sm px-unit">
-<div class="flex flex-col items-center"><span class="w-2 h-2 rounded-full bg-secondary mb-unit neon-glow-secondary"></span>10 AM</div>
-<div class="flex flex-col items-center"><span class="w-2 h-2 rounded-full bg-secondary mb-unit neon-glow-secondary"></span>12 PM</div>
-<div class="flex flex-col items-center"><span class="w-2 h-2 rounded-full bg-error mb-unit neon-glow-error"></span>02 PM</div>
-<div class="flex flex-col items-center opacity-50"><span class="w-2 h-2 rounded-full bg-outline mb-unit"></span>04 PM</div>
-<div class="flex flex-col items-center opacity-50"><span class="w-2 h-2 rounded-full bg-outline mb-unit"></span>06 PM</div>
+<div class="flex justify-between relative mt-6">
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-surface-variant -z-10 -translate-y-1/2"></div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-container border border-black z-10 neon-glow-secondary"></div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">08:00</span>
 </div>
-</section>
+<div class="flex flex-col items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-container border border-black z-10 neon-glow-secondary"></div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">10:00</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-container border border-black z-10 neon-glow-secondary"></div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">12:00</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-error border border-black z-10 neon-glow-error"></div>
+<span class="font-code-sm text-code-sm text-error">14:00 (LATE)</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-surface-variant border border-outline-variant z-10"></div>
+<span class="font-code-sm text-code-sm text-on-surface-variant opacity-50">16:00</span>
+</div>
+</div></section>
 <!-- Timeline: Bi-hourly Check-ins -->
 <section class="flex flex-col gap-stack-sm">
 <h3 class="font-title-lg text-title-lg text-on-surface mb-stack-sm">Today's Timeline</h3>
@@ -506,6 +520,14 @@
             });
         });
     </script>
+
+
+
+
+
+
+
+
 
 
 </body></html>
