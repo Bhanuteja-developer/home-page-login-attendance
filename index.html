@@ -130,7 +130,7 @@
                     <h2 class="text-lg font-bold text-white flex items-center gap-2">
                         <i class="fas fa-id-card text-emerald-400"></i> Live Verification Terminal
                     </h2>
-                    <span id="system-status" class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs rounded-full flex items-center gap-1.5">
+                    <span id="system-status" class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs rounded-full flex items-center gap-1.5 transition-colors">
                         <i class="fas fa-circle-notch animate-spin"></i> Initializing System Engine...
                     </span>
                 </div>
@@ -140,8 +140,8 @@
                     <!-- Invisible Camera Feed -->
                     <video id="webcam" class="hidden" playsinline></video>
                     
-                    <!-- Overlay Canvas for mesh tracking -->
-                    <canvas id="output_canvas" class="absolute inset-0 w-full h-full object-cover scale-x-[-1]"></canvas>
+                    <!-- Overlay Canvas for mesh tracking (Removed CSS scale-x-[-1]) -->
+                    <canvas id="output_canvas" class="absolute inset-0 w-full h-full object-cover"></canvas>
 
                     <!-- Initial State UI / Camera Blocked -->
                     <div id="camera-prompt-overlay" class="absolute inset-0 bg-slate-950 flex flex-col items-center justify-center text-center p-6 gap-4 z-10 transition-opacity duration-300">
@@ -271,7 +271,8 @@
         let webcamElement;
         let canvasElement;
         let canvasCtx;
-        let camera = null;
+        let cameraActive = false;
+        let animFrameId = null;
         let faceMesh = null;
 
         // Challenge Sequence State Control
@@ -282,12 +283,13 @@
         let blinkDetected = false;
         let headTurnedLeft = false;
         let headTurnedRight = false;
+        let wasOffCenter = false;
         
         // Eye Aspect Ratio Threshold for Blink (adjusted dynamically)
-        const EYE_BLINK_THRESHOLD = 0.20;
-        // Face Turn yaw threshold limits
-        const YAW_TURN_RIGHT_THRESHOLD = 15;  // positive values
-        const YAW_TURN_LEFT_THRESHOLD = -15;  // negative values
+        const EYE_BLINK_THRESHOLD = 0.22;
+        // Face Turn yaw threshold limits (increased to require a genuine turn)
+        const YAW_TURN_RIGHT_THRESHOLD = 20;  // positive values
+        const YAW_TURN_LEFT_THRESHOLD = -20;  // negative values
 
         // Window Onload configuration
         window.onload = function() {
@@ -359,19 +361,22 @@
             } else if (type === "warning") {
                 colorClasses = "bg-amber-500/10 border-amber-500/30 text-amber-400";
                 icon = '<i class="fas fa-shield-halved"></i>';
+            } else if (type === "error") {
+                colorClasses = "bg-red-500/10 border-red-500/30 text-red-400";
+                icon = '<i class="fas fa-exclamation-triangle"></i>';
             } else {
                 colorClasses = "bg-indigo-500/10 border-indigo-500/30 text-indigo-400";
                 icon = '<i class="fas fa-info-circle"></i>';
             }
 
-            el.className = `px-3 py-1 border text-xs rounded-full flex items-center gap-1.5 ${colorClasses}`;
+            el.className = `px-3 py-1 border text-xs rounded-full flex items-center gap-1.5 transition-colors duration-300 ${colorClasses}`;
             el.innerHTML = `${icon} ${text}`;
         }
 
         // Camera Activation Sequence
         function startSecureCamera() {
             // Prevent multiple initializations (double clicks)
-            if (camera) return;
+            if (cameraActive) return;
             
             // Disable button visually to prevent double tapping
             const btn = document.getElementById('init-camera-btn');
@@ -389,26 +394,23 @@
             faceMesh.setOptions({
                 maxNumFaces: 1,
                 refineLandmarks: true,
-                minDetectionConfidence: 0.6,
-                minTrackingConfidence: 0.6
+                minDetectionConfidence: 0.7,
+                minTrackingConfidence: 0.7
             });
 
             faceMesh.onResults(onFaceMeshResults);
 
-            // Step 2: Initialize physical webcam access via MediaPipe Camera Utility
-            // FIX: Removed manual navigator.mediaDevices.getUserMedia(...) and webcamElement.play()
-            // MediaPipe's Camera utility handles this internally. Doing both concurrently caused the AbortError.
-            camera = new Camera(webcamElement, {
-                onFrame: async () => {
-                    await faceMesh.send({ image: webcamElement });
-                },
-                width: 640,
-                height: 480
-            });
-
-            // Start the camera smoothly without race conditions
-            camera.start()
-                .then(() => {
+            // Step 2: Initialize physical webcam access safely (Allows native mobile aspect ratio!)
+            navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "user" }
+            }).then((stream) => {
+                webcamElement.srcObject = stream;
+                
+                // Wait for video stream to natively load its dimensions
+                webcamElement.onloadedmetadata = () => {
+                    webcamElement.play();
+                    cameraActive = true;
+                    
                     document.getElementById('model-loading-overlay').classList.add('hidden');
                     document.getElementById('camera-prompt-overlay').classList.add('opacity-0');
                     setTimeout(() => {
@@ -416,17 +418,31 @@
                         // Launch Active Liveness Challenges
                         startLivenessChallenge();
                     }, 300);
-                })
-                .catch((err) => {
-                    document.getElementById('model-loading-overlay').classList.add('hidden');
-                    updateStatusText("Webcam access denied", "error");
-                    showToast("Camera Connection Error", "Could not start local device camera. Please check permissions.", "error");
-                    console.error("Camera Init Error: ", err);
-                    
-                    // Reset button to allow retry
-                    camera = null; 
-                    btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                });
+
+                    // Custom processing loop replaces the buggy camera_utils
+                    animFrameId = requestAnimationFrame(processVideoFrame);
+                };
+            }).catch((err) => {
+                document.getElementById('model-loading-overlay').classList.add('hidden');
+                updateStatusText("Webcam access denied", "error");
+                showToast("Camera Connection Error", "Could not start local device camera. Please check permissions.", "error");
+                console.error("Camera Init Error: ", err);
+                
+                // Reset button to allow retry
+                cameraActive = false; 
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            });
+        }
+
+        // Safe loop for feeding frames to FaceMesh without squishing resolutions
+        async function processVideoFrame() {
+            if (!cameraActive) return;
+            
+            if (webcamElement.videoWidth > 0 && webcamElement.videoHeight > 0) {
+                await faceMesh.send({ image: webcamElement });
+            }
+            
+            animFrameId = requestAnimationFrame(processVideoFrame);
         }
 
         // Setting up Challenges
@@ -506,18 +522,47 @@
 
             const landmarks = results.multiFaceLandmarks[0];
             
-            // Adjust canvas drawing viewport
+            // Adjust canvas drawing viewport natively
             canvasElement.width = webcamElement.videoWidth;
             canvasElement.height = webcamElement.videoHeight;
             const w = canvasElement.width;
             const h = canvasElement.height;
 
+            // FIX 1: Mirror the canvas context perfectly instead of using CSS.
+            // This ensures the video and the calculated mesh coordinates are 100% aligned.
+            canvasCtx.save();
             canvasCtx.clearRect(0, 0, w, h);
+            canvasCtx.translate(w, 0);
+            canvasCtx.scale(-1, 1);
             
-            // Fix: Draw the live video feed so the user can see themselves instead of a black screen!
+            // Draw the live video feed inside the mirrored context
             canvasCtx.drawImage(results.image, 0, 0, w, h);
 
-            // 1. Calculate Eye landmarks for Blinks (Indices from MediaPipe specs)
+            // ANTI-SPOOFING ANCHOR: Check if the nose is securely in the center of the frame!
+            // This prevents "moving the phone" to spoof a head turn.
+            const noseTip = landmarks[1];
+            
+            // Strict 10% horizontal and 15% vertical bounding box!
+            const isCentered = Math.abs(noseTip.x - 0.5) < 0.10 && Math.abs(noseTip.y - 0.5) < 0.15;
+
+            if (!isCentered && (verificationStep === 1 || verificationStep === 2)) {
+                if (!wasOffCenter) {
+                    updateStatusText("Keep device still & Center your face", "error");
+                    document.getElementById('instruction-text').textContent = "Center your face!";
+                    document.getElementById('instruction-icon').className = "fas fa-compress text-red-400 animate-pulse";
+                    wasOffCenter = true;
+                }
+                // Clear any accidental rotations/blinks accumulated while misaligned
+                headTurnedLeft = false;
+                headTurnedRight = false;
+                blinkDetected = false;
+                blinkCounter = 0;
+            } else if (isCentered && wasOffCenter && (verificationStep === 1 || verificationStep === 2)) {
+                wasOffCenter = false;
+                triggerNextChallenge(); // Restores original instruction text
+            }
+
+            // 1. Calculate Eye landmarks for Blinks
             const leftEyeIndices = [362, 385, 387, 263, 373, 380];
             const rightEyeIndices = [33, 160, 158, 133, 153, 144];
 
@@ -527,22 +572,22 @@
 
             document.getElementById('blink-readout').textContent = avgEAR.toFixed(2);
 
-            // Blink state logic
+            // Safer Blink state logic
             if (avgEAR < EYE_BLINK_THRESHOLD) {
                 if (!isEyeClosed) {
                     isEyeClosed = true;
-                    blinkCounter++;
+                }
+            } else {
+                if (isEyeClosed) {
+                    isEyeClosed = false;
+                    blinkCounter++; // Complete the cycle
                     if (blinkCounter >= 3) {
                         blinkDetected = true;
                     }
                 }
-            } else {
-                isEyeClosed = false;
             }
 
             // 2. Head Orientation / Pose Estimation via landmarks (Yaw / Pitch)
-            // Left boundary points (356), Right (127), Nose Tip (1), Chin (152)
-            const noseTip = landmarks[1];
             const leftCheek = landmarks[356];
             const rightCheek = landmarks[127];
 
@@ -563,7 +608,7 @@
                 document.getElementById('yaw-readout').className = "text-sm font-bold text-slate-300";
             }
 
-            // Simple estimation of Pitch (Up/Down) for debugging metric
+            // Simple estimation of Pitch
             const forehead = landmarks[10];
             const chin = landmarks[152];
             const distForeheadToNose = getEuclideanDistance2D(forehead, noseTip, w, h);
@@ -571,11 +616,14 @@
             const pitchScore = ((distForeheadToNose - distNoseToChin) / (distForeheadToNose + distNoseToChin)) * 100;
             document.getElementById('pitch-readout').textContent = `${pitchScore > 0 ? '+' : ''}${pitchScore.toFixed(0)}°`;
 
-            // Draw clean subtle security face mesh outline (minimizes rendering lag)
-            drawSubtleMesh(landmarks);
+            // Draw clean subtle security face mesh outline - Shifts to RED if not centered!
+            drawSubtleMesh(landmarks, isCentered, w, h);
+            
+            // Critical: Restore context after drawing the frame so loops remain stable
+            canvasCtx.restore();
 
-            // 3. Challenge verification state updates
-            if (verificationStep === 1 || verificationStep === 2) {
+            // 3. Challenge verification state updates (Only proceed if the face is centered)
+            if ((verificationStep === 1 || verificationStep === 2) && isCentered) {
                 let currentChallengeType = (verificationStep === 1) ? challengeType_1 : challengeType_2;
                 let stepCompleted = false;
 
@@ -594,35 +642,40 @@
         }
 
         // Draw a neat high-tech HUD overlay on the canvas
-        function drawSubtleMesh(landmarks) {
+        function drawSubtleMesh(landmarks, isCentered, w, h) {
             // Draw face perimeter/contour landmarks
-            canvasCtx.strokeStyle = "rgba(99, 102, 241, 0.4)";
-            canvasCtx.lineWidth = 1.5;
+            // Shift to red if user is trying to cheat by moving the phone!
+            const meshColor = isCentered ? "rgba(16, 185, 129, 0.6)" : "rgba(239, 68, 68, 0.7)";
+            const fillMeshColor = isCentered ? "rgba(52, 211, 153, 0.8)" : "rgba(239, 68, 68, 0.8)";
+            
+            // FIX 2: Dynamic scaling! 
+            // Instead of fixed pixels, radius and line widths scale dynamically with the camera resolution.
+            const radius = w * 0.06; // 6% of image width
+            canvasCtx.lineWidth = Math.max(2, w * 0.005);
             
             // Draw circular visual tracker target overlay
             const centerNode = landmarks[1]; // Nose
-            // Fix: Remove "1 - pt.x" since CSS scale-x-[-1] handles mirroring the entire canvas perfectly
-            const targetX = centerNode.x * canvasElement.width;
-            const targetY = centerNode.y * canvasElement.height;
+            const targetX = centerNode.x * w;
+            const targetY = centerNode.y * h;
 
             canvasCtx.beginPath();
-            canvasCtx.arc(targetX, targetY, 35, 0, 2 * Math.PI);
-            canvasCtx.strokeStyle = "rgba(16, 185, 129, 0.6)";
+            canvasCtx.arc(targetX, targetY, radius, 0, 2 * Math.PI);
+            canvasCtx.strokeStyle = meshColor;
             canvasCtx.setLineDash([5, 3]);
             canvasCtx.stroke();
             canvasCtx.setLineDash([]); // reset
 
             // Eye outlines
-            drawLandmarkPath([33, 160, 158, 133, 153, 144, 33], landmarks, "rgba(52, 211, 153, 0.8)");
-            drawLandmarkPath([362, 385, 387, 263, 373, 380, 362], landmarks, "rgba(52, 211, 153, 0.8)");
+            drawLandmarkPath([33, 160, 158, 133, 153, 144, 33], landmarks, fillMeshColor, w, h);
+            drawLandmarkPath([362, 385, 387, 263, 373, 380, 362], landmarks, fillMeshColor, w, h);
         }
 
-        function drawLandmarkPath(indices, landmarks, strokeStyle) {
+        function drawLandmarkPath(indices, landmarks, strokeStyle, w, h) {
             canvasCtx.beginPath();
             for (let i = 0; i < indices.length; i++) {
                 const pt = landmarks[indices[i]];
-                const screenX = pt.x * canvasElement.width;
-                const screenY = pt.y * canvasElement.height;
+                const screenX = pt.x * w;
+                const screenY = pt.y * h;
                 if (i === 0) {
                     canvasCtx.moveTo(screenX, screenY);
                 } else {
@@ -630,7 +683,7 @@
                 }
             }
             canvasCtx.strokeStyle = strokeStyle;
-            canvasCtx.lineWidth = 1;
+            canvasCtx.lineWidth = Math.max(1, w * 0.003);
             canvasCtx.stroke();
         }
 
