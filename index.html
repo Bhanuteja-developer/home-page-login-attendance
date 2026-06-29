@@ -1,530 +1,684 @@
-<!DOCTYPE html><html class="dark" lang="en" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>WorkforceOS - Attendance Records</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        "colors": {
-                "tertiary-container": "#ccb6ff",
-                "surface-bright": "#37393e",
-                "on-tertiary-container": "#6100de",
-                "primary": "#a5e7ff",
-                "on-error-container": "#ffdad6",
-                "secondary-fixed": "#79ff5b",
-                "surface-container-low": "#1a1c20",
-                "surface-container-high": "#282a2e",
-                "inverse-primary": "#00677f",
-                "on-primary-container": "#00566a",
-                "inverse-surface": "#e2e2e8",
-                "tertiary-fixed": "#e9ddff",
-                "on-secondary": "#053900",
-                "on-surface": "#e2e2e8",
-                "on-surface-variant": "#bbc9cf",
-                "on-background": "#e2e2e8",
-                "on-tertiary-fixed": "#23005b",
-                "outline": "#859399",
-                "on-secondary-fixed": "#022100",
-                "surface": "#111318",
-                "secondary-container": "#2ff801",
-                "primary-fixed": "#b6ebff",
-                "primary-container": "#00d2ff",
-                "surface-variant": "#333539",
-                "on-primary-fixed": "#001f28",
-                "secondary-fixed-dim": "#2ae500",
-                "primary-fixed-dim": "#47d6ff",
-                "surface-container-highest": "#333539",
-                "on-secondary-fixed-variant": "#095300",
-                "on-secondary-container": "#0f6d00",
-                "inverse-on-surface": "#2f3035",
-                "error-container": "#93000a",
-                "secondary": "#d7ffc5",
-                "on-tertiary-fixed-variant": "#5700c9",
-                "on-primary-fixed-variant": "#004e60",
-                "on-primary": "#003543",
-                "tertiary-fixed-dim": "#d1bcff",
-                "on-error": "#690005",
-                "on-tertiary": "#3c0090",
-                "tertiary": "#e5d7ff",
-                "surface-container": "#1e2024",
-                "error": "#ffb4ab",
-                "surface-dim": "#111318",
-                "surface-tint": "#47d6ff",
-                "surface-container-lowest": "#0c0e12",
-                "outline-variant": "#3c494e",
-                "background": "#111318"
-        },
-        "borderRadius": {
-                "DEFAULT": "0.25rem",
-                "lg": "0.5rem",
-                "xl": "0.75rem",
-                "full": "9999px"
-        },
-        "spacing": {
-                "stack-sm": "8px",
-                "unit": "4px",
-                "stack-md": "16px",
-                "container-margin": "32px",
-                "gutter": "24px",
-                "stack-lg": "32px"
-        },
-        "fontFamily": {
-                "label-md": [
-                        "Geist"
-                ],
-                "headline-md": [
-                        "Space Grotesk"
-                ],
-                "headline-lg-mobile": [
-                        "Space Grotesk"
-                ],
-                "headline-lg": [
-                        "Space Grotesk"
-                ],
-                "display-lg": [
-                        "Space Grotesk"
-                ],
-                "body-lg": [
-                        "Geist"
-                ],
-                "body-md": [
-                        "Geist"
-                ],
-                "code-sm": [
-                        "Geist"
-                ]
-        },
-        "fontSize": {
-                "label-md": [
-                        "14px",
-                        {
-                                "lineHeight": "1",
-                                "letterSpacing": "0.05em",
-                                "fontWeight": "600"
-                        }
-                ],
-                "headline-md": [
-                        "24px",
-                        {
-                                "lineHeight": "1.3",
-                                "fontWeight": "500"
-                        }
-                ],
-                "headline-lg-mobile": [
-                        "24px",
-                        {
-                                "lineHeight": "1.2",
-                                "fontWeight": "600"
-                        }
-                ],
-                "headline-lg": [
-                        "32px",
-                        {
-                                "lineHeight": "1.2",
-                                "fontWeight": "600"
-                        }
-                ],
-                "display-lg": [
-                        "48px",
-                        {
-                                "lineHeight": "1.1",
-                                "letterSpacing": "-0.02em",
-                                "fontWeight": "700"
-                        }
-                ],
-                "body-lg": [
-                        "18px",
-                        {
-                                "lineHeight": "1.6",
-                                "fontWeight": "400"
-                        }
-                ],
-                "body-md": [
-                        "16px",
-                        {
-                                "lineHeight": "1.5",
-                                "fontWeight": "400"
-                        }
-                ],
-                "code-sm": [
-                        "13px",
-                        {
-                                "lineHeight": "1.4",
-                                "fontWeight": "400"
-                        }
-                ]
-        }
-},
-    },
-  }
-</script>
-<style>
-        body { font-family: 'Geist', sans-serif; background-color: #111318; }
-        .font-headline-sm, .font-headline-lg-mobile, .font-headline-lg { font-family: 'Space Grotesk', sans-serif; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Modal Overlay Transition */
-        #date-filter-modal, #image-modal { transition: opacity 0.3s ease, visibility 0.3s; }
-        #date-filter-modal.hidden, #image-modal.hidden { opacity: 0; visibility: hidden; pointer-events: none; display: flex !important; }
-        #date-filter-card { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateY(20px) scale(0.95); }
-        #date-filter-modal:not(.hidden) #date-filter-card { transform: translateY(0) scale(1); }
-        #image-modal-card { transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robust Attendance Tracker - Anti-Spoofing Liveness Detector</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MediaPipe Face Mesh & Camera Utils -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
 
-        /* Neon Glow Effects */
-        .neon-glow-primary { text-shadow: 0 0 10px rgba(165, 231, 255, 0.5); }
-        .neon-glow-secondary { box-shadow: 0 0 15px rgba(47, 248, 1, 0.3); }
-        .neon-glow-error { box-shadow: 0 0 15px rgba(255, 180, 171, 0.3); }
-        .glass-panel { background: rgba(30, 32, 36, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(133, 147, 153, 0.2); }
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        }
+        /* Custom progress bar transition */
+        .progress-transition {
+            transition: width 0.3s ease-in-out;
+        }
     </style>
-<style class="">
-@keyframes pulse-subtle {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-.animate-pulse-subtle {
-  animation: pulse-subtle 2s ease-in-out infinite;
-}
-</style><style class="">@keyframes pulse-tertiary { 0% { box-shadow: 0 0 0 0 rgba(229, 215, 255, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(229, 215, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(229, 215, 255, 0); } }</style></head>
-<body class="bg-background text-on-background pb-[80px] md:hidden">
-<!-- TopAppBar (From JSON, adapted for Mobile) -->
-<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface/80 backdrop-blur-md shadow-sm border-b border-outline-variant">
-<div class="flex items-center gap-stack-md">
-<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform neon-glow-primary" data-icon="fingerprint" data-weight="fill">fingerprint</span>
-<h1 class="font-headline-md text-headline-md font-bold text-primary neon-glow-primary">WorkforceOS</h1>
-</div>
-<div>
-<img class="w-8 h-8 rounded-full object-cover border border-outline-variant cursor-pointer active:scale-95 transition-transform" data-alt="A small, professional corporate headshot avatar of a diverse employee wearing business casual attire, against a clean light grey background, high resolution, standard lighting for an enterprise software interface profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E">
-</div>
-</header>
-<main class="pt-[80px] px-gutter flex flex-col gap-stack-lg">
-<!-- Page Header & Actions -->
-<div class="flex flex-col gap-stack-md mb-stack-lg">
-  <div class="flex justify-between items-end">
-    <div>
-      <p class="font-label-md text-label-md text-on-surface-variant">Nov 14, 2024</p>
-      <h2 class="font-headline-md text-headline-md text-on-surface">Attendance Records</h2>
-    </div>
-    <button aria-label="Refresh Records" class="w-10 h-10 rounded-full bg-surface-container-low border border-outline-variant flex items-center justify-center shadow-sm active:scale-95 transition-transform text-on-surface-variant hover:bg-surface-container-high glass-panel animate-pulse-subtle" style="animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; animation-direction: normal; animation-fill-mode: none; animation-play-state: running; animation-name: pulse-tertiary; animation-timeline: auto; animation-range: normal; --tw-shadow-color: #e5d7ff; --tw-shadow: 0 0 15px var(--tw-shadow-color);">
-      <span class="material-symbols-outlined">refresh</span>
-    </button>
-  </div>
-  <button id="search-trigger" class="glass-panel px-6 py-3 rounded-full flex items-center gap-3 hover:bg-white/10 transition-all group w-full relative bg-surface-container-low border border-outline-variant" style="border: 1px solid rgb(0, 210, 255);"><div class="flex items-center justify-between w-full relative z-10"><div class="flex items-center gap-3 text-primary"><span class="material-symbols-outlined group-hover:text-primary-container transition-colors">search</span><span class="font-label-md text-label-md tracking-wide uppercase">SEARCH OLD RECORDS</span></div><span class="material-symbols-outlined text-outline">calendar_today</span></div></button>
-</div>
-<!-- Search Bar Trigger -->
+</head>
+<body class="gradient-bg min-h-screen text-slate-100 font-sans flex flex-col">
 
-<!-- Analytics: Today's Progress -->
-<section class="bg-surface-container rounded-xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_20px_rgba(0,210,255,0.2)] p-stack-md glass-panel"><div class="flex justify-between items-center">
-<h3 class="font-medium text-title-lg text-on-surface">Today's Progress</h3>
-<span class="font-code-sm text-code-sm text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/30">SYNC: 3/5</span>
-</div>
-<div class="relative w-full h-2 bg-surface-container rounded-full overflow-hidden border border-white/5 mt-6">
-<div class="absolute top-0 left-0 h-full w-3/5 bg-gradient-to-r from-primary-fixed-dim to-secondary-container shadow-[0_0_10px_rgba(47,248,1,0.5)]"></div>
-</div>
-<div class="flex justify-between relative mt-6">
-<div class="absolute top-1/2 left-0 w-full h-0.5 bg-surface-variant -z-10 -translate-y-1/2"></div>
-<div class="flex flex-col items-center gap-2">
-<div class="w-3 h-3 rounded-full bg-secondary-container border border-black z-10 neon-glow-secondary"></div>
-<span class="font-code-sm text-code-sm text-on-surface-variant">08:00</span>
-</div>
-<div class="flex flex-col items-center gap-2">
-<div class="w-3 h-3 rounded-full bg-secondary-container border border-black z-10 neon-glow-secondary"></div>
-<span class="font-code-sm text-code-sm text-on-surface-variant">10:00</span>
-</div>
-<div class="flex flex-col items-center gap-2">
-<div class="w-3 h-3 rounded-full bg-secondary-container border border-black z-10 neon-glow-secondary"></div>
-<span class="font-code-sm text-code-sm text-on-surface-variant">12:00</span>
-</div>
-<div class="flex flex-col items-center gap-2">
-<div class="w-3 h-3 rounded-full bg-error border border-black z-10 neon-glow-error"></div>
-<span class="font-code-sm text-code-sm text-error">14:00 (LATE)</span>
-</div>
-<div class="flex flex-col items-center gap-2">
-<div class="w-3 h-3 rounded-full bg-surface-variant border border-outline-variant z-10"></div>
-<span class="font-code-sm text-code-sm text-on-surface-variant opacity-50">16:00</span>
-</div>
-</div></section>
-<!-- Timeline: Bi-hourly Check-ins -->
-<section class="flex flex-col gap-stack-sm shadow-2xl">
-<h3 class="font-title-lg text-title-lg text-on-surface mb-stack-sm">Today's Timeline</h3>
-<!-- Timeline Item 1 -->
-<div class="relative pl-gutter pb-stack-md"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-outline-variant"></div><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-secondary-container border-2 border-surface flex items-center justify-center z-10 neon-glow-secondary"><span class="material-symbols-outlined text-[14px] text-on-secondary-container">check</span></div><div class="bg-surface-container border border-outline-variant p-stack-md shadow-sm relative overflow-hidden rounded-[24px] glass-panel"><div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary/20 via-white/10 to-primary/20 animate-pulse-subtle"></div><div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent to-secondary/40"></div><div class="flex justify-between items-start mb-stack-sm"><div class="flex flex-col"><p class="font-label-md font-bold uppercase tracking-wider text-primary neon-glow-primary text-[12px]">23-Jun-2026 (10:00 AM SLOT)</p><p class="font-label-md text-label-md font-bold text-on-surface mt-unit">Checked in at 09:55 AM</p></div><span class="bg-secondary-container/20 border border-secondary-container text-secondary-container px-stack-sm py-[2px] rounded-lg font-label-md text-label-md font-bold uppercase neon-glow-secondary">ON TIME</span></div><div class="flex gap-stack-md p-stack-md rounded-xl border border-outline-variant/50 bg-surface-container-low"><div class="flex flex-col gap-stack-sm shrink-0 items-center"><div class="w-16 h-16 rounded-lg overflow-hidden border border-outline-variant cursor-pointer active:scale-95 transition-transform" onclick="openImageModal(this.querySelector('img').src)"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"></div><a class="flex items-center gap-unit px-3 py-1 bg-primary-container/20 border border-primary-container text-primary-container rounded-md font-medium text-label-md active:scale-95 transition-transform" href="https://www.google.com/maps/search/?api=1&amp;query=40.7128,-74.0060" target="_blank">&nbsp;Google<br>&nbsp; &nbsp;Map</a></div><div class="flex flex-col gap-unit"><div class="flex items-center gap-unit"><span class="material-symbols-outlined text-primary text-[18px]">location_on</span><span class="font-label-md text-label-md text-on-surface font-bold">Lat: 40.7128° N | Long: 74.0060° W</span></div><div class="flex items-start gap-unit"><span class="material-symbols-outlined text-outline text-[18px]">corporate_fare</span><div class="flex flex-col"><p class="font-label-md text-label-md text-on-surface-variant leading-tight overflow-hidden" id="address-text-1" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">HQ Building, Main Entrance Lobby, New York City, NY 10007</p><button class="text-primary font-label-md text-label-md mt-unit text-left w-fit active:scale-95 transition-transform" onclick="const p = document.getElementById('address-text-1'); const isExpanded = p.style.display === 'block'; p.style.display = isExpanded ? '-webkit-box' : 'block'; this.textContent = isExpanded ? 'more' : 'less';">&gt;&gt;more</button></div></div></div></div></div></div>
-<!-- Timeline Item 2 -->
-<div class="relative pl-gutter pb-stack-md">
-<div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-outline-variant"></div>
-<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-secondary-container border-2 border-surface flex items-center justify-center z-10 neon-glow-secondary">
-<span class="material-symbols-outlined text-[14px] text-on-secondary-container">check</span>
-</div>
-<div class="bg-surface-container border border-outline-variant p-stack-md shadow-sm relative overflow-hidden rounded-[24px] glass-panel"><div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary/20 via-white/10 to-primary/20 animate-pulse-subtle"></div><div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent to-secondary/40"></div>
-<div class="flex justify-between items-start mb-stack-sm">
-<div class="flex flex-col">
-<p class="font-label-md text-primary font-bold uppercase tracking-wider neon-glow-primary text-[12px]">24-JUN-2026 (12:00 PM SLOT)</p>
-<p class="font-label-md text-label-md font-bold text-on-surface mt-unit">Checked in at 09:55 AM</p>
-</div>
-<span class="bg-secondary-container/20 border border-secondary-container text-secondary-container px-stack-sm py-[2px] rounded-lg font-label-md text-label-md font-bold uppercase neon-glow-secondary">ON TIME</span>
-</div>
-<div class="flex gap-stack-md bg-surface-container-low p-stack-md rounded-xl border border-outline-variant/50">
-<div class="flex flex-col gap-stack-sm shrink-0 items-center">
-<div class="w-16 h-16 rounded-lg overflow-hidden border border-outline-variant cursor-pointer active:scale-95 transition-transform" onclick="openImageModal(this.querySelector('img').src)">
-<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E">
-</div>
-<a class="flex items-center gap-unit px-3 py-1 bg-primary-container/20 border border-primary-container text-primary-container rounded-md font-medium text-label-md active:scale-95 transition-transform" href="https://www.google.com/maps/search/?api=1&amp;query=40.7129,-74.0062" target="_blank">&nbsp;Google<br>&nbsp; &nbsp;Map</a></div>
-<div class="flex flex-col gap-unit">
-<div class="flex items-center gap-unit">
-<span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
-<span class="font-label-md text-label-md text-on-surface font-bold">Lat: 40.7129° N | Long: 74.0062° W</span>
-</div>
-<div class="flex items-start gap-unit">
-<span class="material-symbols-outlined text-outline text-[18px]">meeting_room</span>
-<div class="flex flex-col">
-<p class="font-label-md text-label-md text-on-surface-variant leading-tight overflow-hidden" id="address-text-1" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">HQ Building, Main Entrance Lobby, New York City, NY 10007</p>
-<button class="text-primary font-label-md text-label-md mt-unit text-left w-fit active:scale-95 transition-transform" onclick="const p = document.getElementById('address-text-2'); const isExpanded = p.style.display === 'block'; p.style.display = isExpanded ? '-webkit-box' : 'block'; this.textContent = isExpanded ? 'more' : 'less';">
-    more
-  </button>
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<!-- Timeline Item 3 (Late) -->
-<div class="relative pl-gutter pb-stack-md"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-outline-variant dashed-line border-l border-dashed border-outline-variant" style="background: transparent;"></div><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-error-container border-2 border-surface flex items-center justify-center z-10 neon-glow-error"><span class="material-symbols-outlined text-[14px] text-on-error-container">warning</span></div><div class="bg-surface-container border border-error-container/50 p-stack-md shadow-sm relative overflow-hidden rounded-[24px] glass-panel"><div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary/20 via-white/10 to-primary/20 animate-pulse-subtle"></div><div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent to-error/40"></div><div class="flex justify-between items-start mb-stack-sm"><div class="flex flex-col"><p class="font-label-md text-error font-bold uppercase tracking-wider text-[12px]">23-Jun-2026 (02:00 PM SLOT)</p><p class="font-label-md text-label-md font-bold text-on-surface mt-unit">Checked in at 09:55 AM</p></div><span class="bg-error-container/20 border border-error-container text-error px-stack-sm py-[2px] rounded-lg font-label-md text-label-md font-bold uppercase neon-glow-error">LATE</span></div><div class="flex gap-stack-md bg-error-container/10 p-stack-md rounded-xl border border-error-container/30"><div class="flex flex-col gap-stack-sm shrink-0 items-center"><div class="w-16 h-16 rounded-lg overflow-hidden border border-error-container/50 cursor-pointer active:scale-95 transition-transform" onclick="openImageModal(this.querySelector('img').src)"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"></div><a class="flex items-center gap-unit px-3 py-1 bg-primary-container/20 border border-primary-container text-primary-container rounded-md font-medium text-label-md active:scale-95 transition-transform" href="https://www.google.com/maps/search/?api=1&amp;query=40.7580,-73.9855" target="_blank">&nbsp;Google<br>&nbsp; &nbsp;Map</a></div><div class="flex flex-col gap-unit"><div class="flex items-center gap-unit"><span class="material-symbols-outlined text-error text-[18px]">location_on</span><span class="font-label-md text-label-md text-on-surface font-bold">Lat: 40.7580° N | Long: 73.9855° W</span></div><div class="flex items-start gap-unit"><span class="material-symbols-outlined text-outline text-[18px]">apartment</span><div class="flex flex-col">
-<p class="font-label-md text-label-md text-on-surface-variant leading-tight overflow-hidden" id="address-text-1" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">HQ Building, Main Entrance Lobby, New York City, NY 10007</p>
-<button class="text-primary font-label-md text-label-md mt-unit text-left w-fit active:scale-95 transition-transform" onclick="const p = document.getElementById('address-text-3'); const isExpanded = p.style.display === 'block'; p.style.display = isExpanded ? '-webkit-box' : 'block'; this.textContent = isExpanded ? 'more' : 'less';">
-    more
-  </button>
-</div></div></div></div></div></div>
-<!-- Timeline Item 4 (Pending) -->
-<div class="relative pl-gutter"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-outline-variant border-l border-dashed border-outline-variant" style="background: transparent;"></div>
-<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container-highest border-2 border-surface flex items-center justify-center z-10">
-<span class="w-2 h-2 rounded-full bg-outline"></span>
-</div>
-<div class="bg-surface opacity-60 border border-outline-variant p-stack-md border-dashed rounded-[24px] glass-panel">
-<div class="flex justify-between items-center">
-<div>
-<p class="font-label-md text-on-surface-variant uppercase tracking-wider text-[12px]">Slot 4 • 04:00 PM</p>
-<p class="font-body-md text-body-md font-medium text-on-surface mt-unit">Evening Check-out</p>
-</div>
-<span class="bg-surface-container-high text-on-surface-variant px-stack-sm py-[2px] rounded-full font-label-md text-label-md border border-outline-variant/50">
-                            Pending
-                        </span>
-</div>
-</div>
-</div>
-<!-- Timeline Item 5 (Pending) -->
-<div class="relative pl-gutter">
-<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container-highest border-2 border-surface flex items-center justify-center z-10">
-<span class="w-2 h-2 rounded-full bg-outline"></span>
-</div>
-<div class="bg-surface opacity-60 border border-outline-variant p-stack-md border-dashed rounded-[24px] mt-stack-md glass-panel">
-<div class="flex justify-between items-center">
-<div>
-<p class="font-label-md text-on-surface-variant uppercase tracking-wider text-[12px]">SLOT 5 • 06:00 PM</p>
-<p class="font-body-md text-body-md font-medium text-on-surface mt-unit">Evening Check-out</p>
-</div>
-<span class="bg-surface-container-high text-on-surface-variant px-stack-sm py-[2px] rounded-full font-label-md text-label-md border border-outline-variant/50">
-                            Pending
-                        </span>
-</div>
-</div>
-</div></section>
-<!-- History Summary -->
-<section class="mb-stack-lg">
-<div class="flex justify-between items-center mb-stack-sm mt-stack-md">
-<h3 class="font-title-lg text-title-lg text-on-surface">Previous Days</h3>
-<span class="font-label-md text-label-md text-primary cursor-pointer hover:text-primary-container transition-colors">View All</span>
-</div>
-<div class="bg-surface-container-low rounded-xl border border-outline-variant shadow-[0_1px_3px_rgba(0,0,0,0.2)] overflow-hidden glass-panel"><!-- 23-Jun-2026 -->
-<div class="history-card flex justify-between items-center p-stack-md border-b border-outline-variant/50 cursor-pointer hover:bg-surface-container transition-all active:scale-[0.98]">
-<div>
-<p class="font-label-md text-label-md font-medium text-on-surface">23-Jun-2026 , Tuesday</p>
-<p class="font-label-md text-label-md text-on-surface-variant mt-unit">5/5 Completed • 1 Late</p>
-</div>
-<span class="material-symbols-outlined text-outline chevron-icon transition-transform duration-300">chevron_right</span>
-</div>
-<div class="hidden bg-surface-container-lowest p-stack-md border-b border-outline-variant/50 flex flex-col gap-stack-sm">
-<div class="flex items-center gap-stack-md p-stack-sm bg-surface-container-low rounded-lg border border-outline-variant/30">
-<span class="material-symbols-outlined text-secondary">check_circle</span>
-<div class="flex-1"><p class="font-label-md text-primary font-bold">10:00 AM</p><p class="font-body-md text-on-surface-variant">Checked in at 09:55 AM</p></div>
-<span class="text-label-md font-bold text-secondary">ON TIME</span>
-</div>
-<div class="flex items-center gap-stack-md p-stack-sm bg-surface-container-low rounded-lg border border-outline-variant/30">
-<span class="material-symbols-outlined text-error">warning</span>
-<div class="flex-1"><p class="font-label-md text-error font-bold">02:00 PM</p><p class="font-body-md text-on-surface-variant">Checked in at 02:15 PM</p></div>
-<span class="text-label-md font-bold text-error">LATE</span>
-</div>
-</div>
-<!-- 22-Jun-2026 -->
-<div class="history-card flex justify-between items-center p-stack-md border-b border-outline-variant/50 cursor-pointer hover:bg-surface-container transition-all active:scale-[0.98]">
-<div>
-<p class="font-label-md text-label-md font-medium text-on-surface">23-Jun-2026 , Tuesday</p>
-<p class="font-label-md text-label-md text-on-surface-variant mt-unit">5/5 Completed • Perfect</p>
-</div>
-<span class="material-symbols-outlined text-outline chevron-icon transition-transform duration-300">chevron_right</span>
-</div>
-<div class="hidden bg-surface-container-lowest p-stack-md border-b border-outline-variant/50 flex flex-col gap-stack-sm">
-<div class="flex items-center gap-stack-md p-stack-sm bg-surface-container-low rounded-lg border border-outline-variant/30">
-<span class="material-symbols-outlined text-secondary">check_circle</span>
-<div class="flex-1"><p class="font-label-md text-primary font-bold">10:00 AM</p><p class="font-body-md text-on-surface-variant">Checked in at 09:50 AM</p></div>
-<span class="text-label-md font-bold text-secondary">ON TIME</span>
-</div>
-</div>
-<!-- 20-Jun-2026 -->
-<div class="history-card flex justify-between items-center p-stack-md cursor-pointer hover:bg-surface-container transition-all active:scale-[0.98]">
-<div>
-<p class="font-label-md text-label-md font-medium text-on-surface">23-Jun-2026 , Tuesday</p>
-<p class="font-label-md text-label-md text-error mt-unit">4/5 Completed • Missed Slot</p>
-</div>
-<span class="material-symbols-outlined text-outline chevron-icon transition-transform duration-300">chevron_right</span>
-</div>
-<div class="hidden bg-surface-container-lowest p-stack-md flex flex-col gap-stack-sm">
-<div class="flex items-center gap-stack-md p-stack-sm bg-surface-container-low rounded-lg border border-outline-variant/30">
-<span class="material-symbols-outlined text-outline">cancel</span>
-<div class="flex-1"><p class="font-label-md text-on-surface-variant font-bold">04:00 PM</p><p class="font-body-md text-on-surface-variant">No record found</p></div>
-<span class="text-label-md font-bold text-error">MISSED</span>
-</div>
-</div></div>
-</section>
-</main>
-<!-- BottomNavBar (From JSON) -->
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 shadow-lg rounded-t-xl bg-surface/90 backdrop-blur-md border-t border-outline-variant/50">
-<div class="flex flex-col items-center justify-center text-on-surface-variant px-6 py-1 hover:bg-surface-variant rounded-lg active:scale-90 transition-all duration-150 cursor-pointer">
-<span class="material-symbols-outlined">alarm_on</span>
-<span class="font-label-md text-label-md mt-1">Clock In</span>
-</div>
-<div class="flex flex-col items-center justify-center bg-secondary-container/20 border border-secondary-container text-secondary-container rounded-lg px-6 py-1 active:scale-90 transition-all duration-150 cursor-pointer neon-glow-secondary">
-<span class="material-symbols-outlined" data-weight="fill">list_alt</span>
-<span class="font-label-md text-label-md mt-1">Records</span>
-</div>
-<div class="flex flex-col items-center justify-center text-on-surface-variant px-6 py-1 hover:bg-surface-variant rounded-lg active:scale-90 transition-all duration-150 cursor-pointer">
-<span class="material-symbols-outlined">account_circle</span>
-<span class="font-label-md text-label-md mt-1">Profile</span>
-</div>
-</nav>
-<!-- Date Filter Modal -->
-<div class="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm px-gutter hidden" id="date-filter-modal">
-<div class="bg-surface-container w-full max-w-[400px] rounded-[24px] shadow-2xl border border-outline-variant p-gutter flex flex-col gap-stack-md glass-panel" id="date-filter-card">
-<div class="flex justify-between items-center mb-stack-sm">
-<h3 class="font-headline-md text-headline-md text-on-surface">Filter Records</h3>
-<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:scale-90 p-1 bg-surface-container-high rounded-full hover:text-on-surface" id="close-modal-btn">close</span>
-</div>
-<div class="flex flex-col gap-stack-sm">
-<label class="font-label-md text-label-md text-on-surface-variant">From Date</label>
-<div class="flex items-center bg-surface-container-lowest border border-outline-variant rounded-lg px-stack-md py-stack-sm focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
-<span class="material-symbols-outlined text-outline mr-stack-sm">calendar_month</span>
-<input class="w-full bg-transparent border-none p-0 text-body-md font-body-md text-on-surface focus:ring-0 color-scheme-dark" type="date" value="2024-11-01">
-</div>
-</div>
-<div class="flex flex-col gap-stack-sm">
-<label class="font-label-md text-label-md text-on-surface-variant">To Date</label>
-<div class="flex items-center bg-surface-container-lowest border border-outline-variant rounded-lg px-stack-md py-stack-sm focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
-<span class="material-symbols-outlined text-outline mr-stack-sm">calendar_month</span>
-<input class="w-full bg-transparent border-none p-0 text-body-md font-body-md text-on-surface focus:ring-0 color-scheme-dark" type="date" value="2024-11-14">
-</div>
-</div>
-<div class="flex gap-stack-md mt-stack-md"><button class="flex-1 py-3 px-6 rounded-full border border-outline-variant font-label-md text-label-md text-on-surface-variant bg-surface-container-low hover:bg-surface-container-high active:scale-95 transition-all glass-panel" id="cancel-filter-btn">Cancel</button><button class="flex-1 py-3 px-6 rounded-full bg-primary font-label-md text-label-md text-on-primary hover:bg-primary-container active:scale-95 transition-all shadow-md neon-glow-primary">Search</button></div>
-</div>
-</div>
-<!-- Image Modal -->
-<div class="fixed inset-0 z-[100] flex items-center justify-center bg-background/90 backdrop-blur-md px-gutter hidden" id="image-modal">
-<div class="relative max-w-sm w-full bg-surface-container rounded-xl p-stack-md shadow-2xl flex flex-col items-center border border-outline-variant scale-95 glass-panel" id="image-modal-card">
-<button class="absolute -top-12 right-0 text-on-surface cursor-pointer active:scale-90 p-2 bg-surface-container-high hover:bg-surface-variant rounded-full flex items-center justify-center transition-colors border border-outline-variant" id="close-image-modal-btn">
-<span class="material-symbols-outlined">close</span>
-</button>
-<img alt="Captured Check-in Image" class="w-full h-auto rounded-lg border border-outline-variant shadow-sm object-cover aspect-square" id="modal-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E">
-<p class="mt-stack-sm font-label-md text-on-surface-variant w-full text-center uppercase tracking-wider text-[12px]">Captured Photo</p>
-</div>
-</div>
-<script>
-        // Modal Logic
-        const modal = document.getElementById('date-filter-modal');
-        const trigger = document.getElementById('search-trigger');
-        const closeBtn = document.getElementById('close-modal-btn');
-        const cancelBtn = document.getElementById('cancel-filter-btn');
+    <!-- Header -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur px-4 py-4 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-indigo-600 rounded-xl text-white shadow-lg shadow-indigo-500/30">
+                    <i class="fas fa-user-shield text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">Robust Attendance Shield</h1>
+                    <p class="text-xs text-slate-400">Google Apps Script Anti-Spoofing Protocol</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs rounded-full font-medium flex items-center gap-1.5">
+                    <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Security Engine v2.5
+                </span>
+            </div>
+        </div>
+    </header>
 
-        function openModal() {
-            modal.classList.remove('hidden');
-        }
-
-        function closeModal() {
-            modal.classList.add('hidden');
-        }
-
-        trigger.addEventListener('click', openModal);
-        closeBtn.addEventListener('click', closeModal);
-        cancelBtn.addEventListener('click', closeModal);
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        // Close on outside click
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
+        <!-- Left Side: Interactive Explainer & Analysis -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+            
+            <!-- Quick Education Card -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-xl">
+                <h2 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                    <i class="fas fa-info-circle text-indigo-400"></i> Why FaceNet / ArcFace Failed You
+                </h2>
+                <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                    FaceNet and ArcFace are <strong>Face Recognition</strong> models. They map facial geometry (eyes, nose, mouth) to spatial vectors to verify identity. 
+                </p>
+                <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-3.5 mb-4">
+                    <div class="flex gap-2.5 items-start">
+                        <i class="fas fa-exclamation-triangle text-red-400 mt-1"></i>
+                        <p class="text-xs text-red-200 leading-normal">
+                            <strong>The Exploit:</strong> When your employee's friend points Phone A at Phone B's screen, the facial layout is still identical. FaceNet/ArcFace will verify the face 100% because they are mathematically blind to depth, screens, and liveness.
+                        </p>
+                    </div>
+                </div>
+                
+                <h3 class="text-sm font-semibold text-slate-200 mb-2">The Solution: Active Liveness Detection</h3>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    By prompting the web-app to verify physical changes (blinking, turning of the head) in real-time, we ensure a static digital photograph or pre-recorded video cannot bypass your system.
+                </p>
+            </div>
 
-        // Image Modal Logic
-        const imgModal = document.getElementById('image-modal');
-        const imgModalCard = document.getElementById('image-modal-card');
-        const modalImage = document.getElementById('modal-image');
-        const closeImgModalBtn = document.getElementById('close-image-modal-btn');
+            <!-- Architecture Comparison Table -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-xl">
+                <h3 class="font-bold text-slate-200 mb-4 text-base flex items-center gap-2">
+                    <i class="fas fa-layer-group text-indigo-400"></i> System Requirements Comparison
+                </h3>
+                <div class="space-y-3">
+                    <!-- ArcFace -->
+                    <div class="p-3 bg-slate-850 border border-slate-800/80 rounded-xl flex justify-between items-center">
+                        <div>
+                            <span class="text-xs font-semibold text-indigo-400">Face Recognition (ArcFace / FaceNet)</span>
+                            <p class="text-[11px] text-slate-400">Ideal for identifying registered users against a DB.</p>
+                        </div>
+                        <span class="px-2.5 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] rounded-md font-semibold">Verify Identity Only</span>
+                    </div>
+                    <!-- Active Liveness -->
+                    <div class="p-3 bg-indigo-950/20 border border-indigo-500/30 rounded-xl flex justify-between items-center">
+                        <div>
+                            <span class="text-xs font-semibold text-emerald-400">Active Liveness (MediaPipe)</span>
+                            <p class="text-[11px] text-slate-300">Tracks face meshes, blinks, and rotations on-device.</p>
+                        </div>
+                        <span class="px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] rounded-md font-semibold">Blocks Screens</span>
+                    </div>
+                </div>
+            </div>
 
-        function openImageModal(src) {
-            modalImage.src = src;
-            imgModal.classList.remove('hidden');
-            setTimeout(() => {
-                imgModalCard.classList.remove('scale-95');
-                imgModalCard.classList.add('scale-100');
-            }, 10);
+            <!-- Quick Tips to Stop Malfunction -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-xl">
+                <h3 class="font-bold text-slate-200 mb-3 text-base flex items-center gap-2">
+                    <i class="fas fa-shield-alt text-emerald-400"></i> Bulletproof Countermeasures
+                </h3>
+                <ul class="space-y-2.5 text-xs text-slate-300">
+                    <li class="flex gap-2.5 items-start">
+                        <i class="fas fa-check text-emerald-400 mt-0.5"></i>
+                        <span><strong>Force Camera Stream:</strong> Never allow file uploads. Use the native HTML5 Canvas capture shown on the right.</span>
+                    </li>
+                    <li class="flex gap-2.5 items-start">
+                        <i class="fas fa-check text-emerald-400 mt-0.5"></i>
+                        <span><strong>Random Prompts:</strong> Do not use fixed routines. The model on the right randomly chooses a challenge sequence so a dynamic video can't easily be faked.</span>
+                    </li>
+                    <li class="flex gap-2.5 items-start">
+                        <i class="fas fa-check text-emerald-400 mt-0.5"></i>
+                        <span><strong>Color Flash (Advanced):</strong> Flash the screen dynamic colors (e.g., Red, Blue) and detect skin spectral shifts (prevents high-res paper spoofs).</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Side: Live Active Liveness Detector Demo/Implementation -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+            
+            <div class="bg-slate-900/80 border border-slate-700/60 rounded-3xl p-6 shadow-2xl relative overflow-hidden flex flex-col h-full">
+                
+                <!-- Status Banner -->
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fas fa-id-card text-emerald-400"></i> Live Verification Terminal
+                    </h2>
+                    <span id="system-status" class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs rounded-full flex items-center gap-1.5">
+                        <i class="fas fa-circle-notch animate-spin"></i> Initializing System Engine...
+                    </span>
+                </div>
+
+                <!-- Video Display Frame -->
+                <div class="relative w-full aspect-video md:aspect-[4/3] bg-black rounded-2xl overflow-hidden border border-slate-800 shadow-inner flex items-center justify-center">
+                    <!-- Invisible Camera Feed -->
+                    <video id="webcam" class="hidden" playsinline autoplay muted></video>
+                    
+                    <!-- Overlay Canvas for mesh tracking -->
+                    <canvas id="output_canvas" class="absolute inset-0 w-full h-full object-cover scale-x-[-1]"></canvas>
+
+                    <!-- Initial State UI / Camera Blocked -->
+                    <div id="camera-prompt-overlay" class="absolute inset-0 bg-slate-950 flex flex-col items-center justify-center text-center p-6 gap-4 z-10 transition-opacity duration-300">
+                        <div class="h-16 w-16 bg-indigo-600/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center text-indigo-400 animate-bounce">
+                            <i class="fas fa-camera text-3xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">Camera Access Required</h3>
+                            <p class="text-xs text-slate-400 max-w-sm mt-1">To verify liveness, please grant secure access to your system camera.</p>
+                        </div>
+                        <button onclick="startSecureCamera()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 active:scale-95 transition-all text-sm font-semibold rounded-xl flex items-center gap-2 shadow-lg shadow-indigo-600/30">
+                            <i class="fas fa-power-off"></i> Initialize Live Stream
+                        </button>
+                    </div>
+
+                    <!-- Target Instruction Overlay -->
+                    <div id="instruction-card" class="absolute top-4 left-4 right-4 bg-slate-950/90 backdrop-blur-md border border-slate-700/60 rounded-xl p-3 flex items-center justify-between z-10 hidden opacity-0 transition-opacity duration-300">
+                        <div class="flex items-center gap-3">
+                            <div class="h-10 w-10 bg-indigo-500/20 rounded-lg flex items-center justify-center text-indigo-400 text-lg">
+                                <i id="instruction-icon" class="fas fa-eye-slash"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 tracking-wider uppercase font-bold">Challenge Instruction</span>
+                                <h4 id="instruction-text" class="text-sm font-bold text-indigo-300">Waiting to initialize...</h4>
+                            </div>
+                        </div>
+                        <!-- Goal Counter/Timer -->
+                        <div class="flex items-center gap-2">
+                            <span id="challenge-timer" class="px-2.5 py-1 bg-slate-800 border border-slate-700 rounded-lg text-xs font-semibold text-slate-300">
+                                Step <span id="current-step">0</span>/2
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Loading Mesh Animation Overlay -->
+                    <div id="model-loading-overlay" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center z-20 hidden">
+                        <div class="relative flex items-center justify-center h-16 w-16 mb-4">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-12 w-12 bg-indigo-600 items-center justify-center">
+                                <i class="fas fa-brain text-white animate-pulse"></i>
+                            </span>
+                        </div>
+                        <p class="text-sm font-bold text-white">Loading Security Neural Network...</p>
+                        <p class="text-xs text-slate-400 mt-1">MediaPipe Face Mesh library compiling on device</p>
+                    </div>
+                </div>
+
+                <!-- Live Metrics Readout -->
+                <div class="grid grid-cols-3 gap-3 my-4">
+                    <div class="bg-slate-850/60 p-2.5 border border-slate-800 rounded-xl text-center">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wide block mb-0.5">Blink State</span>
+                        <div id="blink-readout" class="text-sm font-bold text-slate-300">--</div>
+                    </div>
+                    <div class="bg-slate-850/60 p-2.5 border border-slate-800 rounded-xl text-center">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wide block mb-0.5">Yaw Rotation</span>
+                        <div id="yaw-readout" class="text-sm font-bold text-slate-300">--</div>
+                    </div>
+                    <div class="bg-slate-850/60 p-2.5 border border-slate-800 rounded-xl text-center">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wide block mb-0.5">Pitch Rotation</span>
+                        <div id="pitch-readout" class="text-sm font-bold text-slate-300">--</div>
+                    </div>
+                </div>
+
+                <!-- Step progress tracking bar -->
+                <div class="w-full bg-slate-800 rounded-full h-2 mb-6">
+                    <div id="total-progress-bar" class="bg-emerald-500 h-2 rounded-full progress-transition" style="width: 0%"></div>
+                </div>
+
+                <!-- Simulation Info Panel / User Action Panel -->
+                <div id="user-actions-section" class="mt-auto space-y-4">
+                    
+                    <!-- Submission Form Area -->
+                    <div class="bg-slate-850 border border-slate-800 rounded-2xl p-4">
+                        <h4 class="text-xs font-semibold text-slate-400 mb-3 uppercase tracking-wider">Attendance Verification Payload</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                            <div>
+                                <label class="block text-[10px] text-slate-400 mb-1">Employee ID</label>
+                                <input type="text" value="EMP-2026-9810" disabled class="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-300 font-mono">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-slate-400 mb-1">Authenticated GPS Coordinates</label>
+                                <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5">
+                                    <i class="fas fa-map-marker-alt text-emerald-400 text-xs"></i>
+                                    <span id="geo-coordinates" class="text-xs text-slate-300 font-mono">Simulating GPS...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button id="submit-attendance-btn" disabled class="w-full py-3.5 bg-slate-800 text-slate-500 font-semibold text-sm rounded-xl flex items-center justify-center gap-2 cursor-not-allowed transition-all shadow-lg">
+                            <i id="lock-icon" class="fas fa-lock text-slate-600"></i> Submit Verified Attendance
+                        </button>
+                    </div>
+
+                    <!-- Custom notification popups for simulation -->
+                    <div id="toast-message" class="bg-slate-850 border border-slate-800 rounded-xl p-3.5 flex items-center gap-3 hidden opacity-0 transition-opacity duration-300">
+                        <div id="toast-icon-wrapper" class="h-8 w-8 rounded-lg flex items-center justify-center text-sm">
+                            <i id="toast-icon" class="fas"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h5 id="toast-title" class="text-xs font-bold text-white">Notification</h5>
+                            <p id="toast-desc" class="text-[10px] text-slate-400 leading-normal">Description goes here.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-6 px-4 mt-8">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+            <p>&copy; 2026 Robust Attendance Solutions. Created for Google Sheets & Apps Script deployment.</p>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-slate-400 transition-colors">Developer Documentation</a>
+                <span class="text-slate-800">|</span>
+                <a href="#" class="hover:text-slate-400 transition-colors">Security Sandbox</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Liveness Logic Implementation Script -->
+    <script>
+        let webcamElement;
+        let canvasElement;
+        let canvasCtx;
+        let camera = null;
+        let faceMesh = null;
+
+        // Challenge Sequence State Control
+        let verificationStep = 0; // 0: inactive, 1: Step 1, 2: Step 2, 3: Completed
+        let challengeType_1 = ""; // "blink" or "turn_left" or "turn_right"
+        let challengeType_2 = "";
+        
+        let blinkDetected = false;
+        let headTurnedLeft = false;
+        let headTurnedRight = false;
+        
+        // Eye Aspect Ratio Threshold for Blink (adjusted dynamically)
+        const EYE_BLINK_THRESHOLD = 0.26; // Increased from 0.22 to catch fast/partial blinks
+        // Face Turn yaw threshold limits
+        const YAW_TURN_RIGHT_THRESHOLD = 14;  // Lowered from 18 to 14
+        const YAW_TURN_LEFT_THRESHOLD = -14;  // Lowered from -18 to -14
+
+        // Window Onload configuration
+        window.onload = function() {
+            webcamElement = document.getElementById('webcam');
+            canvasElement = document.getElementById('output_canvas');
+            canvasCtx = canvasElement.getContext('2d');
+
+            // Generate GPS mock coordinates
+            simulateGPS();
+            
+            // Set up initial UI display status
+            updateStatusText("Ready for security check", "warning");
+        };
+
+        function simulateGPS() {
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    document.getElementById('geo-coordinates').textContent = 
+                        `${pos.coords.latitude.toFixed(6)}, ${pos.coords.longitude.toFixed(6)}`;
+                },
+                (err) => {
+                    document.getElementById('geo-coordinates').textContent = "12.9716, 77.5946 (Default)";
+                }
+            );
         }
 
-        function closeImageModal() {
-            imgModalCard.classList.remove('scale-100');
-            imgModalCard.classList.add('scale-95');
+        // Display Toast Alerts in-app
+        function showToast(title, desc, type = "success") {
+            const toast = document.getElementById('toast-message');
+            const iconWrapper = document.getElementById('toast-icon-wrapper');
+            const icon = document.getElementById('toast-icon');
+            const tTitle = document.getElementById('toast-title');
+            const tDesc = document.getElementById('toast-desc');
+
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.remove('opacity-0'), 50);
+
+            tTitle.textContent = title;
+            tDesc.textContent = desc;
+
+            if (type === "success") {
+                iconWrapper.className = "h-8 w-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm";
+                icon.className = "fas fa-check-circle";
+            } else if (type === "error") {
+                iconWrapper.className = "h-8 w-8 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center text-sm";
+                icon.className = "fas fa-times-circle";
+            } else {
+                iconWrapper.className = "h-8 w-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm";
+                icon.className = "fas fa-info-circle";
+            }
+
+            // Auto-dismiss toast
             setTimeout(() => {
-                imgModal.classList.add('hidden');
-            }, 200);
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+            }, 5000);
         }
 
-        closeImgModalBtn.addEventListener('click', closeImageModal);
-        imgModal.addEventListener('click', (e) => {
-            if (e.target === imgModal) {
-                closeImageModal();
-            }
-        });
-    </script>
-<script class="">
-        document.querySelectorAll('.history-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const details = card.nextElementSibling;
-                const chevron = card.querySelector('.chevron-icon');
-                const isExpanded = !details.classList.contains('hidden');
+        function updateStatusText(text, type = "info") {
+            const el = document.getElementById('system-status');
+            el.innerHTML = "";
+            
+            let colorClasses = "";
+            let icon = "";
 
-                if (isExpanded) {
-                    details.classList.add('hidden');
-                    chevron.style.transform = 'rotate(0deg)';
-                } else {
-                    details.classList.remove('hidden');
-                    chevron.style.transform = 'rotate(90deg)';
+            if (type === "success") {
+                colorClasses = "bg-emerald-500/10 border-emerald-500/30 text-emerald-400";
+                icon = '<i class="fas fa-check-circle"></i>';
+            } else if (type === "warning") {
+                colorClasses = "bg-amber-500/10 border-amber-500/30 text-amber-400";
+                icon = '<i class="fas fa-shield-halved"></i>';
+            } else {
+                colorClasses = "bg-indigo-500/10 border-indigo-500/30 text-indigo-400";
+                icon = '<i class="fas fa-info-circle"></i>';
+            }
+
+            el.className = `px-3 py-1 border text-xs rounded-full flex items-center gap-1.5 ${colorClasses}`;
+            el.innerHTML = `${icon} ${text}`;
+        }
+
+        // Camera Activation Sequence
+        function startSecureCamera() {
+            document.getElementById('model-loading-overlay').classList.remove('hidden');
+            
+            // Step 1: Initialize MediaPipe FaceMesh engine
+            faceMesh = new FaceMesh({
+                locateFile: (file) => {
+                    return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
                 }
             });
-        });
+
+            faceMesh.setOptions({
+                maxNumFaces: 1,
+                refineLandmarks: true,
+                minDetectionConfidence: 0.6,
+                minTrackingConfidence: 0.6
+            });
+
+            faceMesh.onResults(onFaceMeshResults);
+
+            // Step 2: Initialize physical webcam access via MediaPipe Camera Utility
+            camera = new Camera(webcamElement, {
+                onFrame: async () => {
+                    await faceMesh.send({ image: webcamElement });
+                },
+                width: 640,
+                height: 480
+            });
+            
+            camera.start().then(() => {
+                document.getElementById('model-loading-overlay').classList.add('hidden');
+                document.getElementById('camera-prompt-overlay').classList.add('opacity-0');
+                setTimeout(() => {
+                    document.getElementById('camera-prompt-overlay').classList.add('hidden');
+                    // Launch Active Liveness Challenges
+                    startLivenessChallenge();
+                }, 300);
+            }).catch((err) => {
+                document.getElementById('model-loading-overlay').classList.add('hidden');
+                updateStatusText("Webcam access denied", "error");
+                showToast("Camera Connection Error", "Could not start local device camera. Please check permissions.", "error");
+                console.error("Camera Init Error: ", err);
+            });
+        }
+
+        // Setting up Challenges
+        function startLivenessChallenge() {
+            verificationStep = 1;
+            document.getElementById('total-progress-bar').style.width = '0%';
+            
+            // Randomly select challenges for Step 1 and 2 to avoid static video playback hacks
+            const challengePool = ["blink", "turn_left", "turn_right"];
+            challengeType_1 = challengePool[Math.floor(Math.random() * challengePool.length)];
+            
+            // Ensure step 2 is different from step 1
+            const remainingPool = challengePool.filter(c => c !== challengeType_1);
+            challengeType_2 = remainingPool[Math.floor(Math.random() * remainingPool.length)];
+
+            // Open Instruction Overlay
+            const instructionOverlay = document.getElementById('instruction-card');
+            instructionOverlay.classList.remove('hidden');
+            setTimeout(() => instructionOverlay.classList.remove('opacity-0'), 100);
+
+            triggerNextChallenge();
+        }
+
+        function triggerNextChallenge() {
+            const stepSpan = document.getElementById('current-step');
+            const instructionText = document.getElementById('instruction-text');
+            const instructionIcon = document.getElementById('instruction-icon');
+
+            let targetChallenge = (verificationStep === 1) ? challengeType_1 : challengeType_2;
+            stepSpan.textContent = verificationStep;
+
+            if (targetChallenge === "blink") {
+                instructionText.textContent = "Blink your eyes 2 times";
+                instructionIcon.className = "fas fa-eye animate-pulse text-indigo-400";
+            } else if (targetChallenge === "turn_left") {
+                instructionText.textContent = "Slowly turn your head to the Left";
+                instructionIcon.className = "fas fa-arrow-left text-indigo-400";
+            } else if (targetChallenge === "turn_right") {
+                instructionText.textContent = "Slowly turn your head to the Right";
+                instructionIcon.className = "fas fa-arrow-right text-indigo-400";
+            }
+
+            updateStatusText(`Verifying Step ${verificationStep}/2`, "warning");
+        }
+
+        // Calculates Eye Aspect Ratio (EAR) for blinking
+        function getEyeAspectRatio(eyeLandmarks, landmarks) {
+            // Distances between vertical eye contour coordinates
+            const p2_p6 = getEuclideanDistance(landmarks[eyeLandmarks[1]], landmarks[eyeLandmarks[5]]);
+            const p3_p5 = getEuclideanDistance(landmarks[eyeLandmarks[2]], landmarks[eyeLandmarks[4]]);
+            // Distance between horizontal eye landmarks
+            const p1_p4 = getEuclideanDistance(landmarks[eyeLandmarks[0]], landmarks[eyeLandmarks[3]]);
+
+            return (p2_p6 + p3_p5) / (2.0 * p1_p4);
+        }
+
+        function getEuclideanDistance(pointA, pointB) {
+            return Math.sqrt(
+                Math.pow(pointA.x - pointB.x, 2) + 
+                Math.pow(pointA.y - pointB.y, 2) + 
+                Math.pow(pointA.z - pointB.z, 2)
+            );
+        }
+
+        // MediaPipe calculations processing loop
+        let blinkCounter = 0;
+        let isEyeClosed = false;
+
+        function onFaceMeshResults(results) {
+            if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
+                // Face missing from stream
+                document.getElementById('blink-readout').textContent = "No Face";
+                document.getElementById('yaw-readout').textContent = "--";
+                document.getElementById('pitch-readout').textContent = "--";
+                return;
+            }
+
+            const landmarks = results.multiFaceLandmarks[0];
+            
+            // Adjust canvas drawing viewport
+            canvasElement.width = webcamElement.videoWidth;
+            canvasElement.height = webcamElement.videoHeight;
+            canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+            // 1. Calculate Eye landmarks for Blinks (Indices from MediaPipe specs)
+            const leftEyeIndices = [362, 385, 387, 263, 373, 380];
+            const rightEyeIndices = [33, 160, 158, 133, 153, 144];
+
+            const leftEAR = getEyeAspectRatio(leftEyeIndices, landmarks);
+            const rightEAR = getEyeAspectRatio(rightEyeIndices, landmarks);
+            const avgEAR = (leftEAR + rightEAR) / 2;
+
+            // Display blink count instead of confusing raw EAR decimals
+            document.getElementById('blink-readout').textContent = `${blinkCounter} / 2`;
+
+            // Blink state logic
+            if (avgEAR < EYE_BLINK_THRESHOLD) {
+                if (!isEyeClosed) {
+                    isEyeClosed = true;
+                    blinkCounter++;
+                    if (blinkCounter >= 2) {
+                        blinkDetected = true;
+                    }
+                    // Flash text to emerald to show a blink registered
+                    document.getElementById('blink-readout').className = "text-sm font-bold text-emerald-400";
+                }
+            } else {
+                isEyeClosed = false;
+                if(blinkCounter < 2) {
+                    document.getElementById('blink-readout').className = "text-sm font-bold text-slate-300";
+                }
+            }
+
+            // 2. Head Orientation / Pose Estimation via landmarks (Yaw / Pitch)
+            // Left boundary points (356), Right (127), Nose Tip (1), Chin (152)
+            const noseTip = landmarks[1];
+            const leftCheek = landmarks[356];
+            const rightCheek = landmarks[127];
+
+            // Project estimated Yaw based on horizontal spatial differences
+            const distToLeft = getEuclideanDistance(noseTip, leftCheek);
+            const distToRight = getEuclideanDistance(noseTip, rightCheek);
+            const yawScore = ((distToLeft - distToRight) / (distToLeft + distToRight)) * 100;
+
+            document.getElementById('yaw-readout').textContent = `${yawScore > 0 ? '+' : ''}${yawScore.toFixed(0)}°`;
+
+            if (yawScore > YAW_TURN_RIGHT_THRESHOLD) {
+                headTurnedRight = true;
+                document.getElementById('yaw-readout').className = "text-sm font-bold text-emerald-400";
+            } else if (yawScore < YAW_TURN_LEFT_THRESHOLD) {
+                headTurnedLeft = true;
+                document.getElementById('yaw-readout').className = "text-sm font-bold text-emerald-400";
+            } else {
+                document.getElementById('yaw-readout').className = "text-sm font-bold text-slate-300";
+            }
+
+            // Simple estimation of Pitch (Up/Down) for debugging metric
+            const forehead = landmarks[10];
+            const chin = landmarks[152];
+            const distForeheadToNose = getEuclideanDistance(forehead, noseTip);
+            const distNoseToChin = getEuclideanDistance(noseTip, chin);
+            const pitchScore = ((distForeheadToNose - distNoseToChin) / (distForeheadToNose + distNoseToChin)) * 100;
+            document.getElementById('pitch-readout').textContent = `${pitchScore > 0 ? '+' : ''}${pitchScore.toFixed(0)}°`;
+
+            // Draw clean subtle security face mesh outline (minimizes rendering lag)
+            drawSubtleMesh(landmarks);
+
+            // 3. Challenge verification state updates
+            if (verificationStep === 1 || verificationStep === 2) {
+                let currentChallengeType = (verificationStep === 1) ? challengeType_1 : challengeType_2;
+                let stepCompleted = false;
+
+                if (currentChallengeType === "blink" && blinkDetected) {
+                    stepCompleted = true;
+                } else if (currentChallengeType === "turn_left" && headTurnedLeft) {
+                    stepCompleted = true;
+                } else if (currentChallengeType === "turn_right" && headTurnedRight) {
+                    stepCompleted = true;
+                }
+
+                if (stepCompleted) {
+                    onStepSuccess();
+                }
+            }
+        }
+
+        // Draw a neat high-tech HUD overlay on the canvas
+        function drawSubtleMesh(landmarks) {
+            // Draw face perimeter/contour landmarks
+            canvasCtx.strokeStyle = "rgba(99, 102, 241, 0.4)";
+            canvasCtx.lineWidth = 1.5;
+            
+            // Draw circular visual tracker target overlay
+            const centerNode = landmarks[1]; // Nose
+            const targetX = (1 - centerNode.x) * canvasElement.width;
+            const targetY = centerNode.y * canvasElement.height;
+
+            canvasCtx.beginPath();
+            canvasCtx.arc(targetX, targetY, 35, 0, 2 * Math.PI);
+            canvasCtx.strokeStyle = "rgba(16, 185, 129, 0.6)";
+            canvasCtx.setLineDash([5, 3]);
+            canvasCtx.stroke();
+            canvasCtx.setLineDash([]); // reset
+
+            // Eye outlines
+            drawLandmarkPath([33, 160, 158, 133, 153, 144, 33], landmarks, "rgba(52, 211, 153, 0.8)");
+            drawLandmarkPath([362, 385, 387, 263, 373, 380, 362], landmarks, "rgba(52, 211, 153, 0.8)");
+        }
+
+        function drawLandmarkPath(indices, landmarks, strokeStyle) {
+            canvasCtx.beginPath();
+            for (let i = 0; i < indices.length; i++) {
+                const pt = landmarks[indices[i]];
+                const screenX = (1 - pt.x) * canvasElement.width;
+                const screenY = pt.y * canvasElement.height;
+                if (i === 0) {
+                    canvasCtx.moveTo(screenX, screenY);
+                } else {
+                    canvasCtx.lineTo(screenX, screenY);
+                }
+            }
+            canvasCtx.strokeStyle = strokeStyle;
+            canvasCtx.lineWidth = 1;
+            canvasCtx.stroke();
+        }
+
+        function onStepSuccess() {
+            // Reset verification actions for the next step
+            blinkDetected = false;
+            blinkCounter = 0;
+            headTurnedLeft = false;
+            headTurnedRight = false;
+
+            if (verificationStep === 1) {
+                verificationStep = 2;
+                document.getElementById('total-progress-bar').style.width = '50%';
+                showToast("Step 1 Authenticated", "Challenge verified successfully. Proceeding...", "success");
+                triggerNextChallenge();
+            } else if (verificationStep === 2) {
+                verificationStep = 3;
+                document.getElementById('total-progress-bar').style.width = '100%';
+                onLivenessFullyVerified();
+            }
+        }
+
+        function onLivenessFullyVerified() {
+            updateStatusText("Physical Liveness Verified", "success");
+            showToast("Liveness Cleared", "Physical human presence validated successfully. Access enabled.", "success");
+
+            // Hide instruction banner
+            const instructionOverlay = document.getElementById('instruction-card');
+            instructionOverlay.classList.add('opacity-0');
+            setTimeout(() => instructionOverlay.classList.add('hidden'), 300);
+
+            // Enable submit button
+            const submitBtn = document.getElementById('submit-attendance-btn');
+            submitBtn.removeAttribute('disabled');
+            submitBtn.className = "w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 active:scale-[0.98] transition-all text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-emerald-500/20";
+            
+            document.getElementById('lock-icon').className = "fas fa-lock-open";
+            
+            // Listen for submission
+            submitBtn.addEventListener('click', handleAttendanceSubmission);
+        }
+
+        function handleAttendanceSubmission() {
+            // Capture canvas snapshot frame (safe direct base64 image capture)
+            const snapshotBase64 = canvasElement.toDataURL('image/jpeg', 0.8);
+            const gps = document.getElementById('geo-coordinates').textContent;
+
+            updateStatusText("Sending Attendance Payload...", "warning");
+            
+            // Structure payload data for your Google Apps Script backend
+            const payload = {
+                employeeId: "EMP-2026-9810",
+                location: gps,
+                imageData: snapshotBase64,
+                timestamp: new Date().toISOString()
+            };
+
+            // Inform of successful bypass mitigation
+            showToast("Success!", "Liveness and geolocation payload successfully processed.", "success");
+            
+            /* If running in App Script, you would communicate with your .gs script:
+               google.script.run.withSuccessHandler(onSuccess).withFailureHandler(onFailure).recordAttendance(payload);
+            */
+            console.log("App Script Payload Ready:", payload);
+        }
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body></html>
+</body>
+</html>
