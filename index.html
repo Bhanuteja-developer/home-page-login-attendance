@@ -1,754 +1,542 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robust Attendance Tracker - Anti-Spoofing Liveness Detector</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- MediaPipe Face Mesh & Camera Utils -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
-
-    <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-        }
-        /* Custom progress bar transition */
-        .progress-transition {
-            transition: width 0.3s ease-in-out;
-        }
-    </style>
-</head>
-<body class="gradient-bg min-h-screen text-slate-100 font-sans flex flex-col">
-
-    <!-- Header -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur px-4 py-4 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-3">
-                <div class="p-2.5 bg-indigo-600 rounded-xl text-white shadow-lg shadow-indigo-500/30">
-                    <i class="fas fa-user-shield text-xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl font-bold tracking-tight">Robust Attendance Shield</h1>
-                    <p class="text-xs text-slate-400">Google Apps Script Anti-Spoofing Protocol</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs rounded-full font-medium flex items-center gap-1.5">
-                    <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Security Engine v2.5
-                </span>
-            </div>
-        </div>
-    </header>
-
-    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- Left Side: Interactive Explainer & Analysis -->
-        <div class="lg:col-span-5 flex flex-col gap-6">
-            
-            <!-- Quick Education Card -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-xl">
-                <h2 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                    <i class="fas fa-info-circle text-indigo-400"></i> Why FaceNet / ArcFace Failed You
-                </h2>
-                <p class="text-sm text-slate-300 leading-relaxed mb-4">
-                    FaceNet and ArcFace are <strong>Face Recognition</strong> models. They map facial geometry (eyes, nose, mouth) to spatial vectors to verify identity. 
-                </p>
-                <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-3.5 mb-4">
-                    <div class="flex gap-2.5 items-start">
-                        <i class="fas fa-exclamation-triangle text-red-400 mt-1"></i>
-                        <p class="text-xs text-red-200 leading-normal">
-                            <strong>The Exploit:</strong> When your employee's friend points Phone A at Phone B's screen, the facial layout is still identical. FaceNet/ArcFace will verify the face 100% because they are mathematically blind to depth, screens, and liveness.
-                        </p>
-                    </div>
-                </div>
-                
-                <h3 class="text-sm font-semibold text-slate-200 mb-2">The Solution: Active Liveness Detection</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">
-                    By prompting the web-app to verify physical changes (blinking, turning of the head) in real-time, we ensure a static digital photograph or pre-recorded video cannot bypass your system.
-                </p>
-            </div>
-
-            <!-- Architecture Comparison Table -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-xl">
-                <h3 class="font-bold text-slate-200 mb-4 text-base flex items-center gap-2">
-                    <i class="fas fa-layer-group text-indigo-400"></i> System Requirements Comparison
-                </h3>
-                <div class="space-y-3">
-                    <!-- ArcFace -->
-                    <div class="p-3 bg-slate-850 border border-slate-800/80 rounded-xl flex justify-between items-center">
-                        <div>
-                            <span class="text-xs font-semibold text-indigo-400">Face Recognition (ArcFace / FaceNet)</span>
-                            <p class="text-[11px] text-slate-400">Ideal for identifying registered users against a DB.</p>
-                        </div>
-                        <span class="px-2.5 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] rounded-md font-semibold">Verify Identity Only</span>
-                    </div>
-                    <!-- Active Liveness -->
-                    <div class="p-3 bg-indigo-950/20 border border-indigo-500/30 rounded-xl flex justify-between items-center">
-                        <div>
-                            <span class="text-xs font-semibold text-emerald-400">Active Liveness (MediaPipe)</span>
-                            <p class="text-[11px] text-slate-300">Tracks face meshes, blinks, and rotations on-device.</p>
-                        </div>
-                        <span class="px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] rounded-md font-semibold">Blocks Screens</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Tips to Stop Malfunction -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-xl">
-                <h3 class="font-bold text-slate-200 mb-3 text-base flex items-center gap-2">
-                    <i class="fas fa-shield-alt text-emerald-400"></i> Bulletproof Countermeasures
-                </h3>
-                <ul class="space-y-2.5 text-xs text-slate-300">
-                    <li class="flex gap-2.5 items-start">
-                        <i class="fas fa-check text-emerald-400 mt-0.5"></i>
-                        <span><strong>Force Camera Stream:</strong> Never allow file uploads. Use the native HTML5 Canvas capture shown on the right.</span>
-                    </li>
-                    <li class="flex gap-2.5 items-start">
-                        <i class="fas fa-check text-emerald-400 mt-0.5"></i>
-                        <span><strong>Random Prompts:</strong> Do not use fixed routines. The model on the right randomly chooses a challenge sequence so a dynamic video can't easily be faked.</span>
-                    </li>
-                    <li class="flex gap-2.5 items-start">
-                        <i class="fas fa-check text-emerald-400 mt-0.5"></i>
-                        <span><strong>Color Flash (Advanced):</strong> Flash the screen dynamic colors (e.g., Red, Blue) and detect skin spectral shifts (prevents high-res paper spoofs).</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Right Side: Live Active Liveness Detector Demo/Implementation -->
-        <div class="lg:col-span-7 flex flex-col gap-6">
-            
-            <div class="bg-slate-900/80 border border-slate-700/60 rounded-3xl p-6 shadow-2xl relative overflow-hidden flex flex-col h-full">
-                
-                <!-- Status Banner -->
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-lg font-bold text-white flex items-center gap-2">
-                        <i class="fas fa-id-card text-emerald-400"></i> Live Verification Terminal
-                    </h2>
-                    <span id="system-status" class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs rounded-full flex items-center gap-1.5 transition-colors">
-                        <i class="fas fa-circle-notch animate-spin"></i> Initializing System Engine...
-                    </span>
-                </div>
-
-                <!-- Video Display Frame -->
-                <div class="relative w-full aspect-video md:aspect-[4/3] bg-black rounded-2xl overflow-hidden border border-slate-800 shadow-inner flex items-center justify-center">
-                    <!-- Invisible Camera Feed -->
-                    <video id="webcam" class="hidden" playsinline></video>
-                    
-                    <!-- Overlay Canvas for mesh tracking (Removed CSS scale-x-[-1]) -->
-                    <canvas id="output_canvas" class="absolute inset-0 w-full h-full object-cover"></canvas>
-
-                    <!-- Initial State UI / Camera Blocked -->
-                    <div id="camera-prompt-overlay" class="absolute inset-0 bg-slate-950 flex flex-col items-center justify-center text-center p-6 gap-4 z-10 transition-opacity duration-300">
-                        <div class="h-16 w-16 bg-indigo-600/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center text-indigo-400 animate-bounce">
-                            <i class="fas fa-camera text-3xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base font-bold text-white">Camera Access Required</h3>
-                            <p class="text-xs text-slate-400 max-w-sm mt-1">To verify liveness, please grant secure access to your system camera.</p>
-                        </div>
-                        <button id="init-camera-btn" onclick="startSecureCamera()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 active:scale-95 transition-all text-sm font-semibold rounded-xl flex items-center gap-2 shadow-lg shadow-indigo-600/30">
-                            <i class="fas fa-power-off"></i> Initialize Live Stream
-                        </button>
-                    </div>
-
-                    <!-- Target Instruction Overlay -->
-                    <div id="instruction-card" class="absolute top-4 left-4 right-4 bg-slate-950/90 backdrop-blur-md border border-slate-700/60 rounded-xl p-3 flex items-center justify-between z-10 hidden opacity-0 transition-opacity duration-300">
-                        <div class="flex items-center gap-3">
-                            <div class="h-10 w-10 bg-indigo-500/20 rounded-lg flex items-center justify-center text-indigo-400 text-lg">
-                                <i id="instruction-icon" class="fas fa-eye-slash"></i>
-                            </div>
-                            <div>
-                                <span class="text-[10px] text-slate-400 tracking-wider uppercase font-bold">Challenge Instruction</span>
-                                <h4 id="instruction-text" class="text-sm font-bold text-indigo-300">Waiting to initialize...</h4>
-                            </div>
-                        </div>
-                        <!-- Goal Counter/Timer -->
-                        <div class="flex items-center gap-2">
-                            <span id="challenge-timer" class="px-2.5 py-1 bg-slate-800 border border-slate-700 rounded-lg text-xs font-semibold text-slate-300">
-                                Step <span id="current-step">0</span>/2
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Loading Mesh Animation Overlay -->
-                    <div id="model-loading-overlay" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center z-20 hidden">
-                        <div class="relative flex items-center justify-center h-16 w-16 mb-4">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-12 w-12 bg-indigo-600 items-center justify-center">
-                                <i class="fas fa-brain text-white animate-pulse"></i>
-                            </span>
-                        </div>
-                        <p class="text-sm font-bold text-white">Loading Security Neural Network...</p>
-                        <p class="text-xs text-slate-400 mt-1">MediaPipe Face Mesh library compiling on device</p>
-                    </div>
-                </div>
-
-                <!-- Live Metrics Readout -->
-                <div class="grid grid-cols-3 gap-3 my-4">
-                    <div class="bg-slate-850/60 p-2.5 border border-slate-800 rounded-xl text-center">
-                        <span class="text-[10px] text-slate-400 uppercase tracking-wide block mb-0.5">Blink State</span>
-                        <div id="blink-readout" class="text-sm font-bold text-slate-300">--</div>
-                    </div>
-                    <div class="bg-slate-850/60 p-2.5 border border-slate-800 rounded-xl text-center">
-                        <span class="text-[10px] text-slate-400 uppercase tracking-wide block mb-0.5">Yaw Rotation</span>
-                        <div id="yaw-readout" class="text-sm font-bold text-slate-300">--</div>
-                    </div>
-                    <div class="bg-slate-850/60 p-2.5 border border-slate-800 rounded-xl text-center">
-                        <span class="text-[10px] text-slate-400 uppercase tracking-wide block mb-0.5">Pitch Rotation</span>
-                        <div id="pitch-readout" class="text-sm font-bold text-slate-300">--</div>
-                    </div>
-                </div>
-
-                <!-- Step progress tracking bar -->
-                <div class="w-full bg-slate-800 rounded-full h-2 mb-6">
-                    <div id="total-progress-bar" class="bg-emerald-500 h-2 rounded-full progress-transition" style="width: 0%"></div>
-                </div>
-
-                <!-- Simulation Info Panel / User Action Panel -->
-                <div id="user-actions-section" class="mt-auto space-y-4">
-                    
-                    <!-- Submission Form Area -->
-                    <div class="bg-slate-850 border border-slate-800 rounded-2xl p-4">
-                        <h4 class="text-xs font-semibold text-slate-400 mb-3 uppercase tracking-wider">Attendance Verification Payload</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                            <div>
-                                <label class="block text-[10px] text-slate-400 mb-1">Employee ID</label>
-                                <input type="text" value="EMP-2026-9810" disabled class="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-300 font-mono">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] text-slate-400 mb-1">Authenticated GPS Coordinates</label>
-                                <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5">
-                                    <i class="fas fa-map-marker-alt text-emerald-400 text-xs"></i>
-                                    <span id="geo-coordinates" class="text-xs text-slate-300 font-mono">Simulating GPS...</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <button id="submit-attendance-btn" disabled class="w-full py-3.5 bg-slate-800 text-slate-500 font-semibold text-sm rounded-xl flex items-center justify-center gap-2 cursor-not-allowed transition-all shadow-lg">
-                            <i id="lock-icon" class="fas fa-lock text-slate-600"></i> Submit Verified Attendance
-                        </button>
-                    </div>
-
-                    <!-- Custom notification popups for simulation -->
-                    <div id="toast-message" class="bg-slate-850 border border-slate-800 rounded-xl p-3.5 flex items-center gap-3 hidden opacity-0 transition-opacity duration-300">
-                        <div id="toast-icon-wrapper" class="h-8 w-8 rounded-lg flex items-center justify-center text-sm">
-                            <i id="toast-icon" class="fas"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h5 id="toast-title" class="text-xs font-bold text-white">Notification</h5>
-                            <p id="toast-desc" class="text-[10px] text-slate-400 leading-normal">Description goes here.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-slate-950 border-t border-slate-900 py-6 px-4 mt-8">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-            <p>&copy; 2026 Robust Attendance Solutions. Created for Google Sheets & Apps Script deployment.</p>
-            <div class="flex gap-4">
-                <a href="#" class="hover:text-slate-400 transition-colors">Developer Documentation</a>
-                <span class="text-slate-800">|</span>
-                <a href="#" class="hover:text-slate-400 transition-colors">Security Sandbox</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Liveness Logic Implementation Script -->
-    <script>
-        let webcamElement;
-        let canvasElement;
-        let canvasCtx;
-        let cameraActive = false;
-        let animFrameId = null;
-        let faceMesh = null;
-
-        // Challenge Sequence State Control
-        let verificationStep = 0; // 0: inactive, 1: Step 1, 2: Step 2, 3: Completed
-        let challengeType_1 = ""; // "blink" or "turn_left" or "turn_right"
-        let challengeType_2 = "";
-        
-        let blinkDetected = false;
-        let headTurnedLeft = false;
-        let headTurnedRight = false;
-        let wasOffCenter = false;
-        
-        // Eye Aspect Ratio Threshold for Blink (adjusted dynamically)
-        const EYE_BLINK_THRESHOLD = 0.22;
-        // Face Turn yaw threshold limits (increased to require a genuine turn)
-        const YAW_TURN_RIGHT_THRESHOLD = 20;  // positive values
-        const YAW_TURN_LEFT_THRESHOLD = -20;  // negative values
-
-        // Window Onload configuration
-        window.onload = function() {
-            webcamElement = document.getElementById('webcam');
-            canvasElement = document.getElementById('output_canvas');
-            canvasCtx = canvasElement.getContext('2d');
-
-            // Generate GPS mock coordinates
-            simulateGPS();
-            
-            // Set up initial UI display status
-            updateStatusText("Ready for security check", "warning");
-        };
-
-        function simulateGPS() {
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    document.getElementById('geo-coordinates').textContent = 
-                        `${pos.coords.latitude.toFixed(6)}, ${pos.coords.longitude.toFixed(6)}`;
-                },
-                (err) => {
-                    document.getElementById('geo-coordinates').textContent = "12.9716, 77.5946 (Default)";
-                }
-            );
-        }
-
-        // Display Toast Alerts in-app
-        function showToast(title, desc, type = "success") {
-            const toast = document.getElementById('toast-message');
-            const iconWrapper = document.getElementById('toast-icon-wrapper');
-            const icon = document.getElementById('toast-icon');
-            const tTitle = document.getElementById('toast-title');
-            const tDesc = document.getElementById('toast-desc');
-
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.remove('opacity-0'), 50);
-
-            tTitle.textContent = title;
-            tDesc.textContent = desc;
-
-            if (type === "success") {
-                iconWrapper.className = "h-8 w-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm";
-                icon.className = "fas fa-check-circle";
-            } else if (type === "error") {
-                iconWrapper.className = "h-8 w-8 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center text-sm";
-                icon.className = "fas fa-times-circle";
-            } else {
-                iconWrapper.className = "h-8 w-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm";
-                icon.className = "fas fa-info-circle";
-            }
-
-            // Auto-dismiss toast
-            setTimeout(() => {
-                toast.classList.add('opacity-0');
-                setTimeout(() => toast.classList.add('hidden'), 300);
-            }, 5000);
-        }
-
-        function updateStatusText(text, type = "info") {
-            const el = document.getElementById('system-status');
-            el.innerHTML = "";
-            
-            let colorClasses = "";
-            let icon = "";
-
-            if (type === "success") {
-                colorClasses = "bg-emerald-500/10 border-emerald-500/30 text-emerald-400";
-                icon = '<i class="fas fa-check-circle"></i>';
-            } else if (type === "warning") {
-                colorClasses = "bg-amber-500/10 border-amber-500/30 text-amber-400";
-                icon = '<i class="fas fa-shield-halved"></i>';
-            } else if (type === "error") {
-                colorClasses = "bg-red-500/10 border-red-500/30 text-red-400";
-                icon = '<i class="fas fa-exclamation-triangle"></i>';
-            } else {
-                colorClasses = "bg-indigo-500/10 border-indigo-500/30 text-indigo-400";
-                icon = '<i class="fas fa-info-circle"></i>';
-            }
-
-            el.className = `px-3 py-1 border text-xs rounded-full flex items-center gap-1.5 transition-colors duration-300 ${colorClasses}`;
-            el.innerHTML = `${icon} ${text}`;
-        }
-
-        // Camera Activation Sequence
-        function startSecureCamera() {
-            // Prevent multiple initializations (double clicks)
-            if (cameraActive) return;
-            
-            // Disable button visually to prevent double tapping
-            const btn = document.getElementById('init-camera-btn');
-            btn.classList.add('opacity-50', 'cursor-not-allowed');
-            
-            document.getElementById('model-loading-overlay').classList.remove('hidden');
-            
-            // Step 1: Initialize MediaPipe FaceMesh engine
-            faceMesh = new FaceMesh({
-                locateFile: (file) => {
-                    return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
-                }
-            });
-
-            faceMesh.setOptions({
-                maxNumFaces: 1,
-                refineLandmarks: true,
-                minDetectionConfidence: 0.7,
-                minTrackingConfidence: 0.7
-            });
-
-            faceMesh.onResults(onFaceMeshResults);
-
-            // Step 2: Initialize physical webcam access safely (Allows native mobile aspect ratio!)
-            navigator.mediaDevices.getUserMedia({
-                video: { facingMode: "user" }
-            }).then((stream) => {
-                webcamElement.srcObject = stream;
-                
-                // Wait for video stream to natively load its dimensions
-                webcamElement.onloadedmetadata = () => {
-                    webcamElement.play();
-                    cameraActive = true;
-                    
-                    document.getElementById('model-loading-overlay').classList.add('hidden');
-                    document.getElementById('camera-prompt-overlay').classList.add('opacity-0');
-                    setTimeout(() => {
-                        document.getElementById('camera-prompt-overlay').classList.add('hidden');
-                        // Launch Active Liveness Challenges
-                        startLivenessChallenge();
-                    }, 300);
-
-                    // Custom processing loop replaces the buggy camera_utils
-                    animFrameId = requestAnimationFrame(processVideoFrame);
-                };
-            }).catch((err) => {
-                document.getElementById('model-loading-overlay').classList.add('hidden');
-                updateStatusText("Webcam access denied", "error");
-                showToast("Camera Connection Error", "Could not start local device camera. Please check permissions.", "error");
-                console.error("Camera Init Error: ", err);
-                
-                // Reset button to allow retry
-                cameraActive = false; 
-                btn.classList.remove('opacity-50', 'cursor-not-allowed');
-            });
-        }
-
-        // Safe loop for feeding frames to FaceMesh without squishing resolutions
-        async function processVideoFrame() {
-            if (!cameraActive) return;
-            
-            if (webcamElement.videoWidth > 0 && webcamElement.videoHeight > 0) {
-                await faceMesh.send({ image: webcamElement });
-            }
-            
-            animFrameId = requestAnimationFrame(processVideoFrame);
-        }
-
-        // Setting up Challenges
-        function startLivenessChallenge() {
-            verificationStep = 1;
-            document.getElementById('total-progress-bar').style.width = '0%';
-            
-            // Randomly select challenges for Step 1 and 2 to avoid static video playback hacks
-            const challengePool = ["blink", "turn_left", "turn_right"];
-            challengeType_1 = challengePool[Math.floor(Math.random() * challengePool.length)];
-            
-            // Ensure step 2 is different from step 1
-            const remainingPool = challengePool.filter(c => c !== challengeType_1);
-            challengeType_2 = remainingPool[Math.floor(Math.random() * remainingPool.length)];
-
-            // Open Instruction Overlay
-            const instructionOverlay = document.getElementById('instruction-card');
-            instructionOverlay.classList.remove('hidden');
-            setTimeout(() => instructionOverlay.classList.remove('opacity-0'), 100);
-
-            triggerNextChallenge();
-        }
-
-        function triggerNextChallenge() {
-            const stepSpan = document.getElementById('current-step');
-            const instructionText = document.getElementById('instruction-text');
-            const instructionIcon = document.getElementById('instruction-icon');
-
-            let targetChallenge = (verificationStep === 1) ? challengeType_1 : challengeType_2;
-            stepSpan.textContent = verificationStep;
-
-            if (targetChallenge === "blink") {
-                instructionText.textContent = "Blink your eyes 3 times slowly";
-                instructionIcon.className = "fas fa-eye animate-pulse text-indigo-400";
-            } else if (targetChallenge === "turn_left") {
-                instructionText.textContent = "Slowly turn your head to the Left";
-                instructionIcon.className = "fas fa-arrow-left text-indigo-400";
-            } else if (targetChallenge === "turn_right") {
-                instructionText.textContent = "Slowly turn your head to the Right";
-                instructionIcon.className = "fas fa-arrow-right text-indigo-400";
-            }
-
-            updateStatusText(`Verifying Step ${verificationStep}/2`, "warning");
-        }
-
-        // Use 2D spatial distance scaled by canvas dimensions. Ignore Z as it skews horizontal ratio calculation.
-        function getEuclideanDistance2D(pointA, pointB, width = 1, height = 1) {
-            return Math.sqrt(
-                Math.pow((pointA.x - pointB.x) * width, 2) + 
-                Math.pow((pointA.y - pointB.y) * height, 2)
-            );
-        }
-
-        // Calculates Eye Aspect Ratio (EAR) for blinking
-        function getEyeAspectRatio(eyeLandmarks, landmarks, width, height) {
-            // Distances between vertical eye contour coordinates
-            const p2_p6 = getEuclideanDistance2D(landmarks[eyeLandmarks[1]], landmarks[eyeLandmarks[5]], width, height);
-            const p3_p5 = getEuclideanDistance2D(landmarks[eyeLandmarks[2]], landmarks[eyeLandmarks[4]], width, height);
-            // Distance between horizontal eye landmarks
-            const p1_p4 = getEuclideanDistance2D(landmarks[eyeLandmarks[0]], landmarks[eyeLandmarks[3]], width, height);
-
-            return (p2_p6 + p3_p5) / (2.0 * p1_p4);
-        }
-
-        // MediaPipe calculations processing loop
-        let blinkCounter = 0;
-        let isEyeClosed = false;
-
-        function onFaceMeshResults(results) {
-            if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
-                // Face missing from stream
-                document.getElementById('blink-readout').textContent = "No Face";
-                document.getElementById('yaw-readout').textContent = "--";
-                document.getElementById('pitch-readout').textContent = "--";
-                return;
-            }
-
-            const landmarks = results.multiFaceLandmarks[0];
-            
-            // Adjust canvas drawing viewport natively
-            canvasElement.width = webcamElement.videoWidth;
-            canvasElement.height = webcamElement.videoHeight;
-            const w = canvasElement.width;
-            const h = canvasElement.height;
-
-            // FIX 1: Mirror the canvas context perfectly instead of using CSS.
-            // This ensures the video and the calculated mesh coordinates are 100% aligned.
-            canvasCtx.save();
-            canvasCtx.clearRect(0, 0, w, h);
-            canvasCtx.translate(w, 0);
-            canvasCtx.scale(-1, 1);
-            
-            // Draw the live video feed inside the mirrored context
-            canvasCtx.drawImage(results.image, 0, 0, w, h);
-
-            // ANTI-SPOOFING ANCHOR: Check if the nose is securely in the center of the frame!
-            // This prevents "moving the phone" to spoof a head turn.
-            const noseTip = landmarks[1];
-            
-            // Strict 10% horizontal and 15% vertical bounding box!
-            const isCentered = Math.abs(noseTip.x - 0.5) < 0.10 && Math.abs(noseTip.y - 0.5) < 0.15;
-
-            if (!isCentered && (verificationStep === 1 || verificationStep === 2)) {
-                if (!wasOffCenter) {
-                    updateStatusText("Keep device still & Center your face", "error");
-                    document.getElementById('instruction-text').textContent = "Center your face!";
-                    document.getElementById('instruction-icon').className = "fas fa-compress text-red-400 animate-pulse";
-                    wasOffCenter = true;
-                }
-                // Clear any accidental rotations/blinks accumulated while misaligned
-                headTurnedLeft = false;
-                headTurnedRight = false;
-                blinkDetected = false;
-                blinkCounter = 0;
-            } else if (isCentered && wasOffCenter && (verificationStep === 1 || verificationStep === 2)) {
-                wasOffCenter = false;
-                triggerNextChallenge(); // Restores original instruction text
-            }
-
-            // 1. Calculate Eye landmarks for Blinks
-            const leftEyeIndices = [362, 385, 387, 263, 373, 380];
-            const rightEyeIndices = [33, 160, 158, 133, 153, 144];
-
-            const leftEAR = getEyeAspectRatio(leftEyeIndices, landmarks, w, h);
-            const rightEAR = getEyeAspectRatio(rightEyeIndices, landmarks, w, h);
-            const avgEAR = (leftEAR + rightEAR) / 2;
-
-            document.getElementById('blink-readout').textContent = avgEAR.toFixed(2);
-
-            // Safer Blink state logic
-            if (avgEAR < EYE_BLINK_THRESHOLD) {
-                if (!isEyeClosed) {
-                    isEyeClosed = true;
-                }
-            } else {
-                if (isEyeClosed) {
-                    isEyeClosed = false;
-                    blinkCounter++; // Complete the cycle
-                    if (blinkCounter >= 3) {
-                        blinkDetected = true;
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>WorkforceOS - Biometric Terminal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Importing ultra-thin outline material symbols to match the monoline design -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@200,0,0,24&display=swap" rel="stylesheet">
+    <!-- Futuristic typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        // Deep Navy/Abyssal background for high contrast
+                        background: "#020611", 
+                        surface: "#050b1a",
+                        "surface-container": "#0a1329",
+                        "surface-container-high": "#101d3a",
+                        
+                        // Neon Cyan (Primary) and Digital Green (Secondary)
+                        primary: "#00f0ff", 
+                        "primary-dim": "rgba(0, 240, 255, 0.15)",
+                        secondary: "#00ff88",
+                        "secondary-dim": "rgba(0, 255, 136, 0.15)",
+                        error: "#ff0055",
+                        "error-dim": "rgba(255, 0, 85, 0.15)",
+                        
+                        outline: "#1a365d",
+                        "outline-variant": "#0c1f3d",
+                        
+                        "on-background": "#e2e8f0",
+                        "on-surface": "#cbd5e1",
+                        "on-surface-variant": "#64748b"
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 10px rgba(0, 240, 255, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.1)',
+                        'neon-green': '0 0 10px rgba(0, 255, 136, 0.4)',
+                        'neon-error': '0 0 10px rgba(255, 0, 85, 0.4)',
                     }
                 }
             }
-
-            // 2. Head Orientation / Pose Estimation via landmarks (Yaw / Pitch)
-            const leftCheek = landmarks[356];
-            const rightCheek = landmarks[127];
-
-            // Project estimated Yaw based on 2D horizontal spatial differences
-            const distToLeft = getEuclideanDistance2D(noseTip, leftCheek, w, h);
-            const distToRight = getEuclideanDistance2D(noseTip, rightCheek, w, h);
-            const yawScore = ((distToLeft - distToRight) / (distToLeft + distToRight)) * 100;
-
-            document.getElementById('yaw-readout').textContent = `${yawScore > 0 ? '+' : ''}${yawScore.toFixed(0)}°`;
-
-            if (yawScore > YAW_TURN_RIGHT_THRESHOLD) {
-                headTurnedRight = true;
-                document.getElementById('yaw-readout').className = "text-sm font-bold text-emerald-400";
-            } else if (yawScore < YAW_TURN_LEFT_THRESHOLD) {
-                headTurnedLeft = true;
-                document.getElementById('yaw-readout').className = "text-sm font-bold text-emerald-400";
-            } else {
-                document.getElementById('yaw-readout').className = "text-sm font-bold text-slate-300";
-            }
-
-            // Simple estimation of Pitch
-            const forehead = landmarks[10];
-            const chin = landmarks[152];
-            const distForeheadToNose = getEuclideanDistance2D(forehead, noseTip, w, h);
-            const distNoseToChin = getEuclideanDistance2D(noseTip, chin, w, h);
-            const pitchScore = ((distForeheadToNose - distNoseToChin) / (distForeheadToNose + distNoseToChin)) * 100;
-            document.getElementById('pitch-readout').textContent = `${pitchScore > 0 ? '+' : ''}${pitchScore.toFixed(0)}°`;
-
-            // Draw clean subtle security face mesh outline - Shifts to RED if not centered!
-            drawSubtleMesh(landmarks, isCentered, w, h);
-            
-            // Critical: Restore context after drawing the frame so loops remain stable
-            canvasCtx.restore();
-
-            // 3. Challenge verification state updates (Only proceed if the face is centered)
-            if ((verificationStep === 1 || verificationStep === 2) && isCentered) {
-                let currentChallengeType = (verificationStep === 1) ? challengeType_1 : challengeType_2;
-                let stepCompleted = false;
-
-                if (currentChallengeType === "blink" && blinkDetected) {
-                    stepCompleted = true;
-                } else if (currentChallengeType === "turn_left" && headTurnedLeft) {
-                    stepCompleted = true;
-                } else if (currentChallengeType === "turn_right" && headTurnedRight) {
-                    stepCompleted = true;
-                }
-
-                if (stepCompleted) {
-                    onStepSuccess();
-                }
-            }
-        }
-
-        // Draw a neat high-tech HUD overlay on the canvas
-        function drawSubtleMesh(landmarks, isCentered, w, h) {
-            // Draw face perimeter/contour landmarks
-            // Shift to red if user is trying to cheat by moving the phone!
-            const meshColor = isCentered ? "rgba(16, 185, 129, 0.6)" : "rgba(239, 68, 68, 0.7)";
-            const fillMeshColor = isCentered ? "rgba(52, 211, 153, 0.8)" : "rgba(239, 68, 68, 0.8)";
-            
-            // FIX 2: Dynamic scaling! 
-            // Instead of fixed pixels, radius and line widths scale dynamically with the camera resolution.
-            const radius = w * 0.06; // 6% of image width
-            canvasCtx.lineWidth = Math.max(2, w * 0.005);
-            
-            // Draw circular visual tracker target overlay
-            const centerNode = landmarks[1]; // Nose
-            const targetX = centerNode.x * w;
-            const targetY = centerNode.y * h;
-
-            canvasCtx.beginPath();
-            canvasCtx.arc(targetX, targetY, radius, 0, 2 * Math.PI);
-            canvasCtx.strokeStyle = meshColor;
-            canvasCtx.setLineDash([5, 3]);
-            canvasCtx.stroke();
-            canvasCtx.setLineDash([]); // reset
-
-            // Eye outlines
-            drawLandmarkPath([33, 160, 158, 133, 153, 144, 33], landmarks, fillMeshColor, w, h);
-            drawLandmarkPath([362, 385, 387, 263, 373, 380, 362], landmarks, fillMeshColor, w, h);
-        }
-
-        function drawLandmarkPath(indices, landmarks, strokeStyle, w, h) {
-            canvasCtx.beginPath();
-            for (let i = 0; i < indices.length; i++) {
-                const pt = landmarks[indices[i]];
-                const screenX = pt.x * w;
-                const screenY = pt.y * h;
-                if (i === 0) {
-                    canvasCtx.moveTo(screenX, screenY);
-                } else {
-                    canvasCtx.lineTo(screenX, screenY);
-                }
-            }
-            canvasCtx.strokeStyle = strokeStyle;
-            canvasCtx.lineWidth = Math.max(1, w * 0.003);
-            canvasCtx.stroke();
-        }
-
-        function onStepSuccess() {
-            // Reset verification actions for the next step
-            blinkDetected = false;
-            blinkCounter = 0;
-            headTurnedLeft = false;
-            headTurnedRight = false;
-
-            if (verificationStep === 1) {
-                verificationStep = 2;
-                document.getElementById('total-progress-bar').style.width = '50%';
-                showToast("Step 1 Authenticated", "Challenge verified successfully. Proceeding...", "success");
-                triggerNextChallenge();
-            } else if (verificationStep === 2) {
-                verificationStep = 3;
-                document.getElementById('total-progress-bar').style.width = '100%';
-                onLivenessFullyVerified();
-            }
-        }
-
-        function onLivenessFullyVerified() {
-            updateStatusText("Physical Liveness Verified", "success");
-            showToast("Liveness Cleared", "Physical human presence validated successfully. Access enabled.", "success");
-
-            // Hide instruction banner
-            const instructionOverlay = document.getElementById('instruction-card');
-            instructionOverlay.classList.add('opacity-0');
-            setTimeout(() => instructionOverlay.classList.add('hidden'), 300);
-
-            // Enable submit button
-            const submitBtn = document.getElementById('submit-attendance-btn');
-            submitBtn.removeAttribute('disabled');
-            submitBtn.className = "w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 active:scale-[0.98] transition-all text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-emerald-500/20";
-            
-            document.getElementById('lock-icon').className = "fas fa-lock-open";
-            
-            // Listen for submission
-            submitBtn.addEventListener('click', handleAttendanceSubmission);
-        }
-
-        function handleAttendanceSubmission() {
-            // Capture canvas snapshot frame (safe direct base64 image capture)
-            const snapshotBase64 = canvasElement.toDataURL('image/jpeg', 0.8);
-            const gps = document.getElementById('geo-coordinates').textContent;
-
-            updateStatusText("Sending Attendance Payload...", "warning");
-            
-            // Structure payload data for your Google Apps Script backend
-            const payload = {
-                employeeId: "EMP-2026-9810",
-                location: gps,
-                imageData: snapshotBase64,
-                timestamp: new Date().toISOString()
-            };
-
-            // Inform of successful bypass mitigation
-            showToast("Success!", "Liveness and geolocation payload successfully processed.", "success");
-            
-            /* If running in App Script, you would communicate with your .gs script:
-               google.script.run.withSuccessHandler(onSuccess).withFailureHandler(onFailure).recordAttendance(payload);
-            */
-            console.log("App Script Payload Ready:", payload);
         }
     </script>
+    
+    <style>
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background-color: #020611; 
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Enforce thin monoline look for material icons */
+        .material-symbols-outlined { 
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; 
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* --- Abstract/Minimal Scanner Box Elements --- */
+        /* Instead of standard borders, use corner brackets to imply targeting/scanning */
+        .scanner-box {
+            position: relative;
+            background: rgba(10, 19, 41, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid transparent;
+        }
+        
+        .scanner-bracket {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-color: theme('colors.primary');
+            opacity: 0.7;
+        }
+        .scanner-bracket-tl { top: -1px; left: -1px; border-top: 1px solid; border-left: 1px solid; }
+        .scanner-bracket-tr { top: -1px; right: -1px; border-top: 1px solid; border-right: 1px solid; }
+        .scanner-bracket-bl { bottom: -1px; left: -1px; border-bottom: 1px solid; border-left: 1px solid; }
+        .scanner-bracket-br { bottom: -1px; right: -1px; border-bottom: 1px solid; border-right: 1px solid; }
+
+        .scanner-box.success .scanner-bracket { border-color: theme('colors.secondary'); }
+        .scanner-box.error .scanner-bracket { border-color: theme('colors.error'); }
+
+        /* --- Animations --- */
+        @keyframes scan-line {
+            0% { transform: translateY(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100px); opacity: 0; }
+        }
+        .animate-scan {
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, theme('colors.primary'), transparent);
+            box-shadow: 0 0 8px theme('colors.primary');
+            animation: scan-line 3s linear infinite;
+            z-index: 10;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        .pulse-dot::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border: 1px solid inherit;
+            border-radius: 50%;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        /* Modal transitions */
+        #date-filter-modal, #image-modal { transition: opacity 0.3s ease, visibility 0.3s; }
+        #date-filter-modal.hidden, #image-modal.hidden { opacity: 0; visibility: hidden; pointer-events: none; display: flex !important; }
+        #date-filter-card { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateY(20px) scale(0.95); }
+        #date-filter-modal:not(.hidden) #date-filter-card { transform: translateY(0) scale(1); }
+    </style>
+</head>
+<body class="text-on-background pb-[90px] md:hidden relative selection:bg-primary selection:text-background">
+
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-background/80 backdrop-blur-xl border-b border-primary/20 shadow-[0_4px_20px_rgba(0,240,255,0.05)]">
+    <div class="flex items-center gap-3">
+        <!-- Custom SVG based on user description: Broken lines, tracking dots, monoline -->
+        <svg class="w-8 h-8 text-primary drop-shadow-[0_0_8px_rgba(0,240,255,0.6)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Outer broken ring -->
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10" stroke-dasharray="4 4" />
+            <!-- Inner abstract fingerprint ridges -->
+            <path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4v3" />
+            <path d="M10 15v-1c0-1.1.9-2 2-2s2 .9 2 2v2" />
+            <!-- Tracking dots -->
+            <circle cx="12" cy="5" r="1.5" fill="currentColor" stroke="none" />
+            <circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none" />
+            <circle cx="16" cy="18" r="1" fill="currentColor" stroke="none" />
+        </svg>
+        <h1 class="text-xl font-light tracking-[0.1em] text-primary">SYS<span class="font-bold">CORE</span></h1>
+    </div>
+    
+    <!-- User Avatar as a scanned element -->
+    <div class="relative scanner-box p-[2px] rounded-sm cursor-pointer group">
+        <div class="scanner-bracket scanner-bracket-tl"></div><div class="scanner-bracket scanner-bracket-tr"></div>
+        <div class="scanner-bracket scanner-bracket-bl"></div><div class="scanner-bracket scanner-bracket-br"></div>
+        <img class="w-8 h-8 object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E" alt="Operative">
+        <div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
+    </div>
+</header>
+
+<main class="pt-[88px] px-6 flex flex-col gap-8 relative z-10">
+
+    <div class="flex flex-col gap-5">
+        <div class="flex justify-between items-end">
+            <div>
+                <p class="font-mono text-xs text-primary/70 tracking-widest uppercase mb-1">Log Date: 14.11.2024</p>
+                <h2 class="text-2xl font-light text-on-background tracking-wide">Access <span class="font-bold text-white">Records</span></h2>
+            </div>
+            <button aria-label="Sync Database" class="relative group w-10 h-10 flex items-center justify-center text-primary border border-primary/30 rounded-none bg-primary/5 hover:bg-primary/10 transition-colors">
+                <div class="absolute inset-0 border border-primary/20 group-hover:animate-ping opacity-20"></div>
+                <span class="material-symbols-outlined text-[20px] group-active:rotate-180 transition-transform duration-500">sync</span>
+            </button>
+        </div>
+        
+        <!-- Search Button - Command Line Aesthetic -->
+        <button id="search-trigger" class="w-full relative scanner-box bg-surface-container/40 p-4 group text-left flex items-center justify-between">
+            <div class="scanner-bracket scanner-bracket-tl"></div><div class="scanner-bracket scanner-bracket-tr"></div>
+            <div class="scanner-bracket scanner-bracket-bl"></div><div class="scanner-bracket scanner-bracket-br"></div>
+            
+            <div class="flex items-center gap-3 text-primary/80 group-hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[18px]">terminal</span>
+                <span class="font-mono text-sm tracking-wider uppercase">> QUERY_ARCHIVES...</span>
+            </div>
+            <span class="font-mono text-xs opacity-50 animate-pulse">_</span>
+        </button>
+    </div>
+
+    <section class="scanner-box p-5">
+        <div class="scanner-bracket scanner-bracket-tl"></div><div class="scanner-bracket scanner-bracket-tr"></div>
+        <div class="scanner-bracket scanner-bracket-bl"></div><div class="scanner-bracket scanner-bracket-br"></div>
+        
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-[18px]">radar</span>
+                <h3 class="font-medium text-sm tracking-widest text-on-background uppercase">Sequence Status</h3>
+            </div>
+            <span class="font-mono text-xs text-primary bg-primary-dim px-2 py-1 border border-primary/30">NODE 3/5</span>
+        </div>
+        
+        <!-- Minimal Data Stream Progress Line -->
+        <div class="relative w-full h-px bg-outline-variant mb-8 mt-2">
+            <!-- Active Progress Segment -->
+            <div class="absolute top-0 left-0 h-[2px] -translate-y-[0.5px] w-3/5 bg-primary shadow-neon-cyan"></div>
+            <!-- Tracking dot on current progress -->
+            <div class="absolute top-1/2 left-3/5 -translate-y-1/2 -translate-x-1/2 w-2 h-2 bg-background border border-primary shadow-neon-cyan rounded-full pulse-dot"></div>
+            
+            <!-- Timeline Nodes mapped onto the line -->
+            <div class="absolute w-full top-1/2 -translate-y-1/2 flex justify-between px-[1%]">
+                <div class="w-1.5 h-1.5 bg-secondary shadow-neon-green rotate-45"></div>
+                <div class="w-1.5 h-1.5 bg-secondary shadow-neon-green rotate-45"></div>
+                <div class="w-1.5 h-1.5 bg-secondary shadow-neon-green rotate-45"></div>
+                <div class="w-1.5 h-1.5 bg-background border border-error rotate-45 relative">
+                     <span class="absolute -top-6 -left-3 font-mono text-[10px] text-error">ERR</span>
+                </div>
+                <div class="w-1 h-1 bg-outline-variant rounded-full"></div>
+            </div>
+        </div>
+        
+        <div class="flex justify-between text-center font-mono text-[10px] text-on-surface-variant">
+            <span>08:00</span><span>10:00</span><span>12:00</span><span class="text-error">14:00</span><span class="opacity-30">16:00</span>
+        </div>
+    </section>
+
+    <section class="flex flex-col gap-6">
+        <div class="flex items-center gap-2 mb-2">
+            <span class="material-symbols-outlined text-primary text-[16px]">timeline</span>
+            <h3 class="font-light text-sm tracking-widest text-on-background uppercase">Log Stream</h3>
+        </div>
+
+        <!-- Timeline Connector (Background) -->
+        <div class="absolute left-[39px] top-[380px] bottom-10 w-px border-l border-dashed border-primary/20 z-0"></div>
+
+        <!-- Node 1: Success -->
+        <div class="relative pl-12">
+            <!-- Status Dot -->
+            <div class="absolute left-0 top-1 w-8 h-8 rounded-full bg-background border border-secondary flex items-center justify-center z-10 shadow-neon-green">
+                <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            
+            <div class="scanner-box success p-4">
+                <div class="scanner-bracket scanner-bracket-tl"></div><div class="scanner-bracket scanner-bracket-tr"></div>
+                <div class="scanner-bracket scanner-bracket-bl"></div><div class="scanner-bracket scanner-bracket-br"></div>
+                
+                <div class="flex justify-between items-start mb-3 border-b border-outline-variant pb-2">
+                    <div>
+                        <p class="font-mono text-secondary text-[10px] uppercase tracking-[0.2em] mb-1">ID: AUTH_8472 • 10:00 SLOT</p>
+                        <p class="text-sm font-medium text-white">Verified at 09:55:12</p>
+                    </div>
+                    <span class="font-mono text-[10px] text-secondary border border-secondary/50 px-1.5 py-0.5 uppercase">Valid</span>
+                </div>
+                
+                <div class="flex gap-4 items-center">
+                    <div class="relative w-12 h-12 border border-outline shrink-0 overflow-hidden group cursor-pointer" onclick="openImageModal(this.querySelector('img').src)">
+                        <div class="absolute inset-0 bg-primary/20 mix-blend-color z-10"></div>
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E" alt="Scan Capture" class="w-full h-full object-cover grayscale group-hover:scale-110 transition-transform">
+                        <div class="absolute bottom-0 left-0 w-full h-[1px] bg-primary z-20 opacity-0 group-hover:opacity-100 animate-[scan-line_1.5s_linear_infinite]"></div>
+                    </div>
+                    
+                    <div class="flex flex-col gap-1.5 w-full">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[14px]">my_location</span>
+                            <span class="font-mono text-[11px] text-on-surface">LOC: 40.7128°N, 74.0060°W</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-outline text-[14px]">domain</span>
+                            <p class="font-mono text-[10px] text-on-surface-variant leading-tight truncate w-48">HQ_BLDG_MAIN_ENTRANCE_NYC</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Node 2: Late / Error -->
+        <div class="relative pl-12">
+            <div class="absolute left-0 top-1 w-8 h-8 rounded-full bg-background border border-error flex items-center justify-center z-10 shadow-neon-error">
+                <span class="material-symbols-outlined text-[14px] text-error">priority_high</span>
+            </div>
+            
+            <div class="scanner-box error p-4 bg-error-dim">
+                <div class="scanner-bracket scanner-bracket-tl"></div><div class="scanner-bracket scanner-bracket-tr"></div>
+                <div class="scanner-bracket scanner-bracket-bl"></div><div class="scanner-bracket scanner-bracket-br"></div>
+                
+                <div class="flex justify-between items-start mb-3 border-b border-error/20 pb-2">
+                    <div>
+                        <p class="font-mono text-error text-[10px] uppercase tracking-[0.2em] mb-1">ID: AUTH_8473 • 14:00 SLOT</p>
+                        <p class="text-sm font-medium text-white">Verified at 14:22:05</p>
+                    </div>
+                    <span class="font-mono text-[10px] text-error border border-error/50 px-1.5 py-0.5 uppercase animate-pulse">Delay</span>
+                </div>
+                
+                <div class="flex gap-4 items-center">
+                     <div class="relative w-12 h-12 border border-error/50 shrink-0 overflow-hidden group cursor-pointer" onclick="openImageModal(this.querySelector('img').src)">
+                        <div class="absolute inset-0 bg-error/20 mix-blend-color z-10"></div>
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E" alt="Scan Capture" class="w-full h-full object-cover grayscale">
+                    </div>
+                    <div class="flex flex-col gap-1.5 w-full">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-error text-[14px]">my_location</span>
+                            <span class="font-mono text-[11px] text-on-surface">LOC: 40.7580°N, 73.9855°W</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-outline text-[14px]">domain</span>
+                            <p class="font-mono text-[10px] text-on-surface-variant leading-tight truncate w-48">FIELD_OFFICE_B_NYC</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Node 3: Pending -->
+        <div class="relative pl-12 opacity-50">
+            <div class="absolute left-[13px] top-1 w-1.5 h-1.5 border border-outline-variant rotate-45 bg-background z-10"></div>
+            
+            <div class="border border-dashed border-outline-variant p-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="font-mono text-[10px] text-on-surface-variant uppercase tracking-[0.2em] mb-1">REQ: SLOT_4 • 16:00</p>
+                        <p class="text-sm font-medium text-on-surface">Awaiting Signature</p>
+                    </div>
+                    <span class="material-symbols-outlined text-outline animate-spin" style="animation-duration: 4s;">data_usage</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-4">
+        <div class="flex justify-between items-end mb-4 border-b border-outline-variant pb-2">
+            <h3 class="font-light text-sm tracking-widest text-on-background uppercase">Data Archives</h3>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <!-- Archive Card 1 -->
+            <div class="scanner-box">
+                <div class="scanner-bracket scanner-bracket-tl"></div><div class="scanner-bracket scanner-bracket-br"></div>
+                <div class="history-card flex justify-between items-center p-4 cursor-pointer hover:bg-surface-container transition-colors">
+                    <div class="flex items-center gap-3">
+                        <span class="font-mono text-xs text-primary">13.11</span>
+                        <div class="w-px h-6 bg-outline-variant"></div>
+                        <div>
+                            <p class="text-sm font-medium text-on-surface">Sequence Complete</p>
+                            <p class="font-mono text-[10px] text-on-surface-variant mt-1">5/5 NODES • 0 ERRORS</p>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline text-[18px] chevron-icon transition-transform">add</span>
+                </div>
+                <!-- Details (Hidden by default) -->
+                <div class="hidden border-t border-outline-variant bg-surface-container/30 p-4 flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                         <span class="font-mono text-xs text-on-surface">08:00 SLOT</span>
+                         <span class="font-mono text-[10px] text-secondary">OK_07:55</span>
+                    </div>
+                    <div class="w-full h-px bg-outline-variant/30"></div>
+                    <div class="flex items-center justify-between">
+                         <span class="font-mono text-xs text-on-surface">12:00 SLOT</span>
+                         <span class="font-mono text-[10px] text-secondary">OK_11:58</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Archive Card 2 (Error) -->
+            <div class="scanner-box border-l-2 border-l-error bg-error-dim/20">
+                <div class="scanner-bracket scanner-bracket-tr"></div><div class="scanner-bracket scanner-bracket-br"></div>
+                <div class="history-card flex justify-between items-center p-4 cursor-pointer hover:bg-surface-container transition-colors">
+                    <div class="flex items-center gap-3">
+                        <span class="font-mono text-xs text-error">12.11</span>
+                        <div class="w-px h-6 bg-outline-variant"></div>
+                        <div>
+                            <p class="text-sm font-medium text-on-surface">Sequence Interrupted</p>
+                            <p class="font-mono text-[10px] text-error mt-1">4/5 NODES • 1 MISSED</p>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined text-error text-[18px] chevron-icon transition-transform">add</span>
+                </div>
+                <!-- Details -->
+                <div class="hidden border-t border-error/20 bg-surface-container/30 p-4 flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                         <span class="font-mono text-xs text-on-surface">16:00 SLOT</span>
+                         <span class="font-mono text-[10px] text-error">NULL_DATA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-background/90 backdrop-blur-xl border-t border-primary/20 pb-safe pt-2 px-6 flex justify-between items-center shadow-[0_-4px_20px_rgba(0,240,255,0.03)]">
+    
+    <div class="flex flex-col items-center justify-center w-16 h-16 text-on-surface-variant hover:text-primary transition-colors cursor-pointer group">
+        <span class="material-symbols-outlined text-[24px] group-hover:-translate-y-1 transition-transform">view_cozy</span>
+        <span class="font-mono text-[9px] mt-1 tracking-widest uppercase">Dash</span>
+    </div>
+    
+    <!-- Central Action Button (Scanner Style) -->
+    <div class="relative -top-5 flex flex-col items-center justify-center w-16 h-16 bg-background border border-primary text-primary rounded-none shadow-neon-cyan active:scale-95 transition-all cursor-pointer scanner-box">
+         <div class="scanner-bracket scanner-bracket-tl"></div><div class="scanner-bracket scanner-bracket-tr"></div>
+         <div class="scanner-bracket scanner-bracket-bl"></div><div class="scanner-bracket scanner-bracket-br"></div>
+         <!-- Custom abstract scan icon -->
+         <svg class="w-6 h-6 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+             <path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2" stroke-linecap="round"/>
+             <path d="M9 12h6" stroke-linecap="round"/>
+         </svg>
+    </div>
+    
+    <div class="flex flex-col items-center justify-center w-16 h-16 text-on-surface-variant hover:text-primary transition-colors cursor-pointer group">
+        <span class="material-symbols-outlined text-[24px] group-hover:-translate-y-1 transition-transform">person_search</span>
+        <span class="font-mono text-[9px] mt-1 tracking-widest uppercase">Operative</span>
+    </div>
+</nav>
+
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-background/90 backdrop-blur-md px-6 hidden" id="date-filter-modal">
+    <div class="scanner-box w-full max-w-[400px] border border-primary/50 p-6 flex flex-col gap-6 shadow-neon-cyan" id="date-filter-card">
+        <div class="scanner-bracket scanner-bracket-tl"></div><div class="scanner-bracket scanner-bracket-tr"></div>
+        <div class="scanner-bracket scanner-bracket-bl"></div><div class="scanner-bracket scanner-bracket-br"></div>
+        
+        <div class="flex justify-between items-center border-b border-primary/30 pb-2">
+            <h3 class="font-mono text-sm tracking-widest text-primary uppercase">Execute_Query</h3>
+            <span class="material-symbols-outlined text-primary cursor-pointer hover:rotate-90 transition-transform" id="close-modal-btn">close</span>
+        </div>
+        
+        <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-1">
+                <label class="font-mono text-[10px] text-on-surface-variant tracking-wider">> START_PARAM</label>
+                <div class="border border-outline-variant bg-surface p-2 flex items-center focus-within:border-primary transition-colors">
+                    <span class="font-mono text-primary mr-2">></span>
+                    <input class="w-full bg-transparent border-none p-0 text-sm font-mono text-white focus:ring-0 outline-none" type="date" value="2024-11-01" style="color-scheme: dark;">
+                </div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="font-mono text-[10px] text-on-surface-variant tracking-wider">> END_PARAM</label>
+                <div class="border border-outline-variant bg-surface p-2 flex items-center focus-within:border-primary transition-colors">
+                    <span class="font-mono text-primary mr-2">></span>
+                    <input class="w-full bg-transparent border-none p-0 text-sm font-mono text-white focus:ring-0 outline-none" type="date" value="2024-11-14" style="color-scheme: dark;">
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex gap-4 mt-2">
+            <button class="flex-1 py-2 border border-outline-variant font-mono text-xs text-on-surface hover:bg-surface-container active:scale-95 transition-all" id="cancel-filter-btn">ABORT</button>
+            <button class="flex-1 py-2 bg-primary/10 border border-primary font-mono text-xs text-primary shadow-neon-cyan hover:bg-primary/20 active:scale-95 transition-all">EXECUTE</button>
+        </div>
+    </div>
+</div>
+
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-background/95 backdrop-blur-lg px-6 hidden" id="image-modal">
+    <div class="relative max-w-sm w-full scanner-box border border-primary p-2 flex flex-col items-center scale-95" id="image-modal-card">
+        <div class="scanner-bracket scanner-bracket-tl"></div><div class="scanner-bracket scanner-bracket-tr"></div>
+        <div class="scanner-bracket scanner-bracket-bl"></div><div class="scanner-bracket scanner-bracket-br"></div>
+        
+        <div class="w-full flex justify-between items-center p-2 border-b border-primary/30 mb-2">
+             <span class="font-mono text-[10px] text-primary tracking-widest">VISUAL_DATA_ANALYSIS</span>
+             <button class="text-primary hover:text-white transition-colors" id="close-image-modal-btn">
+                <span class="material-symbols-outlined text-[18px]">close</span>
+            </button>
+        </div>
+
+        <div class="relative w-full overflow-hidden">
+            <img alt="Captured Scan" class="w-full h-auto object-cover aspect-square grayscale" id="modal-image" src="">
+            <!-- Scanning overlay animation -->
+            <div class="animate-scan"></div>
+            <!-- Reticle overlay -->
+            <div class="absolute inset-0 border border-primary/20 m-4 flex items-center justify-center pointer-events-none">
+                <div class="w-12 h-12 border border-primary/50 rounded-full flex items-center justify-center">
+                    <div class="w-1 h-1 bg-primary rounded-full"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="w-full flex justify-between p-2 mt-2 font-mono text-[10px] text-on-surface-variant">
+            <span>MATCH: 99.8%</span>
+            <span class="text-secondary">VERIFIED</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Modal Logic
+    const modal = document.getElementById('date-filter-modal');
+    const trigger = document.getElementById('search-trigger');
+    const closeBtn = document.getElementById('close-modal-btn');
+    const cancelBtn = document.getElementById('cancel-filter-btn');
+
+    function openModal() { modal.classList.remove('hidden'); }
+    function closeModal() { modal.classList.add('hidden'); }
+
+    trigger.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Image/Scan Modal Logic
+    const imgModal = document.getElementById('image-modal');
+    const imgModalCard = document.getElementById('image-modal-card');
+    const modalImage = document.getElementById('modal-image');
+    const closeImgModalBtn = document.getElementById('close-image-modal-btn');
+
+    function openImageModal(src) {
+        modalImage.src = src;
+        imgModal.classList.remove('hidden');
+        setTimeout(() => {
+            imgModalCard.classList.remove('scale-95');
+            imgModalCard.classList.add('scale-100');
+        }, 10);
+    }
+
+    function closeImageModal() {
+        imgModalCard.classList.remove('scale-100');
+        imgModalCard.classList.add('scale-95');
+        setTimeout(() => { imgModal.classList.add('hidden'); }, 200);
+    }
+
+    closeImgModalBtn.addEventListener('click', closeImageModal);
+    imgModal.addEventListener('click', (e) => {
+        if (e.target === imgModal) closeImageModal();
+    });
+
+    // History Accordion Logic
+    document.querySelectorAll('.history-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const details = card.nextElementSibling;
+            const chevron = card.querySelector('.chevron-icon');
+            const isExpanded = !details.classList.contains('hidden');
+
+            // Instead of rotate, let's change the icon to match a terminal look
+            if (isExpanded) {
+                details.classList.add('hidden');
+                chevron.textContent = 'add';
+                chevron.classList.remove('rotate-45'); // In case a rotation class was applied
+            } else {
+                details.classList.remove('hidden');
+                chevron.textContent = 'remove';
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
