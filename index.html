@@ -37,7 +37,7 @@
 
     <div class="max-w-md w-full flex flex-col items-center">
         <h1 class="text-2xl font-bold mb-2 text-center">Face Verification</h1>
-        <p class="text-gray-400 text-sm mb-6 text-center">Please position your face approx 50cm from the camera.</p>
+        <p class="text-gray-400 text-sm mb-6 text-center">Please position your face at least 70cm from the camera.</p>
 
         <!-- Camera Container -->
         <div id="camera-container" class="relative w-full aspect-[3/4] border-8 border-red rounded-2xl overflow-hidden bg-black flex items-center justify-center">
@@ -91,9 +91,7 @@
         const loadingOverlay = document.getElementById('loading');
 
         // --- DISTANCE CALIBRATION THRESHOLDS ---
-        // These values represent the ratio of the face width to the total camera frame width.
-        const MIN_FACE_WIDTH_RATIO = 0.25; // Less than this = Too far (> 60cm)
-        const MAX_FACE_WIDTH_RATIO = 0.45; // More than this = Too close (< 40cm)
+        const MIN_DISTANCE_CM = 70; // Minimum allowed distance
 
         // Magic number for calculating cm. 
         // Formula: Distance (cm) = FOCAL_FACTOR / FaceWidthRatio
@@ -132,10 +130,9 @@
                 distanceDisplay.innerText = `Distance: ~${estimatedDistanceCm} cm`;
                 
                 // --- DISTANCE LOGIC ---
-                if (faceWidth > MAX_FACE_WIDTH_RATIO) {
-                    setUIState('red', 'Move away from camera');
-                } else if (faceWidth < MIN_FACE_WIDTH_RATIO) {
-                    setUIState('red', 'Move closer to camera');
+                // Deny if distance is less than 70 (i.e. <= 69)
+                if (estimatedDistanceCm < MIN_DISTANCE_CM) {
+                    setUIState('red', `Move away (Min ${MIN_DISTANCE_CM}cm)`);
                 } else {
                     setUIState('green', 'Perfect distance!');
                 }
