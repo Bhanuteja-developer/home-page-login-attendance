@@ -58,6 +58,11 @@
             <div id="feedback-badge" class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg whitespace-nowrap transition-colors duration-300">
                 Face not detected
             </div>
+
+            <!-- Real-time Distance Display -->
+            <div id="distance-display" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-3 py-1 rounded-md font-mono text-sm shadow-md border border-gray-600 backdrop-blur-sm">
+                Distance: -- cm
+            </div>
         </div>
 
         <!-- Capture Controls -->
@@ -81,34 +86,19 @@
         const canvasCtx = canvasElement.getContext('2d');
         const cameraContainer = document.getElementById('camera-container');
         const feedbackBadge = document.getElementById('feedback-badge');
+        const distanceDisplay = document.getElementById('distance-display');
         const captureBtn = document.getElementById('capture-btn');
         const loadingOverlay = document.getElementById('loading');
 
-        // --- SECURE DISTANCE CALIBRATION THRESHOLDS ---
-        // Variables to hold backend thresholds
-        let minFaceWidthRatio = null;
-        let maxFaceWidthRatio = null;
-        let currentFaceWidth = 0; // Store to send to backend on capture
+        // --- DISTANCE CALIBRATION THRESHOLDS ---
+        // These values represent the ratio of the face width to the total camera frame width.
+        const MIN_FACE_WIDTH_RATIO = 0.25; // Less than this = Too far (> 60cm)
+        const MAX_FACE_WIDTH_RATIO = 0.45; // More than this = Too close (< 40cm)
 
-        // Fetch thresholds from Apps Script backend
-        function fetchThresholds() {
-            if (typeof google !== 'undefined' && google.script) {
-                google.script.run
-                    .withSuccessHandler((thresholds) => {
-                        minFaceWidthRatio = thresholds.min;
-                        maxFaceWidthRatio = thresholds.max;
-                        startCamera(); // Start camera only after thresholds are loaded
-                    })
-                    .getDistanceThresholds();
-            } else {
-                // Fallback for local testing outside Apps Script
-                setTimeout(() => {
-                    minFaceWidthRatio = 0.25;
-                    maxFaceWidthRatio = 0.45;
-                    startCamera();
-                }, 1000);
-            }
-        }
+        // Magic number for calculating cm. 
+        // Formula: Distance (cm) = FOCAL_FACTOR / FaceWidthRatio
+        // Assuming ~50cm distance yields a ~0.35 face width: 50 * 0.35 = 17.5
+        const FOCAL_FACTOR = 17.5; 
 
         let isDistanceOptimal = false;
         // Mock liveness for demonstration purposes. In your app, Arcface/Mediapipe handles this.
@@ -136,14 +126,15 @@
 
                 // boundingBox.width is a normalized value between 0.0 and 1.0
                 const faceWidth = boundingBox.width;
-                currentFaceWidth = faceWidth; // Store for backend validation
+                
+                // --- ESTIMATE DISTANCE IN CM ---
+                const estimatedDistanceCm = Math.round(FOCAL_FACTOR / faceWidth);
+                distanceDisplay.innerText = `Distance: ~${estimatedDistanceCm} cm`;
                 
                 // --- DISTANCE LOGIC ---
-                if (minFaceWidthRatio === null || maxFaceWidthRatio === null) {
-                    setUIState('red', 'Loading security settings...');
-                } else if (faceWidth > maxFaceWidthRatio) {
+                if (faceWidth > MAX_FACE_WIDTH_RATIO) {
                     setUIState('red', 'Move away from camera');
-                } else if (faceWidth < minFaceWidthRatio) {
+                } else if (faceWidth < MIN_FACE_WIDTH_RATIO) {
                     setUIState('red', 'Move closer to camera');
                 } else {
                     setUIState('green', 'Perfect distance!');
@@ -151,6 +142,7 @@
 
             } else {
                 setUIState('red', 'Face not detected');
+                distanceDisplay.innerText = 'Distance: -- cm';
             }
             canvasCtx.restore();
         }
@@ -199,58 +191,28 @@
         
         faceDetection.onResults(onResults);
 
-        // Start Camera function (called after thresholds are loaded)
-        function startCamera() {
-            const camera = new Camera(videoElement, {
-                onFrame: async () => {
-                    await faceDetection.send({image: videoElement});
-                },
-                width: 480,
-                height: 640,
-                facingMode: 'user' // Force front camera
-            });
-            camera.start();
-        }
-
-        // Initialize fetching thresholds
-        fetchThresholds();
+        // Start Camera
+        const camera = new Camera(videoElement, {
+            onFrame: async () => {
+                await faceDetection.send({image: videoElement});
+            },
+            width: 480,
+            height: 640,
+            facingMode: 'user' // Force front camera
+        });
+        
+        camera.start();
 
         // Capture Button Logic
         captureBtn.addEventListener('click', () => {
             if(isDistanceOptimal && isLivenessVerified) {
-                // Get the image data
+                // In your app, this is where you grab the image data and send it to Apps Script
                 const imageData = canvasElement.toDataURL('image/jpeg', 0.9);
-                feedbackBadge.innerText = "Processing...";
+                feedbackBadge.innerText = "Photo Captured!";
                 feedbackBadge.classList.replace('bg-green-600', 'bg-blue-600');
+                // Disable temporarily
                 captureBtn.disabled = true; 
-                
-                // --- BACKEND VALIDATION ---
-                // Send both image and currentFaceWidth to backend to prevent client-side bypass
-                if (typeof google !== 'undefined' && google.script) {
-                    google.script.run
-                        .withSuccessHandler((response) => {
-                            feedbackBadge.innerText = response.message;
-                            if(response.success) {
-                                feedbackBadge.classList.replace('bg-blue-600', 'bg-green-600');
-                            } else {
-                                // Revert on backend failure
-                                feedbackBadge.classList.replace('bg-blue-600', 'bg-red-600');
-                                setTimeout(() => { captureBtn.disabled = false; }, 2000);
-                            }
-                        })
-                        .withFailureHandler((err) => {
-                            feedbackBadge.innerText = "Error submitting";
-                            feedbackBadge.classList.replace('bg-blue-600', 'bg-red-600');
-                            setTimeout(() => { captureBtn.disabled = false; }, 2000);
-                        })
-                        .processAttendance(imageData, currentFaceWidth);
-                } else {
-                    // Local fallback
-                    setTimeout(() => { 
-                        feedbackBadge.innerText = "Photo Captured (Local)!";
-                        setTimeout(() => { captureBtn.disabled = false; }, 2000);
-                    }, 1000);
-                }
+                setTimeout(() => { captureBtn.disabled = false; }, 2000);
             }
         });
 
