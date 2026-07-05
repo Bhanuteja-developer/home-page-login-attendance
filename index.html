@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liveness & Distance Capture</title>
     
-    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- MediaPipe Face Mesh & Hands Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
@@ -36,9 +34,8 @@
 
     <div class="max-w-md w-full flex flex-col items-center">
         <h1 class="text-2xl font-bold mb-2 text-center">Face Verification</h1>
-        <p class="text-gray-400 text-sm mb-6 text-center">1. Keep 70cm distance.<br>2. Blink.<br>3. Smile.<br>4. Raise Hand.</p>
+        <p class="text-gray-400 text-sm mb-6 text-center">1. Keep 55cm distance.<br>2. Blink.<br>3. Smile.<br>4. Raise Hand.</p>
 
-        <!-- Camera Container -->
         <div id="camera-container" class="relative w-full aspect-[3/4] border-8 border-red rounded-2xl overflow-hidden bg-black flex items-center justify-center">
             
             <video id="video-feed" class="absolute w-full h-full object-cover hidden" playsinline autoplay></video>
@@ -58,15 +55,12 @@
             </div>
         </div>
 
-        <!-- Capture Controls -->
         <div class="mt-8 w-full flex flex-col gap-4">
-            <!-- Active Blink Liveness indicator -->
             <div class="flex items-center justify-between bg-gray-800 p-4 rounded-lg">
                 <span class="text-sm font-semibold">Liveness (Blink, Smile, Hand)</span>
                 <span id="liveness-status" class="text-yellow-400 text-sm font-bold animate-pulse">Waiting for Blink...</span>
             </div>
 
-            <!-- Capture Button -->
             <button id="capture-btn" disabled class="w-full bg-gray-600 text-white py-4 rounded-xl font-bold text-lg opacity-50 cursor-not-allowed transition-all duration-300 flex justify-center items-center gap-2">
                 Capture Photo
             </button>
@@ -74,11 +68,6 @@
     </div>
 
     <script>
-        // NOTE: In the Canvas environment, the apiKey is automatically provided. 
-        // If you deploy this to Apps Script later, you will need to replace this with your Gemini API Key,
-        // OR move the Gemini API call to your Code.gs backend for security.
-        const apiKey = ""; 
-
         const videoElement = document.getElementById('video-feed');
         const canvasElement = document.getElementById('output-canvas');
         const canvasCtx = canvasElement.getContext('2d');
@@ -89,16 +78,18 @@
         const loadingOverlay = document.getElementById('loading');
         const livenessStatus = document.getElementById('liveness-status');
 
-        const MIN_DISTANCE_CM = 70; 
+        // --- UPDATED CALIBRATION THRESHOLD ---
+        const MIN_DISTANCE_CM = 55; // Blocks <= 54, allows >= 55
+        
         const FOCAL_FACTOR = 13.0; 
 
-        // Blink & Anti-shake Constants
+        // Blink, Anti-shake & Smile Constants
         const EAR_THRESHOLD = 0.22;
         const EAR_OPEN_THRESHOLD = 0.25;
         const SHAKE_THRESHOLD = 0.03; 
         const MIN_FRAMES_CLOSED = 2;  
         const MAX_FRAMES_CLOSED = 15; 
-        const SMILE_THRESHOLD = 0.42; // Above this ratio = smiling gesture recognized
+        const SMILE_THRESHOLD = 0.42; 
 
         let isDistanceOptimal = false;
         let isLivenessVerified = false; 
@@ -106,7 +97,7 @@
         let previousNosePos = null;
         let framesEyesClosed = 0;
         let livenessStage = 'blink'; // Sequence: 'blink' -> 'smile' -> 'hand' -> 'verified'
-        let currentHandLandmarks = null; // Store hand tracking data
+        let currentHandLandmarks = null; 
 
         function euclideanDistance(p1, p2) {
             return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
@@ -129,7 +120,6 @@
             canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
             canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
 
-            // Skip processing if we are currently analyzing with Google AI
             if (captureBtn.disabled && feedbackBadge.innerText.includes("Analyzing")) {
                 canvasCtx.restore();
                 return;
@@ -138,12 +128,10 @@
             if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
                 const landmarks = results.multiFaceLandmarks[0];
                 
-                // Draw mesh for visual feedback
                 drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION, {color: '#C0C0C040', lineWidth: 1});
                 drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYE, {color: '#FF3030'});
                 drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYE, {color: '#30FF30'});
 
-                // Draw hand landmarks if present
                 if (currentHandLandmarks) {
                     drawConnectors(canvasCtx, currentHandLandmarks, HAND_CONNECTIONS, {color: '#00FF00', lineWidth: 2});
                     drawLandmarks(canvasCtx, currentHandLandmarks, {color: '#FF0000', lineWidth: 1, radius: 2});
@@ -163,15 +151,14 @@
                 }
                 previousNosePos = nosePos;
 
-                // Liveness (Blink & Smile Sequence) Logic
+                // Liveness Sequence Logic
                 if (!isLivenessVerified) {
                     const leftEyeIndices = [33, 160, 158, 133, 153, 144];
                     const rightEyeIndices = [362, 385, 387, 263, 373, 380];
                     const avgEAR = (calculateEAR(leftEyeIndices.map(i => landmarks[i])) + calculateEAR(rightEyeIndices.map(i => landmarks[i]))) / 2;
 
-                    // Smile Gesture Calculation
-                    const mouthWidth = euclideanDistance(landmarks[61], landmarks[291]); // Outer corners of mouth
-                    const cheekWidth = euclideanDistance(landmarks[234], landmarks[454]); // Edges of face
+                    const mouthWidth = euclideanDistance(landmarks[61], landmarks[291]); 
+                    const cheekWidth = euclideanDistance(landmarks[234], landmarks[454]); 
                     const smileRatio = mouthWidth / cheekWidth;
 
                     if (isShaking) {
@@ -179,11 +166,12 @@
                         livenessStatus.classList.replace('text-yellow-400', 'text-red-500');
                     } else {
                         if (livenessStatus.innerText.includes('stable')) {
-                             livenessStatus.innerText = livenessStage === 'blink' ? 'Waiting for Blink...' : 'Now Smile!';
+                             if(livenessStage === 'blink') livenessStatus.innerText = 'Waiting for Blink...';
+                             else if(livenessStage === 'smile') livenessStatus.innerText = 'Now Smile!';
+                             else if(livenessStage === 'hand') livenessStatus.innerText = 'Now Raise Hand ✋';
                              livenessStatus.classList.replace('text-red-500', 'text-yellow-400');
                         }
                         
-                        // Sequence 1: Wait for Blink
                         if (livenessStage === 'blink') {
                             if (avgEAR < EAR_THRESHOLD) {
                                 isEyesClosed = true;
@@ -197,14 +185,12 @@
                                 framesEyesClosed = 0;
                             }
                         } 
-                        // Sequence 2: Wait for Smile Gesture
                         else if (livenessStage === 'smile') {
                             if (smileRatio > SMILE_THRESHOLD) {
                                 livenessStage = 'hand';
                                 livenessStatus.innerText = 'Smile Verified! Now Raise Hand ✋';
                             }
                         }
-                        // Sequence 3: Wait for Hand Gesture
                         else if (livenessStage === 'hand') {
                             if (currentHandLandmarks) {
                                 isLivenessVerified = true;
@@ -225,6 +211,7 @@
                 const estimatedDistanceCm = Math.round(FOCAL_FACTOR / faceWidth);
                 distanceDisplay.innerText = `Distance: ~${estimatedDistanceCm} cm`;
                 
+                // Blocks capture if distance is 54 or lower
                 if (estimatedDistanceCm < MIN_DISTANCE_CM) {
                     setUIState('red', `Move away (Min ${MIN_DISTANCE_CM}cm)`);
                 } else {
@@ -273,14 +260,8 @@
         faceMesh.setOptions({ maxNumFaces: 1, refineLandmarks: true, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
         faceMesh.onResults(onResults);
 
-        // Initialize MediaPipe Hands
         const hands = new Hands({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`});
-        hands.setOptions({
-            maxNumHands: 1,
-            modelComplexity: 1,
-            minDetectionConfidence: 0.5,
-            minTrackingConfidence: 0.5
-        });
+        hands.setOptions({ maxNumHands: 1, modelComplexity: 1, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
         hands.onResults((results) => {
             if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
                 currentHandLandmarks = results.multiHandLandmarks[0];
@@ -292,8 +273,6 @@
         const camera = new Camera(videoElement, {
             onFrame: async () => { 
                 await faceMesh.send({image: videoElement}); 
-                
-                // To save CPU, only run Hand Tracking when we reach the hand stage
                 if (livenessStage === 'hand' || livenessStage === 'verified') {
                     await hands.send({image: videoElement});
                 } else {
@@ -303,21 +282,6 @@
             width: 480, height: 640, facingMode: 'user'
         });
         camera.start();
-
-        // Helper function for API calls with exponential backoff
-        async function fetchWithRetry(url, options) {
-            const delays = [1000, 2000, 4000, 8000, 16000];
-            for (let i = 0; i < delays.length; i++) {
-                try {
-                    const response = await fetch(url, options);
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    return await response.json();
-                } catch (e) {
-                    if (i === delays.length - 1) throw new Error("Failed to connect to Google AI.");
-                    await new Promise(res => setTimeout(res, delays[i]));
-                }
-            }
-        }
 
         function resetCaptureState() {
             captureBtn.disabled = false;
@@ -336,17 +300,14 @@
             if(isDistanceOptimal && isLivenessVerified) {
                 const imageData = canvasElement.toDataURL('image/jpeg', 0.9);
                 
-                // Set UI to loading state
                 captureBtn.disabled = true;
                 captureBtn.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div> Analyzing...';
                 feedbackBadge.innerText = "Analyzing with Google AI...";
                 feedbackBadge.classList.replace('bg-green-600', 'bg-blue-600');
                 cameraContainer.classList.add('opacity-50');
 
-                // Get base64 string without the prefix
                 const b64Data = imageData.split(',')[1];
 
-                // Call the secure Apps Script backend
                 if (typeof google !== 'undefined' && google.script) {
                     google.script.run
                         .withSuccessHandler((aiAnalysis) => {
@@ -359,7 +320,6 @@
                                 
                                 setTimeout(resetCaptureState, 5000); 
                             } else {
-                                // Spoof detected by backend! Explain why and reject.
                                 feedbackBadge.innerText = `Spoof Detected: ${aiAnalysis.reason}`;
                                 feedbackBadge.classList.replace('bg-blue-600', 'bg-red-600');
                                 setTimeout(resetCaptureState, 5000);
@@ -372,7 +332,6 @@
                         })
                         .verifyLivenessWithGemini(b64Data);
                 } else {
-                    // Local fallback if testing outside of Apps Script
                     feedbackBadge.innerText = "Please run this inside Google Apps Script.";
                     feedbackBadge.classList.replace('bg-blue-600', 'bg-red-600');
                     setTimeout(resetCaptureState, 3000);
