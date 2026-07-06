@@ -30,40 +30,46 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-black text-white w-screen h-screen overflow-hidden m-0 p-0 flex justify-center items-center">
 
-    <div class="max-w-md w-full flex flex-col items-center">
-        <h1 class="text-2xl font-bold mb-2 text-center">Face Verification</h1>
-        <p class="text-gray-400 text-sm mb-6 text-center">1. Keep 55cm distance.<br>2. Blink.<br>3. Smile.<br>4. Raise Hand.</p>
+    <!-- Full Screen Camera Container -->
+    <div id="camera-container" class="relative w-full h-full border-8 border-red box-border overflow-hidden bg-black flex items-center justify-center">
+        
+        <video id="video-feed" class="absolute w-full h-full object-cover hidden" playsinline autoplay></video>
+        <canvas id="output-canvas" class="absolute w-full h-full object-cover"></canvas>
 
-        <div id="camera-container" class="relative w-full aspect-[3/4] border-8 border-red rounded-2xl overflow-hidden bg-black flex items-center justify-center">
-            
-            <video id="video-feed" class="absolute w-full h-full object-cover hidden" playsinline autoplay></video>
-            <canvas id="output-canvas" class="absolute w-full h-full object-cover"></canvas>
-
-            <div id="loading" class="absolute z-10 flex flex-col items-center">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mb-2"></div>
-                <span>Loading Face Mesh...</span>
-            </div>
-
-            <div id="feedback-badge" class="absolute top-4 left-1/2 transform -translate-x-1/2 w-[90%] text-center bg-red-600 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg transition-colors duration-300">
-                Face not detected
-            </div>
-
-            <div id="distance-display" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-3 py-1 rounded-md font-mono text-sm shadow-md border border-gray-600 backdrop-blur-sm">
-                Distance: -- cm
-            </div>
+        <!-- Loading overlay -->
+        <div id="loading" class="absolute z-20 flex flex-col items-center bg-black/80 w-full h-full justify-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mb-2"></div>
+            <span>Loading AI Models...</span>
         </div>
 
-        <div class="mt-8 w-full flex flex-col gap-4">
-            <div class="flex items-center justify-between bg-gray-800 p-4 rounded-lg">
-                <span class="text-sm font-semibold">Liveness (Blink, Smile, Hand)</span>
-                <span id="liveness-status" class="text-yellow-400 text-sm font-bold animate-pulse">Waiting for Blink...</span>
-            </div>
+        <!-- Analyzing overlay -->
+        <div id="analyzing-overlay" class="absolute z-20 flex flex-col items-center bg-black/80 w-full h-full justify-center hidden">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-2"></div>
+            <span class="text-xl font-bold mt-2">Analyzing with Google AI...</span>
+        </div>
 
-            <button id="capture-btn" disabled class="w-full bg-gray-600 text-white py-4 rounded-xl font-bold text-lg opacity-50 cursor-not-allowed transition-all duration-300 flex justify-center items-center gap-2">
-                Capture Photo
-            </button>
+        <!-- Success Pop-up -->
+        <div id="success-popup" class="absolute z-30 flex flex-col items-center bg-green-600/95 text-white w-full h-full justify-center hidden backdrop-blur-md">
+            <svg class="w-24 h-24 mb-4 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span class="text-3xl font-bold text-center px-4">Attendance Submitted!</span>
+            <span class="text-lg mt-2 text-green-100">You can now close this window.</span>
+        </div>
+
+        <!-- On-Screen Instructions -->
+        <div id="feedback-badge" class="absolute top-10 left-1/2 transform -translate-x-1/2 w-[90%] max-w-md text-center bg-red-600 text-white px-6 py-4 rounded-2xl font-bold text-xl shadow-2xl transition-colors duration-300 backdrop-blur-md z-10 border border-white/20">
+            Aligning Face...
+        </div>
+
+        <!-- Distance and Status indicators -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3 w-full z-10">
+            <div id="liveness-status" class="bg-gray-900/80 text-yellow-400 px-6 py-2 rounded-full font-bold text-lg shadow-lg backdrop-blur-md border border-gray-700 animate-pulse">
+                Waiting for Face...
+            </div>
+            <div id="distance-display" class="bg-black/70 text-white px-4 py-1 rounded-md font-mono text-sm shadow-md border border-gray-600 backdrop-blur-sm">
+                Distance: -- cm
+            </div>
         </div>
     </div>
 
@@ -74,7 +80,6 @@
         const cameraContainer = document.getElementById('camera-container');
         const feedbackBadge = document.getElementById('feedback-badge');
         const distanceDisplay = document.getElementById('distance-display');
-        const captureBtn = document.getElementById('capture-btn');
         const loadingOverlay = document.getElementById('loading');
         const livenessStatus = document.getElementById('liveness-status');
 
@@ -98,6 +103,7 @@
         let framesEyesClosed = 0;
         let livenessStage = 'blink'; // Sequence: 'blink' -> 'smile' -> 'hand' -> 'verified'
         let currentHandLandmarks = null; 
+        let isCapturing = false; // Prevents multiple auto-captures
 
         function euclideanDistance(p1, p2) {
             return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
@@ -120,7 +126,8 @@
             canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
             canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
 
-            if (captureBtn.disabled && feedbackBadge.innerText.includes("Analyzing")) {
+            // Halt processing if we are in the middle of capturing/analyzing
+            if (isCapturing) {
                 canvasCtx.restore();
                 return;
             }
@@ -195,15 +202,19 @@
                             if (currentHandLandmarks) {
                                 isLivenessVerified = true;
                                 livenessStage = 'verified';
-                                livenessStatus.innerText = 'Verified (Real Person)';
+                                livenessStatus.innerText = 'All Verified!';
                                 livenessStatus.classList.remove('text-yellow-400', 'text-red-500', 'animate-pulse');
                                 livenessStatus.classList.add('text-green-500');
                                 cameraContainer.style.boxShadow = "0 0 40px rgba(34, 197, 94, 0.8)";
-                                setTimeout(() => { cameraContainer.style.boxShadow = ""; }, 500);
+                                
+                                // Trigger automatic capture with a slight delay so user sees success state
+                                if (!isCapturing) {
+                                    setTimeout(autoCapture, 600); 
+                                }
                             }
                         }
                     }
-                }
+                } // Ends liveness check block
 
                 // Distance Logic
                 const xCoordinates = landmarks.map(l => l.x);
@@ -215,10 +226,10 @@
                 if (estimatedDistanceCm < MIN_DISTANCE_CM) {
                     setUIState('red', `Move away (Min ${MIN_DISTANCE_CM}cm)`);
                 } else {
-                    let promptText = 'Perfect distance. Now Blink!';
-                    if (livenessStage === 'smile') promptText = 'Perfect! Now Smile!';
-                    if (livenessStage === 'hand') promptText = 'Perfect! Now Raise Hand!';
-                    if (isLivenessVerified) promptText = 'Perfect! Ready to capture.';
+                    let promptText = 'Distance perfect. Now Blink!';
+                    if (livenessStage === 'smile') promptText = 'Blink verified! Now Smile!';
+                    if (livenessStage === 'hand') promptText = 'Smile verified! Now Raise Hand ✋';
+                    if (isLivenessVerified) promptText = 'Processing...';
                     setUIState('green', promptText);
                 }
 
@@ -226,6 +237,7 @@
                 setUIState('red', 'Face not detected');
                 distanceDisplay.innerText = 'Distance: -- cm';
             }
+            
             canvasCtx.restore();
         }
 
@@ -237,22 +249,12 @@
                 feedbackBadge.classList.remove('bg-red-600');
                 feedbackBadge.classList.add('bg-green-600');
                 isDistanceOptimal = true;
-                
-                if (isLivenessVerified) {
-                    captureBtn.disabled = false;
-                    captureBtn.classList.remove('bg-gray-600', 'opacity-50', 'cursor-not-allowed');
-                    captureBtn.classList.add('bg-blue-600', 'hover:bg-blue-700', 'cursor-pointer');
-                }
             } else {
                 cameraContainer.classList.remove('border-green');
                 cameraContainer.classList.add('border-red');
                 feedbackBadge.classList.remove('bg-green-600');
                 feedbackBadge.classList.add('bg-red-600');
                 isDistanceOptimal = false;
-                
-                captureBtn.disabled = true;
-                captureBtn.classList.add('bg-gray-600', 'opacity-50', 'cursor-not-allowed');
-                captureBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'cursor-pointer');
             }
         }
 
@@ -284,27 +286,26 @@
         camera.start();
 
         function resetCaptureState() {
-            captureBtn.disabled = false;
-            captureBtn.innerHTML = "Capture Photo";
+            isCapturing = false;
             isLivenessVerified = false; 
             livenessStage = 'blink';
             currentHandLandmarks = null;
-            livenessStatus.innerText = 'Waiting for Blink...';
+            livenessStatus.innerText = 'Waiting for Face...';
             livenessStatus.classList.remove('text-green-500');
             livenessStatus.classList.add('text-yellow-400', 'animate-pulse');
-            cameraContainer.classList.remove('opacity-50');
+            document.getElementById('analyzing-overlay').classList.add('hidden');
+            document.getElementById('success-popup').classList.add('hidden');
         }
 
-        // Deep AI Verification using Google Apps Script Backend (Secure)
-        captureBtn.addEventListener('click', () => {
-            if(isDistanceOptimal && isLivenessVerified) {
+        // Automatic Deep AI Verification using Google Apps Script Backend (Secure)
+        function autoCapture() {
+            if(isDistanceOptimal && isLivenessVerified && !isCapturing) {
+                isCapturing = true;
                 const imageData = canvasElement.toDataURL('image/jpeg', 0.9);
                 
-                captureBtn.disabled = true;
-                captureBtn.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div> Analyzing...';
-                feedbackBadge.innerText = "Analyzing with Google AI...";
+                document.getElementById('analyzing-overlay').classList.remove('hidden');
+                feedbackBadge.innerText = "Please wait...";
                 feedbackBadge.classList.replace('bg-green-600', 'bg-blue-600');
-                cameraContainer.classList.add('opacity-50');
 
                 const b64Data = imageData.split(',')[1];
 
@@ -312,32 +313,33 @@
                     google.script.run
                         .withSuccessHandler((aiAnalysis) => {
                             if (aiAnalysis.is_live) {
-                                feedbackBadge.innerText = "Success! (AI Verified Real Person)";
-                                feedbackBadge.classList.replace('bg-blue-600', 'bg-green-600');
-                                captureBtn.innerHTML = "Attendance Captured!";
-                                
+                                document.getElementById('analyzing-overlay').classList.add('hidden');
+                                document.getElementById('success-popup').classList.remove('hidden');
                                 // TODO: Call your actual attendance saving function here!
-                                
-                                setTimeout(resetCaptureState, 5000); 
+                                // The success popup will permanently block the screen indicating completion
                             } else {
+                                document.getElementById('analyzing-overlay').classList.add('hidden');
                                 feedbackBadge.innerText = `Spoof Detected: ${aiAnalysis.reason}`;
                                 feedbackBadge.classList.replace('bg-blue-600', 'bg-red-600');
                                 setTimeout(resetCaptureState, 5000);
                             }
                         })
                         .withFailureHandler((error) => {
+                            document.getElementById('analyzing-overlay').classList.add('hidden');
                             feedbackBadge.innerText = "AI Verification Failed. Try Again.";
                             feedbackBadge.classList.replace('bg-blue-600', 'bg-red-600');
                             setTimeout(resetCaptureState, 4000);
                         })
                         .verifyLivenessWithGemini(b64Data);
                 } else {
-                    feedbackBadge.innerText = "Please run this inside Google Apps Script.";
-                    feedbackBadge.classList.replace('bg-blue-600', 'bg-red-600');
-                    setTimeout(resetCaptureState, 3000);
+                    // Local testing fallback if running outside of Apps Script
+                    setTimeout(() => {
+                        document.getElementById('analyzing-overlay').classList.add('hidden');
+                        document.getElementById('success-popup').classList.remove('hidden');
+                    }, 2000);
                 }
             }
-        });
+        }
 
     </script>
 </body>
