@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html class="dark" lang="en" style="">
-<head>
+<!DOCTYPE html><html class="dark h-full" lang="en" style=""><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>WorkforceOS - Attendance Records (2026 Edition)</title>
+<title>WorkforceOS - Login</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
@@ -13,7 +11,6 @@
     theme: {
       extend: {
         "colors": {
-                // Keeping original tokens for text/accents, but background will be overridden by glass
                 "tertiary-container": "#ccb6ff",
                 "surface-bright": "#37393e",
                 "on-tertiary-container": "#6100de",
@@ -60,7 +57,7 @@
                 "surface-tint": "#47d6ff",
                 "surface-container-lowest": "#0c0e12",
                 "outline-variant": "#3c494e",
-                "background": "#05070a" /* Deepened for better contrast */
+                "background": "#111318"
         },
         "borderRadius": {
                 "DEFAULT": "0.25rem",
@@ -74,419 +71,215 @@
                 "stack-md": "16px",
                 "container-margin": "32px",
                 "gutter": "24px",
-                "stack-lg": "32px"
+                "stack-lg": "32px",
+                "xs": "4px",
+                "lg": "24px",
+                "base": "4px",
+                "sm": "8px",
+                "xl": "40px",
+                "md": "16px",
+                "container-max": "1280px"
         },
         "fontFamily": {
-                "label-md": ["Geist"],
-                "headline-md": ["Space Grotesk"],
-                "headline-lg-mobile": ["Space Grotesk"],
-                "headline-lg": ["Space Grotesk"],
-                "display-lg": ["Space Grotesk"],
-                "body-lg": ["Geist"],
-                "body-md": ["Geist"],
-                "code-sm": ["Geist"]
+                "label-md": [
+                        "Geist"
+                ],
+                "headline-md": [
+                        "Space Grotesk"
+                ],
+                "headline-lg-mobile": [
+                        "Space Grotesk"
+                ],
+                "headline-lg": [
+                        "Space Grotesk"
+                ],
+                "headline-sm": [
+                        "Space Grotesk"
+                ],
+                "display-lg": [
+                        "Space Grotesk"
+                ],
+                "body-lg": [
+                        "Geist"
+                ],
+                "body-md": [
+                        "Geist"
+                ],
+                "body-sm": [
+                        "Geist"
+                ],
+                "code-sm": [
+                        "Geist"
+                ]
         },
         "fontSize": {
-                "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
-                "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                "code-sm": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}]
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "1",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "1.3",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-sm": [
+                        "20px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "500"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "code-sm": [
+                        "13px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "400"
+                        }
+                ]
         }
-      }
-    }
+},
+    },
   }
 </script>
-
 <style>
-        body { font-family: 'Geist', sans-serif; background-color: #030407; }
-        .font-headline-sm, .font-headline-lg-mobile, .font-headline-lg { font-family: 'Space Grotesk', sans-serif; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Modal Overlay Transition */
-        #date-filter-modal, #image-modal { transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s; }
-        #date-filter-modal.hidden, #image-modal.hidden { opacity: 0; visibility: hidden; pointer-events: none; display: flex !important; }
-        #date-filter-card { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); transform: translateY(30px) scale(0.95); }
-        #date-filter-modal:not(.hidden) #date-filter-card { transform: translateY(0) scale(1); }
-        #image-modal-card { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-
-        /* Neon Glow Effects 2.0 - Softer, wider diffusion */
-        .neon-glow-primary { text-shadow: 0 0 16px rgba(0, 210, 255, 0.6); }
-        .neon-glow-secondary { box-shadow: 0 0 20px rgba(47, 248, 1, 0.4); }
-        .neon-glow-error { box-shadow: 0 0 20px rgba(255, 107, 107, 0.4); }
-
-        /* Ultra-Modern Glassmorphism (Android 2026 standard) */
-        .glass-panel { 
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-            backdrop-filter: blur(24px); 
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
-        }
-        
-        .glass-panel-strong {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
-        }
-
-        .glass-panel-deep {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Ambient Orbs Animation */
-        @keyframes drift1 { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-30px, 40px) scale(1.1); } 100% { transform: translate(0, 0) scale(1); } }
-        @keyframes drift2 { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(40px, -20px) scale(1.05); } 100% { transform: translate(0, 0) scale(1); } }
-        
-        .orb-1 { animation: drift1 12s ease-in-out infinite; }
-        .orb-2 { animation: drift2 15s ease-in-out infinite; }
-        
-        @keyframes pulse-subtle { 0%, 100% { transform: scale(1); opacity: 0.8;} 50% { transform: scale(1.05); opacity: 1;} }
-        .animate-pulse-subtle { animation: pulse-subtle 3s ease-in-out infinite; }
-        @keyframes pulse-tertiary { 0% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(0, 210, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0); } }
-</style>
+    body { font-family: 'Geist', sans-serif; background-color: #111318; min-height: max(884px, 100dvh); }
+    .font-headline-sm, .font-headline-lg-mobile, .font-headline-lg, .font-headline-md, .font-display-lg { font-family: 'Space Grotesk', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    
+    /* Neon Glow Effects */
+    .neon-glow-primary { text-shadow: 0 0 10px rgba(165, 231, 255, 0.5); }
+    .neon-glow-primary-btn { box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
+    .glass-panel { background: rgba(30, 32, 36, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(133, 147, 153, 0.2); }
+  </style>
 </head>
-<body class="text-on-background pb-[80px] md:hidden relative z-0">
-
-<div class="fixed inset-0 w-full h-full overflow-hidden pointer-events-none -z-10 bg-background">
-    <div class="absolute rounded-full filter blur-[100px] opacity-25 bg-[#00d2ff] w-[80vw] h-[80vw] -top-[20%] -left-[20%] orb-1"></div>
-    <div class="absolute rounded-full filter blur-[120px] opacity-20 bg-[#6100de] w-[90vw] h-[90vw] top-[30%] -right-[30%] orb-2"></div>
-    <div class="absolute rounded-full filter blur-[90px] opacity-20 bg-[#2ff801] w-[60vw] h-[60vw] bottom-[-10%] left-[10%] orb-1" style="animation-delay: -5s;"></div>
+<body class="h-full flex flex-col items-center bg-background text-on-surface font-body-md pt-24 pb-lg">
+<header class="fixed top-0 w-full z-50 flex flex-col justify-center items-center px-gutter h-16 bg-surface/80 backdrop-blur-md shadow-sm border-b border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[24px] neon-glow-primary" data-icon="fingerprint" data-weight="fill">fingerprint</span>
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tight neon-glow-primary">WorkforceOS</span>
 </div>
-
-<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 glass-panel-strong !border-t-0 !border-x-0 !rounded-none border-b border-white/10">
-<div class="flex items-center gap-stack-md">
-<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform neon-glow-primary drop-shadow-[0_0_8px_rgba(0,210,255,0.8)]" data-icon="fingerprint" data-weight="fill">fingerprint</span>
-<h1 class="font-headline-md text-headline-md font-bold text-white drop-shadow-md">Workforce<span class="text-white/50">OS</span></h1>
-</div>
-<div>
-<img class="w-9 h-9 rounded-full object-cover border-[1.5px] border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)] cursor-pointer active:scale-95 transition-transform" data-alt="Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E">
-</div>
+<span class="font-label-md text-xs text-outline tracking-widest uppercase mt-xs">SECURE ENTERPRISE ACCESS</span>
 </header>
-
-<main class="pt-[90px] px-gutter flex flex-col gap-stack-lg relative z-10">
-
-<div class="flex flex-col gap-stack-md mb-stack-lg">
-<div class="flex justify-between items-end">
-<div>
-<p class="font-label-md text-label-md text-white/60 tracking-wider uppercase">Jul 03, 2026</p>
-<h2 class="font-headline-md text-[32px] text-white font-semibold drop-shadow-sm mt-1">Attendance Records</h2>
+<main class="w-full max-w-md px-md flex-1 flex flex-col justify-center items-center">
+<div class="w-full glass-panel rounded-[24px] shadow-2xl p-xl relative overflow-hidden shadow-[0_0_8px_rgba(0,210,255,0.8)] border-primary-container">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-container to-transparent"></div>
+<form class="space-y-lg"><div class="mb-lg">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary tracking-widest uppercase neon-glow-primary">Login</h1>
+<div class="h-0.5 w-12 bg-primary-container mt-xs rounded-full shadow-[0_0_8px_rgba(0,210,255,0.8)]"></div>
 </div>
-<button aria-label="Refresh Records" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center active:scale-95 transition-transform text-white/80 hover:text-white" style="animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; animation-direction: normal; animation-fill-mode: none; animation-play-state: running; animation-name: pulse-tertiary; animation-timeline: auto; animation-range: normal;">
-<span class="material-symbols-outlined">refresh</span>
+<div class="space-y-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant uppercase" for="email">Email Address</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</div>
+<input class="block w-full pl-xl pr-md py-sm border border-outline-variant rounded-lg bg-surface-container-lowest/50 text-on-surface focus:ring-1 focus:ring-primary-container focus:border-primary-container transition-all sm:text-sm font-body-md text-body-md" id="email" name="email" placeholder="name@company.com" required="" type="email">
+</div>
+</div>
+<div class="space-y-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant uppercase" for="password">Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<input class="block w-full pl-xl pr-md py-sm border border-outline-variant rounded-lg bg-surface-container-lowest/50 text-on-surface focus:ring-1 focus:ring-primary-container focus:border-primary-container transition-all sm:text-sm font-body-md text-body-md" id="password" name="password" placeholder="••••••••" required="" type="password">
+<button aria-label="Toggle password visibility" class="absolute inset-y-0 right-0 pr-sm flex items-center text-outline hover:text-primary-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
 </button>
 </div>
-<button class="glass-panel px-6 py-4 rounded-[20px] flex items-center gap-3 hover:bg-white/10 transition-all group w-full relative border border-white/10" id="search-trigger" style="box-shadow: 0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);"><div class="flex items-center justify-between w-full relative z-10"><div class="flex items-center gap-3 text-white/80 group-hover:text-white"><span class="material-symbols-outlined transition-colors">search</span><span class="font-label-md text-label-md tracking-widest uppercase">SEARCH OLD RECORDS</span></div><span class="material-symbols-outlined text-white/30">calendar_today</span></div></button>
 </div>
-
-<section class="rounded-[24px] p-stack-md glass-panel"><div class="flex justify-between items-center">
-<h3 class="font-medium text-title-lg text-white drop-shadow-sm">Today's Progress</h3>
-<span class="font-code-sm text-code-sm text-[#00d2ff] bg-[#00d2ff]/10 px-3 py-1.5 rounded-full border border-[#00d2ff]/30 font-bold tracking-wide shadow-[0_0_10px_rgba(0,210,255,0.2)]">SYNC: 3/5</span>
+<div class="flex items-center justify-between mt-sm">
+<div class="flex items-center">
+<input class="h-4 w-4 text-primary-container focus:ring-primary-container border-outline-variant rounded bg-surface-container-lowest/50" id="remember-me" name="remember-me" type="checkbox">
+<label class="ml-sm block font-body-sm text-body-sm text-on-surface-variant" for="remember-me">
+                            Remember me
+                        </label>
 </div>
-<div class="relative w-full h-1.5 bg-black/40 rounded-full overflow-hidden border border-white/5 mt-8 shadow-inner">
-<div class="absolute top-0 left-0 h-full w-3/5 bg-gradient-to-r from-[#00677f] to-[#2ff801] shadow-[0_0_12px_rgba(47,248,1,0.8)]"></div>
-</div>
-<div class="flex justify-between relative mt-6">
-<div class="absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -z-10 -translate-y-1/2"></div>
-<div class="flex flex-col items-center gap-2">
-<div class="w-3 h-3 rounded-full bg-[#2ff801] z-10 neon-glow-secondary shadow-[inset_0_1px_2px_rgba(255,255,255,0.8)]"></div>
-<span class="font-code-sm text-code-sm text-white/70">08:00</span>
-</div>
-<div class="flex flex-col items-center gap-2">
-<div class="w-3 h-3 rounded-full bg-[#2ff801] z-10 neon-glow-secondary shadow-[inset_0_1px_2px_rgba(255,255,255,0.8)]"></div>
-<span class="font-code-sm text-code-sm text-white/70">10:00</span>
-</div>
-<div class="flex flex-col items-center gap-2">
-<div class="w-3 h-3 rounded-full bg-[#2ff801] z-10 neon-glow-secondary shadow-[inset_0_1px_2px_rgba(255,255,255,0.8)]"></div>
-<span class="font-code-sm text-code-sm text-white/70">12:00</span>
-</div>
-<div class="flex flex-col items-center gap-2">
-<div class="w-3 h-3 rounded-full bg-[#ffb4ab] z-10 neon-glow-error shadow-[inset_0_1px_2px_rgba(255,255,255,0.8)]"></div>
-<span class="font-code-sm text-code-sm text-[#ffb4ab] font-medium">14:00 (LATE)</span>
-</div>
-<div class="flex flex-col items-center gap-2">
-<div class="w-3 h-3 rounded-full bg-white/10 border border-white/20 z-10 backdrop-blur-sm"></div>
-<span class="font-code-sm text-code-sm text-white/30">16:00</span>
-</div>
-</div></section>
-
-<section class="flex flex-col gap-stack-sm mt-4">
-<h3 class="font-title-lg text-title-lg text-white mb-stack-sm drop-shadow-sm font-medium">Today's Timeline</h3>
-
-<!-- Timeline Item 1 -->
-<div class="relative pl-[32px] pb-stack-md"><div class="absolute left-[11px] top-6 bottom-[-8px] w-[1px] bg-gradient-to-b from-white/30 to-white/5"></div><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-[#2ff801] flex items-center justify-center z-10 neon-glow-secondary shadow-[inset_0_2px_4px_rgba(255,255,255,0.6)]"><span class="material-symbols-outlined text-[14px] text-black font-bold">check</span></div><div class="p-stack-md relative overflow-hidden rounded-[28px] glass-panel"><div class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#00d2ff]/0 via-[#00d2ff]/40 to-[#00d2ff]/0 animate-pulse-subtle"></div><div class="absolute top-0 left-0 w-full h-[100px] bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div><div class="flex justify-between items-start mb-stack-md relative z-10"><div class="flex flex-col"><p class="font-label-md font-bold uppercase tracking-widest text-[#00d2ff] drop-shadow-[0_0_8px_rgba(0,210,255,0.5)] text-[11px] mb-1">03 Jul 2026</p><div class="text-white/60 text-xs font-medium">GS: 09:00 -18:00</div><p class=""></p></div><span class="bg-[#2ff801]/10 border border-[#2ff801]/30 text-[#2ff801] px-3 py-1 rounded-full font-label-md text-[10px] font-bold uppercase drop-shadow-[0_0_5px_rgba(47,248,1,0.3)] backdrop-blur-md">ON TIME</span></div><div class="grid grid-cols-2 gap-stack-sm mb-stack-md relative z-10"><div class="glass-panel-deep p-3 rounded-[16px]"><p class="text-[10px] uppercase text-white/50 font-bold tracking-wide">Check In</p><p class="text-body-md font-semibold text-white mt-0.5">09:55 AM</p></div><div class="glass-panel-deep p-3 rounded-[16px]"><p class="text-[10px] uppercase text-white/50 font-bold tracking-wide">Check Out</p><p class="text-body-md font-semibold text-white/30 mt-0.5">--:--</p></div><div class="glass-panel-deep p-3 rounded-[16px]"><p class="text-[10px] uppercase text-white/50 font-bold tracking-wide">Late In</p><p class="text-body-md font-semibold text-white mt-0.5">0m</p></div><div class="glass-panel-deep p-3 rounded-[16px]"><p class="text-[10px] uppercase text-white/50 font-bold tracking-wide">Early Out</p><p class="text-body-md font-semibold text-white mt-0.5">0m</p></div><div class="glass-panel-deep p-3 rounded-[16px]"><p class="text-[10px] uppercase text-white/50 font-bold tracking-wide">working hours</p><p class="text-body-md font-semibold text-white mt-0.5">00:00</p></div><div class="glass-panel-deep p-3 rounded-[16px]"><p class="text-[10px] uppercase text-white/50 font-bold tracking-wide">Overtime</p><p class="text-body-md font-semibold text-white mt-0.5">00:00</p></div></div><div class="flex gap-stack-md p-stack-md rounded-[20px] glass-panel-deep relative z-10"><div class="flex flex-col gap-stack-sm shrink-0 items-center"><div class="w-[60px] h-[60px] rounded-[14px] overflow-hidden border border-white/20 cursor-pointer active:scale-95 transition-transform shadow-[0_4px_12px_rgba(0,0,0,0.3)]" onclick="openImageModal(this.querySelector('img').src)"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"></div><a class="flex items-center gap-unit px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-[10px] font-medium text-[11px] active:scale-95 transition-all text-center leading-tight backdrop-blur-md" href="https://www.google.com/maps/search/?api=1&amp;query=40.7128,-74.0060" target="_blank">Google<br>Map</a></div><div class="flex flex-col gap-unit justify-center"><div class="flex items-center gap-unit.5"><span class="material-symbols-outlined text-[#00d2ff] text-[18px]">location_on</span><span class="font-label-md text-label-md text-white font-medium">Lat: 40.7128° N | Long: 74.0060°</span></div><div class="flex items-start gap-unit.5 mt-1"><span class="material-symbols-outlined text-white/40 text-[18px]">corporate_fare</span><div class="flex flex-col"><p class="font-label-md text-sm text-white/70 leading-snug overflow-hidden" id="address-text-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">HQ Building, Main Entrance Lobby, New York City, NY</p><button class="text-[#00d2ff] font-label-md text-xs mt-1 text-left w-fit active:scale-95 transition-transform hover:text-white" onclick="const p = document.getElementById('address-text-1'); const isExpanded = p.style.display === 'block'; p.style.display = isExpanded ? '-webkit-box' : 'block'; this.textContent = isExpanded ? 'less' : 'more';">more</button></div></div></div></div></div></div>
-
-<div class="relative pl-[32px] pb-stack-md">
-<div class="absolute left-[11px] top-6 bottom-[-8px] w-[1px] bg-gradient-to-b from-white/30 to-white/5"></div>
-<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-[#2ff801] flex items-center justify-center z-10 neon-glow-secondary shadow-[inset_0_2px_4px_rgba(255,255,255,0.6)]">
-<span class="material-symbols-outlined text-[14px] text-black font-bold">check</span>
-</div>
-<div class="p-stack-md relative overflow-hidden rounded-[28px] glass-panel"><div class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#00d2ff]/0 via-[#00d2ff]/40 to-[#00d2ff]/0 animate-pulse-subtle"></div><div class="absolute top-0 left-0 w-full h-[100px] bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
-<div class="flex justify-between items-start mb-stack-sm relative z-10">
-<div class="flex flex-col">
-<p class="font-label-md text-[#00d2ff] font-bold uppercase tracking-widest drop-shadow-[0_0_8px_rgba(0,210,255,0.5)] text-[11px] mb-1">24-JUN-2026 (12:00 PM SLOT)</p>
-<p class="font-label-md text-label-md font-semibold text-white mt-unit">Checked in at 09:55 AM</p>
-</div>
-<span class="bg-[#2ff801]/10 border border-[#2ff801]/30 text-[#2ff801] px-3 py-1 rounded-full font-label-md text-[10px] font-bold uppercase drop-shadow-[0_0_5px_rgba(47,248,1,0.3)] backdrop-blur-md">ON TIME</span>
-</div>
-<div class="flex gap-stack-md glass-panel-deep p-stack-md rounded-[20px] relative z-10 mt-3">
-<div class="flex flex-col gap-stack-sm shrink-0 items-center">
-<div class="w-[60px] h-[60px] rounded-[14px] overflow-hidden border border-white/20 cursor-pointer active:scale-95 transition-transform shadow-[0_4px_12px_rgba(0,0,0,0.3)]" onclick="openImageModal(this.querySelector('img').src)">
-<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E">
-</div>
-<a class="flex items-center gap-unit px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-[10px] font-medium text-[11px] active:scale-95 transition-all text-center leading-tight backdrop-blur-md" href="https://www.google.com/maps/search/?api=1&amp;query=40.7129,-74.0062" target="_blank">Google<br>Map</a></div>
-<div class="flex flex-col gap-unit justify-center">
-<div class="flex items-center gap-unit.5">
-<span class="material-symbols-outlined text-[#00d2ff] text-[18px]">location_on</span>
-<span class="font-label-md text-label-md text-white font-medium">Lat: 40.7129° N | Long: 74.0062°</span>
-</div>
-<div class="flex items-start gap-unit.5 mt-1">
-<span class="material-symbols-outlined text-white/40 text-[18px]">meeting_room</span>
-<div class="flex flex-col">
-<p class="font-label-md text-sm text-white/70 leading-snug overflow-hidden" id="address-text-2" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">HQ Building, Main Entrance Lobby, New York City, NY</p>
-<button class="text-[#00d2ff] font-label-md text-xs mt-1 text-left w-fit active:scale-95 transition-transform hover:text-white" onclick="const p = document.getElementById('address-text-2'); const isExpanded = p.style.display === 'block'; p.style.display = isExpanded ? '-webkit-box' : 'block'; this.textContent = isExpanded ? 'less' : 'more';">
-    more
-  </button>
+<div class="text-sm">
+<a class="font-label-md text-label-md text-primary-container hover:text-primary transition-colors neon-glow-primary" href="#">
+                            Forgot Password?
+                        </a>
 </div>
 </div>
-</div>
-</div></div>
-</div>
-
-<div class="relative pl-[32px] pb-stack-md"><div class="absolute left-[11px] top-6 bottom-[-8px] w-[1px] bg-white/10 dashed-line border-l border-dashed border-white/20" style="background: transparent;"></div><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-[#ffb4ab] flex items-center justify-center z-10 neon-glow-error shadow-[inset_0_2px_4px_rgba(255,255,255,0.6)]"><span class="material-symbols-outlined text-[14px] text-[#690005] font-bold">warning</span></div><div class="p-stack-md relative overflow-hidden rounded-[28px] glass-panel !border-[#ffb4ab]/30"><div class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#ffb4ab]/0 via-[#ffb4ab]/40 to-[#ffb4ab]/0 animate-pulse-subtle"></div><div class="absolute top-0 left-0 w-full h-[100px] bg-gradient-to-b from-[#ffb4ab]/10 to-transparent pointer-events-none"></div><div class="flex justify-between items-start mb-stack-sm relative z-10"><div class="flex flex-col"><p class="font-label-md text-[#ffb4ab] font-bold uppercase tracking-widest text-[11px] drop-shadow-[0_0_8px_rgba(255,180,171,0.5)] mb-1">23-Jun-2026 (02:00 PM SLOT)</p><p class="font-label-md text-label-md font-semibold text-white mt-unit">Checked in at 09:55 AM</p></div><span class="bg-[#ffb4ab]/10 border border-[#ffb4ab]/30 text-[#ffb4ab] px-3 py-1 rounded-full font-label-md text-[10px] font-bold uppercase drop-shadow-[0_0_5px_rgba(255,180,171,0.3)] backdrop-blur-md">LATE</span></div><div class="flex gap-stack-md glass-panel-deep !bg-[#ffb4ab]/5 !border-[#ffb4ab]/20 p-stack-md rounded-[20px] relative z-10 mt-3"><div class="flex flex-col gap-stack-sm shrink-0 items-center"><div class="w-[60px] h-[60px] rounded-[14px] overflow-hidden border border-[#ffb4ab]/30 cursor-pointer active:scale-95 transition-transform shadow-[0_4px_12px_rgba(0,0,0,0.3)]" onclick="openImageModal(this.querySelector('img').src)"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"></div><a class="flex items-center gap-unit px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-[#ffb4ab]/20 text-white rounded-[10px] font-medium text-[11px] active:scale-95 transition-all text-center leading-tight backdrop-blur-md" href="https://www.google.com/maps/search/?api=1&amp;query=40.7580,-73.9855" target="_blank">Google<br>Map</a></div><div class="flex flex-col gap-unit justify-center"><div class="flex items-center gap-unit.5"><span class="material-symbols-outlined text-[#ffb4ab] text-[18px]">location_on</span><span class="font-label-md text-label-md text-white font-medium">Lat: 40.7580° N | Long: 73.9855°</span></div><div class="flex items-start gap-unit.5 mt-1"><span class="material-symbols-outlined text-white/40 text-[18px]">apartment</span><div class="flex flex-col">
-<p class="font-label-md text-sm text-white/70 leading-snug overflow-hidden" id="address-text-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">HQ Building, Main Entrance Lobby, New York City, NY</p>
-<button class="text-[#ffb4ab] font-label-md text-xs mt-1 text-left w-fit active:scale-95 transition-transform hover:text-white" onclick="const p = document.getElementById('address-text-3'); const isExpanded = p.style.display === 'block'; p.style.display = isExpanded ? '-webkit-box' : 'block'; this.textContent = isExpanded ? 'less' : 'more';">
-    more
-  </button>
-</div></div></div></div></div></div>
-
-<!-- Timeline Item 4 (Pending) -->
-<div class="relative pl-[32px]"><div class="absolute left-[11px] top-6 bottom-[-8px] w-[1px] border-l border-dashed border-white/20" style="background: transparent;"></div>
-<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-white/5 border border-white/20 flex items-center justify-center z-10 backdrop-blur-md">
-<span class="w-2 h-2 rounded-full bg-white/30"></span>
-</div>
-<div class="opacity-70 p-stack-md border-dashed rounded-[24px] glass-panel border-white/20">
-<div class="flex justify-between items-center">
-<div>
-<p class="font-label-md text-white/40 uppercase tracking-widest text-[11px] mb-1">Slot 4 • 04:00 PM</p>
-<p class="font-body-md text-body-md font-medium text-white/80 mt-unit">Evening Check-out</p>
-</div>
-<span class="bg-white/5 text-white/50 px-3 py-1 rounded-full font-label-md text-[10px] uppercase font-bold border border-white/10 backdrop-blur-md">
-                            Pending
-                        </span>
+<button class="w-full flex justify-center items-center py-md px-md border border-transparent rounded-full font-label-md text-label-md text-on-primary-fixed bg-primary-container hover:bg-primary-fixed-dim focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary-container transition-all duration-200 active:scale-[0.98] uppercase tracking-wider group neon-glow-primary-btn" type="submit">
+                    Login
+                    <span class="material-symbols-outlined ml-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</form>
+<div class="mt-lg pt-lg border-t border-outline-variant/50 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Don't have an account? 
+                    <a class="font-label-md text-label-md text-primary-container hover:text-primary transition-colors ml-xs neon-glow-primary" href="#">Signup</a>
+</p>
 </div>
 </div>
+<div class="mt-lg text-center opacity-50">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">© 2024 WorkforceOS Inc.</p>
 </div>
-<!-- Timeline Item 5 (Pending) -->
-<div class="relative pl-[32px]">
-<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-white/5 border border-white/20 flex items-center justify-center z-10 backdrop-blur-md">
-<span class="w-2 h-2 rounded-full bg-white/30"></span>
-</div>
-<div class="opacity-70 p-stack-md border-dashed rounded-[24px] mt-stack-md glass-panel border-white/20">
-<div class="flex justify-between items-center">
-<div>
-<p class="font-label-md text-white/40 uppercase tracking-widest text-[11px] mb-1">SLOT 5 • 06:00 PM</p>
-<p class="font-body-md text-body-md font-medium text-white/80 mt-unit">Evening Check-out</p>
-</div>
-<span class="bg-white/5 text-white/50 px-3 py-1 rounded-full font-label-md text-[10px] uppercase font-bold border border-white/10 backdrop-blur-md">
-                            Pending
-                        </span>
-</div>
-</div>
-</div></section>
-
-<!-- History Summary -->
-<section class="mb-stack-lg mt-8">
-<div class="flex justify-between items-center mb-stack-sm mt-stack-md px-2">
-<h3 class="font-title-lg text-title-lg text-white font-medium drop-shadow-sm">Previous Days</h3>
-<span class="font-label-md text-sm text-[#00d2ff] cursor-pointer hover:text-white transition-colors tracking-wide font-medium">View All</span>
-</div>
-<div class="rounded-[24px] overflow-hidden glass-panel"><!-- 23-Jun-2026 -->
-<div class="history-card flex justify-between items-center p-stack-md border-b border-white/5 cursor-pointer hover:bg-white/5 transition-all active:bg-white/10">
-<div>
-<p class="font-label-md text-base font-semibold text-white">23-Jun-2026, Tuesday</p>
-<p class="font-label-md text-xs text-white/50 mt-1">5/5 Completed • 1 Late</p>
-</div>
-<span class="material-symbols-outlined text-white/30 chevron-icon transition-transform duration-300">chevron_right</span>
-</div>
-<div class="hidden bg-black/40 p-stack-md border-b border-white/5 flex flex-col gap-stack-sm shadow-inner">
-<div class="flex items-center gap-stack-md p-3 glass-panel-deep rounded-[16px]">
-<span class="material-symbols-outlined text-[#2ff801]">check_circle</span>
-<div class="flex-1"><p class="font-label-md text-white font-bold text-sm">10:00 AM</p><p class="font-body-md text-white/60 text-xs mt-0.5">Checked in at 09:55 AM</p></div>
-<span class="text-[10px] font-bold text-[#2ff801] tracking-wider uppercase">ON TIME</span>
-</div>
-<div class="flex items-center gap-stack-md p-3 glass-panel-deep !bg-[#ffb4ab]/5 !border-[#ffb4ab]/20 rounded-[16px]">
-<span class="material-symbols-outlined text-[#ffb4ab]">warning</span>
-<div class="flex-1"><p class="font-label-md text-[#ffb4ab] font-bold text-sm">02:00 PM</p><p class="font-body-md text-white/60 text-xs mt-0.5">Checked in at 02:15 PM</p></div>
-<span class="text-[10px] font-bold text-[#ffb4ab] tracking-wider uppercase">LATE</span>
-</div>
-</div>
-<!-- 22-Jun-2026 -->
-<div class="history-card flex justify-between items-center p-stack-md border-b border-white/5 cursor-pointer hover:bg-white/5 transition-all active:bg-white/10">
-<div>
-<p class="font-label-md text-base font-semibold text-white">22-Jun-2026, Monday</p>
-<p class="font-label-md text-xs text-[#2ff801]/80 mt-1">5/5 Completed • Perfect</p>
-</div>
-<span class="material-symbols-outlined text-white/30 chevron-icon transition-transform duration-300">chevron_right</span>
-</div>
-<div class="hidden bg-black/40 p-stack-md border-b border-white/5 flex flex-col gap-stack-sm shadow-inner">
-<div class="flex items-center gap-stack-md p-3 glass-panel-deep rounded-[16px]">
-<span class="material-symbols-outlined text-[#2ff801]">check_circle</span>
-<div class="flex-1"><p class="font-label-md text-white font-bold text-sm">10:00 AM</p><p class="font-body-md text-white/60 text-xs mt-0.5">Checked in at 09:50 AM</p></div>
-<span class="text-[10px] font-bold text-[#2ff801] tracking-wider uppercase">ON TIME</span>
-</div>
-</div>
-<!-- 20-Jun-2026 -->
-<div class="history-card flex justify-between items-center p-stack-md cursor-pointer hover:bg-white/5 transition-all active:bg-white/10">
-<div>
-<p class="font-label-md text-base font-semibold text-white">20-Jun-2026, Saturday</p>
-<p class="font-label-md text-xs text-[#ffb4ab]/80 mt-1">4/5 Completed • Missed Slot</p>
-</div>
-<span class="material-symbols-outlined text-white/30 chevron-icon transition-transform duration-300">chevron_right</span>
-</div>
-<div class="hidden bg-black/40 p-stack-md flex flex-col gap-stack-sm shadow-inner">
-<div class="flex items-center gap-stack-md p-3 glass-panel-deep !bg-[#ffb4ab]/5 !border-[#ffb4ab]/20 rounded-[16px]">
-<span class="material-symbols-outlined text-white/40">cancel</span>
-<div class="flex-1"><p class="font-label-md text-white/60 font-bold text-sm">04:00 PM</p><p class="font-body-md text-white/40 text-xs mt-0.5">No record found</p></div>
-<span class="text-[10px] font-bold text-[#ffb4ab] tracking-wider uppercase">MISSED</span>
-</div>
-</div></div>
-</section>
 </main>
-
-<!-- BottomNavBar (From JSON) -->
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 glass-panel-strong shadow-[0_-10px_30px_rgba(0,0,0,0.5)] !border-x-0 !border-b-0 !rounded-t-[32px]">
-<div class="flex flex-col items-center justify-center text-white/50 px-6 py-2 hover:bg-white/5 rounded-[16px] active:scale-90 transition-all duration-150 cursor-pointer">
-<span class="material-symbols-outlined text-[26px]">alarm_on</span>
-<span class="font-label-md text-[11px] mt-1 tracking-wide font-medium">Clock In</span>
-</div>
-<div class="flex flex-col items-center justify-center bg-[#00d2ff]/10 border border-[#00d2ff]/20 text-[#00d2ff] rounded-[16px] px-6 py-2 active:scale-90 transition-all duration-150 cursor-pointer neon-glow-primary backdrop-blur-md shadow-[0_0_15px_rgba(0,210,255,0.1)]">
-<span class="material-symbols-outlined text-[26px]" data-weight="fill">list_alt</span>
-<span class="font-label-md text-[11px] mt-1 font-bold tracking-wide">Records</span>
-</div>
-<div class="flex flex-col items-center justify-center text-white/50 px-6 py-2 hover:bg-white/5 rounded-[16px] active:scale-90 transition-all duration-150 cursor-pointer">
-<span class="material-symbols-outlined text-[26px]">account_circle</span>
-<span class="font-label-md text-[11px] mt-1 tracking-wide font-medium">Profile</span>
-</div>
-</nav>
-
-<!-- Date Filter Modal -->
-<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-2xl px-gutter hidden" id="date-filter-modal">
-<div class="w-full max-w-[400px] rounded-[32px] shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-gutter flex flex-col gap-stack-md glass-panel-strong border-white/20" id="date-filter-card">
-<div class="flex justify-between items-center mb-stack-sm">
-<h3 class="font-headline-md text-2xl font-semibold text-white drop-shadow-sm">Filter Records</h3>
-<span class="material-symbols-outlined text-white/50 cursor-pointer active:scale-90 p-2 bg-white/5 border border-white/10 rounded-full hover:text-white hover:bg-white/10 transition-all" id="close-modal-btn">close</span>
-</div>
-<div class="flex flex-col gap-2">
-<label class="font-label-md text-sm text-white/60 ml-1">From Date</label>
-<div class="flex items-center glass-panel-deep rounded-[16px] px-stack-md py-3 focus-within:border-[#00d2ff] focus-within:ring-1 focus-within:ring-[#00d2ff] transition-all">
-<span class="material-symbols-outlined text-white/30 mr-3">calendar_month</span>
-<input class="w-full bg-transparent border-none p-0 text-body-md font-body-md text-white focus:ring-0 color-scheme-dark" type="date" value="2026-07-01">
-</div>
-</div>
-<div class="flex flex-col gap-2">
-<label class="font-label-md text-sm text-white/60 ml-1">To Date</label>
-<div class="flex items-center glass-panel-deep rounded-[16px] px-stack-md py-3 focus-within:border-[#00d2ff] focus-within:ring-1 focus-within:ring-[#00d2ff] transition-all">
-<span class="material-symbols-outlined text-white/30 mr-3">calendar_month</span>
-<input class="w-full bg-transparent border-none p-0 text-body-md font-body-md text-white focus:ring-0 color-scheme-dark" type="date" value="2026-07-03">
-</div>
-</div>
-<div class="flex gap-stack-md mt-6"><button class="flex-1 py-4 px-6 rounded-[20px] border border-white/10 font-label-md text-sm font-semibold text-white/70 bg-white/5 hover:bg-white/10 active:scale-95 transition-all backdrop-blur-md" id="cancel-filter-btn">Cancel</button><button class="flex-1 py-4 px-6 rounded-[20px] bg-[#00d2ff] font-label-md text-sm font-bold text-black hover:bg-[#47d6ff] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,210,255,0.4)]">Apply Search</button></div>
-</div>
-</div>
-
-<!-- Image Modal -->
-<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-[40px] px-gutter hidden" id="image-modal">
-<div class="relative max-w-sm w-full rounded-[32px] p-4 shadow-[0_30px_60px_rgba(0,0,0,0.6)] flex flex-col items-center scale-95 glass-panel-strong border-white/20" id="image-modal-card">
-<button class="absolute -top-14 right-0 text-white cursor-pointer active:scale-90 p-3 bg-white/5 hover:bg-white/10 rounded-full flex items-center justify-center transition-all border border-white/20 backdrop-blur-md" id="close-image-modal-btn">
-<span class="material-symbols-outlined">close</span>
-</button>
-<img alt="Captured Check-in Image" class="w-full h-auto rounded-[24px] border border-white/10 shadow-lg object-cover aspect-square" id="modal-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E">
-<p class="mt-4 font-label-md text-white/50 w-full text-center font-bold tracking-widest text-[11px] uppercase">Captured Photo</p>
-</div>
-</div>
-
 <script>
-        // Modal Logic
-        const modal = document.getElementById('date-filter-modal');
-        const trigger = document.getElementById('search-trigger');
-        const closeBtn = document.getElementById('close-modal-btn');
-        const cancelBtn = document.getElementById('cancel-filter-btn');
-
-        function openModal() {
-            modal.classList.remove('hidden');
-        }
-
-        function closeModal() {
-            modal.classList.add('hidden');
-        }
-
-        trigger.addEventListener('click', openModal);
-        closeBtn.addEventListener('click', closeModal);
-        cancelBtn.addEventListener('click', closeModal);
-        
-        // Close on outside click
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-
-        // Image Modal Logic
-        const imgModal = document.getElementById('image-modal');
-        const imgModalCard = document.getElementById('image-modal-card');
-        const modalImage = document.getElementById('modal-image');
-        const closeImgModalBtn = document.getElementById('close-image-modal-btn');
-
-        function openImageModal(src) {
-            modalImage.src = src;
-            imgModal.classList.remove('hidden');
-            setTimeout(() => {
-                imgModalCard.classList.remove('scale-95');
-                imgModalCard.classList.add('scale-100');
-            }, 10);
-        }
-
-        function closeImageModal() {
-            imgModalCard.classList.remove('scale-100');
-            imgModalCard.classList.add('scale-95');
-            setTimeout(() => {
-                imgModal.classList.add('hidden');
-            }, 400); // Increased timing for smoother android-like transition
-        }
-
-        closeImgModalBtn.addEventListener('click', closeImageModal);
-        imgModal.addEventListener('click', (e) => {
-            if (e.target === imgModal) {
-                closeImageModal();
+        document.querySelector('button[aria-label="Toggle password visibility"]').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('span');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                passwordInput.type = 'password';
+                icon.textContent = 'visibility';
             }
         });
     </script>
-<script class="">
-        document.querySelectorAll('.history-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const details = card.nextElementSibling;
-                const chevron = card.querySelector('.chevron-icon');
-                const isExpanded = !details.classList.contains('hidden');
 
-                if (isExpanded) {
-                    details.classList.add('hidden');
-                    chevron.style.transform = 'rotate(0deg)';
-                } else {
-                    details.classList.remove('hidden');
-                    chevron.style.transform = 'rotate(90deg)';
-                }
-            });
-        });
-    </script>
 
 </body></html>
