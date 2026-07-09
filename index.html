@@ -1,63 +1,65 @@
-<!DOCTYPE html><html class="dark h-full" lang="en" style=""><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>WorkforceOS - Login</title>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WorkforceOS - Tactical Command</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
   tailwind.config = {
     darkMode: "class",
     theme: {
       extend: {
         "colors": {
-                "tertiary-container": "#ccb6ff",
-                "surface-bright": "#37393e",
+                "surface-container-highest": "#333539",
+                "error": "#ffb4ab",
+                "surface-variant": "#333539",
                 "on-tertiary-container": "#6100de",
+                "surface-tint": "#47d6ff",
+                "on-tertiary-fixed": "#23005b",
+                "on-surface": "#e2e2e8",
+                "tertiary-fixed-dim": "#d1bcff",
+                "tertiary-container": "#ccb6ff",
+                "surface-container-lowest": "#0c0e12",
+                "secondary-fixed-dim": "#2ae500",
+                "secondary-container": "#2ff801",
+                "error-container": "#93000a",
+                "on-surface-variant": "#bbc9cf",
+                "on-secondary-fixed-variant": "#095300",
+                "inverse-primary": "#00677f",
+                "tertiary-fixed": "#e9ddff",
+                "background": "#111318",
+                "on-secondary": "#053900",
+                "on-primary-container": "#00566a",
+                "tertiary": "#e5d7ff",
+                "secondary": "#d7ffc5",
+                "on-secondary-fixed": "#022100",
+                "primary-container": "#00d2ff",
+                "on-primary-fixed-variant": "#004e60",
+                "surface": "#111318",
+                "outline-variant": "#3c494e",
+                "on-tertiary-fixed-variant": "#5700c9",
+                "on-error": "#690005",
+                "on-background": "#e2e2e8",
+                "surface-dim": "#111318",
+                "inverse-on-surface": "#2f3035",
+                "surface-container-low": "#1a1c20",
+                "on-secondary-container": "#0f6d00",
+                "on-primary": "#003543",
+                "on-primary-fixed": "#001f28",
+                "surface-container": "#1e2024",
+                "surface-bright": "#37393e",
+                "surface-container-high": "#282a2e",
+                "on-tertiary": "#3c0090",
                 "primary": "#a5e7ff",
+                "outline": "#859399",
                 "on-error-container": "#ffdad6",
                 "secondary-fixed": "#79ff5b",
-                "surface-container-low": "#1a1c20",
-                "surface-container-high": "#282a2e",
-                "inverse-primary": "#00677f",
-                "on-primary-container": "#00566a",
-                "inverse-surface": "#e2e2e8",
-                "tertiary-fixed": "#e9ddff",
-                "on-secondary": "#053900",
-                "on-surface": "#e2e2e8",
-                "on-surface-variant": "#bbc9cf",
-                "on-background": "#e2e2e8",
-                "on-tertiary-fixed": "#23005b",
-                "outline": "#859399",
-                "on-secondary-fixed": "#022100",
-                "surface": "#111318",
-                "secondary-container": "#2ff801",
                 "primary-fixed": "#b6ebff",
-                "primary-container": "#00d2ff",
-                "surface-variant": "#333539",
-                "on-primary-fixed": "#001f28",
-                "secondary-fixed-dim": "#2ae500",
-                "primary-fixed-dim": "#47d6ff",
-                "surface-container-highest": "#333539",
-                "on-secondary-fixed-variant": "#095300",
-                "on-secondary-container": "#0f6d00",
-                "inverse-on-surface": "#2f3035",
-                "error-container": "#93000a",
-                "secondary": "#d7ffc5",
-                "on-tertiary-fixed-variant": "#5700c9",
-                "on-primary-fixed-variant": "#004e60",
-                "on-primary": "#003543",
-                "tertiary-fixed-dim": "#d1bcff",
-                "on-error": "#690005",
-                "on-tertiary": "#3c0090",
-                "tertiary": "#e5d7ff",
-                "surface-container": "#1e2024",
-                "error": "#ffb4ab",
-                "surface-dim": "#111318",
-                "surface-tint": "#47d6ff",
-                "surface-container-lowest": "#0c0e12",
-                "outline-variant": "#3c494e",
-                "background": "#111318"
+                "inverse-surface": "#e2e2e8",
+                "primary-fixed-dim": "#47d6ff"
         },
         "borderRadius": {
                 "DEFAULT": "0.25rem",
@@ -66,87 +68,53 @@
                 "full": "9999px"
         },
         "spacing": {
+                "stack-lg": "32px",
+                "container-margin": "32px",
                 "stack-sm": "8px",
                 "unit": "4px",
-                "stack-md": "16px",
-                "container-margin": "32px",
                 "gutter": "24px",
-                "stack-lg": "32px",
-                "xs": "4px",
-                "lg": "24px",
-                "base": "4px",
-                "sm": "8px",
-                "xl": "40px",
-                "md": "16px",
-                "container-max": "1280px"
+                "stack-md": "16px"
         },
         "fontFamily": {
-                "label-md": [
-                        "Geist"
-                ],
-                "headline-md": [
-                        "Space Grotesk"
-                ],
                 "headline-lg-mobile": [
                         "Space Grotesk"
                 ],
-                "headline-lg": [
-                        "Space Grotesk"
-                ],
-                "headline-sm": [
-                        "Space Grotesk"
+                "label-md": [
+                        "Geist"
                 ],
                 "display-lg": [
                         "Space Grotesk"
                 ],
-                "body-lg": [
+                "headline-md": [
+                        "Space Grotesk"
+                ],
+                "code-sm": [
                         "Geist"
+                ],
+                "headline-lg": [
+                        "Space Grotesk"
                 ],
                 "body-md": [
                         "Geist"
                 ],
-                "body-sm": [
-                        "Geist"
-                ],
-                "code-sm": [
+                "body-lg": [
                         "Geist"
                 ]
         },
         "fontSize": {
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
+                        }
+                ],
                 "label-md": [
                         "14px",
                         {
                                 "lineHeight": "1",
                                 "letterSpacing": "0.05em",
                                 "fontWeight": "600"
-                        }
-                ],
-                "headline-md": [
-                        "24px",
-                        {
-                                "lineHeight": "1.3",
-                                "fontWeight": "500"
-                        }
-                ],
-                "headline-lg-mobile": [
-                        "24px",
-                        {
-                                "lineHeight": "1.2",
-                                "fontWeight": "600"
-                        }
-                ],
-                "headline-lg": [
-                        "32px",
-                        {
-                                "lineHeight": "1.2",
-                                "fontWeight": "600"
-                        }
-                ],
-                "headline-sm": [
-                        "20px",
-                        {
-                                "lineHeight": "1.4",
-                                "fontWeight": "500"
                         }
                 ],
                 "display-lg": [
@@ -157,11 +125,25 @@
                                 "fontWeight": "700"
                         }
                 ],
-                "body-lg": [
-                        "18px",
+                "headline-md": [
+                        "24px",
                         {
-                                "lineHeight": "1.6",
+                                "lineHeight": "1.3",
+                                "fontWeight": "500"
+                        }
+                ],
+                "code-sm": [
+                        "13px",
+                        {
+                                "lineHeight": "1.4",
                                 "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
                         }
                 ],
                 "body-md": [
@@ -171,17 +153,10 @@
                                 "fontWeight": "400"
                         }
                 ],
-                "body-sm": [
-                        "14px",
+                "body-lg": [
+                        "18px",
                         {
-                                "lineHeight": "1.5",
-                                "fontWeight": "400"
-                        }
-                ],
-                "code-sm": [
-                        "13px",
-                        {
-                                "lineHeight": "1.4",
+                                "lineHeight": "1.6",
                                 "fontWeight": "400"
                         }
                 ]
@@ -191,95 +166,272 @@
   }
 </script>
 <style>
-    body { font-family: 'Geist', sans-serif; background-color: #111318; min-height: max(884px, 100dvh); }
-    .font-headline-sm, .font-headline-lg-mobile, .font-headline-lg, .font-headline-md, .font-display-lg { font-family: 'Space Grotesk', sans-serif; }
-    .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    
-    /* Neon Glow Effects */
-    .neon-glow-primary { text-shadow: 0 0 10px rgba(165, 231, 255, 0.5); }
-    .neon-glow-primary-btn { box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
-    .glass-panel { background: rgba(30, 32, 36, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(133, 147, 153, 0.2); }
-  </style>
-</head>
-<body class="h-full flex flex-col items-center bg-background text-on-surface font-body-md pt-24 pb-lg">
-<header class="fixed top-0 w-full z-50 flex flex-col justify-center items-center px-gutter h-16 bg-surface/80 backdrop-blur-md shadow-sm border-b border-outline-variant">
-<div class="flex items-center gap-sm">
-<span class="material-symbols-outlined text-primary text-[24px] neon-glow-primary" data-icon="fingerprint" data-weight="fill">fingerprint</span>
-<span class="font-headline-md text-headline-md font-bold text-primary tracking-tight neon-glow-primary">WorkforceOS</span>
-</div>
-<span class="font-label-md text-xs text-outline tracking-widest uppercase mt-xs">SECURE ENTERPRISE ACCESS</span>
-</header>
-<main class="w-full max-w-md px-md flex-1 flex flex-col justify-center items-center">
-<div class="w-full glass-panel rounded-[24px] shadow-2xl p-xl relative overflow-hidden shadow-[0_0_8px_rgba(0,210,255,0.8)] border-primary-container border">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Tactical HUD Background */
+        body {
+            background-image: 
+                linear-gradient(rgba(17, 19, 24, 0.95), rgba(17, 19, 24, 0.95)),
+                linear-gradient(90deg, rgba(71, 214, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(rgba(71, 214, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 20px 20px, 20px 20px;
+            background-position: center center;
+        }
 
-<form class="space-y-lg"><div class="mb-lg">
-<h1 class="font-headline-sm text-headline-sm font-bold text-primary tracking-widest uppercase neon-glow-primary">Login</h1>
-<div class="h-0.5 w-12 bg-primary-container mt-xs rounded-full shadow-[0_0_8px_rgba(0,210,255,0.8)]"></div>
+        /* Scanline Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.1) 50%,
+                rgba(0, 0, 0, 0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 40;
+            opacity: 0.3;
+        }
+
+        /* Neon Glows */
+        .glow-border {
+            box-shadow: 0 0 10px rgba(71, 214, 255, 0.2), inset 0 0 10px rgba(71, 214, 255, 0.1);
+            border: 1px solid rgba(71, 214, 255, 0.3);
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 8px rgba(71, 214, 255, 0.6);
+        }
+
+        /* Biometric Scanner Animation */
+        @keyframes scan-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; box-shadow: 0 0 0 0 rgba(71, 214, 255, 0.7); }
+            70% { transform: scale(1.1); opacity: 0.8; box-shadow: 0 0 0 20px rgba(71, 214, 255, 0); }
+            100% { transform: scale(0.8); opacity: 0.5; box-shadow: 0 0 0 0 rgba(71, 214, 255, 0); }
+        }
+        .scanner-ring-1 {
+            animation: scan-rotate 10s linear infinite;
+        }
+        .scanner-ring-2 {
+            animation: scan-rotate 15s linear infinite reverse;
+        }
+        .scanner-pulse {
+            animation: pulse-ring 2s infinite cubic-bezier(0.66, 0, 0, 1);
+        }
+
+        /* Tactical Button Styling */
+        .tactical-btn {
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+        .tactical-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.5s;
+        }
+        .tactical-btn:hover::before {
+            left: 150%;
+        }
+        
+        /* Hexagon Clip */
+        .hex-clip {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col antialiased">
+<div class="scanlines"></div>
+<!-- TopAppBar (Tactical) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface/80 backdrop-blur-md border-b border-primary/20 glow-border">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-2xl glow-text">radar</span>
+<span class="font-headline-md text-[20px] font-bold text-primary tracking-widest uppercase">TAC-CMD</span>
 </div>
-<div class="space-y-sm">
-<label class="block font-label-md text-label-md text-on-surface-variant uppercase" for="email">Email Address</label>
-<div class="relative">
-<div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none text-outline">
-<span class="material-symbols-outlined text-[20px]">mail</span>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs px-2 py-1 bg-surface-container rounded border border-secondary/30">
+<div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
+<span class="font-code-sm text-code-sm text-secondary uppercase tracking-wider">Secure</span>
 </div>
-<input class="block w-full pl-xl pr-md py-sm border border-outline-variant rounded-lg bg-surface-container-lowest/50 text-on-surface focus:ring-1 focus:ring-primary-container focus:border-primary-container transition-all sm:text-sm font-body-md text-body-md" id="email" name="email" placeholder="name@company.com" required="" type="email">
+<button aria-label="Profile Menu" class="relative group cursor-pointer active:scale-95 transition-transform">
+<div class="hex-clip w-8 h-8 bg-surface-container flex items-center justify-center border border-primary p-0.5 group-hover:border-primary-container transition-colors">
+<img alt="User Avatar" class="w-full h-full object-cover hex-clip" data-alt="A professional headshot of a diverse corporate employee with a warm expression, suitable for a secure enterprise user profile avatar. Clean, modern lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpG_xOMVQQAbiuZ5mOWruxH9G5G4isXxiMdc-91pEXpfqM_YlZU5Wa6gnR4kCf8jVXums0-TK3wW8GYixMxZGcS1CWr70aD-VRb-l0vSbhPvW-1j8lWdgy-22TaZiJ5qyIKPSDHXsjY-MWdZphiMjzB72dwsiXD7Hh2Nfubib-pK7lrMOC_pADZ-i9L4HTxZrDc31OKyR1V7x4E49LZvlgQFikgVATEmZk_2GpXnC_xqtkHaRhPi0IeL4QKAoK_u1O79VSYz8S71k"/>
 </div>
-</div>
-<div class="space-y-sm">
-<label class="block font-label-md text-label-md text-on-surface-variant uppercase" for="password">Password</label>
-<div class="relative">
-<div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none text-outline">
-<span class="material-symbols-outlined text-[20px]">lock</span>
-</div>
-<input class="block w-full pl-xl pr-md py-sm border border-outline-variant rounded-lg bg-surface-container-lowest/50 text-on-surface focus:ring-1 focus:ring-primary-container focus:border-primary-container transition-all sm:text-sm font-body-md text-body-md" id="password" name="password" placeholder="••••••••" required="" type="password">
-<button aria-label="Toggle password visibility" class="absolute inset-y-0 right-0 pr-sm flex items-center text-outline hover:text-primary-container transition-colors" type="button">
-<span class="material-symbols-outlined text-[20px]">visibility</span>
 </button>
 </div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-20 pb-24 px-md flex flex-col gap-stack-lg max-w-lg mx-auto w-full relative z-10">
+<!-- HUD Header Section -->
+<div class="flex flex-col gap-stack-sm glow-border bg-surface-container/50 p-4 rounded-sm border-l-4 border-l-primary relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 opacity-20 text-primary">
+<span class="material-symbols-outlined text-4xl">memory</span>
 </div>
-<div class="flex items-center justify-between mt-sm">
-<div class="flex items-center">
-<input class="h-4 w-4 text-primary-container focus:ring-primary-container border-outline-variant rounded bg-surface-container-lowest/50" id="remember-me" name="remember-me" type="checkbox">
-<label class="ml-sm block font-body-sm text-body-sm text-on-surface-variant" for="remember-me">
-                            Remember me
-                        </label>
-</div>
-<div class="text-sm">
-<a class="font-label-md text-label-md text-primary-container hover:text-primary transition-colors neon-glow-primary" href="#">
-                            Forgot Password?
-                        </a>
+<h1 class="font-headline-md text-headline-md text-on-background uppercase tracking-widest text-sm text-primary">System Clock</h1>
+<div class="flex flex-col">
+<span class="font-display-lg text-[40px] font-bold text-primary glow-text font-mono tracking-tight" id="tactical-time">22:52:06.145</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant uppercase tracking-widest" id="tactical-date">09 JUN 2026 / IST_ZONE</span>
 </div>
 </div>
-<button class="w-full flex justify-center items-center py-md px-md border border-transparent rounded-full font-label-md text-label-md text-on-primary-fixed bg-primary-container hover:bg-primary-fixed-dim focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary-container transition-all duration-200 active:scale-[0.98] uppercase tracking-wider group neon-glow-primary-btn" type="submit">
-                    Login
-                    <span class="material-symbols-outlined ml-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+<!-- Biometric Scanner Area -->
+<div class="flex flex-col items-center justify-center gap-stack-lg py-8">
+<div class="relative w-64 h-64 flex items-center justify-center" id="scanner-container">
+<!-- Outer Rings -->
+<div class="absolute inset-0 rounded-full border-2 border-dashed border-primary/30 scanner-ring-1"></div>
+<div class="absolute inset-4 rounded-full border border-primary/20 scanner-ring-2">
+<div class="absolute top-0 left-1/2 w-2 h-2 bg-primary rounded-full -translate-x-1/2 -translate-y-1/2 glow-text"></div>
+</div>
+<!-- Pulse Ring -->
+<div class="absolute inset-8 rounded-full border-2 border-primary/50 scanner-pulse"></div>
+<!-- Scanner Core -->
+<div class="absolute inset-12 rounded-full bg-surface-container-high/80 backdrop-blur-sm border border-primary flex items-center justify-center glow-border cursor-pointer hover:bg-primary/10 transition-colors" onclick="startScanFlow()">
+<span class="material-symbols-outlined text-5xl text-primary glow-text" id="scan-icon">fingerprint</span>
+</div>
+<!-- Data Overlay -->
+<div class="absolute -top-4 -left-4 text-primary opacity-50 font-mono text-[10px]">AUTH_REQ</div>
+<div class="absolute -bottom-4 -right-4 text-primary opacity-50 font-mono text-[10px]">NODE_XYZ</div>
+</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant uppercase tracking-widest text-center" id="scan-status">Awaiting Biometric Input</p>
+</div>
+<!-- Action Grid -->
+<div class="grid grid-cols-2 gap-gutter w-full mt-auto">
+<button class="tactical-btn bg-surface-container border border-primary/30 text-primary font-label-md py-4 px-4 flex flex-col items-center justify-center gap-2 hover:bg-primary/10 hover:border-primary transition-all group">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">gps_fixed</span>
+<span class="uppercase tracking-wider text-xs">Verify Loc</span>
 </button>
-</form>
-<div class="mt-lg pt-lg border-t border-outline-variant/50 text-center">
-<p class="font-body-sm text-body-sm text-on-surface-variant">
-                    Don't have an account? 
-                    <a class="font-label-md text-label-md text-primary-container hover:text-primary transition-colors ml-xs neon-glow-primary" href="#">Signup</a>
-</p>
+<button class="tactical-btn bg-surface-container border border-primary/30 text-primary font-label-md py-4 px-4 flex flex-col items-center justify-center gap-2 hover:bg-primary/10 hover:border-primary transition-all group">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">encrypted</span>
+<span class="uppercase tracking-wider text-xs">Encrypt Node</span>
+</button>
 </div>
-</div>
-<div class="mt-lg text-center opacity-50">
-<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">© 2024 WorkforceOS Inc.</p>
+<!-- Main Triggers -->
+<div class="flex flex-col gap-stack-sm w-full">
+<button class="tactical-btn w-full bg-primary/20 border-2 border-primary text-primary font-headline-md text-lg py-4 px-md flex items-center justify-center gap-sm active:scale-[0.98] transition-transform hover:bg-primary/30 glow-border" onclick="initiateClockIn()">
+<span class="material-symbols-outlined">login</span>
+    INITIATE CLOCK-IN
+</button>
+<button class="tactical-btn w-full bg-error/10 border border-error/50 text-error font-label-md py-3 px-md flex items-center justify-center gap-sm active:scale-[0.98] transition-transform hover:bg-error/20">
+<span class="material-symbols-outlined text-sm">power_settings_new</span>
+    TERMINATE SHIFT
+</button>
 </div>
 </main>
+<!-- Bottom Navigation (Tactical) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface/90 backdrop-blur-md border-t border-primary/20 glow-border md:hidden pb-safe">
+<button class="flex flex-col items-center justify-center text-primary relative group">
+<span class="material-symbols-outlined fill">terminal</span>
+<span class="font-code-sm text-[10px] uppercase tracking-wider mt-1">CMD</span>
+<div class="absolute -bottom-3 w-1/2 h-1 bg-primary rounded-t-full"></div>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">dataset</span>
+<span class="font-code-sm text-[10px] uppercase tracking-wider mt-1">Logs</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-code-sm text-[10px] uppercase tracking-wider mt-1">Operative</span>
+</button>
+</nav>
 <script>
-        document.querySelector('button[aria-label="Toggle password visibility"]').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
-            const icon = this.querySelector('span');
+    // Tactical Clock with Milliseconds
+    function updateTacticalClock() {
+        const now = new Date();
+        
+        // Time
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const millis = String(now.getMilliseconds()).padStart(3, '0');
+        document.getElementById('tactical-time').textContent = `${hours}:${minutes}:${seconds}.${millis}`;
+        
+        // Date
+        const day = String(now.getDate()).padStart(2, '0');
+        const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+        const month = months[now.getMonth()];
+        const year = now.getFullYear();
+        document.getElementById('tactical-date').textContent = `${day} ${month} ${year} / IST_ZONE`;
+        
+        requestAnimationFrame(updateTacticalClock);
+    }
+    updateTacticalClock();
+
+    // Simulated Biometric Scan Flow
+    function startScanFlow() {
+        const icon = document.getElementById('scan-icon');
+        const status = document.getElementById('scan-status');
+        const container = document.getElementById('scanner-container');
+        
+        status.textContent = 'SCANNING...';
+        status.classList.add('text-primary', 'animate-pulse');
+        icon.textContent = 'radar';
+        
+        setTimeout(() => {
+            status.textContent = 'VERIFYING NODE...';
+        }, 1500);
+
+        setTimeout(() => {
+            status.textContent = 'ACCESS GRANTED';
+            status.classList.remove('animate-pulse');
+            status.classList.add('text-secondary');
+            icon.textContent = 'check_circle';
+            icon.classList.remove('text-primary');
+            icon.classList.add('text-secondary');
             
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.textContent = 'visibility_off';
-            } else {
-                passwordInput.type = 'password';
-                icon.textContent = 'visibility';
-            }
+            // Turn rings green
+            const rings = container.querySelectorAll('.border-primary, .border-primary\\/30, .border-primary\\/20, .border-primary\\/50');
+            rings.forEach(ring => {
+                ring.classList.remove('border-primary', 'border-primary/30', 'border-primary/20', 'border-primary/50');
+                ring.classList.add('border-secondary/50');
+            });
+            
+            setTimeout(() => {
+                resetScanFlow();
+            }, 3000);
+        }, 3000);
+    }
+
+    function resetScanFlow() {
+        const icon = document.getElementById('scan-icon');
+        const status = document.getElementById('scan-status');
+        const container = document.getElementById('scanner-container');
+        
+        status.textContent = 'Awaiting Biometric Input';
+        status.className = 'font-code-sm text-code-sm text-on-surface-variant uppercase tracking-widest text-center';
+        icon.textContent = 'fingerprint';
+        icon.className = 'material-symbols-outlined text-5xl text-primary glow-text';
+        
+        // Reset rings
+        const rings = container.querySelectorAll('.border-secondary\\/50');
+        rings.forEach(ring => {
+             ring.classList.remove('border-secondary/50');
+             // Re-add original classes based on element type (simplified reset)
+             if(ring.classList.contains('scanner-ring-1')) ring.classList.add('border-primary/30');
+             else if(ring.classList.contains('scanner-ring-2')) ring.classList.add('border-primary/20');
+             else if(ring.classList.contains('scanner-pulse')) ring.classList.add('border-primary/50');
+             else ring.classList.add('border-primary');
         });
-    </script>
+    }
 
-
+    function initiateClockIn() {
+        startScanFlow();
+    }
+</script>
 </body></html>
