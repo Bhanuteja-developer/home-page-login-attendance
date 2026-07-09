@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
+<html class="light" lang="en" style=""><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Attendance Pro - Time Tracking</title>
+<title>WorkforceOS - Attendance Records</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
   tailwind.config = {
     darkMode: "class",
     theme: {
       extend: {
         "colors": {
-                "surface-container": "#e7eefe",
-                "surface-variant": "#dce2f3",
-                "surface-container-lowest": "#ffffff",
-                "on-surface": "#151c27",
-                "background": "#f9f9ff",
-                "on-tertiary-fixed-variant": "#00497b",
-                "tertiary-container": "#009cfc",
-                "outline": "#8e7164",
-                "on-surface-variant": "#5a4136",
-                "tertiary": "#0062a1",
-                "border-subtle": "#E5E7EB",
-                "surface-container-high": "#e2e8f8",
                 "on-primary-fixed": "#360f00",
-                "on-tertiary": "#ffffff",
-                "secondary": "#5f5e5e",
-                "tertiary-fixed": "#d0e4ff",
-                "surface-container-highest": "#dce2f3",
-                "primary-fixed-dim": "#ffb596",
-                "on-primary": "#ffffff",
-                "error-container": "#ffdad6",
-                "on-error": "#ffffff",
-                "success": "#10B981",
-                "on-secondary": "#ffffff",
-                "inverse-primary": "#ffb596",
-                "surface-bright": "#f9f9ff",
-                "surface-dim": "#d3daea",
-                "surface-container-low": "#f0f3ff",
-                "inverse-surface": "#2a313d",
+                "on-secondary-fixed-variant": "#474746",
                 "surface-tint": "#a33e00",
-                "on-tertiary-container": "#003155",
-                "primary-fixed": "#ffdbcd",
-                "on-error-container": "#93000a",
-                "secondary-fixed": "#e5e2e1",
-                "tertiary-fixed-dim": "#9ccaff",
-                "secondary-fixed-dim": "#c8c6c5",
-                "error": "#EF4444",
-                "on-background": "#151c27",
-                "secondary-container": "#e2dfde",
+                "on-primary": "#ffffff",
+                "surface-dim": "#d3daea",
+                "secondary": "#5f5e5e",
+                "on-tertiary-fixed-variant": "#00497b",
                 "on-primary-fixed-variant": "#7c2e00",
+                "error-container": "#ffdad6",
                 "on-secondary-fixed": "#1c1b1b",
                 "inverse-on-surface": "#ebf1ff",
-                "on-secondary-fixed-variant": "#474746",
-                "on-tertiary-fixed": "#001d35",
-                "surface": "#f9f9ff",
+                "surface-bright": "#f9f9ff",
+                "inverse-primary": "#ffb596",
+                "surface-container-high": "#e2e8f8",
+                "inverse-surface": "#2a313d",
+                "surface-container-low": "#f0f3ff",
+                "on-surface": "#151c27",
+                "outline": "#8e7164",
+                "border-subtle": "#E5E7EB",
+                "on-error": "#ffffff",
+                "tertiary-container": "#009cfc",
+                "secondary-container": "#e2dfde",
+                "background": "#f9f9ff",
                 "primary-container": "#ff6603",
+                "on-background": "#151c27",
+                "on-tertiary-container": "#003155",
+                "tertiary-fixed": "#d0e4ff",
+                "primary-fixed": "#ffdbcd",
+                "on-tertiary-fixed": "#001d35",
+                "primary-fixed-dim": "#ffb596",
+                "secondary-fixed-dim": "#c8c6c5",
+                "surface-variant": "#dce2f3",
                 "outline-variant": "#e3bfb1",
-                "primary": "#a33e00",
+                "surface-container-lowest": "#ffffff",
                 "on-secondary-container": "#636262",
-                "on-primary-container": "#ffffff"
+                "on-surface-variant": "#5a4136",
+                "surface-container": "#e7eefe",
+                "tertiary-fixed-dim": "#9ccaff",
+                "surface": "#f9f9ff",
+                "success": "#10B981",
+                "on-primary-container": "#ffffff",
+                "on-tertiary": "#ffffff",
+                "surface-container-highest": "#dce2f3",
+                "tertiary": "#0062a1",
+                "on-error-container": "#93000a",
+                "on-secondary": "#ffffff",
+                "error": "#EF4444",
+                "primary": "#a33e00",
+                "secondary-fixed": "#e5e2e1"
         },
         "borderRadius": {
                 "DEFAULT": "0.25rem",
@@ -70,41 +70,41 @@
                 "full": "9999px"
         },
         "spacing": {
-                "gutter": "24px",
-                "unit": "4px",
                 "margin-mobile": "16px",
+                "unit": "4px",
                 "container-max": "1280px",
-                "margin-desktop": "40px"
+                "margin-desktop": "40px",
+                "gutter": "24px"
         },
         "fontFamily": {
                 "display-lg": [
                         "Nunito Sans"
                 ],
-                "headline-lg-mobile": [
-                        "Nunito Sans"
-                ],
-                "body-lg": [
-                        "Nunito Sans"
-                ],
-                "body-sm": [
-                        "Nunito Sans"
-                ],
                 "label-md": [
+                        "Nunito Sans"
+                ],
+                "label-sm": [
+                        "Nunito Sans"
+                ],
+                "headline-lg-mobile": [
                         "Nunito Sans"
                 ],
                 "headline-md": [
                         "Nunito Sans"
                 ],
-                "body-md": [
+                "body-lg": [
                         "Nunito Sans"
                 ],
-                "label-sm": [
+                "body-md": [
                         "Nunito Sans"
                 ],
                 "title-lg": [
                         "Nunito Sans"
                 ],
                 "headline-lg": [
+                        "Nunito Sans"
+                ],
+                "body-sm": [
                         "Nunito Sans"
                 ]
         },
@@ -117,7 +117,30 @@
                                 "fontWeight": "800"
                         }
                 ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.03em",
+                                "fontWeight": "700"
+                        }
+                ],
                 "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-md": [
                         "24px",
                         {
                                 "lineHeight": "32px",
@@ -131,41 +154,11 @@
                                 "fontWeight": "400"
                         }
                 ],
-                "body-sm": [
-                        "14px",
-                        {
-                                "lineHeight": "20px",
-                                "fontWeight": "400"
-                        }
-                ],
-                "label-md": [
-                        "14px",
-                        {
-                                "lineHeight": "16px",
-                                "letterSpacing": "0.01em",
-                                "fontWeight": "600"
-                        }
-                ],
-                "headline-md": [
-                        "24px",
-                        {
-                                "lineHeight": "32px",
-                                "fontWeight": "700"
-                        }
-                ],
                 "body-md": [
                         "16px",
                         {
                                 "lineHeight": "24px",
                                 "fontWeight": "400"
-                        }
-                ],
-                "label-sm": [
-                        "12px",
-                        {
-                                "lineHeight": "16px",
-                                "letterSpacing": "0.03em",
-                                "fontWeight": "700"
                         }
                 ],
                 "title-lg": [
@@ -181,6 +174,13 @@
                                 "lineHeight": "40px",
                                 "fontWeight": "700"
                         }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
                 ]
         }
 },
@@ -188,95 +188,227 @@
   }
 </script>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .material-symbols-outlined.fill {
-            font-variation-settings: 'FILL' 1;
-        }
+        body { font-family: 'Nunito Sans', sans-serif; background-color: #f9f9ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Modal Overlay Transition */
+        #date-filter-modal, #image-modal { transition: opacity 0.3s ease, visibility 0.3s; }
+        #date-filter-modal.hidden, #image-modal.hidden { opacity: 0; visibility: hidden; pointer-events: none; display: flex !important; }
+        #date-filter-card { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateY(20px) scale(0.95); }
+        #date-filter-modal:not(.hidden) #date-filter-card { transform: translateY(0) scale(1); }
+        #image-modal-card { transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     </style>
 </head>
-<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased">
+<body class="bg-background text-on-background pb-[80px] md:hidden">
 <!-- TopAppBar -->
 <header class="flex justify-between items-center px-margin-mobile h-16 w-full bg-surface-container-lowest top-0 sticky shadow-sm z-50">
 <div class="flex items-center gap-gutter">
 <button aria-label="Menu" class="text-on-surface hover:bg-surface-variant transition-colors rounded-full p-2 active:scale-95 transition-transform flex items-center justify-center">
 <span class="material-symbols-outlined">menu</span>
 </button>
-<span class="font-headline-md text-headline-lg-mobile font-bold text-primary">Attendance Pro</span>
+<span class="font-headline-md text-headline-lg-mobile font-bold text-primary">Attendance Records</span>
 </div>
 <div class="flex items-center gap-4">
 <button aria-label="User profile photo" class="w-8 h-8 rounded-full overflow-hidden hover:bg-surface-variant transition-colors active:scale-95 transition-transform ring-2 ring-transparent hover:ring-primary focus:outline-none focus:ring-2 focus:ring-primary">
-<img alt="User profile photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpG_xOMVQQAbiuZ5mOWruxH9G5G4isXxiMdc-91pEXpfqM_YlZU5Wa6gnR4kCf8jVXums0-TK3wW8GYixMxZGcS1CWr70aD-VRb-l0vSbhPvW-1j8lWdgy-22TaZiJ5qyIKPSDHXsjY-MWdZphiMjzB72dwsiXD7Hh2Nfubib-pK7lrMOC_pADZ-i9L4HTxZrDc31OKyR1V7x4E49LZvlgQFikgVATEmZk_2GpXnC_xqtkHaRhPi0IeL4QKAoK_u1O79VSYz8S71k"/>
+<img alt="User profile photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"/>
 </button>
 </div>
 </header>
-<!-- Main Content Canvas -->
-<main class="flex-grow py-8 px-margin-mobile flex flex-col gap-6 max-w-lg mx-auto w-full relative z-10 mb-20">
-<!-- System Clock Card -->
-<div class="flex flex-col items-center bg-surface-container-lowest rounded-xl shadow-sm p-6 border border-border-subtle">
-<h2 class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-2">Current Time</h2>
-<div class="font-display-lg text-display-lg text-on-surface font-bold tracking-tight" id="tactical-time">22:52:06</div>
-<div class="font-body-sm text-body-sm text-secondary mt-1" id="tactical-date">Thu, 09 Jun 2026 (IST)</div>
+<main class="py-8 px-margin-mobile flex flex-col gap-6 w-full">
+<!-- Page Header & Actions -->
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-end">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Jul 03, 2026</p>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold">History</h2>
 </div>
-<!-- Biometric Authentication Card -->
-<div class="flex flex-col items-center justify-center gap-4 bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-border-subtle cursor-pointer hover:bg-surface-container-low transition-colors" id="scanner-container" onclick="startScanFlow()">
-<div class="w-20 h-20 rounded-full bg-primary-container/10 flex items-center justify-center mb-2">
-<span class="material-symbols-outlined text-4xl text-primary-container" id="scan-icon">fingerprint</span>
+<button aria-label="Refresh Records" class="w-10 h-10 rounded-full bg-surface-container-lowest border border-border-subtle flex items-center justify-center shadow-sm active:scale-95 transition-transform text-on-surface-variant hover:bg-surface-container-low">
+<span class="material-symbols-outlined">refresh</span>
+</button>
 </div>
-<h3 class="font-title-lg text-title-lg text-on-surface font-semibold" id="scan-title">Biometric Authentication</h3>
-<p class="font-body-sm text-body-sm text-secondary text-center" id="scan-status">Tap to authenticate for secure operations</p>
+<button class="bg-surface-container-lowest px-6 py-3 rounded-xl flex items-center gap-3 hover:bg-surface-container-low transition-all group w-full relative border border-border-subtle shadow-sm" id="search-trigger"><div class="flex items-center justify-between w-full relative z-10"><div class="flex items-center gap-3 text-secondary"><span class="material-symbols-outlined group-hover:text-primary-container transition-colors">search</span><span class="font-label-md text-label-md tracking-wide uppercase text-on-surface">SEARCH OLD RECORDS</span></div><span class="material-symbols-outlined text-secondary">calendar_today</span></div></button>
 </div>
-<!-- Secure Operations Telemetry -->
-<div class="grid grid-cols-2 gap-4 w-full">
-<div class="bg-surface-container-lowest rounded-lg p-4 border border-border-subtle flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
-<span class="material-symbols-outlined">gps_fixed</span>
+<!-- Analytics: Today's Progress -->
+<section class="bg-surface-container-lowest rounded-xl border border-border-subtle shadow-sm p-6"><div class="flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold">Today's Progress</h3>
+<span class="font-body-sm text-body-sm text-primary-container bg-primary-container/10 px-3 py-1 rounded-full font-bold">SYNC: 3/5</span>
 </div>
+<div class="relative w-full h-2 bg-surface-variant rounded-full overflow-hidden mt-6">
+<div class="absolute top-0 left-0 h-full w-3/5 bg-primary-container"></div>
+</div>
+<div class="flex justify-between relative mt-6">
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-surface-variant -z-10 -translate-y-1/2"></div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary-container border-2 border-surface-container-lowest z-10"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">08:00</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary-container border-2 border-surface-container-lowest z-10"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">10:00</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary-container border-2 border-surface-container-lowest z-10"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">12:00</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-error border-2 border-surface-container-lowest z-10"></div>
+<span class="font-label-sm text-label-sm text-error">14:00 (LATE)</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-surface-variant border-2 border-surface-container-lowest z-10"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant opacity-50">16:00</span>
+</div>
+</div></section>
+<!-- Timeline: Bi-hourly Check-ins -->
+<section class="flex flex-col gap-4">
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold mb-2">Today's Timeline</h3>
+<!-- Timeline Item 1 -->
+<div class="relative pl-8 pb-4"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-border-subtle"></div><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary-container/10 flex items-center justify-center z-10"><span class="w-2 h-2 rounded-full bg-primary-container"></span></div><div class="bg-surface-container-lowest border border-border-subtle p-6 shadow-sm relative rounded-xl"><div class="flex justify-between items-start mb-4"><div class="flex flex-col"><p class="font-label-md uppercase tracking-wider text-secondary text-[12px]">03 Jul 2026</p><div class="font-title-lg font-semibold text-on-surface">GS: 09:00 -18:00</div><p class=""></p></div><span class="bg-primary-container/10 text-primary-container px-3 py-1 rounded-full font-label-sm text-label-sm font-bold uppercase">ON TIME</span></div><div class="grid grid-cols-2 gap-4 mb-4"><div class="bg-surface-container-low p-3 rounded-lg"><p class="text-[10px] uppercase text-secondary font-bold">Check In</p><p class="text-body-md font-medium text-on-surface">09:55 AM</p></div><div class="bg-surface-container-low p-3 rounded-lg"><p class="text-[10px] uppercase text-secondary font-bold">Check Out</p><p class="text-body-md font-medium text-on-surface">--:--</p></div><div class="bg-surface-container-low p-3 rounded-lg"><p class="text-[10px] uppercase text-secondary font-bold">Late In</p><p class="text-body-md font-medium text-on-surface">0m</p></div><div class="bg-surface-container-low p-3 rounded-lg"><p class="text-[10px] uppercase text-secondary font-bold">Early Out</p><p class="text-body-md font-medium text-on-surface">0m</p></div><div class="bg-surface-container-low p-3 rounded-lg"><p class="text-[10px] uppercase text-secondary font-bold">working hours</p><p class="text-body-md font-medium text-on-surface">00:00</p></div><div class="bg-surface-container-low p-3 rounded-lg"><p class="text-[10px] uppercase text-secondary font-bold">Overtime</p><p class="text-body-md font-medium text-on-surface">00:00</p></div></div><div class="flex gap-4 pt-4 border-t border-border-subtle"><div class="flex flex-col gap-2 shrink-0 items-center"><div class="w-16 h-16 rounded-lg overflow-hidden border border-border-subtle cursor-pointer active:scale-95 transition-transform" onclick="openImageModal(this.querySelector('img').src)"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"/></div><a class="flex items-center gap-1 text-tertiary-container font-label-sm hover:underline" href="https://www.google.com/maps/search/?api=1&amp;query=40.7128,-74.0060" target="_blank">Google Map</a></div><div class="flex flex-col gap-2"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-[18px]">location_on</span><span class="font-body-sm text-body-sm text-on-surface">Lat: 40.7128° N | Long: 74.0060° W</span></div><div class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-[18px]">corporate_fare</span><div class="flex flex-col"><p class="font-body-sm text-body-sm text-on-surface-variant leading-tight overflow-hidden" id="address-text-1" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">HQ Building, Main Entrance Lobby, New York City, NY 10007</p><button class="text-tertiary-container font-label-sm text-left w-fit active:scale-95 transition-transform mt-1" onclick="const p = document.getElementById('address-text-1'); const isExpanded = p.style.display === 'block'; p.style.display = isExpanded ? '-webkit-box' : 'block'; this.textContent = isExpanded ? 'more' : 'less';">more</button></div></div></div></div></div></div>
+<!-- Timeline Item 2 -->
+<div class="relative pl-8 pb-4">
+<div class="absolute left-[11px] top-6 bottom-[-8px] w-px bg-border-subtle"></div>
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary-container/10 flex items-center justify-center z-10">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+</div>
+<div class="bg-surface-container-lowest border border-border-subtle p-6 shadow-sm relative rounded-xl">
+<div class="flex justify-between items-start mb-4">
 <div class="flex flex-col">
-<span class="font-label-sm text-label-sm text-secondary uppercase">Location</span>
-<span class="font-body-sm text-body-sm text-on-surface font-medium">Verified</span>
+<p class="font-label-md uppercase tracking-wider text-secondary text-[12px]">24-JUN-2026 (12:00 PM SLOT)</p>
+<p class="font-body-md text-body-md font-bold text-on-surface mt-1">Checked in at 09:55 AM</p>
 </div>
+<span class="bg-primary-container/10 text-primary-container px-3 py-1 rounded-full font-label-sm text-label-sm font-bold uppercase">ON TIME</span>
 </div>
-<div class="bg-surface-container-lowest rounded-lg p-4 border border-border-subtle flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
-<span class="material-symbols-outlined">encrypted</span>
+<div class="flex gap-4 pt-4 border-t border-border-subtle">
+<div class="flex flex-col gap-2 shrink-0 items-center">
+<div class="w-16 h-16 rounded-lg overflow-hidden border border-border-subtle cursor-pointer active:scale-95 transition-transform" onclick="openImageModal(this.querySelector('img').src)">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"/>
 </div>
+<a class="flex items-center gap-1 text-tertiary-container font-label-sm hover:underline" href="https://www.google.com/maps/search/?api=1&amp;query=40.7129,-74.0062" target="_blank">Google Map</a></div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">location_on</span>
+<span class="font-body-sm text-body-sm text-on-surface">Lat: 40.7129° N | Long: 74.0062° W</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">meeting_room</span>
 <div class="flex flex-col">
-<span class="font-label-sm text-label-sm text-secondary uppercase">Connection</span>
-<span class="font-body-sm text-body-sm text-on-surface font-medium">Secure</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-tight overflow-hidden" id="address-text-2" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">HQ Building, Main Entrance Lobby, New York City, NY 10007</p>
+<button class="text-tertiary-container font-label-sm text-left w-fit active:scale-95 transition-transform mt-1" onclick="const p = document.getElementById('address-text-2'); const isExpanded = p.style.display === 'block'; p.style.display = isExpanded ? '-webkit-box' : 'block'; this.textContent = isExpanded ? 'more' : 'less';">
+    more
+  </button>
 </div>
 </div>
 </div>
-<!-- Main Triggers -->
-<div class="flex flex-col gap-4 w-full mt-4">
-<button class="w-full bg-primary-container text-on-primary-container font-title-lg text-title-lg py-4 px-6 rounded-lg shadow-sm hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 font-bold" onclick="initiateClockIn()">
-<span class="material-symbols-outlined">login</span>
-    Clock In
-</button>
-<button class="w-full bg-surface-container-lowest border border-error text-error font-title-lg text-title-lg py-3 px-6 rounded-lg hover:bg-error/5 active:scale-[0.98] transition-all flex items-center justify-center gap-2 font-semibold">
-<span class="material-symbols-outlined">logout</span>
-    Clock Out
-</button>
-<div class="grid grid-cols-2 gap-4 w-full mt-2">
-<button class="bg-surface-container-lowest border border-border-subtle text-on-surface font-label-md py-3 px-4 rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2 font-semibold">
-<span class="material-symbols-outlined text-secondary">coffee</span>
-    Start Break
-</button>
-<button class="bg-surface-container-lowest border border-border-subtle text-on-surface font-label-md py-3 px-4 rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2 font-semibold">
-<span class="material-symbols-outlined text-secondary">play_circle</span>
-    End Break
-</button>
+</div></div>
+</div>
+<!-- Timeline Item 3 (Late) -->
+<div class="relative pl-8 pb-4"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px border-l border-dashed border-border-subtle"></div><div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-error/10 flex items-center justify-center z-10"><span class="w-2 h-2 rounded-full bg-error"></span></div><div class="bg-surface-container-lowest border border-error/20 p-6 shadow-sm relative rounded-xl"><div class="flex justify-between items-start mb-4"><div class="flex flex-col"><p class="font-label-md uppercase tracking-wider text-secondary text-[12px]">23-Jun-2026 (02:00 PM SLOT)</p><p class="font-body-md text-body-md font-bold text-on-surface mt-1">Checked in at 02:15 PM</p></div><span class="bg-error/10 text-error px-3 py-1 rounded-full font-label-sm text-label-sm font-bold uppercase">LATE</span></div><div class="flex gap-4 pt-4 border-t border-error/10"><div class="flex flex-col gap-2 shrink-0 items-center"><div class="w-16 h-16 rounded-lg overflow-hidden border border-border-subtle cursor-pointer active:scale-95 transition-transform" onclick="openImageModal(this.querySelector('img').src)"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"/></div><a class="flex items-center gap-1 text-tertiary-container font-label-sm hover:underline" href="https://www.google.com/maps/search/?api=1&amp;query=40.7580,-73.9855" target="_blank">Google Map</a></div><div class="flex flex-col gap-2"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-[18px]">location_on</span><span class="font-body-sm text-body-sm text-on-surface">Lat: 40.7580° N | Long: 73.9855° W</span></div><div class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-[18px]">apartment</span><div class="flex flex-col">
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-tight overflow-hidden" id="address-text-3" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">HQ Building, Main Entrance Lobby, New York City, NY 10007</p>
+<button class="text-tertiary-container font-label-sm text-left w-fit active:scale-95 transition-transform mt-1" onclick="const p = document.getElementById('address-text-3'); const isExpanded = p.style.display === 'block'; p.style.display = isExpanded ? '-webkit-box' : 'block'; this.textContent = isExpanded ? 'more' : 'less';">
+    more
+  </button>
+</div></div></div></div></div></div>
+<!-- Timeline Item 4 (Pending) -->
+<div class="relative pl-8 pb-4"><div class="absolute left-[11px] top-6 bottom-[-8px] w-px border-l border-dashed border-border-subtle"></div>
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center z-10">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<div class="bg-surface-container-lowest border border-border-subtle border-dashed p-6 rounded-xl shadow-sm">
+<div class="flex justify-between items-center">
+<div>
+<p class="font-label-md text-secondary uppercase tracking-wider text-[12px]">Slot 4 • 04:00 PM</p>
+<p class="font-body-md text-body-md font-bold text-on-surface mt-1">Evening Check-out</p>
+</div>
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm font-bold">
+                            Pending
+                        </span>
 </div>
 </div>
+</div>
+<!-- Timeline Item 5 (Pending) -->
+<div class="relative pl-8">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center z-10">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<div class="bg-surface-container-lowest border border-border-subtle border-dashed p-6 rounded-xl shadow-sm">
+<div class="flex justify-between items-center">
+<div>
+<p class="font-label-md text-secondary uppercase tracking-wider text-[12px]">SLOT 5 • 06:00 PM</p>
+<p class="font-body-md text-body-md font-bold text-on-surface mt-1">Evening Check-out</p>
+</div>
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm font-bold">
+                            Pending
+                        </span>
+</div>
+</div>
+</div></section>
+<!-- History Summary -->
+<section class="mb-4">
+<div class="flex justify-between items-center mb-4 mt-6">
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold">Previous Days</h3>
+<span class="font-label-md text-label-md text-primary-container cursor-pointer hover:underline">View All</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl border border-border-subtle shadow-sm overflow-hidden"><!-- 23-Jun-2026 -->
+<div class="history-card flex justify-between items-center p-4 border-b border-border-subtle cursor-pointer hover:bg-surface-container-low transition-all">
+<div>
+<p class="font-label-md text-label-md font-bold text-on-surface">23-Jun-2026 , Tuesday</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">5/5 Completed • 1 Late</p>
+</div>
+<span class="material-symbols-outlined text-secondary chevron-icon transition-transform duration-300">chevron_right</span>
+</div>
+<div class="hidden bg-surface-container-low p-4 border-b border-border-subtle flex flex-col gap-2">
+<div class="flex items-center gap-4 p-3 bg-surface-container-lowest rounded-lg border border-border-subtle">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<div class="flex-1"><p class="font-label-md text-on-surface font-bold">10:00 AM</p><p class="font-body-sm text-on-surface-variant">Checked in at 09:55 AM</p></div>
+<span class="text-label-sm font-bold text-primary-container">ON TIME</span>
+</div>
+<div class="flex items-center gap-4 p-3 bg-surface-container-lowest rounded-lg border border-border-subtle">
+<span class="material-symbols-outlined text-error">warning</span>
+<div class="flex-1"><p class="font-label-md text-on-surface font-bold">02:00 PM</p><p class="font-body-sm text-on-surface-variant">Checked in at 02:15 PM</p></div>
+<span class="text-label-sm font-bold text-error">LATE</span>
+</div>
+</div>
+<!-- 22-Jun-2026 -->
+<div class="history-card flex justify-between items-center p-4 border-b border-border-subtle cursor-pointer hover:bg-surface-container-low transition-all">
+<div>
+<p class="font-label-md text-label-md font-bold text-on-surface">23-Jun-2026 , Tuesday</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">5/5 Completed • Perfect</p>
+</div>
+<span class="material-symbols-outlined text-secondary chevron-icon transition-transform duration-300">chevron_right</span>
+</div>
+<div class="hidden bg-surface-container-low p-4 border-b border-border-subtle flex flex-col gap-2">
+<div class="flex items-center gap-4 p-3 bg-surface-container-lowest rounded-lg border border-border-subtle">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<div class="flex-1"><p class="font-label-md text-on-surface font-bold">10:00 AM</p><p class="font-body-sm text-on-surface-variant">Checked in at 09:50 AM</p></div>
+<span class="text-label-sm font-bold text-primary-container">ON TIME</span>
+</div>
+</div>
+<!-- 20-Jun-2026 -->
+<div class="history-card flex justify-between items-center p-4 cursor-pointer hover:bg-surface-container-low transition-all">
+<div>
+<p class="font-label-md text-label-md font-bold text-on-surface">23-Jun-2026 , Tuesday</p>
+<p class="font-body-sm text-body-sm text-error mt-1">4/5 Completed • Missed Slot</p>
+</div>
+<span class="material-symbols-outlined text-secondary chevron-icon transition-transform duration-300">chevron_right</span>
+</div>
+<div class="hidden bg-surface-container-low p-4 flex flex-col gap-2">
+<div class="flex items-center gap-4 p-3 bg-surface-container-lowest rounded-lg border border-border-subtle">
+<span class="material-symbols-outlined text-secondary">cancel</span>
+<div class="flex-1"><p class="font-label-md text-on-surface font-bold">04:00 PM</p><p class="font-body-sm text-on-surface-variant">No record found</p></div>
+<span class="text-label-sm font-bold text-error">MISSED</span>
+</div>
+</div></div>
+</section>
 </main>
 <!-- BottomNavBar -->
 <nav class="fixed bottom-0 w-full z-50 flex justify-around items-center h-16 bg-surface-container-lowest px-4 pb-safe border-t border-border-subtle">
-<button class="flex flex-col items-center justify-center text-primary font-bold active:scale-90 transition-transform hover:text-primary-container transition-colors w-full h-full">
+<button class="flex flex-col items-center justify-center text-secondary font-bold active:scale-90 transition-transform hover:text-primary-container transition-colors w-full h-full">
 <span class="material-symbols-outlined mb-1">home</span>
 <span class="font-label-sm text-label-sm">Home</span>
 </button>
-<button class="flex flex-col items-center justify-center text-secondary active:scale-90 transition-transform hover:text-primary-container transition-colors w-full h-full">
+<button class="flex flex-col items-center justify-center text-primary-container active:scale-90 transition-transform hover:text-primary-container transition-colors w-full h-full">
 <span class="material-symbols-outlined mb-1">history</span>
 <span class="font-label-sm text-label-sm">History</span>
 </button>
@@ -289,70 +421,111 @@
 <span class="font-label-sm text-label-sm">More</span>
 </button>
 </nav>
+<!-- Date Filter Modal -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/50 backdrop-blur-sm px-gutter" id="date-filter-modal">
+<div class="bg-surface-container-lowest w-full max-w-[400px] rounded-[24px] shadow-lg border border-border-subtle p-6 flex flex-col gap-4" id="date-filter-card">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-title-lg text-title-lg text-on-surface font-bold">Filter Records</h3>
+<span class="material-symbols-outlined text-secondary cursor-pointer active:scale-90 p-1 bg-surface-container-low rounded-full hover:bg-surface-container" id="close-modal-btn">close</span>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">From Date</label>
+<div class="flex items-center bg-surface border border-border-subtle rounded-lg px-4 py-2 focus-within:border-primary-container focus-within:ring-1 focus-within:ring-primary-container transition-all">
+<span class="material-symbols-outlined text-secondary mr-2">calendar_month</span>
+<input class="w-full bg-transparent border-none p-0 text-body-md font-body-md text-on-surface focus:ring-0" type="date" value="2024-11-01"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">To Date</label>
+<div class="flex items-center bg-surface border border-border-subtle rounded-lg px-4 py-2 focus-within:border-primary-container focus-within:ring-1 focus-within:ring-primary-container transition-all">
+<span class="material-symbols-outlined text-secondary mr-2">calendar_month</span>
+<input class="w-full bg-transparent border-none p-0 text-body-md font-body-md text-on-surface focus:ring-0" type="date" value="2024-11-14"/>
+</div>
+</div>
+<div class="flex gap-4 mt-4"><button class="flex-1 py-3 px-6 rounded-lg border border-border-subtle font-label-md text-label-md text-on-surface bg-surface-container-lowest hover:bg-surface-container-low active:scale-95 transition-all font-semibold" id="cancel-filter-btn">Cancel</button><button class="flex-1 py-3 px-6 rounded-lg bg-primary-container font-label-md text-label-md text-on-primary-container hover:opacity-90 active:scale-95 transition-all font-semibold">Search</button></div>
+</div>
+</div>
+<!-- Image Modal -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/80 backdrop-blur-sm px-gutter hidden" id="image-modal">
+<div class="relative max-w-sm w-full bg-surface-container-lowest rounded-xl p-4 shadow-lg flex flex-col items-center border border-border-subtle scale-95" id="image-modal-card">
+<button class="absolute -top-12 right-0 text-white cursor-pointer active:scale-90 p-2 bg-on-surface/50 hover:bg-on-surface/70 rounded-full flex items-center justify-center transition-colors" id="close-image-modal-btn">
+<span class="material-symbols-outlined">close</span>
+</button>
+<img alt="Captured Check-in Image" class="w-full h-auto rounded-lg border border-border-subtle shadow-sm object-cover aspect-square" id="modal-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E"/>
+<p class="mt-2 font-label-md text-secondary w-full text-center uppercase tracking-wider text-[12px]">Captured Photo</p>
+</div>
+</div>
 <script>
-    // Clean Digital Clock
-    function updateTacticalClock() {
-        const now = new Date();
-        
-        // Time
-        let hours = now.getHours();
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        document.getElementById('tactical-time').textContent = `${hours}:${minutes} ${ampm}`;
-        
-        // Date
-        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        const dayName = days[now.getDay()];
-        const day = String(now.getDate()).padStart(2, '0');
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const month = months[now.getMonth()];
-        const year = now.getFullYear();
-        document.getElementById('tactical-date').textContent = `${dayName}, ${day} ${month} ${year}`;
-        
-        setTimeout(updateTacticalClock, 1000); // Update every second
-    }
-    updateTacticalClock();
+        // Modal Logic
+        const modal = document.getElementById('date-filter-modal');
+        const trigger = document.getElementById('search-trigger');
+        const closeBtn = document.getElementById('close-modal-btn');
+        const cancelBtn = document.getElementById('cancel-filter-btn');
 
-    // Simulated Biometric Scan Flow (Clean Version)
-    function startScanFlow() {
-        const icon = document.getElementById('scan-icon');
-        const status = document.getElementById('scan-status');
-        const title = document.getElementById('scan-title');
-        const container = document.getElementById('scanner-container');
+        function openModal() {
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+
+        trigger.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
         
-        status.textContent = 'Processing biometric data...';
-        title.textContent = 'Authenticating';
-        icon.className = 'material-symbols-outlined text-4xl text-primary animate-pulse';
-        
-        setTimeout(() => {
-            status.textContent = 'Identity confirmed';
-            title.textContent = 'Authenticated';
-            title.classList.add('text-success');
-            icon.textContent = 'check_circle';
-            icon.className = 'material-symbols-outlined text-4xl text-success';
-            
+        // Close on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Image Modal Logic
+        const imgModal = document.getElementById('image-modal');
+        const imgModalCard = document.getElementById('image-modal-card');
+        const modalImage = document.getElementById('modal-image');
+        const closeImgModalBtn = document.getElementById('close-image-modal-btn');
+
+        function openImageModal(src) {
+            modalImage.src = src;
+            imgModal.classList.remove('hidden');
             setTimeout(() => {
-                resetScanFlow();
-            }, 3000);
-        }, 2000);
-    }
+                imgModalCard.classList.remove('scale-95');
+                imgModalCard.classList.add('scale-100');
+            }, 10);
+        }
 
-    function resetScanFlow() {
-        const icon = document.getElementById('scan-icon');
-        const status = document.getElementById('scan-status');
-        const title = document.getElementById('scan-title');
-        
-        status.textContent = 'Tap to authenticate for secure operations';
-        title.textContent = 'Biometric Authentication';
-        title.classList.remove('text-success');
-        icon.textContent = 'fingerprint';
-        icon.className = 'material-symbols-outlined text-4xl text-primary-container';
-    }
+        function closeImageModal() {
+            imgModalCard.classList.remove('scale-100');
+            imgModalCard.classList.add('scale-95');
+            setTimeout(() => {
+                imgModal.classList.add('hidden');
+            }, 200);
+        }
 
-    function initiateClockIn() {
-        startScanFlow();
-    }
-</script>
+        closeImgModalBtn.addEventListener('click', closeImageModal);
+        imgModal.addEventListener('click', (e) => {
+            if (e.target === imgModal) {
+                closeImageModal();
+            }
+        });
+    </script>
+<script class="">
+        document.querySelectorAll('.history-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const details = card.nextElementSibling;
+                const chevron = card.querySelector('.chevron-icon');
+                const isExpanded = !details.classList.contains('hidden');
+
+                if (isExpanded) {
+                    details.classList.add('hidden');
+                    chevron.style.transform = 'rotate(0deg)';
+                } else {
+                    details.classList.remove('hidden');
+                    chevron.style.transform = 'rotate(90deg)';
+                }
+            });
+        });
+    </script>
 </body></html>
