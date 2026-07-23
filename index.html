@@ -114,7 +114,7 @@
                 <span class="material-symbols-outlined">search</span>
             </button>
             <div class="relative cursor-pointer active:scale-95 transition-transform">
-                <img src="https://ui-avatars.com/api/?name=Employee&background=1a73e8&color=fff&rounded=true&bold=true" alt="Profile" class="w-9 h-9 rounded-full border border-gray-200">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80" alt="Profile" class="w-9 h-9 rounded-full border border-gray-200 object-cover">
                 <div class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-google-red border-2 border-white rounded-full"></div>
             </div>
         </div>
@@ -163,6 +163,21 @@
             </div>
         </div>
 
+        <!-- NEW BANNER IMAGE SECTION -->
+        <section class="mb-10 cursor-pointer active:scale-[0.98] transition-transform">
+            <div class="bg-white rounded-3xl p-0 shadow-sm border border-gray-100 relative overflow-hidden flex items-center">
+                <div class="p-5 flex-1 z-10">
+                    <span class="bg-google-blue-light text-google-blue text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider mb-2 inline-block">Announcement</span>
+                    <h3 class="text-[16px] font-medium text-on-surface leading-tight mb-1">Company Townhall</h3>
+                    <p class="text-[13px] text-gray-500 font-body">Join us this Friday at 3 PM.</p>
+                </div>
+                <div class="w-32 h-full absolute right-0 top-0 bottom-0">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=400&q=80" alt="Townhall" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </section>
+
         <section class="mb-10">
             <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 relative overflow-hidden">
                 <div class="flex justify-between items-center mb-4">
@@ -170,35 +185,38 @@
                     <span class="bg-google-blue-light text-google-blue px-3 py-1 rounded-full text-[12px] font-medium">SYNC: 3/5</span>
                 </div>
                 
-                <!-- Progress Bar -->
-                <div class="relative w-full h-2 bg-gray-100 rounded-full overflow-hidden mb-6">
-                    <div class="absolute top-0 left-0 h-full w-3/5 bg-google-blue rounded-full"></div>
-                </div>
-                
-                <!-- Time Markers -->
-                <div class="flex justify-between relative mt-2 px-1">
-                    <div class="flex flex-col items-center gap-1 z-10">
-                        <div class="w-3 h-3 rounded-full bg-google-blue border-2 border-white shadow-sm"></div>
-                        <span class="text-[11px] font-medium text-on-surface-variant font-body">08:00</span>
+                <div class="flex items-center gap-6 mt-2">
+                    <!-- Donut Chart -->
+                    <div class="relative w-28 h-28 flex-shrink-0">
+                        <svg class="w-full h-full transform -rotate-90 drop-shadow-sm" viewBox="0 0 100 100">
+                            <!-- Background Track -->
+                            <circle cx="50" cy="50" r="40" fill="transparent" stroke="#f3f4f6" stroke-width="10" />
+                            <!-- Progress Indicator (60%) -->
+                            <!-- Circumference is 2*pi*r ≈ 251.2. Offset for 60% = 251.2 * (1 - 0.6) = 100.48 -->
+                            <circle cx="50" cy="50" r="40" fill="transparent" stroke="#1a73e8" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="100.48" stroke-linecap="round" class="transition-all duration-1000 ease-out" />
+                        </svg>
+                        <!-- Center Text -->
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <span class="text-[22px] font-bold text-on-surface font-sans leading-none">60%</span>
+                            <span class="text-[9px] text-gray-500 font-medium uppercase tracking-wider mt-1">Done</span>
+                        </div>
                     </div>
-                    <div class="flex flex-col items-center gap-1 z-10">
-                        <div class="w-3 h-3 rounded-full bg-google-blue border-2 border-white shadow-sm"></div>
-                        <span class="text-[11px] font-medium text-on-surface-variant font-body">10:00</span>
+                    
+                    <!-- Stats List -->
+                    <div class="flex flex-col gap-3 flex-1">
+                        <div class="flex justify-between items-center pb-2 border-b border-gray-50">
+                            <span class="text-[13px] text-gray-500 font-medium">Completed</span>
+                            <span class="text-[14px] font-semibold text-on-surface">3 Slots</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-gray-50">
+                            <span class="text-[13px] text-gray-500 font-medium">Remaining</span>
+                            <span class="text-[14px] font-semibold text-on-surface">2 Slots</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[13px] text-gray-500 font-medium">Status</span>
+                            <span class="text-[10px] font-bold text-google-green bg-google-green-light border border-google-green/20 px-2 py-0.5 rounded-full tracking-wide">ON TRACK</span>
+                        </div>
                     </div>
-                    <div class="flex flex-col items-center gap-1 z-10">
-                        <div class="w-3 h-3 rounded-full bg-google-blue border-2 border-white shadow-sm"></div>
-                        <span class="text-[11px] font-medium text-on-surface-variant font-body">12:00</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1 z-10">
-                        <div class="w-3 h-3 rounded-full bg-google-red border-2 border-white shadow-sm"></div>
-                        <span class="text-[11px] font-medium text-google-red font-body">14:00</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1 z-10">
-                        <div class="w-3 h-3 rounded-full bg-gray-300 border-2 border-white shadow-sm"></div>
-                        <span class="text-[11px] font-medium text-gray-400 font-body">16:00</span>
-                    </div>
-                    <!-- Connecting line behind dots -->
-                    <div class="absolute top-[5px] left-2 right-2 h-[2px] bg-gray-200 -z-0"></div>
                 </div>
             </div>
         </section>
@@ -236,8 +254,8 @@
                                 <div><p class="text-[11px] text-gray-500 uppercase font-medium">Location</p><p class="text-[14px] font-medium text-google-blue">HQ Office</p></div>
                             </div>
                             <div class="flex gap-3 items-center border-t border-gray-200 pt-3">
-                                <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-200 shrink-0" onclick="event.stopPropagation(); openImageModal('https://ui-avatars.com/api/?name=Employee&background=e8eaed&color=202124&rounded=false')">
-                                    <img src="https://ui-avatars.com/api/?name=Employee&background=e8eaed&color=202124&rounded=false" class="w-full h-full object-cover" alt="Verification">
+                                <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-200 shrink-0" onclick="event.stopPropagation(); openImageModal('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80')">
+                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Verification">
                                 </div>
                                 <div class="flex-1">
                                     <p class="text-[12px] text-gray-600 font-body leading-tight line-clamp-2">Lat: 40.7128° N | Long: 74.0060° W<br>HQ Building, Main Entrance Lobby, New York City, NY</p>
