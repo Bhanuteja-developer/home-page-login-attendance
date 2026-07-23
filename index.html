@@ -18,6 +18,8 @@
                         'google-blue-light': '#e8f0fe',
                         'google-red': '#ea4335',
                         'google-red-light': '#fce8e6',
+                        'google-orange': '#f29900',
+                        'google-orange-light': '#fdf6e9',
                         'google-yellow': '#fbbc04',
                         'google-yellow-light': '#fef7e0',
                         'google-green': '#34a853',
@@ -133,6 +135,10 @@
         .neu-icon-gray {
             background: #f3f4f6;
             box-shadow: 4px 4px 8px #d6d7d9, -4px -4px 8px #ffffff;
+        }
+        .neu-icon-orange {
+            background: #fdf6e9;
+            box-shadow: 4px 4px 8px #e6dfd3, -4px -4px 8px #ffffff;
         }
         .neu-inset-green {
             background: #f2f9f4;
@@ -383,9 +389,9 @@
                 <!-- Timeline Item 3 (Late) -->
                 <div class="flex gap-3 relative parent-item group cursor-pointer pb-4" onclick="toggleTimelineDetails(this)">
                     <div class="flex flex-col items-center z-10">
-                        <div class="w-12 h-12 rounded-full neu-icon-red flex items-center justify-center shrink-0">
-                            <div class="w-6 h-6 rounded-full bg-[#ea4335] flex items-center justify-center">
-                                <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">close</span>
+                        <div class="w-12 h-12 rounded-full neu-icon-orange flex items-center justify-center shrink-0">
+                            <div class="w-6 h-6 rounded-full bg-google-orange flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">priority_high</span>
                             </div>
                         </div>
                         <div class="w-[2px] flex-1 bg-gray-200 mt-2 group-last:hidden rounded-full"></div>
@@ -398,7 +404,7 @@
                                 <p class="text-[13px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 02:25 PM</p>
                             </div>
                             <div class="flex flex-col items-end gap-1">
-                                <span class="text-[13px] font-medium text-google-red">LATE</span>
+                                <span class="text-[13px] font-medium text-google-orange">LATE</span>
                                 <span class="material-symbols-outlined text-gray-400 chevron-icon text-[20px]">expand_more</span>
                             </div>
                         </div>
@@ -406,7 +412,7 @@
                         <!-- Expandable Details -->
                         <div class="timeline-details neu-inset-white rounded-2xl">
                             <div class="p-4">
-                                <div class="bg-google-red-light text-google-red p-2 rounded-lg text-[12px] font-medium mb-3">
+                                <div class="bg-google-orange-light text-google-orange p-2 rounded-lg text-[12px] font-medium mb-3">
                                     25 Minutes Late
                                 </div>
                                 <div class="grid grid-cols-2 gap-3 mb-4">
@@ -584,7 +590,7 @@
                             </div>
                             <div>
                                 <p class="text-[15px] font-medium text-on-surface leading-tight">20-Jun-2026, Friday</p>
-                                <p class="text-[13px] text-google-red font-medium mt-0.5">4/5 Slots • 1 Missed</p>
+                                <p class="text-[13px] text-google-red font-medium mt-0.5">3/5 Slots • 1 Late, 1 Missed</p>
                             </div>
                         </div>
                         <span class="material-symbols-outlined text-gray-400 chevron-icon text-[20px]">expand_more</span>
@@ -622,20 +628,20 @@
                                 </div>
                                 <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
                             </div>
-                            <!-- Slot 3 -->
+                            <!-- Slot 3 (Late) -->
                             <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full neu-icon-green flex items-center justify-center shrink-0">
-                                        <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
+                                    <div class="w-10 h-10 rounded-full neu-icon-orange flex items-center justify-center shrink-0">
+                                        <div class="w-5 h-5 rounded-full bg-google-orange flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">priority_high</span>
                                         </div>
                                     </div>
                                     <div>
                                         <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 3 • 02:00 PM</p>
-                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 02:00 PM</p>
+                                        <p class="text-[12px] text-google-orange font-medium mt-0.5 font-body">Checked in at 02:15 PM</p>
                                     </div>
                                 </div>
-                                <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
+                                <span class="text-[10px] font-medium text-google-orange bg-google-orange-light px-2 py-1 rounded border border-google-orange/20">LATE</span>
                             </div>
                             <!-- Slot 4 (Missed) -->
                             <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
