@@ -38,11 +38,26 @@
     </script>
 
     <style>
+        @keyframes pageFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes contentSlideUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         body { 
             font-family: 'Outfit', sans-serif; 
             background-color: #f8f9fa; 
             -webkit-tap-highlight-color: transparent;
             color: #202124;
+            animation: pageFadeIn 1.5s ease-out forwards;
+        }
+        
+        main {
+            animation: contentSlideUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
         
         .font-body { font-family: 'Roboto', sans-serif; }
@@ -230,8 +245,11 @@
                 <div class="bg-[#f2f9f4] rounded-3xl border border-[#e6f4ea] shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-google-green-light text-google-green flex items-center justify-center">
-                                <span class="material-symbols-outlined filled">check_circle</span>
+                            <!-- Updated Icon to match image perfectly -->
+                            <div class="w-12 h-12 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                <div class="w-6 h-6 rounded-full bg-[#34a853] flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">check</span>
+                                </div>
                             </div>
                             <div>
                                 <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 1 • 10:00 AM</p>
@@ -272,8 +290,11 @@
                 <div class="bg-[#f2f9f4] rounded-3xl border border-[#e6f4ea] shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-google-green-light text-google-green flex items-center justify-center">
-                                <span class="material-symbols-outlined filled">check_circle</span>
+                            <!-- Updated Icon to match image perfectly -->
+                            <div class="w-12 h-12 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                <div class="w-6 h-6 rounded-full bg-[#34a853] flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">check</span>
+                                </div>
                             </div>
                             <div>
                                 <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 2 • 12:00 PM</p>
@@ -304,8 +325,11 @@
                 <div class="bg-[#fef5f4] rounded-3xl border border-[#fce8e6] shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-google-red-light text-google-red flex items-center justify-center">
-                                <span class="material-symbols-outlined filled">error</span>
+                            <!-- Updated Icon to match image perfectly -->
+                            <div class="w-12 h-12 rounded-full bg-[#fce8e6] flex items-center justify-center shrink-0">
+                                <div class="w-6 h-6 rounded-full bg-[#ea4335] flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">priority_high</span>
+                                </div>
                             </div>
                             <div>
                                 <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 3 • 02:00 PM</p>
@@ -336,15 +360,37 @@
                 <div class="bg-gray-50 rounded-3xl border border-gray-100 shadow-sm p-4">
                     <div class="flex justify-between items-center opacity-60">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-gray-100 text-gray-400 border border-gray-200 border-dashed flex items-center justify-center">
-                                <span class="material-symbols-outlined">schedule</span>
+                            <!-- Updated Icon to match image style -->
+                            <div class="w-12 h-12 rounded-full bg-gray-100 border border-gray-200 border-dashed flex items-center justify-center shrink-0">
+                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">schedule</span>
+                                </div>
                             </div>
                             <div>
                                 <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 4 • 04:00 PM</p>
                                 <p class="text-[13px] text-gray-500 font-medium mt-0.5">Upcoming</p>
                             </div>
                         </div>
-                        <span class="text-[13px] font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full">PENDING</span>
+                        <span class="text-[13px] font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">PENDING</span>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 5 (Pending) -->
+                <div class="bg-gray-50 rounded-3xl border border-gray-100 shadow-sm p-4">
+                    <div class="flex justify-between items-center opacity-60">
+                        <div class="flex items-center gap-3">
+                            <!-- Updated Icon to match image style -->
+                            <div class="w-12 h-12 rounded-full bg-gray-100 border border-gray-200 border-dashed flex items-center justify-center shrink-0">
+                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">schedule</span>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 5 • 06:00 PM</p>
+                                <p class="text-[13px] text-gray-500 font-medium mt-0.5">Upcoming</p>
+                            </div>
+                        </div>
+                        <span class="text-[13px] font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">PENDING</span>
                     </div>
                 </div>
 
@@ -357,57 +403,201 @@
                 <button class="text-[14px] font-medium text-google-blue active:scale-95 transition-transform" onclick="openModal('search-modal')">View All</button>
             </div>
             
-            <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+            <div class="flex flex-col gap-4">
                 
-                <!-- History Item 1 -->
-                <div class="border-b border-gray-100 p-4 transition-colors cursor-pointer active:bg-gray-50 parent-item" onclick="toggleTimelineDetails(this)">
+                <!-- History Item 1 (Perfect) -->
+                <div class="bg-[#f2f9f4] rounded-3xl border border-[#e6f4ea] shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
                     <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-blue-50 text-google-blue flex items-center justify-center">
-                                <span class="material-symbols-outlined">calendar_today</span>
+                        <div class="flex items-center gap-3">
+                            <!-- Nested Icon -->
+                            <div class="w-12 h-12 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                <div class="w-6 h-6 rounded-full bg-[#34a853] flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">check</span>
+                                </div>
                             </div>
                             <div>
-                                <p class="text-[15px] font-medium text-on-surface">22-Jun-2026, Monday</p>
+                                <p class="text-[15px] font-medium text-on-surface leading-tight">22-Jun-2026, Monday</p>
                                 <p class="text-[13px] text-gray-500 font-medium mt-0.5">5/5 Slots • Perfect</p>
                             </div>
                         </div>
                         <span class="material-symbols-outlined text-gray-400 chevron-icon">expand_more</span>
                     </div>
                     
-                    <div class="timeline-details bg-gray-50 rounded-2xl">
+                    <div class="timeline-details bg-white rounded-2xl shadow-sm border border-[#e6f4ea]/50">
                         <div class="p-3 flex flex-col gap-2">
-                            <div class="flex justify-between items-center p-2 bg-white rounded-xl border border-gray-100">
-                                <span class="text-[14px] font-medium">10:00 AM Check-in</span>
-                                <span class="text-[12px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
+                            <!-- Slot 1 -->
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                        <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 1 • 10:00 AM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 09:45 AM</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
                             </div>
-                            <div class="flex justify-between items-center p-2 bg-white rounded-xl border border-gray-100">
-                                <span class="text-[14px] font-medium">06:00 PM Check-out</span>
-                                <span class="text-[12px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
+                            <!-- Slot 2 -->
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                        <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 2 • 12:00 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 11:48 AM</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
+                            </div>
+                            <!-- Slot 3 -->
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                        <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 3 • 02:00 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 02:00 PM</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
+                            </div>
+                            <!-- Slot 4 -->
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                        <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 4 • 04:00 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 04:10 PM</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
+                            </div>
+                            <!-- Slot 5 -->
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                        <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 5 • 06:00 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 05:58 PM</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- History Item 2 -->
-                <div class="p-4 transition-colors cursor-pointer active:bg-gray-50 parent-item" onclick="toggleTimelineDetails(this)">
+                <!-- History Item 2 (Missed) -->
+                <div class="bg-[#fef5f4] rounded-3xl border border-[#fce8e6] shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
                     <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-blue-50 text-google-blue flex items-center justify-center">
-                                <span class="material-symbols-outlined">calendar_today</span>
+                        <div class="flex items-center gap-3">
+                            <!-- Nested Icon -->
+                            <div class="w-12 h-12 rounded-full bg-[#fce8e6] flex items-center justify-center shrink-0">
+                                <div class="w-6 h-6 rounded-full bg-[#ea4335] flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">close</span>
+                                </div>
                             </div>
                             <div>
-                                <p class="text-[15px] font-medium text-on-surface">20-Jun-2026, Friday</p>
+                                <p class="text-[15px] font-medium text-on-surface leading-tight">20-Jun-2026, Friday</p>
                                 <p class="text-[13px] text-google-red font-medium mt-0.5">4/5 Slots • 1 Missed</p>
                             </div>
                         </div>
                         <span class="material-symbols-outlined text-gray-400 chevron-icon">expand_more</span>
                     </div>
                     
-                    <div class="timeline-details bg-gray-50 rounded-2xl">
+                    <div class="timeline-details bg-white rounded-2xl shadow-sm border border-[#fce8e6]/50">
                         <div class="p-3 flex flex-col gap-2">
-                            <div class="flex justify-between items-center p-2 bg-white rounded-xl border border-gray-100">
-                                <span class="text-[14px] font-medium">04:00 PM Slot</span>
-                                <span class="text-[12px] font-medium text-white bg-google-red px-2 py-1 rounded">MISSED</span>
+                            <!-- Slot 1 -->
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                        <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 1 • 10:00 AM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 09:45 AM</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
+                            </div>
+                            <!-- Slot 2 -->
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                        <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 2 • 12:00 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 11:48 AM</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
+                            </div>
+                            <!-- Slot 3 -->
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                        <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 3 • 02:00 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 02:00 PM</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
+                            </div>
+                            <!-- Slot 4 (Missed) -->
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#fce8e6] flex items-center justify-center shrink-0">
+                                        <div class="w-5 h-5 rounded-full bg-[#ea4335] flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">close</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 4 • 04:00 PM</p>
+                                        <p class="text-[12px] text-google-red font-medium mt-0.5">Missed Slot</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-medium text-google-red bg-google-red-light px-2 py-1 rounded border border-google-red/10">MISSED</span>
+                            </div>
+                            <!-- Slot 5 -->
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                        <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 5 • 06:00 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 05:58 PM</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
                             </div>
                         </div>
                     </div>
