@@ -108,6 +108,57 @@
         .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal-card { transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .modal-overlay.active .modal-card { transform: translateY(0); }
+
+        /* Neumorphism Styles for Timeline */
+        .neu-card-green {
+            background: #f2f9f4;
+            box-shadow: 6px 6px 12px #d5ded9, -6px -6px 12px #ffffff;
+        }
+        .neu-card-red {
+            background: #fef5f4;
+            box-shadow: 6px 6px 12px #e3dbda, -6px -6px 12px #ffffff;
+        }
+        .neu-card-gray {
+            background: #f9fafb;
+            box-shadow: 6px 6px 12px #dcddde, -6px -6px 12px #ffffff;
+        }
+        .neu-icon-green {
+            background: #e8f5e9;
+            box-shadow: 4px 4px 8px #ccd8cd, -4px -4px 8px #ffffff;
+        }
+        .neu-icon-red {
+            background: #fce8e6;
+            box-shadow: 4px 4px 8px #dfcdcb, -4px -4px 8px #ffffff;
+        }
+        .neu-icon-gray {
+            background: #f3f4f6;
+            box-shadow: 4px 4px 8px #d6d7d9, -4px -4px 8px #ffffff;
+        }
+        .neu-inset-green {
+            background: #f2f9f4;
+            box-shadow: inset 4px 4px 8px #d5ded9, inset -4px -4px 8px #ffffff;
+        }
+        .neu-inset-red {
+            background: #fef5f4;
+            box-shadow: inset 4px 4px 8px #e3dbda, inset -4px -4px 8px #ffffff;
+        }
+
+        /* New White Neumorphism Styles */
+        .neu-card-white {
+            background: #ffffff;
+            box-shadow: 8px 8px 16px #e2e5e9, -8px -8px 16px #ffffff;
+            border: none !important;
+        }
+        .neu-inset-white {
+            background: #f8f9fa;
+            box-shadow: inset 5px 5px 10px #e0e5eb, inset -5px -5px 10px #ffffff;
+            border: none !important;
+        }
+        .neu-card-slot {
+            background: #f8f9fa;
+            box-shadow: 4px 4px 8px #e0e5eb, -4px -4px 8px #ffffff;
+            border: none !important;
+        }
     </style>
 </head>
 <body class="max-w-md mx-auto relative bg-surface shadow-2xl min-h-screen pb-24">
@@ -194,7 +245,7 @@
         </section>
 
         <section class="mb-10">
-            <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 relative overflow-hidden">
+            <div class="neu-card-white rounded-3xl p-5 relative overflow-hidden">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-[18px] font-medium text-on-surface">Today's Progress</h2>
                     <span class="bg-google-blue-light text-google-blue px-3 py-1 rounded-full text-[12px] font-medium">SYNC: 3/5</span>
@@ -239,158 +290,175 @@
         <section class="mb-10">
             <h2 class="text-[18px] font-medium text-on-surface mb-4 px-1">Timeline • Jul 03, 2026</h2>
             
-            <div class="flex flex-col gap-4">
+            <div class="flex flex-col">
                 
                 <!-- Timeline Item 1 -->
-                <div class="bg-[#f2f9f4] rounded-3xl border border-[#e6f4ea] shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <!-- Updated Icon to match image perfectly -->
-                            <div class="w-12 h-12 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
-                                <div class="w-6 h-6 rounded-full bg-[#34a853] flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">check</span>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 1 • 10:00 AM</p>
-                                <p class="text-[13px] text-gray-500 font-medium mt-0.5">Checked in at 09:55 AM</p>
+                <div class="flex gap-3 relative parent-item group cursor-pointer pb-4" onclick="toggleTimelineDetails(this)">
+                    <div class="flex flex-col items-center z-10">
+                        <!-- Nested Icon -->
+                        <div class="w-12 h-12 rounded-full neu-icon-green flex items-center justify-center shrink-0">
+                            <div class="w-6 h-6 rounded-full bg-[#34a853] flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">check</span>
                             </div>
                         </div>
-                        <div class="flex flex-col items-end gap-1">
-                            <span class="text-[13px] font-medium text-google-green">ON TIME</span>
-                            <span class="material-symbols-outlined text-gray-400 chevron-icon text-[20px]">expand_more</span>
-                        </div>
+                        <!-- Connecting Line -->
+                        <div class="w-[2px] flex-1 bg-gray-200 mt-2 group-last:hidden rounded-full"></div>
                     </div>
                     
-                    <!-- Expandable Details -->
-                    <div class="timeline-details bg-white rounded-2xl shadow-sm border border-[#e6f4ea]/50">
-                        <div class="p-4">
-                            <div class="grid grid-cols-2 gap-3 mb-4">
-                                <div><p class="text-[11px] text-gray-500 uppercase font-medium">Check In</p><p class="text-[14px] font-medium">09:55 AM</p></div>
-                                <div><p class="text-[11px] text-gray-500 uppercase font-medium">Check Out</p><p class="text-[14px] font-medium">--:--</p></div>
-                                <div><p class="text-[11px] text-gray-500 uppercase font-medium">Working Hours</p><p class="text-[14px] font-medium">00:00</p></div>
-                                <div><p class="text-[11px] text-gray-500 uppercase font-medium">Location</p><p class="text-[14px] font-medium text-google-blue">HQ Office</p></div>
+                    <div class="flex-1 neu-card-green rounded-3xl p-4 transition-transform active:scale-[0.98]">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 1 • 10:00 AM</p>
+                                <p class="text-[13px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 09:55 AM</p>
                             </div>
-                            <div class="flex gap-3 items-center border-t border-gray-200 pt-3">
-                                <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-200 shrink-0" onclick="event.stopPropagation(); openImageModal('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80')">
-                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Verification">
+                            <div class="flex flex-col items-end gap-1">
+                                <span class="text-[13px] font-medium text-google-green">ON TIME</span>
+                                <span class="material-symbols-outlined text-gray-400 chevron-icon text-[20px]">expand_more</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Expandable Details -->
+                        <div class="timeline-details neu-inset-green rounded-2xl">
+                            <div class="p-4">
+                                <div class="grid grid-cols-2 gap-3 mb-4">
+                                    <div><p class="text-[11px] text-gray-500 uppercase font-medium">Check In</p><p class="text-[14px] font-medium">09:55 AM</p></div>
+                                    <div><p class="text-[11px] text-gray-500 uppercase font-medium">Check Out</p><p class="text-[14px] font-medium">--:--</p></div>
+                                    <div><p class="text-[11px] text-gray-500 uppercase font-medium">Working Hours</p><p class="text-[14px] font-medium">00:00</p></div>
+                                    <div><p class="text-[11px] text-gray-500 uppercase font-medium">Location</p><p class="text-[14px] font-medium text-google-blue">HQ Office</p></div>
                                 </div>
-                                <div class="flex-1">
-                                    <p class="text-[12px] text-gray-600 font-body leading-tight line-clamp-2">Lat: 40.7128° N | Long: 74.0060° W<br>HQ Building, Main Entrance Lobby, New York City, NY</p>
+                                <div class="flex gap-3 items-center border-t border-gray-200 pt-3">
+                                    <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-200 shrink-0" onclick="event.stopPropagation(); openImageModal('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80')">
+                                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Verification">
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-[12px] text-gray-600 font-body leading-tight line-clamp-2">Lat: 40.7128° N | Long: 74.0060° W<br>HQ Building, Main Entrance Lobby, New York City, NY</p>
+                                    </div>
+                                    <button class="w-8 h-8 rounded-full bg-google-blue-light text-google-blue flex items-center justify-center shrink-0" onclick="event.stopPropagation(); window.open('https://maps.google.com')">
+                                        <span class="material-symbols-outlined text-[18px]">map</span>
+                                    </button>
                                 </div>
-                                <button class="w-8 h-8 rounded-full bg-google-blue-light text-google-blue flex items-center justify-center shrink-0" onclick="event.stopPropagation(); window.open('https://maps.google.com')">
-                                    <span class="material-symbols-outlined text-[18px]">map</span>
-                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Timeline Item 2 -->
-                <div class="bg-[#f2f9f4] rounded-3xl border border-[#e6f4ea] shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <!-- Updated Icon to match image perfectly -->
-                            <div class="w-12 h-12 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
-                                <div class="w-6 h-6 rounded-full bg-[#34a853] flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">check</span>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 2 • 12:00 PM</p>
-                                <p class="text-[13px] text-gray-500 font-medium mt-0.5">Checked in at 11:58 AM</p>
+                <div class="flex gap-3 relative parent-item group cursor-pointer pb-4" onclick="toggleTimelineDetails(this)">
+                    <div class="flex flex-col items-center z-10">
+                        <div class="w-12 h-12 rounded-full neu-icon-green flex items-center justify-center shrink-0">
+                            <div class="w-6 h-6 rounded-full bg-[#34a853] flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">check</span>
                             </div>
                         </div>
-                        <div class="flex flex-col items-end gap-1">
-                            <span class="text-[13px] font-medium text-google-green">ON TIME</span>
-                            <span class="material-symbols-outlined text-gray-400 chevron-icon text-[20px]">expand_more</span>
-                        </div>
+                        <div class="w-[2px] flex-1 bg-gray-200 mt-2 group-last:hidden rounded-full"></div>
                     </div>
                     
-                    <!-- Expandable Details -->
-                    <div class="timeline-details bg-white rounded-2xl shadow-sm border border-[#e6f4ea]/50">
-                        <div class="p-4">
-                            <div class="grid grid-cols-2 gap-3 mb-4">
-                                <div><p class="text-[11px] text-gray-500 uppercase font-medium">Check In</p><p class="text-[14px] font-medium">11:58 AM</p></div>
-                                <div><p class="text-[11px] text-gray-500 uppercase font-medium">Location</p><p class="text-[14px] font-medium text-google-blue">HQ Office</p></div>
+                    <div class="flex-1 neu-card-green rounded-3xl p-4 transition-transform active:scale-[0.98]">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 2 • 12:00 PM</p>
+                                <p class="text-[13px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 11:58 AM</p>
                             </div>
-                            <div class="flex gap-3 items-center border-t border-gray-200 pt-3">
-                                <p class="text-[12px] text-gray-600 font-body">Location verified via Geo-fencing.</p>
+                            <div class="flex flex-col items-end gap-1">
+                                <span class="text-[13px] font-medium text-google-green">ON TIME</span>
+                                <span class="material-symbols-outlined text-gray-400 chevron-icon text-[20px]">expand_more</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Expandable Details -->
+                        <div class="timeline-details neu-inset-green rounded-2xl">
+                            <div class="p-4">
+                                <div class="grid grid-cols-2 gap-3 mb-4">
+                                    <div><p class="text-[11px] text-gray-500 uppercase font-medium">Check In</p><p class="text-[14px] font-medium">11:58 AM</p></div>
+                                    <div><p class="text-[11px] text-gray-500 uppercase font-medium">Location</p><p class="text-[14px] font-medium text-google-blue">HQ Office</p></div>
+                                </div>
+                                <div class="flex gap-3 items-center border-t border-gray-200 pt-3">
+                                    <p class="text-[12px] text-gray-600 font-body">Location verified via Geo-fencing.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Timeline Item 3 (Late) -->
-                <div class="bg-[#fef5f4] rounded-3xl border border-[#fce8e6] shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <!-- Updated Icon to match image perfectly -->
-                            <div class="w-12 h-12 rounded-full bg-[#fce8e6] flex items-center justify-center shrink-0">
-                                <div class="w-6 h-6 rounded-full bg-[#ea4335] flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">priority_high</span>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 3 • 02:00 PM</p>
-                                <p class="text-[13px] text-gray-500 font-medium mt-0.5">Checked in at 02:25 PM</p>
+                <div class="flex gap-3 relative parent-item group cursor-pointer pb-4" onclick="toggleTimelineDetails(this)">
+                    <div class="flex flex-col items-center z-10">
+                        <div class="w-12 h-12 rounded-full neu-icon-red flex items-center justify-center shrink-0">
+                            <div class="w-6 h-6 rounded-full bg-[#ea4335] flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">close</span>
                             </div>
                         </div>
-                        <div class="flex flex-col items-end gap-1">
-                            <span class="text-[13px] font-medium text-google-red">LATE</span>
-                            <span class="material-symbols-outlined text-gray-400 chevron-icon text-[20px]">expand_more</span>
-                        </div>
+                        <div class="w-[2px] flex-1 bg-gray-200 mt-2 group-last:hidden rounded-full"></div>
                     </div>
                     
-                    <!-- Expandable Details -->
-                    <div class="timeline-details bg-white rounded-2xl shadow-sm border border-[#fce8e6]/50">
-                        <div class="p-4">
-                            <div class="bg-google-red-light text-google-red p-2 rounded-lg text-[12px] font-medium mb-3">
-                                25 Minutes Late
+                    <div class="flex-1 neu-card-red rounded-3xl p-4 transition-transform active:scale-[0.98]">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 3 • 02:00 PM</p>
+                                <p class="text-[13px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 02:25 PM</p>
                             </div>
-                            <div class="grid grid-cols-2 gap-3 mb-4">
-                                <div><p class="text-[11px] text-gray-500 uppercase font-medium">Check In</p><p class="text-[14px] font-medium">02:25 PM</p></div>
-                                <div><p class="text-[11px] text-gray-500 uppercase font-medium">Location</p><p class="text-[14px] font-medium text-google-blue">Remote</p></div>
+                            <div class="flex flex-col items-end gap-1">
+                                <span class="text-[13px] font-medium text-google-red">LATE</span>
+                                <span class="material-symbols-outlined text-gray-400 chevron-icon text-[20px]">expand_more</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Expandable Details -->
+                        <div class="timeline-details neu-inset-red rounded-2xl">
+                            <div class="p-4">
+                                <div class="bg-google-red-light text-google-red p-2 rounded-lg text-[12px] font-medium mb-3">
+                                    25 Minutes Late
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 mb-4">
+                                    <div><p class="text-[11px] text-gray-500 uppercase font-medium">Check In</p><p class="text-[14px] font-medium">02:25 PM</p></div>
+                                    <div><p class="text-[11px] text-gray-500 uppercase font-medium">Location</p><p class="text-[14px] font-medium text-google-blue">Remote</p></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Timeline Item 4 (Pending) -->
-                <div class="bg-gray-50 rounded-3xl border border-gray-100 shadow-sm p-4">
-                    <div class="flex justify-between items-center opacity-60">
-                        <div class="flex items-center gap-3">
-                            <!-- Updated Icon to match image style -->
-                            <div class="w-12 h-12 rounded-full bg-gray-100 border border-gray-200 border-dashed flex items-center justify-center shrink-0">
-                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">schedule</span>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 4 • 04:00 PM</p>
-                                <p class="text-[13px] text-gray-500 font-medium mt-0.5">Upcoming</p>
+                <div class="flex gap-3 relative parent-item group pb-4">
+                    <div class="flex flex-col items-center z-10">
+                        <div class="w-12 h-12 rounded-full neu-icon-gray flex items-center justify-center shrink-0 opacity-60">
+                            <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">schedule</span>
                             </div>
                         </div>
-                        <span class="text-[13px] font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">PENDING</span>
+                        <div class="w-[2px] flex-1 bg-gray-200 mt-2 group-last:hidden rounded-full"></div>
+                    </div>
+                    
+                    <div class="flex-1 neu-card-gray rounded-3xl p-4 opacity-60">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 4 • 04:00 PM</p>
+                                <p class="text-[13px] text-gray-500 font-medium mt-0.5 font-body">Upcoming</p>
+                            </div>
+                            <span class="text-[13px] font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">PENDING</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Timeline Item 5 (Pending) -->
-                <div class="bg-gray-50 rounded-3xl border border-gray-100 shadow-sm p-4">
-                    <div class="flex justify-between items-center opacity-60">
-                        <div class="flex items-center gap-3">
-                            <!-- Updated Icon to match image style -->
-                            <div class="w-12 h-12 rounded-full bg-gray-100 border border-gray-200 border-dashed flex items-center justify-center shrink-0">
-                                <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">schedule</span>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 5 • 06:00 PM</p>
-                                <p class="text-[13px] text-gray-500 font-medium mt-0.5">Upcoming</p>
+                <div class="flex gap-3 relative parent-item group pb-4">
+                    <div class="flex flex-col items-center z-10">
+                        <div class="w-12 h-12 rounded-full neu-icon-gray flex items-center justify-center shrink-0 opacity-60">
+                            <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">schedule</span>
                             </div>
                         </div>
-                        <span class="text-[13px] font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">PENDING</span>
+                        <div class="w-[2px] flex-1 bg-gray-200 mt-2 group-last:hidden rounded-full"></div>
+                    </div>
+                    
+                    <div class="flex-1 neu-card-gray rounded-3xl p-4 opacity-60">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 5 • 06:00 PM</p>
+                                <p class="text-[13px] text-gray-500 font-medium mt-0.5 font-body">Upcoming</p>
+                            </div>
+                            <span class="text-[13px] font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">PENDING</span>
+                        </div>
                     </div>
                 </div>
 
@@ -406,11 +474,11 @@
             <div class="flex flex-col gap-4">
                 
                 <!-- History Item 1 (Perfect) -->
-                <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
+                <div class="neu-card-white rounded-3xl p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-3">
                             <!-- Nested Icon -->
-                            <div class="w-12 h-12 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                            <div class="w-12 h-12 rounded-full neu-icon-green flex items-center justify-center shrink-0">
                                 <div class="w-6 h-6 rounded-full bg-[#34a853] flex items-center justify-center">
                                     <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">check</span>
                                 </div>
@@ -420,82 +488,82 @@
                                 <p class="text-[13px] text-gray-500 font-medium mt-0.5">5/5 Slots • Perfect</p>
                             </div>
                         </div>
-                        <span class="material-symbols-outlined text-gray-400 chevron-icon">expand_more</span>
+                        <span class="material-symbols-outlined text-gray-400 chevron-icon text-[20px]">expand_more</span>
                     </div>
                     
-                    <div class="timeline-details bg-white rounded-2xl shadow-sm border border-gray-100">
-                        <div class="p-3 flex flex-col gap-2">
+                    <div class="timeline-details neu-inset-white rounded-2xl">
+                        <div class="p-4 flex flex-col gap-3">
                             <!-- Slot 1 -->
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                    <div class="w-10 h-10 rounded-full neu-icon-green flex items-center justify-center shrink-0">
                                         <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
                                             <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
                                         </div>
                                     </div>
                                     <div>
                                         <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 1 • 10:00 AM</p>
-                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 09:45 AM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 09:45 AM</p>
                                     </div>
                                 </div>
                                 <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
                             </div>
                             <!-- Slot 2 -->
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                    <div class="w-10 h-10 rounded-full neu-icon-green flex items-center justify-center shrink-0">
                                         <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
                                             <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
                                         </div>
                                     </div>
                                     <div>
                                         <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 2 • 12:00 PM</p>
-                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 11:48 AM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 11:48 AM</p>
                                     </div>
                                 </div>
                                 <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
                             </div>
                             <!-- Slot 3 -->
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                    <div class="w-10 h-10 rounded-full neu-icon-green flex items-center justify-center shrink-0">
                                         <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
                                             <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
                                         </div>
                                     </div>
                                     <div>
                                         <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 3 • 02:00 PM</p>
-                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 02:00 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 02:00 PM</p>
                                     </div>
                                 </div>
                                 <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
                             </div>
                             <!-- Slot 4 -->
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                    <div class="w-10 h-10 rounded-full neu-icon-green flex items-center justify-center shrink-0">
                                         <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
                                             <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
                                         </div>
                                     </div>
                                     <div>
                                         <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 4 • 04:00 PM</p>
-                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 04:10 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 04:10 PM</p>
                                     </div>
                                 </div>
                                 <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
                             </div>
                             <!-- Slot 5 -->
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                    <div class="w-10 h-10 rounded-full neu-icon-green flex items-center justify-center shrink-0">
                                         <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
                                             <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
                                         </div>
                                     </div>
                                     <div>
                                         <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 5 • 06:00 PM</p>
-                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 05:58 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 05:58 PM</p>
                                     </div>
                                 </div>
                                 <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
@@ -505,11 +573,11 @@
                 </div>
 
                 <!-- History Item 2 (Missed) -->
-                <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
+                <div class="neu-card-white rounded-3xl p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-3">
                             <!-- Nested Icon -->
-                            <div class="w-12 h-12 rounded-full bg-[#fce8e6] flex items-center justify-center shrink-0">
+                            <div class="w-12 h-12 rounded-full neu-icon-red flex items-center justify-center shrink-0">
                                 <div class="w-6 h-6 rounded-full bg-[#ea4335] flex items-center justify-center">
                                     <span class="material-symbols-outlined text-white text-[16px]" style="font-weight: 800;">close</span>
                                 </div>
@@ -519,82 +587,82 @@
                                 <p class="text-[13px] text-google-red font-medium mt-0.5">4/5 Slots • 1 Missed</p>
                             </div>
                         </div>
-                        <span class="material-symbols-outlined text-gray-400 chevron-icon">expand_more</span>
+                        <span class="material-symbols-outlined text-gray-400 chevron-icon text-[20px]">expand_more</span>
                     </div>
                     
-                    <div class="timeline-details bg-white rounded-2xl shadow-sm border border-gray-100">
-                        <div class="p-3 flex flex-col gap-2">
+                    <div class="timeline-details neu-inset-white rounded-2xl">
+                        <div class="p-4 flex flex-col gap-3">
                             <!-- Slot 1 -->
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                    <div class="w-10 h-10 rounded-full neu-icon-green flex items-center justify-center shrink-0">
                                         <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
                                             <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
                                         </div>
                                     </div>
                                     <div>
                                         <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 1 • 10:00 AM</p>
-                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 09:45 AM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 09:45 AM</p>
                                     </div>
                                 </div>
                                 <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
                             </div>
                             <!-- Slot 2 -->
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                    <div class="w-10 h-10 rounded-full neu-icon-green flex items-center justify-center shrink-0">
                                         <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
                                             <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
                                         </div>
                                     </div>
                                     <div>
                                         <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 2 • 12:00 PM</p>
-                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 11:48 AM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 11:48 AM</p>
                                     </div>
                                 </div>
                                 <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
                             </div>
                             <!-- Slot 3 -->
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                    <div class="w-10 h-10 rounded-full neu-icon-green flex items-center justify-center shrink-0">
                                         <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
                                             <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
                                         </div>
                                     </div>
                                     <div>
                                         <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 3 • 02:00 PM</p>
-                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 02:00 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 02:00 PM</p>
                                     </div>
                                 </div>
                                 <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
                             </div>
                             <!-- Slot 4 (Missed) -->
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-[#fce8e6] flex items-center justify-center shrink-0">
+                                    <div class="w-10 h-10 rounded-full neu-icon-red flex items-center justify-center shrink-0">
                                         <div class="w-5 h-5 rounded-full bg-[#ea4335] flex items-center justify-center">
                                             <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">close</span>
                                         </div>
                                     </div>
                                     <div>
                                         <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 4 • 04:00 PM</p>
-                                        <p class="text-[12px] text-google-red font-medium mt-0.5">Missed Slot</p>
+                                        <p class="text-[12px] text-google-red font-medium mt-0.5 font-body">Missed Slot</p>
                                     </div>
                                 </div>
                                 <span class="text-[10px] font-medium text-google-red bg-google-red-light px-2 py-1 rounded border border-google-red/10">MISSED</span>
                             </div>
                             <!-- Slot 5 -->
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex justify-between items-center p-3 neu-card-slot rounded-xl">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-[#e8f5e9] flex items-center justify-center shrink-0">
+                                    <div class="w-10 h-10 rounded-full neu-icon-green flex items-center justify-center shrink-0">
                                         <div class="w-5 h-5 rounded-full bg-[#34a853] flex items-center justify-center">
                                             <span class="material-symbols-outlined text-white text-[14px]" style="font-weight: 800;">check</span>
                                         </div>
                                     </div>
                                     <div>
                                         <p class="text-[14px] font-medium text-on-surface leading-tight">Slot 5 • 06:00 PM</p>
-                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5">Checked in at 05:58 PM</p>
+                                        <p class="text-[12px] text-gray-500 font-medium mt-0.5 font-body">Checked in at 05:58 PM</p>
                                     </div>
                                 </div>
                                 <span class="text-[10px] font-medium text-google-green bg-google-green-light px-2 py-1 rounded">ON TIME</span>
