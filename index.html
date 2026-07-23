@@ -1,339 +1,506 @@
 <!DOCTYPE html>
-
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Workforce Admin Dashboard</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>WorkforceOS - Attendance Records</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script id="tailwind-config">
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "on-background": "#181c20",
-                        "on-primary-fixed-variant": "#004493",
-                        "surface-container-low": "#f1f4fa",
-                        "secondary-fixed-dim": "#bfc7d4",
-                        "on-primary": "#ffffff",
-                        "surface-dim": "#d7dae0",
-                        "surface-variant": "#dfe3e8",
-                        "surface-bright": "#f7f9ff",
-                        "secondary": "#575f6b",
-                        "error-container": "#ffdad6",
-                        "primary-fixed-dim": "#adc7ff",
-                        "on-secondary-fixed": "#141c26",
-                        "on-surface": "#181c20",
-                        "inverse-primary": "#adc7ff",
-                        "tertiary-fixed": "#89fa9b",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-container-high": "#e5e8ee",
-                        "on-tertiary-container": "#ffffff",
-                        "primary": "#005bbf",
-                        "on-error": "#ffffff",
-                        "tertiary": "#006d2c",
-                        "surface-tint": "#005bc0",
-                        "on-secondary-container": "#5d6571",
-                        "tertiary-container": "#008939",
-                        "on-primary-container": "#ffffff",
-                        "outline-variant": "#c1c6d6",
-                        "on-tertiary": "#ffffff",
-                        "outline": "#727785",
-                        "background": "#ffffff",
-                        "secondary-fixed": "#dbe3f1",
-                        "on-secondary-fixed-variant": "#3f4752",
-                        "on-secondary": "#ffffff",
-                        "surface-container": "#ebeef4",
-                        "surface-container-highest": "#dfe3e8",
-                        "on-primary-fixed": "#001a41",
-                        "error": "#ba1a1a",
-                        "surface": "#ffffff",
-                        "inverse-surface": "#2d3135",
-                        "on-tertiary-fixed": "#002108",
-                        "primary-container": "#1a73e8",
-                        "on-surface-variant": "#414754",
-                        "secondary-container": "#dbe3f1",
-                        "inverse-on-surface": "#eef1f7",
-                        "primary-fixed": "#d8e2ff",
-                        "on-tertiary-fixed-variant": "#005320",
-                        "on-error-container": "#93000a",
-                        "tertiary-fixed-dim": "#6ddd81"
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "2xl": "1rem",
-                        "3xl": "1.5rem",
-                        "full": "9999px"
+                    colors: {
+                        brand: {
+                            blue: '#1565D8',       // The vibrant blue from the image
+                            light: '#E8F1FF',      // Soft blue for backgrounds
+                            bg: '#F2F6FF',         // Main app background
+                            dark: '#0A2540',
+                        },
+                        status: {
+                            success: '#10B981',
+                            success_bg: '#D1FAE5',
+                            error: '#EF4444',
+                            error_bg: '#FEE2E2',
+                            pending: '#F59E0B',
+                            pending_bg: '#FEF3C7'
+                        }
                     },
-                    "spacing": {
-                        "margin-page": "24px",
-                        "inset-card": "20px",
-                        "stack-lg": "32px",
-                        "gutter": "16px",
-                        "stack-md": "16px",
-                        "stack-sm": "8px"
+                    boxShadow: {
+                        'soft': '0 12px 35px -10px rgba(0, 0, 0, 0.05)',
+                        'card': '0 8px 20px rgba(21, 101, 216, 0.04)',
+                        'floating': '0 -8px 30px rgba(0, 0, 0, 0.06)',
+                        'glow': '0 8px 25px rgba(21, 101, 216, 0.3)',
                     },
-                    "fontFamily": {
-                        "body-sm": ["Plus Jakarta Sans"],
-                        "headline-lg-mobile": ["Plus Jakarta Sans"],
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "body-lg": ["Plus Jakarta Sans"],
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "label-md": ["Plus Jakarta Sans"]
-                    },
-                    "fontSize": {
-                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
-                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
-                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
-                    },
-                    "boxShadow": {
-                        "ambient": "0 4px 20px -2px rgba(0, 91, 191, 0.08)"
+                    borderRadius: {
+                        '2xl': '1rem',
+                        '3xl': '1.5rem',
+                        '4xl': '2rem',
                     }
-                },
-            },
+                }
+            }
         }
     </script>
-<style>
+    
+    <style>
         body {
-            background-color: #ffffff;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-font-smoothing: antialiased;
+            background-color: #F2F6FF;
+            -webkit-tap-highlight-color: transparent;
         }
+        
         .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
         }
-        .material-symbols-outlined.fill {
-            font-variation-settings: 'FILL' 1;
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Modal Transitions */
+        #date-filter-modal, #image-modal { transition: opacity 0.3s ease, visibility 0.3s; }
+        #date-filter-modal.hidden, #image-modal.hidden { opacity: 0; visibility: hidden; pointer-events: none; display: flex !important; }
+        #date-filter-card { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateY(30px) scale(0.95); }
+        #date-filter-modal:not(.hidden) #date-filter-card { transform: translateY(0) scale(1); }
+        #image-modal-card { transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        
+        /* Custom Line for Timeline to avoid breaking tailwind classes */
+        .timeline-line {
+            position: absolute;
+            left: 27px; /* Center of the icon (16px left + 12px half width) */
+            top: 40px;
+            bottom: -10px;
+            width: 2px;
+            background-color: #E2E8F0;
+            z-index: 0;
         }
-        /* Custom scrollbar for horizontal scrolling if needed */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
+        .timeline-line-dashed {
+            background-image: linear-gradient(to bottom, #CBD5E1 50%, transparent 50%);
+            background-size: 2px 10px;
+            background-color: transparent;
         }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+
+        /* Float Animation for Floating Button */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
         }
     </style>
 </head>
-<body class="bg-background text-on-background pb-24 md:pb-0">
-<!-- Top App Bar (Web) -->
-<header class="hidden md:flex justify-between items-center px-margin-page py-4 w-full bg-background border-b border-surface-variant/30 sticky top-0 z-40">
-<div class="flex items-center gap-4">
-<span class="font-headline-md text-headline-md font-bold text-on-surface">Workforce</span>
-</div>
-<nav class="flex gap-8">
-<a class="font-label-md text-label-md text-primary font-bold flex flex-col items-center gap-1 group" href="#">
-<span class="material-symbols-outlined fill group-hover:bg-surface-variant/50 rounded-full p-1 transition-colors">home</span>
-                Home
-            </a>
-<a class="font-label-md text-label-md text-on-surface-variant flex flex-col items-center gap-1 group hover:text-primary transition-colors" href="#">
-<span class="material-symbols-outlined group-hover:bg-surface-variant/50 rounded-full p-1 transition-colors">timeline</span>
-                Timeline
-            </a>
-<a class="font-label-md text-label-md text-on-surface-variant flex flex-col items-center gap-1 group hover:text-primary transition-colors" href="#">
-<span class="material-symbols-outlined group-hover:bg-surface-variant/50 rounded-full p-1 transition-colors">map</span>
-                Map
-            </a>
-<a class="font-label-md text-label-md text-on-surface-variant flex flex-col items-center gap-1 group hover:text-primary transition-colors" href="#">
-<span class="material-symbols-outlined group-hover:bg-surface-variant/50 rounded-full p-1 transition-colors">assignment_turned_in</span>
-                Tasks
-            </a>
-<a class="font-label-md text-label-md text-on-surface-variant flex flex-col items-center gap-1 group hover:text-primary transition-colors" href="#">
-<span class="material-symbols-outlined group-hover:bg-surface-variant/50 rounded-full p-1 transition-colors">person</span>
-                Profile
-            </a>
-</nav>
-<div class="flex items-center gap-4">
-<button class="hover:bg-surface-variant/50 rounded-full p-2 transition-colors">
-<span class="material-symbols-outlined text-primary">notifications</span>
-</button>
-<div class="w-10 h-10 rounded-full overflow-hidden border border-surface-variant">
-<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate manager smiling warmly. Bright, light-mode aesthetic with a pristine white background. High-quality photography, clean, approachable, corporate modern style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAecmKd7Bz0RZRbWZXiVXesa8uEkkheE6NlIBLJ1JGmK99q9Qj2nGuDKJHn54VGg8XCl5o6lbWLm3eijtuLBz2lSu3hVdO0R01rvw_4xHYINVY_ErkB9z9axSWY3sgwBESvhYa_tr0HO6hKEl3jJojw3D6fVuepPX37xcpFh694dsNATidjoby6NIY0e20ZPAS7Tr1BWEPdpPTUHCh7_1dQ4f53K3K1CWCg4Q17AHBXVYhGivXTTzYdwg"/>
-</div>
-</div>
-</header>
-<main class="max-w-[1200px] mx-auto px-margin-page pt-6 pb-12 flex flex-col gap-stack-lg">
-<!-- Header Section -->
-<section class="flex justify-between items-start">
-<div class="flex flex-col gap-1">
-<h1 class="font-headline-lg-mobile md:font-headline-lg text-primary">Hi, Alex</h1>
-<p class="font-body-lg text-on-surface-variant">Here's your workforce overview.</p>
-</div>
-<div class="md:hidden w-12 h-12 rounded-full overflow-hidden border-2 border-surface-variant">
-<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate manager smiling warmly. Bright, light-mode aesthetic with a pristine white background. High-quality photography, clean, approachable, corporate modern style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjvKSS9MhNSmph9MSdLT5Wdu6t4yoS3C97AKQg-Y_sP9EyNAxyJPkZ0rTkkOEWlwkXc0Dy2HTJTl1-cTtRVcikfb8P6zvI0851JNMW2_M_WUQKj5qFXI4knX8jEzvjTTN0NDFvwDkd-LYD6L7Sp4qr-9agHYlq7fJ-jLhDICQCyz0IjRpypUURLfTKfe7BPREQoU2Skfzv7-6QNoh2p2LktzMOKVCrFxHnJQ3knQmZq2DIcXgap8Xibg"/>
-</div>
-</section>
-<!-- Quick Actions -->
-<section>
-<div class="grid grid-cols-4 md:flex md:gap-8 gap-4 justify-items-center">
-<button class="flex flex-col items-center gap-2 group">
-<div class="w-14 h-14 rounded-full bg-surface-bright border border-surface-variant shadow-sm flex items-center justify-center group-hover:bg-primary-fixed group-hover:border-primary transition-all duration-200">
-<span class="material-symbols-outlined text-primary text-2xl">analytics</span>
-</div>
-<span class="font-label-md text-label-md text-on-surface text-center">Analytics</span>
-</button>
-<button class="flex flex-col items-center gap-2 group">
-<div class="w-14 h-14 rounded-full bg-surface-bright border border-surface-variant shadow-sm flex items-center justify-center group-hover:bg-primary-fixed group-hover:border-primary transition-all duration-200">
-<span class="material-symbols-outlined text-primary text-2xl">payments</span>
-</div>
-<span class="font-label-md text-label-md text-on-surface text-center">Payroll</span>
-</button>
-<button class="flex flex-col items-center gap-2 group">
-<div class="w-14 h-14 rounded-full bg-surface-bright border border-surface-variant shadow-sm flex items-center justify-center group-hover:bg-primary-fixed group-hover:border-primary transition-all duration-200">
-<span class="material-symbols-outlined text-primary text-2xl">description</span>
-</div>
-<span class="font-label-md text-label-md text-on-surface text-center">Documents</span>
-</button>
-<button class="flex flex-col items-center gap-2 group">
-<div class="w-14 h-14 rounded-full bg-surface-bright border border-surface-variant shadow-sm flex items-center justify-center group-hover:bg-primary-fixed group-hover:border-primary transition-all duration-200">
-<span class="material-symbols-outlined text-primary text-2xl">settings</span>
-</div>
-<span class="font-label-md text-label-md text-on-surface text-center">Settings</span>
-</button>
-</div>
-</section>
-<div class="grid grid-cols-1 md:grid-cols-12 gap-stack-lg">
-<!-- Left Column: Live Insights & Efficiency -->
-<div class="md:col-span-8 flex flex-col gap-stack-lg">
-<!-- Live Insights -->
-<section>
-<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Live Insights</h2>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
-<!-- Card 1 -->
-<div class="bg-surface rounded-3xl border border-surface-variant p-inset-card shadow-ambient flex flex-col gap-3">
-<div class="flex items-center justify-between">
-<span class="material-symbols-outlined text-primary bg-primary-fixed p-1.5 rounded-full text-sm">groups</span>
-<span class="text-tertiary-container font-label-md text-label-md bg-tertiary-fixed/30 px-2 py-0.5 rounded-full">+2%</span>
-</div>
-<div>
-<div class="font-headline-lg-mobile text-on-surface">1,248</div>
-<div class="font-body-sm text-on-surface-variant">Total Employees</div>
-</div>
-</div>
-<!-- Card 2 -->
-<div class="bg-surface rounded-3xl border border-surface-variant p-inset-card shadow-ambient flex flex-col gap-3">
-<div class="flex items-center justify-between">
-<span class="material-symbols-outlined text-primary bg-primary-fixed p-1.5 rounded-full text-sm">location_on</span>
-</div>
-<div>
-<div class="font-headline-lg-mobile text-on-surface">892</div>
-<div class="font-body-sm text-on-surface-variant">Live On-Site</div>
-</div>
-</div>
-<!-- Card 3 -->
-<div class="bg-surface rounded-3xl border border-surface-variant p-inset-card shadow-ambient flex flex-col gap-3">
-<div class="flex items-center justify-between">
-<span class="material-symbols-outlined text-secondary bg-surface-container-high p-1.5 rounded-full text-sm">schedule</span>
-<span class="text-error font-label-md text-label-md bg-error-container/50 px-2 py-0.5 rounded-full">+5</span>
-</div>
-<div>
-<div class="font-headline-lg-mobile text-on-surface">24</div>
-<div class="font-body-sm text-on-surface-variant">Late Arrivals</div>
-</div>
-</div>
-<!-- Card 4 -->
-<div class="bg-surface rounded-3xl border border-surface-variant p-inset-card shadow-ambient flex flex-col gap-3">
-<div class="flex items-center justify-between">
-<span class="material-symbols-outlined text-secondary bg-surface-container-high p-1.5 rounded-full text-sm">person_off</span>
-</div>
-<div>
-<div class="font-headline-lg-mobile text-on-surface">12</div>
-<div class="font-body-sm text-on-surface-variant">Absent Today</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Efficiency Overview -->
-<section>
-<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Efficiency</h2>
-<div class="bg-surface rounded-3xl border border-surface-variant p-6 shadow-ambient flex flex-col gap-6">
-<div class="flex flex-col gap-2">
-<div class="flex justify-between items-center">
-<span class="font-body-sm text-on-surface-variant font-medium">Operations</span>
-<span class="font-body-sm text-on-surface font-semibold">85%</span>
-</div>
-<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full rounded-full" style="width: 85%"></div>
-</div>
-</div>
-<div class="flex flex-col gap-2">
-<div class="flex justify-between items-center">
-<span class="font-body-sm text-on-surface-variant font-medium">Logistics</span>
-<span class="font-body-sm text-on-surface font-semibold">92%</span>
-</div>
-<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
-<div class="bg-tertiary-container h-full rounded-full" style="width: 92%"></div>
-</div>
-</div>
-<div class="flex flex-col gap-2">
-<div class="flex justify-between items-center">
-<span class="font-body-sm text-on-surface-variant font-medium">Maintenance</span>
-<span class="font-body-sm text-on-surface font-semibold">68%</span>
-</div>
-<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
-<div class="bg-secondary h-full rounded-full" style="width: 68%"></div>
-</div>
-</div>
-</div>
-</section>
-</div>
-<!-- Right Column: Live Tracking Map -->
-<div class="md:col-span-4 h-[400px] md:h-auto">
-<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Live Tracking</h2>
-<div class="h-full bg-surface rounded-3xl border border-surface-variant overflow-hidden shadow-ambient relative flex flex-col">
-<div class="flex-1 relative">
-<img alt="Map View" class="w-full h-full object-cover absolute inset-0" data-alt="A highly detailed top-down view of a modern city map interface, similar to a ride-sharing or navigation app. Clean, minimal cartography with light grey and white base tones. Highlighted zones in bright blue and emerald green to indicate active geofences. Subtle drop pins indicating workforce locations. Bright, light-mode aesthetic, corporate modern style." data-location="New York City" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRkw-5r8A3N1SVNJpIJpaRhEcjp0Z54p0p54ImPwb_Q4NiZJaw6shYFhWUUsri5BaLZVaD2fIotjTYpc_3_zdQL_OB8fT4hb9qE9cY5JvQTumJtCe4-AOjbythu9QA_4VkSrpBIwDlr9XFFrnTHYVDejFacZ6Z7TV5qvKxQpBQBhju28iNnxKf5pyft6Ie7aKq6lDYf-oiLN31VDvLhpRqw1Y9Np0x6gZub2Ld_eJkfmvYDLDOvC9Y9w"/>
-<!-- Map Overlay Controls -->
-<div class="absolute bottom-4 right-4 flex flex-col gap-2">
-<button class="w-10 h-10 bg-surface rounded-full shadow-lg flex items-center justify-center text-on-surface hover:bg-surface-variant transition-colors">
-<span class="material-symbols-outlined">add</span>
-</button>
-<button class="w-10 h-10 bg-surface rounded-full shadow-lg flex items-center justify-center text-on-surface hover:bg-surface-variant transition-colors">
-<span class="material-symbols-outlined">remove</span>
-</button>
-<button class="w-10 h-10 bg-surface rounded-full shadow-lg flex items-center justify-center text-primary mt-2 hover:bg-surface-variant transition-colors">
-<span class="material-symbols-outlined fill">my_location</span>
-</button>
-</div>
-<!-- Geofence Status overlay -->
-<div class="absolute top-4 left-4 bg-surface/90 backdrop-blur-sm px-4 py-2 rounded-full border border-surface-variant shadow-sm flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
-<span class="font-label-md text-label-md text-on-surface">3 Active Zones</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</main>
-<!-- Bottom Nav Bar (Mobile) -->
-<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pt-3 pb-6 bg-surface-container-lowest border-t border-surface-variant/30 z-50 rounded-t-2xl shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
-<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1 transform scale-90 duration-150" href="#">
-<span class="material-symbols-outlined fill">home</span>
-<span class="font-label-md text-label-md mt-1">Home</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-secondary-container px-5 py-1 hover:bg-surface-container-high rounded-full transition-all" href="#">
-<span class="material-symbols-outlined">timeline</span>
-<span class="font-label-md text-label-md mt-1">Timeline</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-secondary-container px-5 py-1 hover:bg-surface-container-high rounded-full transition-all" href="#">
-<span class="material-symbols-outlined">map</span>
-<span class="font-label-md text-label-md mt-1">Map</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-secondary-container px-5 py-1 hover:bg-surface-container-high rounded-full transition-all" href="#">
-<span class="material-symbols-outlined">assignment_turned_in</span>
-<span class="font-label-md text-label-md mt-1">Tasks</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-secondary-container px-5 py-1 hover:bg-surface-container-high rounded-full transition-all" href="#">
-<span class="material-symbols-outlined">person</span>
-<span class="font-label-md text-label-md mt-1">Profile</span>
-</a>
-</nav>
-</body></html>
+<body class="text-gray-800 pb-[100px] md:hidden">
+
+    <header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-20 bg-brand-bg/90 backdrop-blur-md">
+        <div class="flex items-center gap-3">
+            <div class="relative cursor-pointer active:scale-95 transition-transform">
+                <img class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" alt="User Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E">
+                <div class="absolute bottom-0 right-0 w-3 h-3 bg-status-success rounded-full border-2 border-white"></div>
+            </div>
+            <div>
+                <h1 class="font-bold text-gray-900 text-lg leading-tight">Mr Super Admin</h1>
+                <p class="text-xs text-gray-500 font-medium">Best wishes for your day!</p>
+            </div>
+        </div>
+        <button class="w-10 h-10 rounded-full bg-white shadow-card flex items-center justify-center text-brand-blue active:scale-95 transition-transform relative">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="absolute top-2 right-2 w-2 h-2 bg-status-error rounded-full border border-white"></span>
+        </button>
+    </header>
+
+    <main class="pt-[90px] px-6 flex flex-col gap-6">
+        
+        <!-- Page Header & Actions -->
+        <div class="flex flex-col gap-4">
+            <div class="flex justify-between items-end px-2">
+                <div>
+                    <h2 class="text-2xl font-bold text-brand-dark">Attendance</h2>
+                    <p class="text-sm font-semibold text-brand-blue uppercase tracking-wider mt-1">Jul 03, 2026</p>
+                </div>
+                <button aria-label="Refresh Records" class="w-10 h-10 rounded-full bg-white shadow-card flex items-center justify-center active:scale-95 transition-transform text-gray-500 hover:text-brand-blue">
+                    <span class="material-symbols-outlined text-xl">refresh</span>
+                </button>
+            </div>
+            
+            <!-- Search Bar Trigger -->
+            <button id="search-trigger" class="bg-white px-5 py-4 rounded-3xl shadow-card flex items-center justify-between group active:scale-[0.98] transition-transform w-full border border-transparent hover:border-brand-light">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-brand-light flex items-center justify-center text-brand-blue">
+                        <span class="material-symbols-outlined">search</span>
+                    </div>
+                    <span class="font-bold text-sm text-gray-700 tracking-wide">Search Old Records</span>
+                </div>
+                <span class="material-symbols-outlined text-gray-300">chevron_right</span>
+            </button>
+        </div>
+
+        <section class="bg-brand-blue rounded-3xl shadow-glow p-6 relative overflow-hidden text-white">
+            <!-- Decorative wave/circle background elements -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-white opacity-10 rounded-full"></div>
+            <div class="absolute -bottom-16 -left-10 w-40 h-40 bg-white opacity-10 rounded-full"></div>
+            
+            <div class="relative z-10">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-semibold text-lg">Today's Overview</h3>
+                    <div class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold tracking-wider border border-white/20">
+                        SYNC: 3/5
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="relative w-full h-3 bg-white/20 rounded-full overflow-hidden shadow-inner">
+                    <div class="absolute top-0 left-0 h-full w-3/5 bg-white rounded-full"></div>
+                </div>
+                
+                <!-- Time Indicators -->
+                <div class="flex justify-between relative mt-5 px-1">
+                    <div class="flex flex-col items-center gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-white shadow-sm"></div>
+                        <span class="text-xs font-semibold opacity-90">08:00</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-white shadow-sm"></div>
+                        <span class="text-xs font-semibold opacity-90">10:00</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-white shadow-sm"></div>
+                        <span class="text-xs font-semibold opacity-90">12:00</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-status-error border-2 border-white shadow-sm"></div>
+                        <span class="text-xs font-bold text-status-error bg-white px-2 py-0.5 rounded-md mt-1 absolute -ml-4 shadow-sm" style="top:12px;">LATE</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1.5 opacity-50">
+                        <div class="w-3 h-3 rounded-full bg-white/50 border border-white/80"></div>
+                        <span class="text-xs font-semibold">16:00</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="flex flex-col gap-2 mt-2">
+            <div class="flex justify-between items-end mb-4 px-2">
+                <h3 class="text-xl font-bold text-brand-dark">Timeline</h3>
+            </div>
+
+            <!-- Timeline Item 1 -->
+            <div class="relative pl-4 pr-1 pb-6">
+                <div class="timeline-line"></div>
+                <div class="absolute left-4 top-4 w-7 h-7 rounded-full bg-brand-blue border-[4px] border-brand-bg flex items-center justify-center z-10 shadow-sm">
+                    <span class="material-symbols-outlined text-[14px] text-white">check</span>
+                </div>
+                
+                <div class="bg-white border border-gray-100 p-5 shadow-soft rounded-[28px] ml-10 relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex flex-col">
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">03 Jul 2026</p>
+                            <p class="text-sm font-bold text-gray-800 mt-1">GS: 09:00 - 18:00</p>
+                        </div>
+                        <span class="bg-status-success_bg text-status-success px-3 py-1 rounded-full text-xs font-bold tracking-wide">ON TIME</span>
+                    </div>
+                    
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 gap-3 mb-5">
+                        <div class="bg-gray-50 p-3 rounded-2xl flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-500">
+                                <span class="material-symbols-outlined text-[18px]">login</span>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase text-gray-400 font-bold">Check In</p>
+                                <p class="text-sm font-bold text-gray-800">09:55 AM</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-2xl flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                                <span class="material-symbols-outlined text-[18px]">logout</span>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase text-gray-400 font-bold">Check Out</p>
+                                <p class="text-sm font-bold text-gray-800">--:--</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Info -->
+                    <div class="flex gap-4 p-4 rounded-2xl bg-brand-light/50 border border-brand-light">
+                        <div class="flex flex-col gap-2 shrink-0 items-center">
+                            <div class="w-14 h-14 rounded-2xl overflow-hidden shadow-sm cursor-pointer active:scale-95 transition-transform" onclick="openImageModal(this.querySelector('img').src)">
+                                <img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E">
+                            </div>
+                            <a class="text-[10px] font-bold text-brand-blue hover:underline text-center" href="https://www.google.com/maps/search/?api=1&query=40.7128,-74.0060" target="_blank">View Map</a>
+                        </div>
+                        <div class="flex flex-col gap-2 justify-center">
+                            <div class="flex items-start gap-2 text-sm text-gray-700">
+                                <span class="material-symbols-outlined text-brand-blue text-[18px] mt-0.5">location_on</span>
+                                <span class="font-semibold leading-tight">HQ Building, Main Entrance Lobby, NYC</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Item 3 (Late) -->
+            <div class="relative pl-4 pr-1 pb-6">
+                <div class="timeline-line timeline-line-dashed"></div>
+                <div class="absolute left-4 top-4 w-7 h-7 rounded-full bg-status-error border-[4px] border-brand-bg flex items-center justify-center z-10 shadow-sm">
+                    <span class="material-symbols-outlined text-[14px] text-white">warning</span>
+                </div>
+                
+                <div class="bg-white border border-red-50 p-5 shadow-soft rounded-[28px] ml-10 relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex flex-col">
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">23 Jun 2026</p>
+                            <p class="text-sm font-bold text-gray-800 mt-1">02:00 PM Slot</p>
+                        </div>
+                        <span class="bg-status-error_bg text-status-error px-3 py-1 rounded-full text-xs font-bold tracking-wide">LATE</span>
+                    </div>
+                    
+                    <div class="bg-status-error_bg/50 p-3 rounded-2xl flex items-center gap-3 mb-4 border border-status-error_bg">
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-status-error">
+                            <span class="material-symbols-outlined text-[18px]">schedule</span>
+                        </div>
+                        <div>
+                            <p class="text-[10px] uppercase text-gray-500 font-bold">Checked In At</p>
+                            <p class="text-sm font-bold text-status-error">02:15 PM <span class="text-xs font-medium text-gray-500 ml-1">(15m late)</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Item 4 (Pending) -->
+            <div class="relative pl-4 pr-1 pb-4">
+                <div class="absolute left-4 top-4 w-7 h-7 rounded-full bg-gray-200 border-[4px] border-brand-bg flex items-center justify-center z-10">
+                    <span class="w-2 h-2 rounded-full bg-white"></span>
+                </div>
+                
+                <div class="bg-transparent border-2 border-dashed border-gray-300 p-4 rounded-[28px] ml-10 flex justify-between items-center opacity-70">
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Slot 4 • 04:00 PM</p>
+                        <p class="text-sm font-bold text-gray-600 mt-1">Evening Check-out</p>
+                    </div>
+                    <span class="bg-gray-100 text-gray-500 px-3 py-1 rounded-full text-xs font-bold tracking-wide">Pending</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-6 mt-4">
+            <div class="flex justify-between items-end mb-4 px-2">
+                <h3 class="text-xl font-bold text-brand-dark">Previous Days</h3>
+                <span class="text-sm font-bold text-brand-blue cursor-pointer">View All</span>
+            </div>
+            
+            <div class="bg-white rounded-3xl shadow-soft overflow-hidden border border-gray-50">
+                <!-- 23-Jun-2026 -->
+                <div class="history-card flex justify-between items-center p-5 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors active:bg-gray-100">
+                    <div>
+                        <p class="text-sm font-bold text-gray-800">Tuesday, 23 Jun</p>
+                        <p class="text-xs font-semibold text-gray-500 mt-1 flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-status-error inline-block"></span> 5/5 Completed • 1 Late
+                        </p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-gray-400 chevron-icon transition-transform duration-300">chevron_right</span>
+                    </div>
+                </div>
+                <div class="hidden bg-gray-50/50 p-4 border-b border-gray-100 flex flex-col gap-3 shadow-inner">
+                    <div class="flex items-center gap-3 p-3 bg-white rounded-2xl shadow-sm">
+                        <span class="material-symbols-outlined text-status-success text-2xl">check_circle</span>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-gray-800">10:00 AM</p>
+                            <p class="text-xs text-gray-500 font-medium">Checked in at 09:55 AM</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-white rounded-2xl shadow-sm border border-red-50">
+                        <span class="material-symbols-outlined text-status-error text-2xl">error</span>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-status-error">02:00 PM</p>
+                            <p class="text-xs text-gray-500 font-medium">Checked in at 02:15 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 22-Jun-2026 -->
+                <div class="history-card flex justify-between items-center p-5 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors active:bg-gray-100">
+                    <div>
+                        <p class="text-sm font-bold text-gray-800">Monday, 22 Jun</p>
+                        <p class="text-xs font-semibold text-gray-500 mt-1 flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-status-success inline-block"></span> 5/5 Completed • Perfect
+                        </p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-gray-400 chevron-icon transition-transform duration-300">chevron_right</span>
+                    </div>
+                </div>
+                <div class="hidden bg-gray-50/50 p-4 border-b border-gray-100 flex flex-col gap-3 shadow-inner">
+                     <div class="flex items-center gap-3 p-3 bg-white rounded-2xl shadow-sm">
+                        <span class="material-symbols-outlined text-status-success text-2xl">check_circle</span>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-gray-800">10:00 AM</p>
+                            <p class="text-xs text-gray-500 font-medium">Checked in at 09:50 AM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="fixed bottom-0 left-0 w-full z-50 bg-white rounded-t-[30px] shadow-floating px-8 pb-6 pt-4 flex justify-between items-center">
+        <!-- Home Tab -->
+        <div class="flex flex-col items-center gap-1 text-gray-400 hover:text-brand-blue transition-colors cursor-pointer active:scale-90">
+            <span class="material-symbols-outlined text-[26px]">home</span>
+        </div>
+        
+        <!-- Reports Tab -->
+        <div class="flex flex-col items-center gap-1 text-gray-400 hover:text-brand-blue transition-colors cursor-pointer active:scale-90 mr-4">
+            <span class="material-symbols-outlined text-[26px]">analytics</span>
+        </div>
+
+        <!-- Center Floating Action Button (Clock In/Out) -->
+        <div class="relative -top-8 flex flex-col items-center cursor-pointer group">
+            <div class="w-[72px] h-[72px] rounded-full bg-brand-blue flex items-center justify-center text-white shadow-glow border-[6px] border-white group-active:scale-95 transition-all animate-float relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-tr from-transparent to-white/20"></div>
+                <span class="material-symbols-outlined relative z-10" style="font-size: 32px;">fingerprint</span>
+            </div>
+            <span class="absolute -bottom-5 text-[10px] font-bold text-brand-blue whitespace-nowrap">Clock In</span>
+        </div>
+
+        <!-- Notice Tab -->
+        <div class="flex flex-col items-center gap-1 text-gray-400 hover:text-brand-blue transition-colors cursor-pointer active:scale-90 ml-4">
+            <span class="material-symbols-outlined text-[26px]">notifications</span>
+        </div>
+
+        <!-- Profile Tab -->
+        <div class="flex flex-col items-center gap-1 text-brand-blue cursor-pointer active:scale-90">
+            <span class="material-symbols-outlined text-[26px]" data-weight="fill">person</span>
+            <div class="w-1 h-1 bg-brand-blue rounded-full mt-1"></div>
+        </div>
+    </nav>
+
+    <!-- Date Filter Modal -->
+    <div class="fixed inset-0 z-[100] flex items-center justify-center bg-brand-dark/40 backdrop-blur-sm px-6 hidden" id="date-filter-modal">
+        <div class="bg-white w-full max-w-[400px] rounded-[32px] shadow-2xl p-6 flex flex-col gap-5" id="date-filter-card">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-xl font-bold text-brand-dark">Filter Records</h3>
+                <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 active:scale-90 transition-colors" id="close-modal-btn">
+                    <span class="material-symbols-outlined text-sm">close</span>
+                </button>
+            </div>
+            
+            <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold text-gray-500 uppercase tracking-wide">From Date</label>
+                <div class="flex items-center bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 focus-within:border-brand-blue focus-within:ring-2 focus-within:ring-brand-blue/20 transition-all">
+                    <span class="material-symbols-outlined text-gray-400 mr-3">calendar_today</span>
+                    <input class="w-full bg-transparent border-none p-0 text-sm font-semibold text-gray-800 focus:ring-0 outline-none" type="date" value="2024-11-01">
+                </div>
+            </div>
+            
+            <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold text-gray-500 uppercase tracking-wide">To Date</label>
+                <div class="flex items-center bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 focus-within:border-brand-blue focus-within:ring-2 focus-within:ring-brand-blue/20 transition-all">
+                    <span class="material-symbols-outlined text-gray-400 mr-3">calendar_today</span>
+                    <input class="w-full bg-transparent border-none p-0 text-sm font-semibold text-gray-800 focus:ring-0 outline-none" type="date" value="2024-11-14">
+                </div>
+            </div>
+            
+            <div class="flex gap-4 mt-2">
+                <button class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 active:scale-95 transition-all" id="cancel-filter-btn">Cancel</button>
+                <button class="flex-1 py-4 px-6 rounded-2xl bg-brand-blue font-bold text-sm text-white shadow-glow hover:bg-blue-700 active:scale-95 transition-all">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="fixed inset-0 z-[100] flex items-center justify-center bg-brand-dark/80 backdrop-blur-md px-6 hidden" id="image-modal">
+        <div class="relative w-full max-w-sm bg-white rounded-[32px] p-6 shadow-2xl flex flex-col items-center scale-95" id="image-modal-card">
+            <button class="absolute -top-14 right-0 w-10 h-10 bg-white rounded-full flex items-center justify-center text-gray-800 hover:bg-gray-100 active:scale-90 transition-colors shadow-lg" id="close-image-modal-btn">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="w-full rounded-2xl overflow-hidden shadow-card border-4 border-gray-50">
+                <img alt="Captured Check-in Image" class="w-full h-auto object-cover aspect-square" id="modal-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4aR62S-kQC8yQ2E9FT7tWYHvst9cvsIoqi1PkGoq0w5FkD-8aTxCzZK06oLr3tHKTupVPDIf_pgPJ-Dz5i8KZvJtV7bbkA-fBAI_YpTeb1IImlENq8TxqVA6qHP3WYur1XMcXjOrl1phhp95YOlXnFlxQFA9-7qdxuFtzsWR0Fkn4Iu46IdV6f6oZdSF2BLc8MWwUiQRddlB4VJiiqJ9IkHES8Bt6hsd06Sqdj_sP6vnRNZaalfo04YnjVQ4vssPF6VeUam4-z9E">
+            </div>
+            <p class="mt-5 text-xs font-bold text-gray-400 w-full text-center uppercase tracking-wider">Captured Photo</p>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        const modal = document.getElementById('date-filter-modal');
+        const trigger = document.getElementById('search-trigger');
+        const closeBtn = document.getElementById('close-modal-btn');
+        const cancelBtn = document.getElementById('cancel-filter-btn');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+
+        trigger.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        
+        // Close on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Image Modal Logic
+        const imgModal = document.getElementById('image-modal');
+        const imgModalCard = document.getElementById('image-modal-card');
+        const modalImage = document.getElementById('modal-image');
+        const closeImgModalBtn = document.getElementById('close-image-modal-btn');
+
+        function openImageModal(src) {
+            modalImage.src = src;
+            imgModal.classList.remove('hidden');
+            setTimeout(() => {
+                imgModalCard.classList.remove('scale-95');
+                imgModalCard.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeImageModal() {
+            imgModalCard.classList.remove('scale-100');
+            imgModalCard.classList.add('scale-95');
+            setTimeout(() => {
+                imgModal.classList.add('hidden');
+            }, 200);
+        }
+
+        closeImgModalBtn.addEventListener('click', closeImageModal);
+        imgModal.addEventListener('click', (e) => {
+            if (e.target === imgModal) {
+                closeImageModal();
+            }
+        });
+
+        // Accordion Logic for History Cards
+        document.querySelectorAll('.history-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const details = card.nextElementSibling;
+                const chevron = card.querySelector('.chevron-icon');
+                const isExpanded = !details.classList.contains('hidden');
+
+                if (isExpanded) {
+                    details.classList.add('hidden');
+                    chevron.style.transform = 'rotate(0deg)';
+                    card.classList.remove('bg-gray-50');
+                } else {
+                    details.classList.remove('hidden');
+                    chevron.style.transform = 'rotate(90deg)';
+                    card.classList.add('bg-gray-50');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
