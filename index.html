@@ -495,11 +495,11 @@
         window.addEventListener('scroll', () => {
             const topBar = document.getElementById('top-bar');
             if (window.scrollY > 10) {
-                topBar.classList.add('shadow-sm', 'border-gray-200');
-                topBar.classList.remove('border-transparent');
+                topBar.classList.add('shadow-sm', 'border-gray-200', 'bg-white/20', 'backdrop-blur-sm');
+                topBar.classList.remove('border-transparent', 'bg-white/80', 'backdrop-blur-md');
             } else {
-                topBar.classList.remove('shadow-sm', 'border-gray-200');
-                topBar.classList.add('border-transparent');
+                topBar.classList.remove('shadow-sm', 'border-gray-200', 'bg-white/20', 'backdrop-blur-sm');
+                topBar.classList.add('border-transparent', 'bg-white/80', 'backdrop-blur-md');
             }
         });
 
