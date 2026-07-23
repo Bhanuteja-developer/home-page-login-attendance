@@ -224,10 +224,10 @@
         <section class="mb-10">
             <h2 class="text-[18px] font-medium text-on-surface mb-4 px-1">Timeline • Jul 03, 2026</h2>
             
-            <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+            <div class="flex flex-col gap-4">
                 
                 <!-- Timeline Item 1 -->
-                <div class="border-b border-gray-100 last:border-0 p-4 transition-colors cursor-pointer active:bg-gray-50 parent-item" onclick="toggleTimelineDetails(this)">
+                <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-full bg-google-green-light text-google-green flex items-center justify-center">
@@ -235,7 +235,7 @@
                             </div>
                             <div>
                                 <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 1 • 10:00 AM</p>
-                                <p class="text-[13px] text-on-surface-variant font-body mt-0.5">Checked in at 09:55 AM</p>
+                                <p class="text-[13px] text-gray-500 font-medium mt-0.5">Checked in at 09:55 AM</p>
                             </div>
                         </div>
                         <div class="flex flex-col items-end gap-1">
@@ -269,7 +269,7 @@
                 </div>
 
                 <!-- Timeline Item 2 -->
-                <div class="border-b border-gray-100 last:border-0 p-4 transition-colors cursor-pointer active:bg-gray-50 parent-item" onclick="toggleTimelineDetails(this)">
+                <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-full bg-google-green-light text-google-green flex items-center justify-center">
@@ -277,7 +277,7 @@
                             </div>
                             <div>
                                 <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 2 • 12:00 PM</p>
-                                <p class="text-[13px] text-on-surface-variant font-body mt-0.5">Checked in at 11:58 AM</p>
+                                <p class="text-[13px] text-gray-500 font-medium mt-0.5">Checked in at 11:58 AM</p>
                             </div>
                         </div>
                         <div class="flex flex-col items-end gap-1">
@@ -301,7 +301,7 @@
                 </div>
 
                 <!-- Timeline Item 3 (Late) -->
-                <div class="border-b border-gray-100 last:border-0 p-4 transition-colors cursor-pointer active:bg-gray-50 parent-item" onclick="toggleTimelineDetails(this)">
+                <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-4 transition-all cursor-pointer active:scale-[0.98] parent-item" onclick="toggleTimelineDetails(this)">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-full bg-google-red-light text-google-red flex items-center justify-center">
@@ -309,7 +309,7 @@
                             </div>
                             <div>
                                 <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 3 • 02:00 PM</p>
-                                <p class="text-[13px] text-on-surface-variant font-body mt-0.5">Checked in at 02:25 PM</p>
+                                <p class="text-[13px] text-gray-500 font-medium mt-0.5">Checked in at 02:25 PM</p>
                             </div>
                         </div>
                         <div class="flex flex-col items-end gap-1">
@@ -333,7 +333,7 @@
                 </div>
 
                 <!-- Timeline Item 4 (Pending) -->
-                <div class="border-b border-gray-100 last:border-0 p-4">
+                <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-4">
                     <div class="flex justify-between items-center opacity-60">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-full bg-gray-100 text-gray-400 border border-gray-200 border-dashed flex items-center justify-center">
@@ -341,7 +341,7 @@
                             </div>
                             <div>
                                 <p class="text-[15px] font-medium text-on-surface leading-tight">Slot 4 • 04:00 PM</p>
-                                <p class="text-[13px] text-on-surface-variant font-body mt-0.5">Upcoming</p>
+                                <p class="text-[13px] text-gray-500 font-medium mt-0.5">Upcoming</p>
                             </div>
                         </div>
                         <span class="text-[13px] font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full">PENDING</span>
@@ -368,7 +368,7 @@
                             </div>
                             <div>
                                 <p class="text-[15px] font-medium text-on-surface">22-Jun-2026, Monday</p>
-                                <p class="text-[13px] text-on-surface-variant font-body mt-0.5">5/5 Slots • Perfect</p>
+                                <p class="text-[13px] text-gray-500 font-medium mt-0.5">5/5 Slots • Perfect</p>
                             </div>
                         </div>
                         <span class="material-symbols-outlined text-gray-400 chevron-icon">expand_more</span>
@@ -397,7 +397,7 @@
                             </div>
                             <div>
                                 <p class="text-[15px] font-medium text-on-surface">20-Jun-2026, Friday</p>
-                                <p class="text-[13px] text-google-red font-body mt-0.5">4/5 Slots • 1 Missed</p>
+                                <p class="text-[13px] text-google-red font-medium mt-0.5">4/5 Slots • 1 Missed</p>
                             </div>
                         </div>
                         <span class="material-symbols-outlined text-gray-400 chevron-icon">expand_more</span>
