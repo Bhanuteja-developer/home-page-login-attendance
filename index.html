@@ -1,94 +1,76 @@
-<!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Habit Detail - Deep Dive</title>
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Add Expense - SpendWise 2026</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    colors: {
-                        "secondary": "#f4b7bf",
-                        "outline-variant": "#554244",
-                        "on-background": "#f0dedf",
-                        "on-primary-fixed-variant": "#7e273c",
-                        "on-primary-fixed": "#400013",
-                        "on-tertiary-fixed": "#00210f",
-                        "tertiary-fixed-dim": "#79da9b",
-                        "inverse-primary": "#9c3f53",
-                        "surface-container-highest": "#3d3233",
-                        "tertiary-container": "#61c285",
-                        "secondary-fixed": "#ffd9dd",
-                        "primary-container": "#ff8da1",
-                        "surface": "#1a1112",
-                        "surface-container": "#271d1e",
-                        "on-secondary-fixed-variant": "#663a41",
-                        "surface-container-low": "#22191a",
-                        "primary": "#ffb8c2",
-                        "on-secondary": "#4c242b",
-                        "tertiary": "#7dde9f",
-                        "inverse-on-surface": "#382e2f",
-                        "surface-tint": "#ffb2bd",
-                        "on-tertiary": "#00391d",
-                        "surface-dim": "#1a1112",
-                        "on-surface": "#f0dedf",
-                        "outline": "#a28b8d",
-                        "surface-container-high": "#312729",
-                        "secondary-fixed-dim": "#f4b7bf",
-                        "on-surface-variant": "#dac0c3",
-                        "on-error": "#690005",
-                        "tertiary-fixed": "#95f7b5",
-                        "on-error-container": "#ffdad6",
-                        "on-secondary-container": "#e1a6ae",
-                        "error-container": "#93000a",
-                        "surface-container-lowest": "#140c0d",
-                        "background": "#1a1112",
-                        "error": "#ffb4ab",
-                        "surface-bright": "#413638",
-                        "surface-variant": "#3d3233",
-                        "on-primary-container": "#782338",
-                        "on-tertiary-container": "#004d29",
-                        "inverse-surface": "#f0dedf",
-                        "secondary-container": "#663a41",
-                        "on-tertiary-fixed-variant": "#00522c",
-                        "primary-fixed": "#ffd9dd",
-                        "on-secondary-fixed": "#331017",
-                        "primary-fixed-dim": "#ffb2bd",
-                        "on-primary": "#601026"
+                    "colors": {
+                        "primary-fixed": "#d8e2ff",
+                        "inverse-surface": "#2e3034",
+                        "secondary-container": "#f0f2f7",
+                        "on-error-container": "#93000a",
+                        "error": "#ff6b6b",
+                        "tertiary-container": "#f3e8ff",
+                        "inverse-on-surface": "#f0f0f5",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#4a0072",
+                        "surface-container": "#f0f2f7",
+                        "surface-dim": "#e2e4e9",
+                        "secondary": "#7c7e85",
+                        "outline": "#d1d5db",
+                        "primary-fixed-dim": "#adc6ff",
+                        "error-container": "#ffe8e8",
+                        "on-primary-fixed": "#001a41",
+                        "outline-variant": "#e5e7eb",
+                        "on-primary": "#ffffff",
+                        "primary": "#4f46e5",
+                        "primary-container": "#e0e7ff",
+                        "surface-container-high": "#f9fafb",
+                        "background": "#f4f7fb",
+                        "on-secondary": "#ffffff",
+                        "surface": "#ffffff",
+                        "on-secondary-fixed-variant": "#46464b",
+                        "tertiary-fixed-dim": "#e8b3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#f6d9ff",
+                        "surface-container-highest": "#ebedf2",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#ffffff",
+                        "inverse-primary": "#adc6ff",
+                        "on-primary-container": "#1e1b4b",
+                        "secondary-fixed-dim": "#c6c6cb",
+                        "on-surface-variant": "#4b5563",
+                        "on-background": "#1f2937",
+                        "on-primary-fixed-variant": "#3730a3",
+                        "on-secondary-container": "#4b5563",
+                        "on-tertiary-fixed-variant": "#7e22ce",
+                        "surface-variant": "#f3f4f6",
+                        "on-secondary-fixed": "#1a1b1f",
+                        "tertiary": "#9333ea",
+                        "surface-tint": "#4f46e5",
+                        "on-surface": "#111827",
+                        "on-tertiary-fixed": "#310048",
+                        "surface-container-low": "#f9fafb",
+                        "secondary-fixed": "#e3e2e7"
                     },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "1.25rem",
+                        "xl": "2rem",
                         "full": "9999px"
                     },
-                    spacing: {
-                        "container-padding": "24px",
-                        "element-gap": "16px",
-                        "section-margin": "40px",
-                        "max-width-desktop": "1200px"
-                    },
-                    fontFamily: {
-                        "body-lg": ["Plus Jakarta Sans"],
-                        "headline-md": ["Fraunces"],
-                        "label-sm": ["Plus Jakarta Sans"],
-                        "body-md": ["Plus Jakarta Sans"],
-                        "display-lg": ["Fraunces"],
-                        "display-lg-mobile": ["Fraunces"]
-                    },
-                    fontSize: {
-                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
-                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
-                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "500" }],
-                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
-                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    "spacing": {
+                        "stack-tight": "12px",
+                        "margin-page": "20px",
+                        "stack-loose": "28px",
+                        "safe-area-bottom": "44px",
+                        "gutter-component": "16px"
                     }
                 }
             }
@@ -96,115 +78,273 @@
     </script>
 <style>
         body {
-            /* Deep oceanic gradient background */
-            background: linear-gradient(135deg, #0d1b2a, #1b263b, #415a77, #1a1112);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            -webkit-tap-highlight-color: transparent;
+            background-color: #f4f7fb;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Modern Neumorphism & Fluidity */
+        .neu-pill {
+            background: #f4f7fb;
+            box-shadow: 8px 8px 16px #e0e5ec, -8px -8px 16px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
-        .glass-panel {
-            backdrop-filter: blur(24px);
-            background-color: rgba(26, 17, 18, 0.4);
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 8px 32px rgba(0, 0, 0, 0.2);
+        .neu-inset {
+            background: #f4f7fb;
+            box-shadow: inset 4px 4px 8px #e0e5ec, inset -4px -4px 8px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .glass-input {
-            backdrop-filter: blur(12px);
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+        .neu-pressed:active {
+            box-shadow: inset 4px 4px 8px #e0e5ec, inset -4px -4px 8px #ffffff;
+            transform: scale(0.98);
         }
 
-        .glass-input:focus {
-            outline: none;
-            border-color: #ff8da1;
-            box-shadow: 0 0 15px rgba(255, 141, 161, 0.3);
-            background-color: rgba(255, 255, 255, 0.1);
+        .glass-nav {
+            background: rgba(244, 247, 251, 0.7);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
         }
 
-        /* Modal slide up animation */
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        .modal-slide-up {
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .floating-fab {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            box-shadow: 0 12px 24px rgba(79, 70, 229, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
         }
 
-        /* Radial Progress Chart */
-        .progress-ring__circle {
-            transition: stroke-dashoffset 0.8s ease-in-out;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
+        .inner-glow {
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.6);
         }
+
+        .fluid-card {
+            border-radius: 2.5rem;
+            background: #ffffff;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="text-on-surface min-h-screen flex items-end md:items-center justify-center p-0 md:p-container-padding overflow-hidden">
-<!-- Modal Container -->
-<div class="modal-slide-up glass-panel w-full md:max-w-md h-[795px] md:h-auto md:max-h-[751px] rounded-t-[32px] md:rounded-[32px] flex flex-col relative z-10 overflow-y-auto">
-<!-- Handle for mobile -->
-<div class="w-full flex justify-center py-4 md:hidden sticky top-0 z-20">
-<div class="w-12 h-1.5 bg-on-surface-variant/40 rounded-full"></div>
+</head>
+<body class="text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 glass-nav flex justify-between items-center px-6 h-16 border-b border-white/20">
+<button class="text-primary font-medium px-4 py-2 rounded-full hover:bg-primary/5 transition-colors">
+            Cancel
+        </button>
+<h1 class="text-lg font-bold text-on-surface tracking-tight">
+            Add Expense
+        </h1>
+<button class="text-primary font-bold px-4 py-2 rounded-full hover:bg-primary/5 transition-colors">
+            Done
+        </button>
+</header>
+<main class="pt-24 px-5 space-y-8 max-w-lg mx-auto">
+<!-- Date Selection -->
+<section class="neu-pill rounded-full p-4 flex items-center justify-between cursor-pointer neu-pressed transition-all duration-300">
+<div class="flex items-center gap-4 pl-2">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: &quot;FILL&quot; 1;">calendar_month</span>
 </div>
-<!-- Header Actions -->
-<div class="flex justify-between items-center px-container-padding pt-4 md:pt-container-padding pb-2 sticky top-0 z-10">
-<button class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+<span class="font-semibold text-on-surface">Transaction Date</span>
+</div>
+<div class="flex items-center gap-2 pr-2 text-secondary">
+<span class="text-on-surface-variant font-medium" id="selected-date">Sat, Jul 25</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</div>
+</section>
+<!-- Category Selection -->
+<section class="space-y-4"><h2 class="text-xs font-bold text-secondary uppercase tracking-widest ml-4">Category</h2>
+<div class="relative group">
+    <div class="neu-pill rounded-full p-4 flex items-center justify-between cursor-pointer neu-pressed transition-all duration-300" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="flex items-center gap-4 pl-2">
+            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: &quot;FILL&quot; 1;">category</span>
+            </div>
+            <span class="font-semibold text-on-surface">Select the Category</span>
+        </div>
+        <div class="flex items-center gap-2 pr-2 text-secondary">
+            <span class="material-symbols-outlined text-sm">expand_more</span>
+        </div>
+    </div>
+    <!-- Dropdown Menu -->
+    <div class="absolute top-full left-0 right-0 mt-4 p-2 fluid-card border border-white/40 z-50 space-y-1 hidden"><div class="flex items-center gap-4 p-4 rounded-full hover:bg-primary/5 cursor-pointer transition-colors">
+            <div class="w-8 h-8 rounded-full bg-primary/5 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-lg">nutrition</span>
+            </div>
+            <span class="font-medium text-on-surface">Vegetables</span>
+        </div>
+        <div class="flex items-center gap-4 p-4 rounded-full hover:bg-primary/5 cursor-pointer transition-colors">
+            <div class="w-8 h-8 rounded-full bg-primary/5 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-lg">shopping_cart</span>
+            </div>
+            <span class="font-medium text-on-surface">Grocery</span>
+        </div>
+        <div class="flex items-center gap-4 p-4 rounded-full hover:bg-primary/5 cursor-pointer transition-colors">
+            <div class="w-8 h-8 rounded-full bg-primary/5 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-lg">apparel</span>
+            </div>
+            <span class="font-medium text-on-surface">Clothes</span>
+        </div>
+        <div class="flex items-center gap-4 p-4 rounded-full hover:bg-primary/5 cursor-pointer transition-colors">
+            <div class="w-8 h-8 rounded-full bg-primary/5 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-lg">flight</span>
+            </div>
+            <span class="font-medium text-on-surface">Travel</span>
+        </div>
+        <div class="flex items-center gap-4 p-4 rounded-full hover:bg-primary/5 cursor-pointer transition-colors">
+            <div class="w-8 h-8 rounded-full bg-primary/5 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-lg">more_horiz</span>
+            </div>
+            <span class="font-medium text-on-surface">Other</span>
+        </div></div>
+</div></section>
+<!-- Itemized List -->
+<section class="fluid-card p-2 border border-white/40">
+<!-- Voice Input Bar -->
+<div class="p-2 mb-2">
+<div class="neu-inset rounded-full flex items-center p-1">
+<div class="pl-4 pr-2 text-secondary">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="flex-grow bg-transparent border-none text-on-surface placeholder-secondary focus:ring-0 text-sm py-3" placeholder="Dictate or type item..." type="text">
+<button class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shadow-lg active:scale-90 transition-transform" id="mic-btn">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: &quot;FILL&quot; 1;">mic</span>
 </button>
-<button class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">more_horiz</span>
-</button>
 </div>
-<div class="flex-1 px-container-padding pb-container-padding flex flex-col items-center">
-<!-- Massive Top Icon -->
-<div class="w-20 h-20 rounded-full bg-surface-container-high/50 flex items-center justify-center mb-6 shadow-[inset_0_4px_10px_rgba(0,0,0,0.3)] border border-white/5">
-<span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">self_improvement</span>
 </div>
-<!-- Habit Title & Category -->
-<h1 class="font-headline-md text-headline-md mb-2 text-center text-on-surface">Morning Meditation</h1>
-<div class="glass-panel px-4 py-1.5 rounded-full mb-8">
-<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Mindfulness</span>
+<!-- List Rows -->
+<div class="px-2 space-y-2" id="item-list">
+<!-- Row 1 -->
+<div class="flex items-center p-4 gap-4 bg-white rounded-3xl border border-gray-50 hover:bg-gray-50 transition-colors"><div class="flex-grow flex items-center gap-3">
+    <span class="font-medium text-on-surface">Tamatoes 1 Kg</span>
 </div>
-<!-- Radial Progress Chart (Streak) -->
-<div class="relative w-48 h-48 mb-10 flex items-center justify-center">
-<svg class="w-full h-full absolute inset-0" viewbox="0 0 120 120">
-<circle class="text-surface-container-highest stroke-current" cx="60" cy="60" fill="transparent" r="54" stroke-width="6"></circle>
-<!-- Dasharray: 2 * PI * r = ~339.29, Dashoffset: 339.29 * (1 - progress/total) -->
-<circle class="text-primary-container stroke-current progress-ring__circle" cx="60" cy="60" fill="transparent" r="54" stroke-dasharray="339.29" stroke-dashoffset="100" stroke-linecap="round" stroke-width="6"></circle>
-</svg>
-<div class="flex flex-col items-center justify-center z-10">
-<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface mb-1">14</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Day Streak</span>
+<div class="flex items-center gap-4">
+    <button class="text-secondary hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-xl">mic</span>
+    </button>
+    <div class="neu-inset rounded-xl px-3 py-2 flex items-center gap-2 bg-surface-container-low">
+        <span class="text-secondary text-sm">₹</span>
+        <input type="text" class="w-16 bg-transparent border-none p-0 text-right text-on-surface focus:ring-0 font-medium" value="0.00">
+    </div>
+    <button class="text-error/60 hover:text-error transition-colors">
+        <span class="material-symbols-outlined text-xl">close</span>
+    </button>
+</div></div>
+<!-- Row 2 -->
+<div class="flex items-center p-4 gap-4 bg-white rounded-3xl border border-gray-50 hover:bg-gray-50 transition-colors">
+<div class="w-10 h-10 rounded-2xl bg-error-container text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-lg">remove</span>
 </div>
-<!-- Sparkle accents for organic feel -->
-<span class="material-symbols-outlined text-tertiary-container absolute -top-2 right-4 text-sm animate-pulse">arrow_back_ios_new</span>
-<span class="material-symbols-outlined text-secondary absolute bottom-4 -left-2 text-xs animate-bounce" style="animation-duration: 3s;">arrow_back_ios_new</span>
+<div class="flex-grow">
+<input class="w-full bg-transparent border-none font-semibold text-on-surface focus:ring-0 p-0" type="text" value="Onions 2kg">
 </div>
-<!-- Journal Area -->
-<div class="w-full flex flex-col gap-3 mb-8">
-<label class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
-<span class="material-symbols-outlined text-sm">edit_note</span>
-                    Reflection
-                </label>
-<textarea class="glass-input w-full h-[150px] rounded-[24px] p-5 font-body-lg text-body-lg text-on-surface placeholder-on-surface-variant/50 resize-none" placeholder="How did this feel today?"></textarea>
+<div class="text-right">
+<div class="flex items-center justify-end text-primary font-bold text-lg">
+<span class="text-sm mr-0.5">₹</span>
+<input class="w-16 bg-transparent border-none text-right focus:ring-0 p-0" type="text" value="120.00">
 </div>
-<!-- Save Button -->
-<button class="w-full bg-[#FF8DA1] hover:bg-[#ffb8c2] text-[#400013] font-body-lg text-body-lg font-semibold py-4 rounded-[24px] transition-all duration-300 shadow-[0_4px_14px_rgba(255,141,161,0.3)] hover:shadow-[0_6px_20px_rgba(255,141,161,0.5)] transform hover:-translate-y-1 mt-auto flex items-center justify-center gap-2">
-<span>Save Reflection</span>
-<span class="material-symbols-outlined text-xl">check_circle</span>
+</div>
+<button class="text-secondary hover:text-error transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
 </button>
 </div>
 </div>
+<!-- Add Row Button -->
+<button class="w-full mt-2 py-4 flex items-center justify-center gap-2 text-primary font-bold rounded-b-3xl hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+                Add Line Item
+            </button>
+</section>
+<!-- Totals Card -->
+<section class="fluid-card p-8 text-center relative overflow-hidden bg-gradient-to-br from-primary-container/40 to-white border border-white">
+<div class="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-primary/5 blur-3xl"></div>
+<div class="absolute -left-10 -bottom-10 w-40 h-40 rounded-full bg-tertiary/5 blur-3xl"></div>
+<h3 class="text-xs font-bold text-secondary uppercase tracking-[0.2em] mb-4">Total Amount Due</h3>
+<div class="flex items-center justify-center gap-1 text-primary">
+<span class="text-2xl font-medium mt-2">₹</span>
+<span class="text-5xl font-black tracking-tighter">200.00</span>
+</div>
+<p class="text-sm text-secondary italic mt-4 font-medium opacity-70">
+                ~ Two Hundred Rupees Only ~
+            </p>
+</section>
+<!-- Attachments & Comments -->
+<section class="space-y-8">
+<!-- Bills Carousel -->
+<div class="space-y-4">
+<div class="flex items-center justify-between px-2">
+<h2 class="text-xs font-bold text-secondary uppercase tracking-widest">Digital Receipts</h2>
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">2 / 5 Uploaded</span>
+</div>
+<div class="flex gap-5 overflow-x-auto no-scrollbar pb-4 px-1">
+<!-- Add Button -->
+<button class="w-28 h-40 shrink-0 rounded-3xl border-2 border-dashed border-primary/30 bg-white/50 flex flex-col items-center justify-center gap-2 text-primary hover:bg-white hover:border-primary transition-all">
+<span class="material-symbols-outlined text-3xl">add_a_photo</span>
+<span class="text-[10px] font-bold uppercase tracking-tight">Upload</span>
+</button>
+<!-- Thumb 1 -->
+<div class="relative w-28 h-40 shrink-0 rounded-3xl overflow-hidden shadow-xl group border-4 border-white">
+<img class="w-full h-full object-cover" data-alt="Grocery receipt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8F541Bqq0KQr99eQQoJi7rzGqPumaABvzQEicVpXXxZG94nphlzwlZ6IE3sKdBy5raebQYf4ZHO16r0GJboxpw3jYRdvAPPKGFjupEw6GHzGkEjTzjUuLLZTH5qEVCOrjWc5JF5JMJ4RSD5vA5CDBi-a4WBYrQWzheSlGeloaPbhDaPnXIBbAp-q2wrSk1EaxLFadWZgBDiWyK99WkDhPbwr6cwx4A3WPvXN0Smosjv0k8kB_RST8KTvtk6W9J5hYxtRBx9d36X8">
+<button class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 text-error flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-sm font-bold">close</span>
+</button>
+</div>
+<!-- Thumb 2 -->
+<div class="relative w-28 h-40 shrink-0 rounded-3xl overflow-hidden shadow-xl group border-4 border-white">
+<img class="w-full h-full object-cover" data-alt="Cafe bill" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhei6cbQ5RigfojpW_P3UJWWnLRV6QmZIQMzDhwEOW2CRvyLjwlMTzaB7HMBPFqV7Yz1NvXU3LbUzlYCJUwvOdoKclQD1nnI_DtB40MfJp2q9qdAVlvop9Vc3X9bfJmLgA1KYl45Grnmq1Ne-JZxvpwyNcPTUtNu1BPs8-kMju_f4PPd6vuSyQSjMavwCdiN-eDb0_F8DOA5MPVm0MAo2TDnJNf6p8UAJVfW9AWdOoZ_eIJpGlf4D9UrlBUzcYCX0kntRVRcx9S_8">
+<button class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 text-error flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-sm font-bold">close</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Comments -->
+<div class="space-y-4">
+<h2 class="text-xs font-bold text-secondary uppercase tracking-widest ml-4">Narrative Notes</h2>
+<div class="neu-inset rounded-[2.5rem] p-2">
+<textarea class="w-full bg-transparent border-none rounded-[2rem] p-6 text-on-surface placeholder-secondary/50 focus:ring-0 text-sm resize-none" placeholder="Context for this expense..." rows="3"></textarea>
+</div>
+</div>
+</section>
+</main>
+<!-- Glowing FAB -->
+<div class="fixed bottom-8 left-0 right-0 px-6 flex justify-center z-50">
+<button class="floating-fab w-full max-w-md py-5 rounded-full text-white font-bold text-lg flex items-center justify-center gap-3 animate-float transition-all hover:scale-[1.02] active:scale-95">
+<span class="material-symbols-outlined font-bold">verified</span>
+            Confirm &amp; Save Expense
+        </button>
+</div>
+<script>
+        // Set today's date
+        const dateSpan = document.getElementById('selected-date');
+        const today = new Date();
+        const options = { weekday: 'short', month: 'short', day: 'numeric' };
+        dateSpan.textContent = today.toLocaleDateString('en-US', options);
+
+        // Mic interaction simulation
+        const micBtn = document.getElementById('mic-btn');
+        let isRecording = false;
+        
+        micBtn.addEventListener('click', () => {
+            isRecording = !isRecording;
+            if (isRecording) {
+                micBtn.classList.remove('bg-primary');
+                micBtn.classList.add('bg-error', 'animate-pulse');
+                micBtn.querySelector('span').textContent = 'mic_none';
+            } else {
+                micBtn.classList.add('bg-primary');
+                micBtn.classList.remove('bg-error', 'animate-pulse');
+                micBtn.querySelector('span').textContent = 'mic';
+            }
+        });
+    </script>
+
+
 </body></html>
