@@ -286,11 +286,53 @@
         setActiveCategory(categoryId);
         const element = document.getElementById(categoryId);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Calculate exact height of the sticky header to prevent hiding the title
+          const headerOffset = 230; 
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
         }
       };
 
       const recognitionRef = useRef(null);
+
+      useEffect(() => {
+        const handleScroll = () => {
+          const headerOffset = 240; 
+          let currentActiveId = activeCategory;
+
+          // Track which category is currently visible in the viewport
+          for (const cat of categoryNavItems) {
+            const element = document.getElementById(cat.id);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              // If the category hits the boundary right below the sticky header
+              if (rect.top <= headerOffset + 50 && rect.bottom >= headerOffset) {
+                currentActiveId = cat.id;
+              }
+            }
+          }
+
+          // If the visible category changes, update the nav and auto-scroll the menu
+          if (currentActiveId !== activeCategory) {
+            setActiveCategory(currentActiveId);
+            const navElement = document.getElementById(`nav-${currentActiveId}`);
+            if (navElement && navElement.parentElement) {
+              const container = navElement.parentElement;
+              // Mathematically center the active pill in the horizontal scrollbar
+              const scrollLeft = navElement.offsetLeft - (container.clientWidth / 2) + (navElement.clientWidth / 2);
+              container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            }
+          }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, [activeCategory]);
 
       useEffect(() => {
         localStorage.setItem('smartInventoryData', JSON.stringify(data));
@@ -509,7 +551,12 @@
               </div>
               <div className="flex gap-2 sm:gap-4 overflow-x-auto pb-1 scrollbar-hide snap-x px-1">
                 {categoryNavItems.map(cat => (
-                  <div key={cat.id} onClick={() => scrollToCategory(cat.id)} className="flex flex-col items-center gap-1 cursor-pointer snap-start min-w-[56px]">
+                  <div 
+                    key={cat.id} 
+                    id={`nav-${cat.id}`}
+                    onClick={() => scrollToCategory(cat.id)} 
+                    className="flex flex-col items-center gap-1 cursor-pointer snap-start min-w-[56px]"
+                  >
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 ${activeCategory === cat.id ? 'bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-md border-0' : 'bg-white text-orange-400 border border-stone-200 shadow-sm'}`}>
                       <cat.icon className="w-5 h-5" />
                     </div>
@@ -533,7 +580,7 @@
               </div>
             ) : (
               displayedData.map((category) => (
-                <div key={category.id} id={category.id} className="bg-white rounded-2xl shadow-sm border border-orange-100/60 overflow-hidden scroll-mt-[210px]">
+                <div key={category.id} id={category.id} className="bg-white rounded-2xl shadow-sm border border-orange-100/60 overflow-hidden">
                   
                   <div className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-4 py-3">
                     <h2 className="text-lg font-extrabold text-center drop-shadow-sm">{category.title}</h2>
