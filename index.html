@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Inventory List</title>
+  <title>LDSS - Mahoor List</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -72,9 +72,9 @@
           <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
         </svg>
       ),
-      Apple: (props) => (
+      Vegetables: (props) => (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-          <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/>
+          <path d="M2.27 21.7s9.87-2 13.73-6.19a5.52 5.52 0 0 0-8.18-8.18c-4.34 4-6.32 14.15-6.32 14.15z"/><path d="M7.14 9.14 5.39 7.39"/><path d="M11 13 9.25 11.25"/><path d="M18.5 7.5c-2-2-4-2-4-2s0-2 2-4c2 0 4 2 4 2s2 0 2 4c0 2-2 4-2 4z"/>
         </svg>
       ),
       Milk: (props) => (
@@ -242,10 +242,10 @@
 
       const categoryNavItems = [
         { id: 'cat-1', name: 'Kirana', icon: Icons.ShoppingCart, color: 'text-orange-500' },
-        { id: 'cat-2', name: 'Vegetables', icon: Icons.Apple, color: 'text-blue-500' },
-        { id: 'cat-3', name: 'Mahoor', icon: Icons.Milk, color: 'text-purple-500' },
-        { id: 'cat-4', name: 'Pooja', icon: Icons.Flame, color: 'text-red-500' },
-        { id: 'cat-5', name: 'Other', icon: Icons.Grid, color: 'text-red-500' }
+        { id: 'cat-2', name: 'Vegetables', icon: Icons.Vegetables, color: 'text-orange-500' },
+        { id: 'cat-3', name: 'Mahoor', icon: Icons.Milk, color: 'text-orange-500' },
+        { id: 'cat-4', name: 'Pooja', icon: Icons.Flame, color: 'text-orange-500' },
+        { id: 'cat-5', name: 'Other', icon: Icons.Grid, color: 'text-orange-500' }
       ];
 
       const scrollToCategory = (categoryId) => {
@@ -469,12 +469,13 @@
 
           {/* Main Header mimicking the design */}
           <div className="sticky top-0 z-40 bg-slate-50 shadow-md">
-            <header className="bg-[#28498c] text-white">
+            <header className="bg-orange-500 text-white">
               <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-                <div className="w-20"></div> {/* Spacer to keep header title perfectly centered */}
+                <div className="w-20 flex items-center">
+                  <img src="https://cdn.wallpapersafari.com/15/40/zlOjX4.jpg" alt="Lord Dattatreya" className="h-10 w-10 rounded-full object-cover border border-white/50 shadow-sm" />
+                </div>
                 <div className="flex items-center gap-2">
-                  <Icons.Clipboard />
-                  <h1 className="text-xl font-bold tracking-wide">Actual List</h1>
+                  <h1 className="text-xl font-bold tracking-wide">LDSS - Mahoor List</h1>
                 </div>
                 {/* Undo and Redo Controls */}
                 <div className="flex items-center justify-end gap-1 w-20">
@@ -508,15 +509,15 @@
                 <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider">Category</h2>
                 <button className="text-sm text-[#0056b3] font-semibold hover:underline">See All</button>
               </div>
-              <div className="flex gap-5 overflow-x-auto pb-1 scrollbar-hide snap-x">
+              <div className="flex gap-5 overflow-x-auto pb-1 scrollbar-hide snap-x px-1">
                 {categoryNavItems.map(cat => (
                   <div 
                     key={cat.id} 
                     onClick={() => scrollToCategory(cat.id)}
                     className="flex flex-col items-center gap-2 cursor-pointer snap-start min-w-[72px]"
                   >
-                    <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-all ${activeCategory === cat.id ? 'bg-[#0056b3] text-white shadow-md' : 'bg-white text-slate-500 shadow-sm'}`}>
-                      <cat.icon className={`w-6 h-6 ${activeCategory !== cat.id ? cat.color : ''}`} />
+                    <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-all shadow-md active:scale-95 ${activeCategory === cat.id ? 'bg-[#0056b3] text-white' : `bg-white ${cat.color}`}`}>
+                      <cat.icon className="w-6 h-6" />
                     </div>
                     <span className={`text-[11px] font-semibold ${activeCategory === cat.id ? 'text-[#0056b3]' : 'text-slate-500'}`}>
                       {cat.name}
@@ -537,12 +538,12 @@
               >
                 
                 {/* Category Header */}
-                <div className="bg-[#00a8e8] text-white px-4 py-2">
+                <div className="bg-orange-500 text-white px-4 py-2">
                   <h2 className="text-lg font-bold text-center">{category.title}</h2>
                 </div>
 
                 {/* Table Headers */}
-                <div className="flex bg-[#00a8e8] text-white text-xs font-semibold px-2 py-1.5 border-t border-[#0092c9]">
+                <div className="flex bg-orange-500 text-white text-xs font-semibold px-2 py-1.5 border-t border-orange-600">
                   <div className="w-8 text-center">S. NO</div>
                   <div className="flex-1 text-center border-l border-white/20 pl-2">ITEMS</div>
                   <div className="w-24 sm:w-32 text-center border-l border-white/20 pl-2">QUANTITY</div>
