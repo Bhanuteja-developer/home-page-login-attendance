@@ -201,9 +201,8 @@
       // listeningState holds { categoryId, itemId, field }
       const [listeningState, setListeningState] = useState(null); 
       
-      // Drag and Drop state
-      const [dragging, setDragging] = useState(null);
-      const dragItemIndex = useRef(null);
+      // Highlight selected row state
+      const [selectedRow, setSelectedRow] = useState(null);
 
       const recognitionRef = useRef(null);
 
@@ -341,83 +340,6 @@
         }));
       };
 
-      // Reusable swap logic for drag and drop
-      const swapRows = (categoryId, fromIndex, toIndex) => {
-        setData(prevData => {
-             const newData = [...prevData];
-             const catIndex = newData.findIndex(c => c.id === categoryId);
-             if (catIndex === -1) return prevData;
-             
-             const items = [...newData[catIndex].items];
-             const draggedItem = items[fromIndex];
-             
-             items.splice(fromIndex, 1);
-             items.splice(toIndex, 0, draggedItem);
-             
-             newData[catIndex] = { ...newData[catIndex], items };
-             return newData;
-        });
-      };
-
-      // --- MOBILE TOUCH DRAG LOGIC ---
-      const handleTouchStart = (e, categoryId, index) => {
-          dragItemIndex.current = index;
-          setDragging({ categoryId, index });
-          document.body.style.overflow = 'hidden'; // Stop mobile scrolling while dragging
-      };
-
-      const handleTouchMove = (e, categoryId) => {
-          if (!dragging || dragging.categoryId !== categoryId) return;
-          
-          const touch = e.touches[0];
-          // Find which element the user's finger is currently over
-          const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
-          
-          if (targetElement) {
-              const row = targetElement.closest('[data-drag-index]');
-              if (row) {
-                  const overIndex = parseInt(row.getAttribute('data-drag-index'), 10);
-                  const overCategory = row.getAttribute('data-drag-category');
-                  
-                  // If we hovered over a different row in the same category, swap them instantly
-                  if (overCategory === categoryId && dragItemIndex.current !== overIndex) {
-                      swapRows(categoryId, dragItemIndex.current, overIndex);
-                      dragItemIndex.current = overIndex;
-                      setDragging({ categoryId, index: overIndex });
-                  }
-              }
-          }
-      };
-
-      const handleTouchEnd = () => {
-          dragItemIndex.current = null;
-          setDragging(null);
-          document.body.style.overflow = ''; // Restore mobile scrolling
-      };
-
-      // --- DESKTOP MOUSE DRAG LOGIC ---
-      const handleDragStart = (e, categoryId, index) => {
-          dragItemIndex.current = index;
-          setDragging({ categoryId, index });
-          if (e.dataTransfer) {
-              e.dataTransfer.effectAllowed = 'move';
-              e.dataTransfer.setData('text/plain', ''); 
-          }
-      };
-
-      const handleDragEnter = (e, categoryId, index) => {
-          if (dragging?.categoryId === categoryId && dragItemIndex.current !== index) {
-              swapRows(categoryId, dragItemIndex.current, index);
-              dragItemIndex.current = index;
-              setDragging({ categoryId, index });
-          }
-      };
-
-      const handleDragEnd = () => {
-          dragItemIndex.current = null;
-          setDragging(null);
-      };
-
       const checkIsListening = (categoryId, itemId, field) => {
         return listeningState?.categoryId === categoryId && 
                listeningState?.itemId === itemId && 
@@ -454,7 +376,6 @@
 
                 {/* Table Headers */}
                 <div className="flex bg-[#00a8e8] text-white text-xs font-semibold px-2 py-1.5 border-t border-[#0092c9]">
-                  <div className="w-8"></div>
                   <div className="w-8 text-center">S. NO</div>
                   <div className="flex-1 text-center border-l border-white/20 pl-2">ITEMS</div>
                   <div className="w-24 sm:w-32 text-center border-l border-white/20 pl-2">QUANTITY</div>
@@ -469,26 +390,10 @@
                     category.items.map((item, index) => (
                       <div 
                         key={item.id} 
-                        data-drag-index={index}
-                        data-drag-category={category.id}
-                        draggable
-                        onDragStart={(e) => handleDragStart(e, category.id, index)}
-                        onDragEnter={(e) => handleDragEnter(e, category.id, index)}
-                        onDragOver={(e) => e.preventDefault()}
-                        onDragEnd={handleDragEnd}
-                        className={`flex items-start px-1 py-2 transition-colors ${dragging?.categoryId === category.id && dragging?.index === index ? 'opacity-40 bg-blue-50 shadow-inner' : 'hover:bg-slate-50'}`}
+                        onClick={() => setSelectedRow({ categoryId: category.id, itemId: item.id })}
+                        className={`flex items-start px-1 py-2 transition-colors cursor-pointer ${selectedRow?.categoryId === category.id && selectedRow?.itemId === item.id ? 'bg-green-100' : 'hover:bg-slate-50'}`}
                       >
                         
-                        {/* Grip Handle (Drag source) */}
-                        <div 
-                           className="w-8 flex items-center justify-center pt-2 cursor-grab active:cursor-grabbing text-slate-400 hover:text-slate-600 touch-none"
-                           onTouchStart={(e) => handleTouchStart(e, category.id, index)}
-                           onTouchMove={(e) => handleTouchMove(e, category.id)}
-                           onTouchEnd={handleTouchEnd}
-                        >
-                           <Icons.Grip />
-                        </div>
-
                         {/* Auto-sorted S.No based on index */}
                         <div className="w-8 flex items-center justify-center text-sm text-slate-500 font-medium pt-1.5">
                           {index + 1}
