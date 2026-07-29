@@ -92,45 +92,43 @@
             {`
               @keyframes hvn-flicker-outer {
                 0%, 100% { transform: scaleY(1) skewX(0deg); }
-                50% { transform: scaleY(1.04) skewX(1deg); }
+                50% { transform: scaleY(1.05) skewX(2deg); }
               }
               @keyframes hvn-flicker-inner {
                 0%, 100% { transform: scaleY(1) skewX(0deg); }
-                50% { transform: scaleY(1.08) skewX(-1.5deg); }
+                50% { transform: scaleY(1.1) skewX(-2deg); }
               }
-              .hvn-flame-outer { animation: hvn-flicker-outer 0.4s ease-in-out infinite; transform-origin: 12px 11.5px; }
-              .hvn-flame-inner { animation: hvn-flicker-inner 0.35s ease-in-out infinite alternate-reverse; transform-origin: 12px 10px; }
+              .hvn-flame-outer { animation: hvn-flicker-outer 0.4s ease-in-out infinite; transform-origin: 12px 10px; }
+              .hvn-flame-inner { animation: hvn-flicker-inner 0.35s ease-in-out infinite alternate-reverse; transform-origin: 12px 9px; }
             `}
           </style>
+
+          {/* Front-Facing Flat Stepped Base (Matches new reference image) */}
+          <rect x="2" y="18" width="20" height="4" fill="none" strokeWidth="1.5" />
+          <rect x="4.5" y="14" width="15" height="4" fill="none" strokeWidth="1.5" />
+          <rect x="7" y="10" width="10" height="4" fill="none" strokeWidth="1.5" />
+
+          {/* Wavy Decorations matching the image */}
+          <path d="M 2 20 Q 4.5 18.5 7 20 T 12 20 T 17 20 T 22 20" strokeWidth="0.8" />
+          <path d="M 4.5 16 Q 6.375 14.5 8.25 16 T 12 16 T 15.75 16 T 19.5 16" strokeWidth="0.8" />
+          <path d="M 7 12 Q 9.5 10.5 12 12 T 17 12" strokeWidth="0.8" />
+
+          {/* Small Decorative Dots inside the waves */}
+          <circle cx="4.5" cy="21.2" r="0.4" fill="currentColor" stroke="none" />
+          <circle cx="9.5" cy="18.8" r="0.4" fill="currentColor" stroke="none" />
+          <circle cx="14.5" cy="21.2" r="0.4" fill="currentColor" stroke="none" />
+          <circle cx="19.5" cy="18.8" r="0.4" fill="currentColor" stroke="none" />
           
-          {/* Base Tiers (Isometric Stepped Pyramid matching image) */}
-          <path d="M 12 23 L 2 19 V 17 L 12 21 L 22 17 V 19 Z" />
-          <path d="M 2 17 L 5.5 15.25 M 22 17 L 18.5 15.25 M 12 21 V 19.5" />
-          <path d="M 12 19.5 L 5.5 16.25 V 14.5 L 12 17.5 L 18.5 14.5 V 16.25 Z" />
-          <path d="M 5.5 14.5 L 8.5 13 M 18.5 14.5 L 15.5 13 M 12 17.5 V 16" />
-          <path d="M 12 16 L 8.5 14.25 V 12.5 L 12 14 L 15.5 12.5 V 14.25 Z" />
-          <path d="M 8.5 12.5 L 12 10.75 L 15.5 12.5 M 12 14 V 13" />
+          <circle cx="6.375" cy="17.2" r="0.4" fill="currentColor" stroke="none" />
+          <circle cx="12" cy="14.8" r="0.4" fill="currentColor" stroke="none" />
+          <circle cx="17.625" cy="17.2" r="0.4" fill="currentColor" stroke="none" />
 
-          {/* OM Symbols (Stylized as decorative dots on the lowest tier) */}
-          <circle cx="5" cy="18.3" r="0.4" fill="currentColor" stroke="none" />
-          <circle cx="8" cy="19.5" r="0.4" fill="currentColor" stroke="none" />
-          <circle cx="16" cy="19.5" r="0.4" fill="currentColor" stroke="none" />
-          <circle cx="19" cy="18.3" r="0.4" fill="currentColor" stroke="none" />
+          <circle cx="9.5" cy="13.2" r="0.4" fill="currentColor" stroke="none" />
+          <circle cx="14.5" cy="13.2" r="0.4" fill="currentColor" stroke="none" />
 
-          {/* Logs (Crossed with mathematical gap for visual 3D depth) */}
-          <line x1="7" y1="10" x2="15" y2="13" strokeWidth="1.5" />
-          <line x1="9" y1="13" x2="10.8" y2="12.33" strokeWidth="1.5" />
-          <line x1="13.2" y1="11.43" x2="17" y2="10" strokeWidth="1.5" />
-
-          {/* Log End Details */}
-          <circle cx="7" cy="10" r="0.25" fill="currentColor" stroke="none" />
-          <circle cx="15" cy="13" r="0.25" fill="currentColor" stroke="none" />
-          <circle cx="9" cy="13" r="0.25" fill="currentColor" stroke="none" />
-          <circle cx="17" cy="10" r="0.25" fill="currentColor" stroke="none" />
-
-          {/* Flames (Outline and Inner matching reference exactly) */}
-          <path className="hvn-flame-outer" d="M 12 11.5 C 16 11 16.5 6 14.5 3 C 14.5 4.5 14 6 12.5 6.5 C 12.5 4 13 2 11 1 C 11 3 10 4 10 6 C 9 5 8.5 4 7.5 3 C 7.5 7 8 11 12 11.5 Z" />
-          <path className="hvn-flame-inner" d="M 12 10 C 14 9.5 14 7 13 5.5 C 13 6.5 12.5 7 11.5 7.5 C 11.5 6.5 11 5 10 4.5 C 10 6 10 8.5 12 10 Z" />
+          {/* Flame - Asymmetrical Right-curving with left indent (Animated) */}
+          <path className="hvn-flame-outer" d="M 12 10 C 15 10 16.5 5 13 1 C 14.5 4.5 12.5 5 11.5 5 C 10.5 5 9.5 3.5 8 5 C 6.5 7 8 10 12 10 Z" />
+          <path className="hvn-flame-inner" d="M 11.5 8 C 13.5 8 14 4.5 12.5 2 C 13 4 12 5 11 5 C 10 5 9.5 4 8.5 5 C 8 6 8.5 8 11.5 8 Z" strokeWidth="0.8" />
         </svg>
       ),
       Grid: (props) => (
@@ -222,7 +220,7 @@
       },
       {
         id: 'cat-4',
-        title: '4. Pooja Items',
+        title: '4. Hawan Items',
         items: [
           { id: '4-1', name: 'Samedhalu', quantity: '4 set' },
           { id: '4-2', name: 'Gomaya sticks', quantity: '4 pkt' },
@@ -262,7 +260,13 @@
         const saved = localStorage.getItem('smartInventoryData');
         if (saved) {
           try {
-            return JSON.parse(saved);
+            const parsedData = JSON.parse(saved);
+            // Auto-migrate old "Pooja" names to "Hawan" if loaded from local cache
+            return parsedData.map(cat => 
+              cat.id === 'cat-4' && cat.title === '4. Pooja Items' 
+                ? { ...cat, title: '4. Hawan Items' } 
+                : cat
+            );
           } catch (e) {
             return INITIAL_DATA;
           }
@@ -287,11 +291,11 @@
       const [activeCategory, setActiveCategory] = useState('cat-1');
 
       const categoryNavItems = [
-        { id: 'cat-1', name: 'Kirana', icon: Icons.ShoppingCart, color: 'text-orange-500' },
-        { id: 'cat-2', name: 'Vegetables', icon: Icons.Vegetables, color: 'text-orange-500' },
-        { id: 'cat-3', name: 'Mahoor', icon: Icons.Temple, color: 'text-orange-500' },
-        { id: 'cat-4', name: 'Pooja', icon: Icons.Flame, color: 'text-orange-500' },
-        { id: 'cat-5', name: 'Other', icon: Icons.Grid, color: 'text-orange-500' }
+        { id: 'cat-1', name: 'Kirana', icon: Icons.ShoppingCart },
+        { id: 'cat-2', name: 'Vegetables', icon: Icons.Vegetables },
+        { id: 'cat-3', name: 'Mahoor', icon: Icons.Temple },
+        { id: 'cat-4', name: 'Hawan', icon: Icons.Flame },
+        { id: 'cat-5', name: 'Other', icon: Icons.Grid }
       ];
 
       const scrollToCategory = (categoryId) => {
