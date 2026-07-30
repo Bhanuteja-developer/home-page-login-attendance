@@ -293,6 +293,63 @@
       const [activeCategory, setActiveCategory] = useState('cat-1');
       const [searchQuery, setSearchQuery] = useState('');
 
+      // Smart Math Engine for Unit Conversion and Subtraction
+      const calculatePurchaseQty = (actual, old) => {
+        try {
+          if (!actual) return '';
+          // If no old stock, purchase qty equals actual qty
+          if (!old || old.trim() === '') return actual; 
+
+          const parse = (str) => {
+            // Convert fractions (1/2) to decimals (0.5) for math
+            let s = String(str).toLowerCase().trim().replace(/1\/2/g, '0.5').replace(/1\/4/g, '0.25').replace(/3\/4/g, '0.75');
+            const match = s.match(/^([\d\.]+)\s*(.*)$/);
+            if (!match) return null;
+            
+            const num = parseFloat(match[1]);
+            if (isNaN(num)) return null;
+            
+            let rawUnit = match[2].trim();
+            // Normalize plurals (e.g., "no's", "tins" -> "no", "tin") for comparison
+            let type = rawUnit.replace(/[^a-z]/g, '');
+            if (type.endsWith('s')) type = type.slice(0, -1);
+
+            let base = num;
+            // Standardize metric units
+            if (['kg', 'kilogram'].includes(type)) { base = num * 1000; type = 'weight'; }
+            else if (['g', 'gm', 'gram'].includes(type)) { base = num; type = 'weight'; }
+            else if (['l', 'liter', 'litre'].includes(type)) { base = num * 1000; type = 'volume'; }
+            else if (['ml', 'milliliter'].includes(type)) { base = num; type = 'volume'; }
+            
+            return { base, type, origUnit: match[2].trim() || '' };
+          };
+
+          const a = parse(actual);
+          const o = parse(old);
+
+          // Only proceed if types match securely (can't subtract bags from kgs)
+          if (!a || !o || a.type !== o.type) return null;
+
+          const diff = a.base - o.base;
+          if (diff <= 0) return '0 ' + a.origUnit;
+
+          // Format back cleanly based on outcome volume
+          if (a.type === 'weight') {
+            if (diff >= 1000) return parseFloat((diff / 1000).toFixed(3)) + ' kg';
+            return parseFloat(diff.toFixed(2)) + ' g';
+          }
+          if (a.type === 'volume') {
+            if (diff >= 1000) return parseFloat((diff / 1000).toFixed(3)) + ' l';
+            return parseFloat(diff.toFixed(2)) + ' ml';
+          }
+
+          // Non-metric fallback
+          return parseFloat(diff.toFixed(2)) + (a.origUnit ? ' ' + a.origUnit : '');
+        } catch (e) {
+          return null;
+        }
+      };
+
       const getIconForCategory = (id) => {
         if(id === 'cat-1') return Icons.ShoppingCart;
         if(id === 'cat-2') return Icons.Vegetables;
@@ -431,7 +488,18 @@
               if (item.id !== itemId) return item;
               const currentValue = item[field] || '';
               const newValue = currentValue.trim().length > 0 ? `${currentValue} ${transcript}` : transcript;
-              return { ...item, [field]: newValue };
+              
+              const updatedItem = { ...item, [field]: newValue };
+
+              // Auto-calculate on voice input
+              if (field === 'quantity' || field === 'oldStock') {
+                const actual = updatedItem.quantity;
+                const old = updatedItem.oldStock;
+                const calc = calculatePurchaseQty(actual, old);
+                if (calc !== null) updatedItem.purchaseQuantity = calc;
+              }
+
+              return updatedItem;
             })
           };
         }));
@@ -444,7 +512,18 @@
             ...category,
             items: category.items.map(item => {
               if (item.id !== itemId) return item;
-              return { ...item, [field]: value };
+              
+              const updatedItem = { ...item, [field]: value };
+              
+              // Auto-calculate on typing
+              if (field === 'quantity' || field === 'oldStock') {
+                const actual = updatedItem.quantity;
+                const old = updatedItem.oldStock;
+                const calc = calculatePurchaseQty(actual, old);
+                if (calc !== null) updatedItem.purchaseQuantity = calc;
+              }
+
+              return updatedItem;
             })
           };
         }));
