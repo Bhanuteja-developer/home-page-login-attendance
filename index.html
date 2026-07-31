@@ -1254,11 +1254,11 @@
                           category.items.map((item, index) => (
                             <div key={item.id} onClick={() => setSelectedRow(item.id)} className={`flex items-start py-2 transition-all duration-300 cursor-pointer ${selectedRow === item.id ? 'bg-gradient-to-r from-orange-200/90 via-orange-100/80 to-orange-50/50 relative z-10 shadow-[inset_6px_0_0_0_#ea580c,0_4px_12px_-2px_rgba(234,88,12,0.15)] border-y border-orange-300/80' : 'bg-[#FCF9F2] hover:bg-orange-50/50'}`}>
                               
-                              <div style={{ width: colWidths.sno, minWidth: colWidths.sno }} className="shrink-0 flex items-center justify-center text-sm text-stone-400 font-semibold pt-1.5">
+                              <div style={{ width: colWidths.sno, minWidth: colWidths.sno }} className={`shrink-0 flex items-center justify-center text-sm text-stone-400 font-semibold pt-1.5 transition-colors ${selectedCol === 'sno' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
                                 {index + 1}
                               </div>
 
-                              <div style={{ width: colWidths.items, minWidth: colWidths.items }} className="shrink-0 px-1 sm:px-2 relative">
+                              <div style={{ width: colWidths.items, minWidth: colWidths.items }} className={`shrink-0 px-1 sm:px-2 relative transition-colors ${selectedCol === 'items' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
                                 <input 
                                   type="text"
                                   value={item.name}
@@ -1274,7 +1274,7 @@
                                 </button>
                               </div>
 
-                              <div style={{ width: colWidths.actual, minWidth: colWidths.actual }} className="shrink-0 px-1 relative border-l border-orange-100/40">
+                              <div style={{ width: colWidths.actual, minWidth: colWidths.actual }} className={`shrink-0 px-1 relative border-l border-orange-100/40 transition-colors ${selectedCol === 'actual' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
                                 <input 
                                   type="text"
                                   value={item.quantity || ''}
@@ -1290,7 +1290,7 @@
                                 </button>
                               </div>
 
-                              <div style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className="shrink-0 px-1 relative border-l border-orange-100/40">
+                              <div style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className={`shrink-0 px-1 relative border-l border-orange-100/40 transition-colors ${selectedCol === 'oldStock' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
                                 <input 
                                   type="text"
                                   value={item.oldStock || ''}
@@ -1306,7 +1306,7 @@
                                 </button>
                               </div>
 
-                              <div style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className="shrink-0 px-1 relative border-l border-orange-100/40">
+                              <div style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className={`shrink-0 px-1 relative border-l border-orange-100/40 transition-colors ${selectedCol === 'purchaseQuantity' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
                                 <input 
                                   type="text"
                                   value={item.purchaseQuantity || ''}
@@ -1322,7 +1322,7 @@
                                 </button>
                               </div>
 
-                              <div style={{ width: colWidths.actions, minWidth: colWidths.actions }} className="shrink-0 flex items-center justify-evenly pt-1.5 px-1 no-print border-l border-orange-100/40">
+                              <div style={{ width: colWidths.actions, minWidth: colWidths.actions }} className={`shrink-0 flex items-center justify-evenly pt-1.5 px-1 no-print border-l border-orange-100/40 transition-colors ${selectedCol === 'actions' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
                                 <button onClick={(e) => { e.stopPropagation(); insertRowAfter(category.id, index); }} className="text-stone-300 hover:text-orange-500 p-1">
                                   <Icons.Plus className="w-4 h-4" />
                                 </button>
