@@ -350,18 +350,57 @@
         setSelectedCol(prev => prev === colKey ? null : colKey);
       };
       
-      const getHeaderClasses = (colKey) => `shrink-0 flex items-center justify-center relative cursor-pointer transition-colors select-none ${selectedCol === colKey ? 'bg-orange-200/60' : 'hover:bg-orange-100/50'}`;
+      // Global deselect listener
+      useEffect(() => {
+        const handleClickOutside = (e) => {
+          // Deselect if we are not resizing and didn't click on a header
+          if (!isResizing && !e.target.closest('.cursor-pointer')) {
+            setSelectedCol(null);
+          }
+        };
+        window.addEventListener('click', handleClickOutside);
+        return () => window.removeEventListener('click', handleClickOutside);
+      }, [isResizing]);
 
-      const renderResizeHandle = (colKey) => {
+      const getHeaderClasses = (colKey) => {
+        const isCentered = colKey === 'sno' || colKey === 'actions';
+        const alignment = isCentered ? 'justify-center' : 'justify-start pl-2 sm:pl-3';
+        return `shrink-0 flex items-center relative cursor-pointer transition-colors select-none ${alignment} ${selectedCol === colKey ? 'bg-orange-200/60' : 'hover:bg-orange-100/50'}`;
+      };
+
+      const renderResizeHandles = (colKey) => {
         if (selectedCol !== colKey) return null;
+        
+        const prevColMap = {
+          'items': 'sno',
+          'actual': 'items',
+          'oldStock': 'actual',
+          'purchaseQuantity': 'oldStock',
+          'actions': 'purchaseQuantity'
+        };
+        const prevCol = prevColMap[colKey];
+
         return (
-          <div 
-            onMouseDown={(e) => startResize(e, colKey)}
-            onTouchStart={(e) => startResize(e, colKey)}
-            className="absolute -right-2 top-0 bottom-0 w-4 bg-orange-500 cursor-col-resize z-20 shadow-md flex items-center justify-center hover:bg-orange-600 active:bg-orange-700 transition-colors"
-          >
-            <div className="w-0.5 h-1/3 bg-white rounded-full"></div>
-          </div>
+          <>
+            {/* Left Handle */}
+            {prevCol && (
+              <div 
+                onMouseDown={(e) => startResize(e, prevCol)}
+                onTouchStart={(e) => startResize(e, prevCol)}
+                className="absolute -left-2 top-0 bottom-0 w-4 bg-orange-500 cursor-col-resize z-20 shadow-md flex items-center justify-center hover:bg-orange-600 active:bg-orange-700 transition-colors"
+              >
+                <div className="w-0.5 h-1/3 bg-white rounded-full"></div>
+              </div>
+            )}
+            {/* Right Handle */}
+            <div 
+              onMouseDown={(e) => startResize(e, colKey)}
+              onTouchStart={(e) => startResize(e, colKey)}
+              className="absolute -right-2 top-0 bottom-0 w-4 bg-orange-500 cursor-col-resize z-20 shadow-md flex items-center justify-center hover:bg-orange-600 active:bg-orange-700 transition-colors"
+            >
+              <div className="w-0.5 h-1/3 bg-white rounded-full"></div>
+            </div>
+          </>
         );
       };
 
@@ -1125,27 +1164,27 @@
                     <div className="flex bg-orange-50 text-orange-800 text-[11px] font-bold py-2 tracking-wider w-max border-b border-orange-100/60">
                       <div onClick={() => handleColSelect('sno')} style={{ width: colWidths.sno, minWidth: colWidths.sno }} className={getHeaderClasses('sno')}>
                         S.NO
-                        {renderResizeHandle('sno')}
+                        {renderResizeHandles('sno')}
                       </div>
-                      <div onClick={() => handleColSelect('items')} style={{ width: colWidths.items, minWidth: colWidths.items }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('items')}`}>
-                        ITEMS
-                        {renderResizeHandle('items')}
+                      <div onClick={() => handleColSelect('items')} style={{ width: colWidths.items, minWidth: colWidths.items }} className={`border-l border-orange-200/60 ${getHeaderClasses('items')}`}>
+                        <span className="w-full text-left block">ITEMS</span>
+                        {renderResizeHandles('items')}
                       </div>
-                      <div onClick={() => handleColSelect('actual')} style={{ width: colWidths.actual, minWidth: colWidths.actual }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('actual')}`}>
-                        ACTUAL QTY
-                        {renderResizeHandle('actual')}
+                      <div onClick={() => handleColSelect('actual')} style={{ width: colWidths.actual, minWidth: colWidths.actual }} className={`border-l border-orange-200/60 ${getHeaderClasses('actual')}`}>
+                        <span className="w-full text-left block">ACTUAL QTY</span>
+                        {renderResizeHandles('actual')}
                       </div>
-                      <div onClick={() => handleColSelect('oldStock')} style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('oldStock')}`}>
-                        OLD STOCK
-                        {renderResizeHandle('oldStock')}
+                      <div onClick={() => handleColSelect('oldStock')} style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className={`border-l border-orange-200/60 ${getHeaderClasses('oldStock')}`}>
+                        <span className="w-full text-left block">OLD STOCK</span>
+                        {renderResizeHandles('oldStock')}
                       </div>
-                      <div onClick={() => handleColSelect('purchaseQuantity')} style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('purchaseQuantity')}`}>
-                        PURCHASE QTY
-                        {renderResizeHandle('purchaseQuantity')}
+                      <div onClick={() => handleColSelect('purchaseQuantity')} style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className={`border-l border-orange-200/60 ${getHeaderClasses('purchaseQuantity')}`}>
+                        <span className="w-full text-left block">PURCHASE QTY</span>
+                        {renderResizeHandles('purchaseQuantity')}
                       </div>
                       <div onClick={() => handleColSelect('actions')} style={{ width: colWidths.actions, minWidth: colWidths.actions }} className={`border-l border-orange-200/60 no-print ${getHeaderClasses('actions')}`}>
                         ACTIONS
-                        {renderResizeHandle('actions')}
+                        {renderResizeHandles('actions')}
                       </div>
                     </div>
                   </div>
@@ -1184,27 +1223,27 @@
                       <div id={`native-header-${category.id}`} className="flex bg-orange-50 text-orange-800 text-[11px] font-bold py-2 border-b border-orange-100/60 tracking-wider">
                         <div onClick={() => handleColSelect('sno')} style={{ width: colWidths.sno, minWidth: colWidths.sno }} className={getHeaderClasses('sno')}>
                           S.NO
-                          {renderResizeHandle('sno')}
+                          {renderResizeHandles('sno')}
                         </div>
-                        <div onClick={() => handleColSelect('items')} style={{ width: colWidths.items, minWidth: colWidths.items }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('items')}`}>
-                          ITEMS
-                          {renderResizeHandle('items')}
+                        <div onClick={() => handleColSelect('items')} style={{ width: colWidths.items, minWidth: colWidths.items }} className={`border-l border-orange-200/60 ${getHeaderClasses('items')}`}>
+                          <span className="w-full text-left block">ITEMS</span>
+                          {renderResizeHandles('items')}
                         </div>
-                        <div onClick={() => handleColSelect('actual')} style={{ width: colWidths.actual, minWidth: colWidths.actual }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('actual')}`}>
-                          ACTUAL QTY
-                          {renderResizeHandle('actual')}
+                        <div onClick={() => handleColSelect('actual')} style={{ width: colWidths.actual, minWidth: colWidths.actual }} className={`border-l border-orange-200/60 ${getHeaderClasses('actual')}`}>
+                          <span className="w-full text-left block">ACTUAL QTY</span>
+                          {renderResizeHandles('actual')}
                         </div>
-                        <div onClick={() => handleColSelect('oldStock')} style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('oldStock')}`}>
-                          OLD STOCK
-                          {renderResizeHandle('oldStock')}
+                        <div onClick={() => handleColSelect('oldStock')} style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className={`border-l border-orange-200/60 ${getHeaderClasses('oldStock')}`}>
+                          <span className="w-full text-left block">OLD STOCK</span>
+                          {renderResizeHandles('oldStock')}
                         </div>
-                        <div onClick={() => handleColSelect('purchaseQuantity')} style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('purchaseQuantity')}`}>
-                          PURCHASE QTY
-                          {renderResizeHandle('purchaseQuantity')}
+                        <div onClick={() => handleColSelect('purchaseQuantity')} style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className={`border-l border-orange-200/60 ${getHeaderClasses('purchaseQuantity')}`}>
+                          <span className="w-full text-left block">PURCHASE QTY</span>
+                          {renderResizeHandles('purchaseQuantity')}
                         </div>
                         <div onClick={() => handleColSelect('actions')} style={{ width: colWidths.actions, minWidth: colWidths.actions }} className={`border-l border-orange-200/60 no-print ${getHeaderClasses('actions')}`}>
                           ACTIONS
-                          {renderResizeHandle('actions')}
+                          {renderResizeHandles('actions')}
                         </div>
                       </div>
 
