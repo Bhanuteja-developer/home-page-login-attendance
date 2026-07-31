@@ -293,6 +293,78 @@
       const [activeCategory, setActiveCategory] = useState('cat-1');
       const [searchQuery, setSearchQuery] = useState('');
 
+      // --- Column Resizing State ---
+      const [colWidths, setColWidths] = useState({
+        sno: 40,
+        items: 280,
+        actual: 120,
+        oldStock: 110,
+        purchaseQuantity: 130,
+        actions: 70
+      });
+      const [selectedCol, setSelectedCol] = useState(null);
+      const [isResizing, setIsResizing] = useState(null);
+      const startXRef = useRef(null);
+      const startWidthRef = useRef(null);
+
+      useEffect(() => {
+        const handleMove = (e) => {
+          if (!isResizing) return;
+          const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+          const deltaX = clientX - startXRef.current;
+          const newWidth = Math.max(40, startWidthRef.current + deltaX); // Min width 40px
+          setColWidths(prev => ({ ...prev, [isResizing]: newWidth }));
+        };
+
+        const handleEnd = () => {
+          if (isResizing) {
+            setIsResizing(null);
+            document.body.style.cursor = 'default';
+          }
+        };
+
+        if (isResizing) {
+          document.body.style.cursor = 'col-resize';
+          window.addEventListener('mousemove', handleMove);
+          window.addEventListener('mouseup', handleEnd);
+          window.addEventListener('touchmove', handleMove, { passive: false });
+          window.addEventListener('touchend', handleEnd);
+        }
+
+        return () => {
+          window.removeEventListener('mousemove', handleMove);
+          window.removeEventListener('mouseup', handleEnd);
+          window.removeEventListener('touchmove', handleMove);
+          window.removeEventListener('touchend', handleEnd);
+        };
+      }, [isResizing]);
+
+      const startResize = (e, colKey) => {
+        e.stopPropagation();
+        setIsResizing(colKey);
+        startXRef.current = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        startWidthRef.current = colWidths[colKey];
+      };
+
+      const handleColSelect = (colKey) => {
+        setSelectedCol(prev => prev === colKey ? null : colKey);
+      };
+      
+      const getHeaderClasses = (colKey) => `shrink-0 flex items-center justify-center relative cursor-pointer transition-colors select-none ${selectedCol === colKey ? 'bg-orange-200/60' : 'hover:bg-orange-100/50'}`;
+
+      const renderResizeHandle = (colKey) => {
+        if (selectedCol !== colKey) return null;
+        return (
+          <div 
+            onMouseDown={(e) => startResize(e, colKey)}
+            onTouchStart={(e) => startResize(e, colKey)}
+            className="absolute -right-2 top-0 bottom-0 w-4 bg-orange-500 cursor-col-resize z-20 shadow-md flex items-center justify-center hover:bg-orange-600 active:bg-orange-700 transition-colors"
+          >
+            <div className="w-0.5 h-1/3 bg-white rounded-full"></div>
+          </div>
+        );
+      };
+
       // Smart Math Engine for Unit Conversion and Subtraction
       const calculatePurchaseQty = (actual, old) => {
         try {
@@ -368,7 +440,8 @@
         setActiveCategory(categoryId);
         const element = document.getElementById(categoryId);
         if (element) {
-          const headerOffset = 230; 
+          const stickyBar = document.getElementById('sticky-top-bar');
+          const headerOffset = stickyBar ? stickyBar.getBoundingClientRect().bottom : 230; 
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
           
@@ -380,6 +453,63 @@
       };
 
       const recognitionRef = useRef(null);
+      const globalHeaderScrollRef = useRef(null);
+      const [showGlobalHeader, setShowGlobalHeader] = useState(false);
+
+      useEffect(() => {
+        const handleScroll = () => {
+          const stickyBar = document.getElementById('sticky-top-bar');
+          const headerOffset = stickyBar ? stickyBar.getBoundingClientRect().bottom : 230; 
+          
+          let currentActiveId = activeCategory;
+          let shouldShowGlobal = false;
+          let activeScrollId = null;
+
+          for (const cat of data) {
+            const element = document.getElementById(cat.id);
+            const headerElement = document.getElementById(`native-header-${cat.id}`);
+            
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              if (rect.top <= headerOffset + 50 && rect.bottom >= headerOffset) {
+                currentActiveId = cat.id;
+              }
+              
+              if (headerElement) {
+                const headerRect = headerElement.getBoundingClientRect();
+                // If native header hides above sticky bar, but table items are still visible below
+                if (headerRect.bottom <= headerOffset && rect.bottom > headerOffset + 40) {
+                  shouldShowGlobal = true;
+                  activeScrollId = cat.id;
+                }
+              }
+            }
+          }
+
+          if (currentActiveId !== activeCategory) {
+            setActiveCategory(currentActiveId);
+            const navElement = document.getElementById(`nav-${currentActiveId}`);
+            if (navElement && navElement.parentElement) {
+              const container = navElement.parentElement;
+              const scrollLeft = navElement.offsetLeft - (container.clientWidth / 2) + (navElement.clientWidth / 2);
+              container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            }
+          }
+          
+          setShowGlobalHeader(prev => prev !== shouldShowGlobal ? shouldShowGlobal : prev);
+          
+          // Sync the horizontal scroll instantly if visible
+          if (shouldShowGlobal && activeScrollId && globalHeaderScrollRef.current) {
+            const activeContainer = document.getElementById(`scroll-container-${activeScrollId}`);
+            if (activeContainer) {
+              globalHeaderScrollRef.current.scrollLeft = activeContainer.scrollLeft;
+            }
+          }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, [activeCategory, data]);
 
       useEffect(() => {
         const handleScroll = () => {
@@ -908,12 +1038,12 @@
           )}
 
           {toastMessage && (
-            <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-stone-800 text-white px-4 py-3 rounded-xl shadow-2xl text-sm transition-all text-center w-11/12 max-w-sm font-medium">
+            <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-[90] bg-stone-800 text-white px-4 py-3 rounded-xl shadow-2xl text-sm transition-all text-center w-11/12 max-w-sm font-medium">
               {toastMessage}
             </div>
           )}
 
-          <div className="sticky top-0 z-40 shadow-sm border-b border-orange-100/50 no-print">
+          <div id="sticky-top-bar" className="sticky top-0 z-40 shadow-sm border-b border-orange-100/50 no-print">
             <header className="bg-gradient-to-r from-orange-600 to-amber-500 text-white shadow-md relative z-20">
               <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
                 <div className="w-16 flex items-center">
@@ -986,6 +1116,42 @@
                 ))}
               </div>
             </div>
+
+            {/* Global Sub-Heading (Sticky Columns) */}
+            <div className={`overflow-hidden bg-[#FCF9F2]/95 backdrop-blur-sm ${showGlobalHeader ? 'block' : 'hidden'} border-t border-orange-200/60 shadow-md`}>
+              <div className="max-w-4xl mx-auto px-3 sm:px-4 py-1">
+                <div className="border-x border-orange-100/60 rounded-t-sm">
+                  <div ref={globalHeaderScrollRef} className="overflow-x-hidden bg-white">
+                    <div className="flex bg-orange-50 text-orange-800 text-[11px] font-bold py-2 tracking-wider w-max border-b border-orange-100/60">
+                      <div onClick={() => handleColSelect('sno')} style={{ width: colWidths.sno, minWidth: colWidths.sno }} className={getHeaderClasses('sno')}>
+                        S.NO
+                        {renderResizeHandle('sno')}
+                      </div>
+                      <div onClick={() => handleColSelect('items')} style={{ width: colWidths.items, minWidth: colWidths.items }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('items')}`}>
+                        ITEMS
+                        {renderResizeHandle('items')}
+                      </div>
+                      <div onClick={() => handleColSelect('actual')} style={{ width: colWidths.actual, minWidth: colWidths.actual }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('actual')}`}>
+                        ACTUAL QTY
+                        {renderResizeHandle('actual')}
+                      </div>
+                      <div onClick={() => handleColSelect('oldStock')} style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('oldStock')}`}>
+                        OLD STOCK
+                        {renderResizeHandle('oldStock')}
+                      </div>
+                      <div onClick={() => handleColSelect('purchaseQuantity')} style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('purchaseQuantity')}`}>
+                        PURCHASE QTY
+                        {renderResizeHandle('purchaseQuantity')}
+                      </div>
+                      <div onClick={() => handleColSelect('actions')} style={{ width: colWidths.actions, minWidth: colWidths.actions }} className={`border-l border-orange-200/60 no-print ${getHeaderClasses('actions')}`}>
+                        ACTIONS
+                        {renderResizeHandle('actions')}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <main className="max-w-4xl mx-auto p-3 sm:p-4 mt-2 space-y-8">
@@ -1005,15 +1171,41 @@
                     <h2 className="text-lg font-extrabold text-center drop-shadow-sm">{category.title}</h2>
                   </div>
 
-                  <div className="overflow-x-auto scrollbar-hide">
-                    <div className="min-w-[700px]">
-                      <div className="flex bg-orange-50 text-orange-800 text-[11px] font-bold px-2 py-2 border-b border-orange-100/60 tracking-wider">
-                        <div className="w-8 shrink-0 text-center">S.NO</div>
-                        <div className="flex-1 shrink-0 text-center border-l border-orange-200/60 pl-2">ITEMS</div>
-                        <div className="w-28 shrink-0 text-center border-l border-orange-200/60 pl-2">ACTUAL QTY</div>
-                        <div className="w-24 shrink-0 text-center border-l border-orange-200/60 pl-2">OLD STOCK</div>
-                        <div className="w-32 shrink-0 text-center border-l border-orange-200/60 pl-2">PURCHASE QTY</div>
-                        <div className="w-16 shrink-0 text-center border-l border-orange-200/60 no-print">ACTIONS</div>
+                  <div 
+                    id={`scroll-container-${category.id}`} 
+                    className="overflow-x-auto scrollbar-hide"
+                    onScroll={(e) => {
+                      if (globalHeaderScrollRef.current) {
+                        globalHeaderScrollRef.current.scrollLeft = e.currentTarget.scrollLeft;
+                      }
+                    }}
+                  >
+                    <div className="w-max">
+                      <div id={`native-header-${category.id}`} className="flex bg-orange-50 text-orange-800 text-[11px] font-bold py-2 border-b border-orange-100/60 tracking-wider">
+                        <div onClick={() => handleColSelect('sno')} style={{ width: colWidths.sno, minWidth: colWidths.sno }} className={getHeaderClasses('sno')}>
+                          S.NO
+                          {renderResizeHandle('sno')}
+                        </div>
+                        <div onClick={() => handleColSelect('items')} style={{ width: colWidths.items, minWidth: colWidths.items }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('items')}`}>
+                          ITEMS
+                          {renderResizeHandle('items')}
+                        </div>
+                        <div onClick={() => handleColSelect('actual')} style={{ width: colWidths.actual, minWidth: colWidths.actual }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('actual')}`}>
+                          ACTUAL QTY
+                          {renderResizeHandle('actual')}
+                        </div>
+                        <div onClick={() => handleColSelect('oldStock')} style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('oldStock')}`}>
+                          OLD STOCK
+                          {renderResizeHandle('oldStock')}
+                        </div>
+                        <div onClick={() => handleColSelect('purchaseQuantity')} style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className={`border-l border-orange-200/60 pl-2 ${getHeaderClasses('purchaseQuantity')}`}>
+                          PURCHASE QTY
+                          {renderResizeHandle('purchaseQuantity')}
+                        </div>
+                        <div onClick={() => handleColSelect('actions')} style={{ width: colWidths.actions, minWidth: colWidths.actions }} className={`border-l border-orange-200/60 no-print ${getHeaderClasses('actions')}`}>
+                          ACTIONS
+                          {renderResizeHandle('actions')}
+                        </div>
                       </div>
 
                       <div className="divide-y divide-stone-100/80">
@@ -1021,13 +1213,13 @@
                           <div className="p-6 text-center text-stone-400 text-sm font-medium bg-[#FCF9F2]">No items in this category.</div>
                         ) : (
                           category.items.map((item, index) => (
-                            <div key={item.id} onClick={() => setSelectedRow(item.id)} className={`flex items-start px-2 py-2 transition-all duration-300 cursor-pointer ${selectedRow === item.id ? 'bg-gradient-to-r from-orange-200/90 via-orange-100/80 to-orange-50/50 relative z-10 shadow-[inset_5px_0_0_0_#ea580c,0_4px_12px_-2px_rgba(234,88,12,0.15)] border-y border-orange-300/80' : 'bg-[#FCF9F2] hover:bg-orange-50/50'}`}>
+                            <div key={item.id} onClick={() => setSelectedRow(item.id)} className={`flex items-start py-2 transition-all duration-300 cursor-pointer ${selectedRow === item.id ? 'bg-gradient-to-r from-orange-200/90 via-orange-100/80 to-orange-50/50 relative z-10 shadow-[inset_6px_0_0_0_#ea580c,0_4px_12px_-2px_rgba(234,88,12,0.15)] border-y border-orange-300/80' : 'bg-[#FCF9F2] hover:bg-orange-50/50'}`}>
                               
-                              <div className="w-8 shrink-0 flex items-center justify-center text-sm text-stone-400 font-semibold pt-1.5">
+                              <div style={{ width: colWidths.sno, minWidth: colWidths.sno }} className="shrink-0 flex items-center justify-center text-sm text-stone-400 font-semibold pt-1.5">
                                 {index + 1}
                               </div>
 
-                              <div className="flex-1 shrink-0 px-1 sm:px-2 relative">
+                              <div style={{ width: colWidths.items, minWidth: colWidths.items }} className="shrink-0 px-1 sm:px-2 relative">
                                 <input 
                                   type="text"
                                   value={item.name}
@@ -1043,7 +1235,7 @@
                                 </button>
                               </div>
 
-                              <div className="w-28 shrink-0 px-1 relative border-l border-orange-100/40">
+                              <div style={{ width: colWidths.actual, minWidth: colWidths.actual }} className="shrink-0 px-1 relative border-l border-orange-100/40">
                                 <input 
                                   type="text"
                                   value={item.quantity || ''}
@@ -1059,7 +1251,7 @@
                                 </button>
                               </div>
 
-                              <div className="w-24 shrink-0 px-1 relative border-l border-orange-100/40">
+                              <div style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className="shrink-0 px-1 relative border-l border-orange-100/40">
                                 <input 
                                   type="text"
                                   value={item.oldStock || ''}
@@ -1075,7 +1267,7 @@
                                 </button>
                               </div>
 
-                              <div className="w-32 shrink-0 px-1 relative border-l border-orange-100/40">
+                              <div style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className="shrink-0 px-1 relative border-l border-orange-100/40">
                                 <input 
                                   type="text"
                                   value={item.purchaseQuantity || ''}
@@ -1091,7 +1283,7 @@
                                 </button>
                               </div>
 
-                              <div className="w-16 shrink-0 flex items-center justify-evenly pt-1.5 px-1 no-print border-l border-orange-100/40">
+                              <div style={{ width: colWidths.actions, minWidth: colWidths.actions }} className="shrink-0 flex items-center justify-evenly pt-1.5 px-1 no-print border-l border-orange-100/40">
                                 <button onClick={(e) => { e.stopPropagation(); insertRowAfter(category.id, index); }} className="text-stone-300 hover:text-orange-500 p-1">
                                   <Icons.Plus className="w-4 h-4" />
                                 </button>
