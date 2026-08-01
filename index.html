@@ -293,7 +293,7 @@
       const [activeCategory, setActiveCategory] = useState('cat-1');
       const [searchQuery, setSearchQuery] = useState('');
 
-      // --- Column Resizing State ---
+      // --- Column Resizing / Column Management State ---
       const [colWidths, setColWidths] = useState({
         sno: 40,
         items: 280,
@@ -302,6 +302,28 @@
         purchaseQuantity: 130,
         actions: 70
       });
+      // Order of columns as they appear left-to-right (supports inserting/removing columns)
+      const [colOrder, setColOrder] = useState(['sno', 'items', 'actual', 'oldStock', 'purchaseQuantity', 'actions']);
+      // Display labels for each column header
+      const [colLabels, setColLabels] = useState({
+        sno: 'S.NO',
+        items: 'ITEMS',
+        actual: 'ACTUAL QTY',
+        oldStock: 'OLD STOCK',
+        purchaseQuantity: 'PURCHASE QTY',
+        actions: 'ACTIONS'
+      });
+      // Maps a column key to the underlying item field it reads/writes (custom columns use their own key as the field)
+      const [colFieldMap, setColFieldMap] = useState({
+        items: 'name',
+        actual: 'quantity',
+        oldStock: 'oldStock',
+        purchaseQuantity: 'purchaseQuantity'
+      });
+      const [hiddenCols, setHiddenCols] = useState([]);
+      const [colClipboard, setColClipboard] = useState(null); // { colKey, field, values: { itemId: value } }
+      const [colMenuOpen, setColMenuOpen] = useState(null); // colKey whose options menu is open
+
       const [selectedCol, setSelectedCol] = useState(null);
       const [isResizing, setIsResizing] = useState(null);
       const startXRef = useRef(null);
@@ -347,15 +369,27 @@
       };
 
       const handleColSelect = (colKey) => {
-        setSelectedCol(prev => prev === colKey ? null : colKey);
+        if (selectedCol === colKey && colMenuOpen === colKey) {
+          setColMenuOpen(null);
+          setSelectedCol(null);
+        } else {
+          setSelectedCol(colKey);
+          setColMenuOpen(colKey);
+        }
+      };
+
+      const closeColMenu = () => {
+        setColMenuOpen(null);
+        setSelectedCol(null);
       };
       
       // Global deselect listener
       useEffect(() => {
         const handleClickOutside = (e) => {
-          // Deselect if we are not resizing and didn't click on a header
-          if (!isResizing && !e.target.closest('.cursor-pointer')) {
+          // Deselect if we are not resizing and didn't click on a header or its options menu
+          if (!isResizing && !e.target.closest('.cursor-pointer') && !e.target.closest('[data-col-menu]')) {
             setSelectedCol(null);
+            setColMenuOpen(null);
           }
         };
         window.addEventListener('click', handleClickOutside);
@@ -368,17 +402,14 @@
         return `shrink-0 flex items-center relative cursor-pointer transition-colors select-none ${alignment} ${selectedCol === colKey ? 'bg-orange-200/60' : 'hover:bg-orange-100/50'}`;
       };
 
+      const visibleColOrder = () => colOrder.filter(k => !hiddenCols.includes(k));
+
       const renderResizeHandles = (colKey) => {
         if (selectedCol !== colKey) return null;
-        
-        const prevColMap = {
-          'items': 'sno',
-          'actual': 'items',
-          'oldStock': 'actual',
-          'purchaseQuantity': 'oldStock',
-          'actions': 'purchaseQuantity'
-        };
-        const prevCol = prevColMap[colKey];
+
+        const visible = visibleColOrder();
+        const idx = visible.indexOf(colKey);
+        const prevCol = idx > 0 ? visible[idx - 1] : null;
 
         return (
           <>
@@ -696,6 +727,246 @@
             })
           };
         }));
+      };
+
+      // --- Column Actions: Cut / Copy / Paste / Clear / Insert / Delete / Sort / Hide / Unhide ---
+      const getColLabel = (colKey) => colLabels[colKey] || colKey;
+
+      const handleColCopy = (colKey) => {
+        const field = colFieldMap[colKey] || colKey;
+        const values = {};
+        data.forEach(cat => cat.items.forEach(item => { values[item.id] = item[field] || ''; }));
+        setColClipboard({ colKey, field, values });
+        showToast(`Copied column "${getColLabel(colKey)}"`);
+      };
+
+      const handleColClear = (colKey, silent) => {
+        const field = colFieldMap[colKey] || colKey;
+        updateData(prevData => prevData.map(cat => ({
+          ...cat,
+          items: cat.items.map(item => ({ ...item, [field]: '' }))
+        })));
+        if (!silent) showToast(`Cleared column "${getColLabel(colKey)}"`);
+      };
+
+      const handleColCut = (colKey) => {
+        handleColCopy(colKey);
+        handleColClear(colKey, true);
+        showToast(`Cut column "${getColLabel(colKey)}"`);
+      };
+
+      const handleColPaste = (colKey) => {
+        if (!colClipboard) { showToast('Nothing to paste'); return; }
+        const field = colFieldMap[colKey] || colKey;
+        updateData(prevData => prevData.map(cat => ({
+          ...cat,
+          items: cat.items.map(item => ({
+            ...item,
+            [field]: Object.prototype.hasOwnProperty.call(colClipboard.values, item.id) ? colClipboard.values[item.id] : (item[field] || '')
+          }))
+        })));
+        showToast(`Pasted into column "${getColLabel(colKey)}"`);
+      };
+
+      const handleSortColumn = (colKey, direction) => {
+        const field = colFieldMap[colKey] || colKey;
+        updateData(prevData => prevData.map(cat => {
+          const sortedItems = [...cat.items].sort((a, b) => {
+            const av = (a[field] || '').toString();
+            const bv = (b[field] || '').toString();
+            const an = parseFloat(av);
+            const bn = parseFloat(bv);
+            let cmp;
+            if (!isNaN(an) && !isNaN(bn) && av.trim() !== '' && bv.trim() !== '') {
+              cmp = an - bn;
+            } else {
+              cmp = av.localeCompare(bv, undefined, { sensitivity: 'base', numeric: true });
+            }
+            return direction === 'asc' ? cmp : -cmp;
+          });
+          return { ...cat, items: sortedItems };
+        }));
+        showToast(`Sorted "${getColLabel(colKey)}" ${direction === 'asc' ? 'ascending' : 'descending'}`);
+      };
+
+      const handleHideColumn = (colKey) => {
+        if (colKey === 'sno' || colKey === 'actions') { showToast("This column can't be hidden"); return; }
+        setHiddenCols(prev => prev.includes(colKey) ? prev : [...prev, colKey]);
+        showToast(`Hid column "${getColLabel(colKey)}"`);
+      };
+
+      const handleUnhideColumn = (colKey) => {
+        setHiddenCols(prev => prev.filter(k => k !== colKey));
+        showToast(`Unhid column "${getColLabel(colKey)}"`);
+      };
+
+      const handleInsertColumn = (colKey, side) => {
+        const label = window.prompt('Name for the new column:', 'New Column');
+        if (label === null) return; // cancelled
+        const newKey = `col_${Date.now()}`;
+        setColOrder(prev => {
+          const idx = prev.indexOf(colKey);
+          const insertAt = side === 'left' ? idx : idx + 1;
+          const next = [...prev];
+          next.splice(insertAt, 0, newKey);
+          return next;
+        });
+        setColLabels(prev => ({ ...prev, [newKey]: (label.trim() || 'New Column').toUpperCase() }));
+        setColWidths(prev => ({ ...prev, [newKey]: 130 }));
+        setColFieldMap(prev => ({ ...prev, [newKey]: newKey }));
+        updateData(prevData => prevData.map(cat => ({
+          ...cat,
+          items: cat.items.map(item => ({ ...item, [newKey]: '' }))
+        })));
+        showToast('Column inserted');
+      };
+
+      const handleDeleteColumn = (colKey) => {
+        if (colKey === 'sno' || colKey === 'actions') { showToast("This column can't be deleted"); return; }
+        if (!window.confirm(`Delete column "${getColLabel(colKey)}"? This will remove its data from every row.`)) return;
+        const field = colFieldMap[colKey] || colKey;
+        setColOrder(prev => prev.filter(k => k !== colKey));
+        setHiddenCols(prev => prev.filter(k => k !== colKey));
+        updateData(prevData => prevData.map(cat => ({
+          ...cat,
+          items: cat.items.map(item => {
+            const rest = { ...item };
+            delete rest[field];
+            return rest;
+          })
+        })));
+        showToast(`Deleted column "${getColLabel(colKey)}"`);
+      };
+
+      const runColAction = (action, colKey) => {
+        switch (action) {
+          case 'cut': handleColCut(colKey); break;
+          case 'copy': handleColCopy(colKey); break;
+          case 'paste': handleColPaste(colKey); break;
+          case 'clear': handleColClear(colKey); break;
+          case 'insertLeft': handleInsertColumn(colKey, 'left'); break;
+          case 'insertRight': handleInsertColumn(colKey, 'right'); break;
+          case 'delete': handleDeleteColumn(colKey); break;
+          case 'sortAsc': handleSortColumn(colKey, 'asc'); break;
+          case 'sortDesc': handleSortColumn(colKey, 'desc'); break;
+          case 'hide': handleHideColumn(colKey); break;
+          case 'unhide': handleUnhideColumn(colKey); break;
+          default: break;
+        }
+        closeColMenu();
+      };
+
+      const renderColMenu = (colKey) => {
+        const isData = colKey !== 'sno' && colKey !== 'actions';
+        const isHidden = hiddenCols.includes(colKey);
+        const itemClass = "w-full text-left px-3 py-1.5 text-xs font-semibold text-stone-600 hover:bg-orange-50 disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed transition-colors";
+        return (
+          <div
+            data-col-menu="true"
+            onClick={(e) => e.stopPropagation()}
+            className="absolute top-full left-0 mt-1 w-40 bg-white rounded-lg shadow-2xl border border-stone-200 z-30 py-1 no-print normal-case"
+          >
+            <button disabled={!isData} onClick={() => runColAction('cut', colKey)} className={itemClass}>Cut</button>
+            <button disabled={!isData} onClick={() => runColAction('copy', colKey)} className={itemClass}>Copy</button>
+            <button disabled={!isData || !colClipboard} onClick={() => runColAction('paste', colKey)} className={itemClass}>Paste</button>
+            <button disabled={!isData} onClick={() => runColAction('clear', colKey)} className={itemClass}>Clear</button>
+            <div className="my-1 border-t border-stone-100"></div>
+            <button onClick={() => runColAction('insertLeft', colKey)} className={itemClass}>Insert (Left)</button>
+            <button onClick={() => runColAction('insertRight', colKey)} className={itemClass}>Insert (Right)</button>
+            <button disabled={!isData} onClick={() => runColAction('delete', colKey)} className={`${itemClass} text-red-500`}>Delete</button>
+            <div className="my-1 border-t border-stone-100"></div>
+            <button disabled={!isData} onClick={() => runColAction('sortAsc', colKey)} className={itemClass}>Sort Ascending</button>
+            <button disabled={!isData} onClick={() => runColAction('sortDesc', colKey)} className={itemClass}>Sort Descending</button>
+            <div className="my-1 border-t border-stone-100"></div>
+            <button disabled={isHidden} onClick={() => runColAction('hide', colKey)} className={itemClass}>Hide</button>
+            <button disabled={!isHidden} onClick={() => runColAction('unhide', colKey)} className={itemClass}>Unhide</button>
+          </div>
+        );
+      };
+
+      // Generic header cell (used by both the sticky global header and each category's native header)
+      const renderHeaderCell = (colKey) => {
+        const width = colWidths[colKey] ?? 130;
+        const isHidden = hiddenCols.includes(colKey);
+        const isFirstVisible = visibleColOrder()[0] === colKey;
+
+        if (isHidden) {
+          return (
+            <div
+              key={colKey}
+              onClick={(e) => { e.stopPropagation(); handleColSelect(colKey); }}
+              style={{ width: 12, minWidth: 12 }}
+              title={`${getColLabel(colKey)} (hidden) — click to manage`}
+              className="shrink-0 relative border-l border-orange-300/60 bg-orange-100 hover:bg-orange-200 cursor-pointer flex items-center justify-center"
+            >
+              <span className="text-orange-400 text-[9px] leading-none">⋮</span>
+              {colMenuOpen === colKey && renderColMenu(colKey)}
+            </div>
+          );
+        }
+
+        return (
+          <div
+            key={colKey}
+            onClick={() => handleColSelect(colKey)}
+            style={{ width, minWidth: width }}
+            className={`${!isFirstVisible ? 'border-l border-orange-200/60' : ''} ${getHeaderClasses(colKey)}`}
+          >
+            <span className="w-full text-left block truncate">{getColLabel(colKey)}</span>
+            {renderResizeHandles(colKey)}
+            {colMenuOpen === colKey && renderColMenu(colKey)}
+          </div>
+        );
+      };
+
+      // Generic row cell (used for every row in every category)
+      const renderRowCell = (colKey, category, item, index) => {
+        const width = colWidths[colKey] ?? 130;
+        const isHidden = hiddenCols.includes(colKey);
+
+        if (isHidden) {
+          return <div key={colKey} style={{ width: 12, minWidth: 12 }} className="shrink-0 border-l border-orange-100/40 bg-orange-50/60"></div>;
+        }
+
+        if (colKey === 'sno') {
+          return (
+            <div key={colKey} style={{ width, minWidth: width }} className={`shrink-0 flex items-center justify-center text-sm text-stone-400 font-semibold pt-1.5 transition-colors ${selectedCol === 'sno' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
+              {index + 1}
+            </div>
+          );
+        }
+
+        if (colKey === 'actions') {
+          return (
+            <div key={colKey} style={{ width, minWidth: width }} className={`shrink-0 flex items-center justify-evenly pt-1.5 px-1 no-print border-l border-orange-100/40 transition-colors ${selectedCol === 'actions' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
+              <button onClick={(e) => { e.stopPropagation(); insertRowAfter(category.id, index); }} className="text-stone-300 hover:text-orange-500 p-1">
+                <Icons.Plus className="w-4 h-4" />
+              </button>
+              <button onClick={(e) => { e.stopPropagation(); requestDeleteRow(category.id, item.id); }} className="text-stone-300 hover:text-red-400 p-1">
+                <Icons.Trash className="w-4 h-4" />
+              </button>
+            </div>
+          );
+        }
+
+        const field = colFieldMap[colKey] || colKey;
+        return (
+          <div key={colKey} style={{ width, minWidth: width }} className={`shrink-0 px-1 sm:px-2 relative border-l border-orange-100/40 transition-colors ${selectedCol === colKey ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
+            <input
+              type="text"
+              value={item[field] || ''}
+              onChange={(e) => handleInputChange(category.id, item.id, field, e.target.value)}
+              placeholder={getColLabel(colKey)}
+              className="w-full bg-transparent border-none text-sm font-medium text-stone-800 placeholder-stone-300 focus:outline-none focus:ring-0 pr-7 py-1.5"
+            />
+            <button
+              onClick={(e) => { e.stopPropagation(); toggleVoiceInput(category.id, item.id, field); }}
+              className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 text-stone-300 hover:text-orange-500 p-0.5 no-print"
+            >
+              {checkIsListening(category.id, item.id, field) ? <Icons.MicActive className="w-3.5 h-3.5" /> : <Icons.Mic className="w-3.5 h-3.5" />}
+            </button>
+          </div>
+        );
       };
 
       const addRow = (categoryId) => {
@@ -1162,30 +1433,7 @@
                 <div className="border-x border-orange-100/60 rounded-t-sm">
                   <div ref={globalHeaderScrollRef} className="overflow-x-hidden bg-white">
                     <div className="flex bg-orange-50 text-orange-800 text-[11px] font-bold py-2 tracking-wider w-max border-b border-orange-100/60">
-                      <div onClick={() => handleColSelect('sno')} style={{ width: colWidths.sno, minWidth: colWidths.sno }} className={getHeaderClasses('sno')}>
-                        S.NO
-                        {renderResizeHandles('sno')}
-                      </div>
-                      <div onClick={() => handleColSelect('items')} style={{ width: colWidths.items, minWidth: colWidths.items }} className={`border-l border-orange-200/60 ${getHeaderClasses('items')}`}>
-                        <span className="w-full text-left block">ITEMS</span>
-                        {renderResizeHandles('items')}
-                      </div>
-                      <div onClick={() => handleColSelect('actual')} style={{ width: colWidths.actual, minWidth: colWidths.actual }} className={`border-l border-orange-200/60 ${getHeaderClasses('actual')}`}>
-                        <span className="w-full text-left block">ACTUAL QTY</span>
-                        {renderResizeHandles('actual')}
-                      </div>
-                      <div onClick={() => handleColSelect('oldStock')} style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className={`border-l border-orange-200/60 ${getHeaderClasses('oldStock')}`}>
-                        <span className="w-full text-left block">OLD STOCK</span>
-                        {renderResizeHandles('oldStock')}
-                      </div>
-                      <div onClick={() => handleColSelect('purchaseQuantity')} style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className={`border-l border-orange-200/60 ${getHeaderClasses('purchaseQuantity')}`}>
-                        <span className="w-full text-left block">PURCHASE QTY</span>
-                        {renderResizeHandles('purchaseQuantity')}
-                      </div>
-                      <div onClick={() => handleColSelect('actions')} style={{ width: colWidths.actions, minWidth: colWidths.actions }} className={`border-l border-orange-200/60 no-print ${getHeaderClasses('actions')}`}>
-                        ACTIONS
-                        {renderResizeHandles('actions')}
-                      </div>
+                      {colOrder.map(colKey => renderHeaderCell(colKey))}
                     </div>
                   </div>
                 </div>
@@ -1221,30 +1469,7 @@
                   >
                     <div className="w-max">
                       <div id={`native-header-${category.id}`} className="flex bg-orange-50 text-orange-800 text-[11px] font-bold py-2 border-b border-orange-100/60 tracking-wider">
-                        <div onClick={() => handleColSelect('sno')} style={{ width: colWidths.sno, minWidth: colWidths.sno }} className={getHeaderClasses('sno')}>
-                          S.NO
-                          {renderResizeHandles('sno')}
-                        </div>
-                        <div onClick={() => handleColSelect('items')} style={{ width: colWidths.items, minWidth: colWidths.items }} className={`border-l border-orange-200/60 ${getHeaderClasses('items')}`}>
-                          <span className="w-full text-left block">ITEMS</span>
-                          {renderResizeHandles('items')}
-                        </div>
-                        <div onClick={() => handleColSelect('actual')} style={{ width: colWidths.actual, minWidth: colWidths.actual }} className={`border-l border-orange-200/60 ${getHeaderClasses('actual')}`}>
-                          <span className="w-full text-left block">ACTUAL QTY</span>
-                          {renderResizeHandles('actual')}
-                        </div>
-                        <div onClick={() => handleColSelect('oldStock')} style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className={`border-l border-orange-200/60 ${getHeaderClasses('oldStock')}`}>
-                          <span className="w-full text-left block">OLD STOCK</span>
-                          {renderResizeHandles('oldStock')}
-                        </div>
-                        <div onClick={() => handleColSelect('purchaseQuantity')} style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className={`border-l border-orange-200/60 ${getHeaderClasses('purchaseQuantity')}`}>
-                          <span className="w-full text-left block">PURCHASE QTY</span>
-                          {renderResizeHandles('purchaseQuantity')}
-                        </div>
-                        <div onClick={() => handleColSelect('actions')} style={{ width: colWidths.actions, minWidth: colWidths.actions }} className={`border-l border-orange-200/60 no-print ${getHeaderClasses('actions')}`}>
-                          ACTIONS
-                          {renderResizeHandles('actions')}
-                        </div>
+                        {colOrder.map(colKey => renderHeaderCell(colKey))}
                       </div>
 
                       <div className="divide-y divide-stone-100/80">
@@ -1253,83 +1478,7 @@
                         ) : (
                           category.items.map((item, index) => (
                             <div key={item.id} onClick={() => setSelectedRow(item.id)} className={`flex items-start py-2 transition-all duration-300 cursor-pointer ${selectedRow === item.id ? 'bg-gradient-to-r from-orange-200/90 via-orange-100/80 to-orange-50/50 relative z-10 shadow-[inset_6px_0_0_0_#ea580c,0_4px_12px_-2px_rgba(234,88,12,0.15)] border-y border-orange-300/80' : 'bg-[#FCF9F2] hover:bg-orange-50/50'}`}>
-                              
-                              <div style={{ width: colWidths.sno, minWidth: colWidths.sno }} className={`shrink-0 flex items-center justify-center text-sm text-stone-400 font-semibold pt-1.5 transition-colors ${selectedCol === 'sno' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
-                                {index + 1}
-                              </div>
-
-                              <div style={{ width: colWidths.items, minWidth: colWidths.items }} className={`shrink-0 px-1 sm:px-2 relative transition-colors ${selectedCol === 'items' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
-                                <input 
-                                  type="text"
-                                  value={item.name}
-                                  onChange={(e) => handleInputChange(category.id, item.id, 'name', e.target.value)}
-                                  placeholder="Item name"
-                                  className="w-full bg-transparent border-none text-sm font-medium text-stone-800 placeholder-stone-300 focus:outline-none focus:ring-0 pr-7 py-1.5"
-                                />
-                                <button 
-                                  onClick={(e) => { e.stopPropagation(); toggleVoiceInput(category.id, item.id, 'name'); }}
-                                  className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-stone-300 hover:text-orange-500 p-1 no-print"
-                                >
-                                  {checkIsListening(category.id, item.id, 'name') ? <Icons.MicActive /> : <Icons.Mic />}
-                                </button>
-                              </div>
-
-                              <div style={{ width: colWidths.actual, minWidth: colWidths.actual }} className={`shrink-0 px-1 relative border-l border-orange-100/40 transition-colors ${selectedCol === 'actual' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
-                                <input 
-                                  type="text"
-                                  value={item.quantity || ''}
-                                  onChange={(e) => handleInputChange(category.id, item.id, 'quantity', e.target.value)}
-                                  placeholder="Actual Qty"
-                                  className="w-full bg-transparent border-none text-sm font-medium text-stone-800 placeholder-stone-300 focus:outline-none focus:ring-0 pr-7 py-1.5"
-                                />
-                                <button 
-                                  onClick={(e) => { e.stopPropagation(); toggleVoiceInput(category.id, item.id, 'quantity'); }}
-                                  className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 text-stone-300 hover:text-orange-500 p-0.5 no-print"
-                                >
-                                  {checkIsListening(category.id, item.id, 'quantity') ? <Icons.MicActive className="w-3.5 h-3.5" /> : <Icons.Mic className="w-3.5 h-3.5" />}
-                                </button>
-                              </div>
-
-                              <div style={{ width: colWidths.oldStock, minWidth: colWidths.oldStock }} className={`shrink-0 px-1 relative border-l border-orange-100/40 transition-colors ${selectedCol === 'oldStock' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
-                                <input 
-                                  type="text"
-                                  value={item.oldStock || ''}
-                                  onChange={(e) => handleInputChange(category.id, item.id, 'oldStock', e.target.value)}
-                                  placeholder="Old Stock"
-                                  className="w-full bg-transparent border-none text-sm font-medium text-stone-800 placeholder-stone-300 focus:outline-none focus:ring-0 pr-7 py-1.5"
-                                />
-                                <button 
-                                  onClick={(e) => { e.stopPropagation(); toggleVoiceInput(category.id, item.id, 'oldStock'); }}
-                                  className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 text-stone-300 hover:text-orange-500 p-0.5 no-print"
-                                >
-                                  {checkIsListening(category.id, item.id, 'oldStock') ? <Icons.MicActive className="w-3.5 h-3.5" /> : <Icons.Mic className="w-3.5 h-3.5" />}
-                                </button>
-                              </div>
-
-                              <div style={{ width: colWidths.purchaseQuantity, minWidth: colWidths.purchaseQuantity }} className={`shrink-0 px-1 relative border-l border-orange-100/40 transition-colors ${selectedCol === 'purchaseQuantity' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
-                                <input 
-                                  type="text"
-                                  value={item.purchaseQuantity || ''}
-                                  onChange={(e) => handleInputChange(category.id, item.id, 'purchaseQuantity', e.target.value)}
-                                  placeholder="Purchase Qty"
-                                  className="w-full bg-transparent border-none text-sm font-medium text-stone-800 placeholder-stone-300 focus:outline-none focus:ring-0 pr-7 py-1.5"
-                                />
-                                <button 
-                                  onClick={(e) => { e.stopPropagation(); toggleVoiceInput(category.id, item.id, 'purchaseQuantity'); }}
-                                  className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 text-stone-300 hover:text-orange-500 p-0.5 no-print"
-                                >
-                                  {checkIsListening(category.id, item.id, 'purchaseQuantity') ? <Icons.MicActive className="w-3.5 h-3.5" /> : <Icons.Mic className="w-3.5 h-3.5" />}
-                                </button>
-                              </div>
-
-                              <div style={{ width: colWidths.actions, minWidth: colWidths.actions }} className={`shrink-0 flex items-center justify-evenly pt-1.5 px-1 no-print border-l border-orange-100/40 transition-colors ${selectedCol === 'actions' ? 'bg-orange-200/40 shadow-[inset_0_0_0_1px_rgba(251,146,60,0.2)]' : ''}`}>
-                                <button onClick={(e) => { e.stopPropagation(); insertRowAfter(category.id, index); }} className="text-stone-300 hover:text-orange-500 p-1">
-                                  <Icons.Plus className="w-4 h-4" />
-                                </button>
-                                <button onClick={(e) => { e.stopPropagation(); requestDeleteRow(category.id, item.id); }} className="text-stone-300 hover:text-red-400 p-1">
-                                  <Icons.Trash className="w-4 h-4" />
-                                </button>
-                              </div>
+                              {colOrder.map(colKey => renderRowCell(colKey, category, item, index))}
                             </div>
                           ))
                         )}
