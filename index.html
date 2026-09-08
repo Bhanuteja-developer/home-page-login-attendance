@@ -571,6 +571,7 @@
         /* Fullscreen Analysis View Styles */
         body.fullscreen-active {
             overflow: hidden !important;
+            touch-action: none; /* Prevent scroll bouncing on mobile */
         }
 
         .fullscreen-landscape {
@@ -578,50 +579,69 @@
             top: 0 !important;
             left: 0 !important;
             /* In portrait device orientation, this CSS rotates it to visually fill landscape */
-            width: 100vh !important; 
-            height: 100vw !important; 
-            transform-origin: top left !important;
+            width: 100dvh !important; 
+            height: 100dvw !important; 
+            transform-origin: 0 0 !important;
             transform: rotate(90deg) translateY(-100%) !important;
             z-index: 99999 !important;
             background-color: var(--color-surface) !important;
             border-radius: 0 !important;
             border: none !important;
             margin: 0 !important;
-            padding: max(var(--spacing-xl), 24px) !important; 
+            padding: max(var(--spacing-md), 16px) max(var(--spacing-xl), 32px) !important; 
             box-shadow: none !important;
             display: flex !important;
             flex-direction: column !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+        }
+
+        /* Fallback for browsers without dvh/dvw */
+        @supports not (height: 100dvh) {
+            .fullscreen-landscape {
+                width: 100vh !important;
+                height: 100vw !important;
+            }
         }
 
         /* If device is naturally in landscape, reset the rotation fakeout */
         @media (orientation: landscape) {
             .fullscreen-landscape {
                 transform: none !important;
-                width: 100vw !important;
+                width: 100vw !important; 
                 height: 100vh !important;
+            }
+            @supports (height: 100dvh) {
+                .fullscreen-landscape {
+                    width: 100dvw !important;
+                    height: 100dvh !important;
+                }
             }
         }
 
         /* Adjust content inside fullscreen mode */
         .fullscreen-landscape .chart-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            margin-top: var(--spacing-lg);
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            margin-top: var(--spacing-lg) !important;
+            min-height: 0 !important; /* Crucial for nested flex overflow */
         }
 
         /* Ensure active view expands fully */
-        .fullscreen-landscape #view-aug-trend[style*="display: block"],
-        .fullscreen-landscape #view-aug-bar[style*="display: block"] {
+        .fullscreen-landscape #view-aug-trend,
+        .fullscreen-landscape #view-aug-bar {
             display: flex !important; 
-            flex-direction: column;
-            flex: 1;
+            flex-direction: column !important;
+            flex: 1 !important;
+            min-height: 0 !important;
         }
 
         .fullscreen-landscape .line-chart-container {
-            flex: 1;
-            height: auto !important; 
-            min-height: 200px;
+            flex: 1 !important;
+            height: 100% !important; 
+            min-height: 0 !important;
+            width: 100% !important;
         }
         
         .fullscreen-landscape .chart-labels {
@@ -977,11 +997,14 @@
 <stop offset="100%" stop-color="#7B4DFF" stop-opacity="0"></stop>
 </linearGradient>
 </defs>
+<!-- Grid Lines -->
 <line stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="310" y1="100" y2="100"></line>
 <line stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="310" y1="60" y2="60"></line>
 <line stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="310" y1="20" y2="20"></line>
+<!-- Area Fill -->
 <path d="M 0 110 L 10 105 L 20 100 L 30 102 L 40 70 L 50 105 L 60 100 L 70 85 L 80 102 L 90 95 L 100 40 L 110 110 L 120 105 L 130 95 L 140 100 L 150 80 L 160 105 L 170 108 L 180 102 L 190 105 L 200 10 L 210 110 L 220 105 L 230 102 L 240 105 L 250 102 L 260 110 L 270 95 L 280 102 L 290 100 L 300 105 L 310 110 L 310 120 L 0 120 Z" fill="url(#augFillGrad)"></path>
-<path d="M 0 110 C 5 110, 5 105, 10 105 C 15 105, 15 100, 20 100 C 25 100, 35 102, 40 70 C 45 38, 45 105, 50 105 C 55 105, 65 100, 70 85 C 75 70, 85 102, 90 95 C 95 88, 95 40, 100 40 C 105 40, 105 110, 110 110 C 115 110, 125 105, 130 95 C 135 85, 145 100, 150 80 C 155 60, 155 105, 160 105 C 165 105, 195 105, 200 10 C 205 10, 205 110, 210 110 C 215 110, 305 105, 310 110" fill="none" stroke="url(#augTrendGrad)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Line Path (Peaks at Day 4, 10, 20) with non-scaling-stroke added -->
+<path d="M 0 110 C 5 110, 5 105, 10 105 C 15 105, 15 100, 20 100 C 25 100, 35 102, 40 70 C 45 38, 45 105, 50 105 C 55 105, 65 100, 70 85 C 75 70, 85 102, 90 95 C 95 88, 95 40, 100 40 C 105 40, 105 110, 110 110 C 115 110, 125 105, 130 95 C 135 85, 145 100, 150 80 C 155 60, 155 105, 160 105 C 165 105, 195 105, 200 10 C 205 10, 205 110, 210 110 C 215 110, 305 105, 310 110" fill="none" stroke="url(#augTrendGrad)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" vector-effect="non-scaling-stroke"></path>
 </svg>
 </div>
 <div class="chart-labels text-label-sm">
@@ -1031,7 +1054,89 @@
 </svg>
 </div>
 <div class="chart-labels text-label-sm">
-<span class="">1st</span><span class="">10th</span><span class="">20th</span><span class="">31st</span>
+<span class="">1st</span>
+<span class="">10th</span>
+<span class="">20th</span>
+<span class="">31st</span>
+</div>
+</div>
+<div id="view-aug-bar" style="display: none;">
+<div class="line-chart-container" style="height: 160px; margin-top: var(--spacing-sm);">
+<svg height="100%" preserveAspectRatio="none" viewBox="0 0 310 160" width="100%" style="overflow: visible;">
+<defs>
+<linearGradient id="augBarGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#7B4DFF"></stop>
+<stop offset="100%" stop-color="#FF6B3D"></stop>
+</linearGradient>
+</defs>
+<!-- Bars representing daily fluctuations with text amounts -->
+<g font-size="7" font-family="var(--font-family)" font-weight="600" fill="var(--color-on-surface-variant)" text-anchor="start">
+<rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="2" y="155"></rect>
+<text transform="rotate(-90 5 152)" x="5" y="152">₹150</text>
+<rect fill="url(#augBarGrad)" height="16" rx="2" width="6" x="12" y="144"></rect>
+<text transform="rotate(-90 15 141)" x="15" y="141">₹450</text>
+<rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="22" y="156"></rect>
+<text transform="rotate(-90 25 153)" x="25" y="153">₹120</text>
+<rect fill="url(#augBarGrad)" height="42" rx="2" width="6" x="32" y="118"></rect>
+<text transform="rotate(-90 35 115)" x="35" y="115">₹1,200</text>
+<rect fill="url(#augBarGrad)" height="3" rx="2" width="6" x="42" y="157"></rect>
+<text transform="rotate(-90 45 154)" x="45" y="154">₹80</text>
+<rect fill="url(#augBarGrad)" height="7" rx="2" width="6" x="52" y="153"></rect>
+<text transform="rotate(-90 55 150)" x="55" y="150">₹200</text>
+<rect fill="url(#augBarGrad)" height="19" rx="2" width="6" x="62" y="141"></rect>
+<text transform="rotate(-90 65 138)" x="65" y="138">₹550</text>
+<rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="72" y="156"></rect>
+<text transform="rotate(-90 75 153)" x="75" y="153">₹100</text>
+<rect fill="url(#augBarGrad)" height="11" rx="2" width="6" x="82" y="149"></rect>
+<text transform="rotate(-90 85 146)" x="85" y="146">₹300</text>
+<rect fill="url(#augBarGrad)" height="74" rx="2" width="6" x="92" y="86"></rect>
+<text transform="rotate(-90 95 83)" x="95" y="83">₹2,100</text>
+<rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="102" y="160"></rect>
+<rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="112" y="155"></rect>
+<text transform="rotate(-90 115 152)" x="115" y="152">₹150</text>
+<rect fill="url(#augBarGrad)" height="14" rx="2" width="6" x="122" y="146"></rect>
+<text transform="rotate(-90 125 143)" x="125" y="143">₹400</text>
+<rect fill="url(#augBarGrad)" height="8" rx="2" width="6" x="132" y="152"></rect>
+<text transform="rotate(-90 135 149)" x="135" y="149">₹220</text>
+<rect fill="url(#augBarGrad)" height="30" rx="2" width="6" x="142" y="130"></rect>
+<text transform="rotate(-90 145 127)" x="145" y="127">₹850</text>
+<rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="152" y="156"></rect>
+<text transform="rotate(-90 155 153)" x="155" y="153">₹110</text>
+<rect fill="url(#augBarGrad)" height="3" rx="2" width="6" x="162" y="157"></rect>
+<text transform="rotate(-90 165 154)" x="165" y="154">₹90</text>
+<rect fill="url(#augBarGrad)" height="11" rx="2" width="6" x="172" y="149"></rect>
+<text transform="rotate(-90 175 146)" x="175" y="146">₹310</text>
+<rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="182" y="155"></rect>
+<text transform="rotate(-90 185 152)" x="185" y="152">₹140</text>
+<rect fill="url(#augBarGrad)" height="120" rx="2" width="6" x="192" y="40"></rect>
+<text transform="rotate(-90 195 37)" x="195" y="37">₹3,400</text>
+<rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="202" y="160"></rect>
+<rect fill="url(#augBarGrad)" height="6" rx="2" width="6" x="212" y="154"></rect>
+<text transform="rotate(-90 215 151)" x="215" y="151">₹180</text>
+<rect fill="url(#augBarGrad)" height="9" rx="2" width="6" x="222" y="151"></rect>
+<text transform="rotate(-90 225 148)" x="225" y="148">₹250</text>
+<rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="232" y="156"></rect>
+<text transform="rotate(-90 235 153)" x="235" y="153">₹100</text>
+<rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="242" y="155"></rect>
+<text transform="rotate(-90 245 152)" x="245" y="152">₹150</text>
+<rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="252" y="160"></rect>
+<rect fill="url(#augBarGrad)" height="16" rx="2" width="6" x="262" y="144"></rect>
+<text transform="rotate(-90 265 141)" x="265" y="141">₹450</text>
+<rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="272" y="156"></rect>
+<text transform="rotate(-90 275 153)" x="275" y="153">₹120</text>
+<rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="282" y="155"></rect>
+<text transform="rotate(-90 285 152)" x="285" y="152">₹130</text>
+<rect fill="url(#augBarGrad)" height="6" rx="2" width="6" x="292" y="154"></rect>
+<text transform="rotate(-90 295 151)" x="295" y="151">₹160</text>
+<rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="302" y="160"></rect>
+</g>
+</svg>
+</div>
+<div class="chart-labels text-label-sm">
+<span class="">1st</span>
+<span class="">10th</span>
+<span class="">20th</span>
+<span class="">31st</span>
 </div>
 </div>
 </div>
