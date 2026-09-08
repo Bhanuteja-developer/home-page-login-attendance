@@ -628,13 +628,18 @@
             min-height: 0 !important; /* Crucial for nested flex overflow */
         }
 
-        /* Ensure active view expands fully */
-        .fullscreen-landscape #view-aug-trend,
-        .fullscreen-landscape #view-aug-bar {
+        /* Ensure active view expands fully, while respecting hidden states */
+        .fullscreen-landscape #view-aug-trend[style*="block"],
+        .fullscreen-landscape #view-aug-bar[style*="block"] {
             display: flex !important; 
             flex-direction: column !important;
             flex: 1 !important;
             min-height: 0 !important;
+        }
+        
+        .fullscreen-landscape #view-aug-trend[style*="none"],
+        .fullscreen-landscape #view-aug-bar[style*="none"] {
+            display: none !important;
         }
 
         .fullscreen-landscape .line-chart-container {
@@ -1009,55 +1014,6 @@
 </div>
 <div class="chart-labels text-label-sm">
 <span class="">1st</span><span class="">10th</span><span class="">20th</span><span class="">31st</span>
-</div>
-</div>
-<div id="view-aug-bar" style="display: none;">
-<div class="line-chart-container" style="height: 160px; margin-top: var(--spacing-sm);">
-<svg height="100%" preserveAspectRatio="none" viewBox="0 0 310 160" width="100%">
-<defs>
-<linearGradient id="augBarGrad" x1="0" x2="0" y1="0" y2="1">
-<stop offset="0%" stop-color="#7B4DFF"></stop>
-<stop offset="100%" stop-color="#FF6B3D"></stop>
-</linearGradient>
-</defs>
-<rect fill="url(#augBarGrad)" height="7" rx="2" width="6" x="2" y="153"></rect>
-<rect fill="url(#augBarGrad)" height="21" rx="2" width="6" x="12" y="139"></rect>
-<rect fill="url(#augBarGrad)" height="6" rx="2" width="6" x="22" y="154"></rect>
-<rect fill="url(#augBarGrad)" height="56" rx="2" width="6" x="32" y="104"></rect>
-<rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="42" y="156"></rect>
-<rect fill="url(#augBarGrad)" height="9" rx="2" width="6" x="52" y="151"></rect>
-<rect fill="url(#augBarGrad)" height="26" rx="2" width="6" x="62" y="134"></rect>
-<rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="72" y="155"></rect>
-<rect fill="url(#augBarGrad)" height="14" rx="2" width="6" x="82" y="146"></rect>
-<rect fill="url(#augBarGrad)" height="99" rx="2" width="6" x="92" y="61"></rect>
-<rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="102" y="160"></rect>
-<rect fill="url(#augBarGrad)" height="7" rx="2" width="6" x="112" y="153"></rect>
-<rect fill="url(#augBarGrad)" height="19" rx="2" width="6" x="122" y="141"></rect>
-<rect fill="url(#augBarGrad)" height="10" rx="2" width="6" x="132" y="150"></rect>
-<rect fill="url(#augBarGrad)" height="40" rx="2" width="6" x="142" y="120"></rect>
-<rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="152" y="155"></rect>
-<rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="162" y="156"></rect>
-<rect fill="url(#augBarGrad)" height="15" rx="2" width="6" x="172" y="145"></rect>
-<rect fill="url(#augBarGrad)" height="7" rx="2" width="6" x="182" y="153"></rect>
-<rect fill="url(#augBarGrad)" height="160" rx="2" width="6" x="192" y="0"></rect>
-<rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="202" y="160"></rect>
-<rect fill="url(#augBarGrad)" height="8" rx="2" width="6" x="212" y="152"></rect>
-<rect fill="url(#augBarGrad)" height="12" rx="2" width="6" x="222" y="148"></rect>
-<rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="232" y="155"></rect>
-<rect fill="url(#augBarGrad)" height="7" rx="2" width="6" x="242" y="153"></rect>
-<rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="252" y="160"></rect>
-<rect fill="url(#augBarGrad)" height="21" rx="2" width="6" x="262" y="139"></rect>
-<rect fill="url(#augBarGrad)" height="6" rx="2" width="6" x="272" y="154"></rect>
-<rect fill="url(#augBarGrad)" height="6" rx="2" width="6" x="282" y="154"></rect>
-<rect fill="url(#augBarGrad)" height="8" rx="2" width="6" x="292" y="152"></rect>
-<rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="302" y="160"></rect>
-</svg>
-</div>
-<div class="chart-labels text-label-sm">
-<span class="">1st</span>
-<span class="">10th</span>
-<span class="">20th</span>
-<span class="">31st</span>
 </div>
 </div>
 <div id="view-aug-bar" style="display: none;">
