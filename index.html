@@ -1,2510 +1,1896 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#622ce5">
-  <meta name="description" content="Smart Finance - Modern, secure, and intuitive personal expense tracker">
-  <title>Add New Expense - Smart Finance</title>
-
-  <!-- Google Fonts: Inter & Material Symbols Outlined -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
-
-  <style>
-    /* ==========================================================================
-       1. CSS CUSTOM PROPERTIES (DESIGN SYSTEM TOKENS)
-       ========================================================================== */
-    :root {
-      --primary: #622ce5;
-      --primary-dim: #cdbdff;
-      --primary-container: #7b4dff;
-      --primary-light: rgba(98, 44, 229, 0.08);
-      --primary-glow: rgba(123, 77, 255, 0.28);
-      --secondary: #ff6b3d;
-
-      --surface: #ffffff;
-      --surface-bg: #FCF9F8;
-      --surface-variant: #f0eded;
-      --surface-container-low: #f6f3f2;
-      --surface-container-high: #ece7e7;
-      --input-bg: #F8F9FA;
-
-      --on-surface: #1c1b1b;
-      --on-surface-variant: #494456;
-      --outline: #7a7487;
-      --outline-variant: #cac3d8;
-
-      --gradient: linear-gradient(135deg, #7B4DFF 0%, #FF6B3D 100%);
-      --header-table-gradient: linear-gradient(90deg, #9B72CF 0%, #F48C71 100%);
-      --card-shadow: 0px 10px 30px rgba(0, 0, 0, 0.04);
-      --gradient-shadow: 0px 14px 28px rgba(123, 77, 255, 0.25);
-      --raised-shadow: 0px 6px 16px rgba(0, 0, 0, 0.06), 0px 1px 3px rgba(0, 0, 0, 0.04);
-
-      --radius-card: 24px;
-      --radius-btn: 18px;
-      --radius-sm: 10px;
-      --radius-md: 14px;
-      --radius-pill: 9999px;
-
-      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-
-    /* ==========================================================================
-       2. RESET & BASE STYLES
-       ========================================================================== */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      font-family: var(--font-family);
-      background-color: var(--surface-bg);
-      color: var(--on-surface);
-      font-size: 15px;
-      line-height: 1.5;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    button {
-      background: none;
-      border: none;
-      font-family: inherit;
-      cursor: pointer;
-      color: inherit;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    input, textarea, select {
-      font-family: inherit;
-      color: inherit;
-    }
-
-    /* Standard Google Fonts Material Symbols */
-    .material-symbols-outlined {
-      font-family: 'Material Symbols Outlined';
-      font-weight: normal;
-      font-style: normal;
-      font-size: 24px;
-      line-height: 1;
-      letter-spacing: normal;
-      text-transform: none;
-      display: inline-block;
-      white-space: nowrap;
-      word-wrap: normal;
-      direction: ltr;
-      font-feature-settings: 'liga';
-      -webkit-font-smoothing: antialiased;
-      user-select: none;
-    }
-
-    .hide-scrollbar::-webkit-scrollbar { display: none; }
-    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-    /* ==========================================================================
-       3. TOP APP BAR / HEADER
-       ========================================================================== */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 50;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
-    }
-
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px;
-      padding: 0 20px;
-      max-width: 520px;
-      margin: 0 auto;
-    }
-
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: linear-gradient(135deg, rgba(123, 77, 255, 0.15), rgba(255, 107, 61, 0.15));
-      border: 1.5px solid rgba(123, 77, 255, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-    }
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .brand-title {
-      font-size: 19px;
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: -0.01em;
-    }
-
-    .header-icons {
-      color: var(--on-surface-variant);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      transition: background 0.15s ease;
-    }
-    .header-icons:hover {
-      background: var(--surface-variant);
-    }
-
-    /* ==========================================================================
-       4. MAIN CONTAINER & PAGE TITLE
-       ========================================================================== */
-    .main-content {
-      width: 100%;
-      max-width: 520px;
-      padding: 76px 18px 105px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .page-header {
-      margin-top: 4px;
-      margin-bottom: 2px;
-    }
-
-    .page-title {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-      line-height: 1.25;
-    }
-
-    .page-subtitle {
-      font-size: 13px;
-      color: var(--outline);
-      margin-top: 4px;
-    }
-
-    /* ==========================================================================
-       5. CARD CONTAINERS
-       ========================================================================== */
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius-card);
-      box-shadow: var(--card-shadow);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      padding: 16px;
-    }
-
-    .section-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--on-surface);
-    }
-
-    /* ==========================================================================
-       6. INTERACTIVE CALENDAR
-       ========================================================================== */
-    .calendar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-    .calendar-header-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--on-surface);
-    }
-    .calendar-nav-buttons {
-      display: flex;
-      gap: 6px;
-    }
-    .calendar-nav-btn {
-      color: var(--outline);
-      padding: 4px;
-      border-radius: 6px;
-      transition: background 0.15s, color 0.15s;
-    }
-    .calendar-nav-btn:hover {
-      background: var(--surface-container-low);
-      color: var(--primary);
-    }
-
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-      text-align: center;
-    }
-
-    .calendar-day-header {
-      font-size: 12px;
-      color: var(--outline);
-      font-weight: 600;
-      padding-bottom: 6px;
-    }
-
-    .calendar-date {
-      font-size: 13.5px;
-      font-weight: 500;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      user-select: none;
-    }
-    .calendar-date:hover:not(.active):not(.muted) {
-      background: var(--primary-light);
-      color: var(--primary);
-    }
-    .calendar-date.active {
-      background: var(--gradient) !important;
-      color: #ffffff !important;
-      font-weight: 700 !important;
-      box-shadow: 0 4px 12px rgba(123, 77, 255, 0.35);
-    }
-    .calendar-date.muted {
-      color: var(--outline-variant);
-    }
-
-    /* ==========================================================================
-       7. CATEGORY SELECTOR & DROPDOWN
-       ========================================================================== */
-    .category-section {
-      position: relative;
-      z-index: 40;
-      overflow: visible;
-    }
-
-    .category-dropdown-wrapper {
-      position: relative;
-      width: 100%;
-    }
-
-    .selected-category-card {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px;
-      min-height: 58px;
-      background: #ffffff;
-      border: 1.5px solid var(--outline-variant);
-      border-radius: 16px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
-      cursor: pointer;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .selected-category-card:hover, .selected-category-card[aria-expanded="true"] {
-      border-color: var(--primary);
-      box-shadow: 0 4px 14px rgba(98, 44, 229, 0.12);
-    }
-
-    .category-card-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .category-icon-box {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: var(--gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);
-      flex-shrink: 0;
-      transition: transform 0.2s;
-    }
-    .category-icon-box .material-symbols-outlined {
-      font-size: 22px;
-    }
-
-    .category-info {
-      text-align: left;
-    }
-    .category-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--on-surface);
-      line-height: 1.25;
-    }
-    .category-subtitle {
-      font-size: 12px;
-      color: var(--outline);
-      margin-top: 2px;
-    }
-
-    .dropdown-chevron {
-      color: var(--primary);
-      font-size: 24px;
-      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .selected-category-card[aria-expanded="true"] .dropdown-chevron {
-      transform: rotate(180deg);
-    }
-
-    .category-dropdown-menu {
-      display: none;
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1.5px solid var(--outline-variant);
-      border-radius: 18px;
-      box-shadow: 0 20px 45px rgba(123, 77, 255, 0.16), 0 4px 16px rgba(0, 0, 0, 0.08);
-      z-index: 100;
-      max-height: 310px;
-      overflow-y: auto;
-      padding: 8px;
-      flex-direction: column;
-      gap: 4px;
-      animation: dropdownFadeIn 0.2s ease-out;
-    }
-    @keyframes dropdownFadeIn {
-      from { opacity: 0; transform: translateY(-6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .add-category-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: var(--primary-light);
-      border: 1px dashed rgba(98, 44, 229, 0.35);
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 13px;
-      margin-bottom: 4px;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .add-category-btn:hover {
-      background: rgba(98, 44, 229, 0.12);
-    }
-
-    .category-dropdown-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 12px;
-      min-height: 48px;
-      border-radius: 12px;
-      cursor: pointer;
-      background: transparent;
-      color: var(--on-surface);
-      font-weight: 500;
-      border: 1px solid transparent;
-      transition: all 0.15s ease;
-    }
-    .category-dropdown-item:hover {
-      background: var(--primary-light);
-    }
-    .category-dropdown-item.active {
-      color: var(--primary);
-      font-weight: 600;
-      border: 1px solid rgba(98, 44, 229, 0.2);
-      background: rgba(98, 44, 229, 0.08);
-    }
-
-    .item-icon-box {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--surface-container-high);
-      color: var(--on-surface-variant);
-      flex-shrink: 0;
-      transition: all 0.15s;
-    }
-    .category-dropdown-item.active .item-icon-box,
-    .item-icon-box.brand-gradient {
-      background: var(--gradient) !important;
-      color: #ffffff !important;
-      box-shadow: 0 3px 8px rgba(123, 77, 255, 0.28);
-    }
-    .item-icon-box .material-symbols-outlined {
-      font-size: 20px;
-    }
-
-    .category-dropdown-item .check-mark {
-      color: var(--primary);
-      font-size: 20px;
-      display: none;
-    }
-    .category-dropdown-item.active .check-mark {
-      display: inline-block;
-    }
-
-    /* ==========================================================================
-       8. ITEMS TABLE SECTION
-       ========================================================================== */
-    .table-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .add-row-btn {
-      color: var(--primary);
-      font-size: 14px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 8px;
-      border-radius: 8px;
-      transition: background 0.15s;
-    }
-    .add-row-btn:hover {
-      background: var(--primary-light);
-    }
-
-    .table-container {
-      overflow-x: auto;
-      width: 100%;
-      border-radius: 16px;
-      background: var(--surface);
-      box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-    }
-
-    thead tr {
-      background: var(--header-table-gradient);
-      color: #ffffff;
-    }
-
-    th {
-      padding: 10px 6px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border: none;
-    }
-    th.th-sno { width: 12%; text-align: center; }
-    th.th-items { width: 38%; text-align: left; padding-left: 10px; }
-    th.th-qty { width: 25%; text-align: left; padding-left: 6px; }
-    th.th-amount { width: 25%; text-align: right; padding-right: 12px; }
-
-    td {
-      padding: 8px 6px;
-      border-bottom: 1px solid var(--surface-variant);
-      font-size: 14px;
-      vertical-align: middle;
-    }
-
-    .td-flex {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 4px;
-      position: relative;
-    }
-
-    .table-cell-input {
-      width: 100%;
-      border: 1px solid transparent;
-      border-radius: 6px;
-      padding: 5px 6px;
-      font-size: 13.5px;
-      background: transparent;
-      transition: all 0.15s ease;
-      color: var(--on-surface);
-    }
-    .table-cell-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      background: #FFFFFF;
-      box-shadow: 0 0 0 2px rgba(98, 44, 229, 0.12);
-    }
-    .table-cell-input::placeholder {
-      color: #b8b3c4;
-    }
-
-    .mic-icon-btn {
-      color: var(--outline-variant);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2px;
-      border-radius: 4px;
-      transition: color 0.15s, transform 0.15s;
-      flex-shrink: 0;
-    }
-    .mic-icon-btn:hover {
-      color: var(--primary);
-      transform: scale(1.1);
-    }
-    .mic-icon-btn.listening {
-      color: #ef4444;
-      animation: pulseMic 1s infinite alternate;
-    }
-    @keyframes pulseMic {
-      from { transform: scale(1); opacity: 0.8; }
-      to { transform: scale(1.2); opacity: 1; }
-    }
-
-    .td-amount {
-      text-align: right;
-      font-weight: 600;
-      padding-right: 10px;
-    }
-    .td-amount-input {
-      text-align: right;
-      font-weight: 600;
-      color: var(--on-surface);
-    }
-
-    .row-delete-btn {
-      color: var(--outline-variant);
-      padding: 4px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.15s;
-    }
-    .row-delete-btn:hover {
-      color: #ef4444;
-    }
-
-    /* Table Footer Total Row */
-    tfoot {
-      background: linear-gradient(135deg, rgba(123, 77, 255, 0.1), rgba(255, 107, 61, 0.1));
-      border-top: 1.5px solid var(--outline-variant);
-      border-bottom: 3px solid transparent;
-      border-image: var(--gradient) 1 / 1 / 0 stretch;
-    }
-
-    .total-title-box {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding: 12px 10px;
-    }
-    .total-title-text {
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .total-words-text {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--on-surface-variant);
-      letter-spacing: 0.01em;
-    }
-    .total-amount-display {
-      text-align: right;
-      font-weight: 700;
-      font-size: 17px;
-      color: var(--primary);
-      padding: 12px 10px 12px 4px;
-      white-space: nowrap;
-      vertical-align: middle;
-    }
-
-    /* ==========================================================================
-       9. PAYMENT MODE SECTION
-       ========================================================================== */
-    .payment-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-    .payment-subtitle {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--outline);
-      letter-spacing: 0.02em;
-    }
-
-    .payment-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .payment-card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 14px 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border: 1.5px solid transparent;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-    }
-    .payment-card:hover {
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-      transform: translateY(-1px);
-    }
-    .payment-card.active {
-      background: rgba(98, 44, 229, 0.05);
-      border-color: var(--primary);
-      box-shadow: 0 6px 18px rgba(123, 77, 255, 0.2);
-    }
-
-    .payment-icon-bg {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: var(--gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);
-    }
-    .payment-icon-bg .material-symbols-outlined {
-      font-size: 22px;
-    }
-
-    .payment-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--on-surface);
-    }
-
-    /* ==========================================================================
-       10. BILL RECEIPT SECTION
-       ========================================================================== */
-    .receipt-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-    .receipt-info-text {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--outline);
-    }
-
-    .receipt-dropzone {
-      border: 1.5px dashed var(--outline-variant);
-      border-radius: 14px;
-      background: #fcfbfe;
-      padding: 18px 14px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-    .receipt-dropzone:hover, .receipt-dropzone.dragover {
-      border-color: var(--primary);
-      background: rgba(98, 44, 229, 0.04);
-      box-shadow: 0 0 0 3px rgba(98, 44, 229, 0.08);
-    }
-
-    .receipt-upload-icon-circle {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(123, 77, 255, 0.12), rgba(255, 107, 61, 0.15));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      margin-bottom: 2px;
-    }
-    .receipt-upload-icon-circle .material-symbols-outlined {
-      font-size: 24px;
-    }
-
-    .receipt-drag-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--on-surface);
-    }
-    .receipt-drag-sub {
-      font-size: 11px;
-      color: var(--outline);
-    }
-
-    .attached-bills-bar {
-      margin-top: 14px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .attached-bills-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--on-surface-variant);
-    }
-    .attached-bills-dots {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-    }
-    .bill-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: var(--radius-pill);
-      background: var(--outline-variant);
-    }
-    .bill-dot.active {
-      width: 14px;
-      background: var(--primary);
-    }
-
-    .receipt-preview-card {
-      margin-top: 12px;
-      padding: 10px 12px;
-      background: #fafaff;
-      border: 1px solid var(--outline-variant);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .receipt-preview-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
-    .receipt-preview-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: var(--gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      flex-shrink: 0;
-      box-shadow: 0 2px 6px rgba(123, 77, 255, 0.25);
-    }
-    .receipt-preview-icon .material-symbols-outlined {
-      font-size: 20px;
-    }
-
-    .receipt-meta {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      text-align: left;
-    }
-    .receipt-filename-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .receipt-filename {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--on-surface);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 160px;
-    }
-    .receipt-badge {
-      font-size: 10px;
-      font-weight: 600;
-      color: #16a34a;
-      background: rgba(22, 163, 74, 0.12);
-      padding: 1px 6px;
-      border-radius: 4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 2px;
-      flex-shrink: 0;
-    }
-    .receipt-badge .material-symbols-outlined {
-      font-size: 11px;
-    }
-    .receipt-details {
-      font-size: 11px;
-      color: var(--outline);
-      margin-top: 1px;
-    }
-
-    .receipt-remove-btn {
-      color: var(--outline);
-      padding: 4px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.15s;
-      flex-shrink: 0;
-    }
-    .receipt-remove-btn:hover {
-      color: #ef4444;
-    }
-
-    /* ==========================================================================
-       11. EXPENSE DESCRIPTION SECTION
-       ========================================================================== */
-    .description-card {
-      margin-top: 8px;
-    }
-    .description-input {
-      width: 100%;
-      height: 76px;
-      min-height: 76px;
-      padding: 12px 14px;
-      background-color: #FFFFFF;
-      border: 1px solid rgba(202, 195, 216, 0.5);
-      border-radius: 12px;
-      font-family: inherit;
-      font-size: 14px;
-      resize: none;
-      color: var(--on-surface);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .description-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(98, 44, 229, 0.1);
-    }
-    .description-input::placeholder {
-      color: #a8a2b5;
-    }
-
-    /* ==========================================================================
-       12. SAVE BUTTON & SPINNER
-       ========================================================================== */
-    .save-btn {
-      height: 50px;
-      border-radius: var(--radius-btn);
-      background: var(--gradient);
-      color: #ffffff;
-      font-size: 15px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      box-shadow: var(--gradient-shadow);
-      margin-top: 8px;
-      margin-bottom: 24px;
-      cursor: pointer;
-      transition: transform 0.15s ease, opacity 0.2s, box-shadow 0.2s;
-    }
-    .save-btn:hover:not(:disabled) {
-      box-shadow: 0px 16px 32px rgba(123, 77, 255, 0.35);
-      transform: translateY(-1px);
-    }
-    .save-btn:active:not(:disabled) {
-      transform: scale(0.98);
-    }
-    .save-btn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .spinner {
-      width: 18px;
-      height: 18px;
-      border: 2.5px solid rgba(255, 255, 255, 0.4);
-      border-top-color: #FFFFFF;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* ==========================================================================
-       13. BOTTOM NAVIGATION BAR
-       ========================================================================== */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 68px;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 0 16px;
-      padding-bottom: env(safe-area-inset-bottom);
-      border-top: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
-      z-index: 50;
-    }
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: var(--outline);
-      transition: color 0.15s ease;
-      cursor: pointer;
-      width: 60px;
-    }
-    .nav-item:hover, .nav-item.active {
-      color: var(--primary);
-    }
-    .nav-item span:last-child {
-      font-size: 11px;
-      font-weight: 500;
-      margin-top: 2px;
-    }
-
-    .nav-fab {
-      background: var(--gradient);
-      color: #ffffff;
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: translateY(-20px);
-      box-shadow: 0 8px 22px rgba(123, 77, 255, 0.42);
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .nav-fab:hover {
-      transform: translateY(-22px) scale(1.04);
-      box-shadow: 0 10px 26px rgba(123, 77, 255, 0.5);
-    }
-    .nav-fab:active {
-      transform: translateY(-18px) scale(0.96);
-    }
-
-    /* ==========================================================================
-       14. TOAST NOTIFICATION
-       ========================================================================== */
-    .toast {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-100px);
-      background: #1c1b1b;
-      color: #ffffff;
-      padding: 12px 20px;
-      border-radius: var(--radius-pill);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13.5px;
-      font-weight: 600;
-      z-index: 999;
-      opacity: 0;
-      pointer-events: none;
-      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
-      max-width: 90%;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .toast.success {
-      background: linear-gradient(135deg, #10B981, #059669);
-    }
-    .toast.error {
-      background: linear-gradient(135deg, #EF4444, #DC2626);
-    }
-
-    /* ==========================================================================
-       15. CUSTOM SECURE MODAL (ADD CATEGORY)
-       ========================================================================== */
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      animation: modalFadeIn 0.2s ease-out;
-    }
-    @keyframes modalFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .modal-content {
-      background: #ffffff;
-      width: 100%;
-      max-width: 400px;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    @keyframes modalSlideUp {
-      from { transform: translateY(20px); opacity: 0.8; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .modal-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--on-surface);
-    }
-    .modal-input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1.5px solid var(--outline-variant);
-      border-radius: 10px;
-      font-size: 14px;
-      transition: border-color 0.2s;
-    }
-    .modal-input:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-    .modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 4px;
-    }
-    .btn-secondary {
-      padding: 8px 16px;
-      border-radius: 10px;
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--outline);
-      background: var(--surface-container-low);
-      transition: background 0.15s;
-    }
-    .btn-secondary:hover {
-      background: var(--surface-container-high);
-    }
-    .btn-primary {
-      padding: 8px 16px;
-      border-radius: 10px;
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #ffffff;
-      background: var(--gradient);
-      box-shadow: 0 4px 12px rgba(123, 77, 255, 0.25);
-    }
-
-    /* Desktop Responsive Centering */
-    @media (min-width: 768px) {
-      .main-content {
-        padding-top: 84px;
-        padding-bottom: 90px;
-      }
-      .bottom-nav {
-        max-width: 520px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 20px 20px 0 0;
-      }
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Luminous Smart Finance Tracker Dashboard - Modern, Secure Personal Financial Management">
+    <title>Smart Finance Tracker - Home Dashboard</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Color Palette */
+            --color-primary: #622ce5;
+            --color-primary-container: #7b4dff;
+            --color-primary-light: rgba(98, 44, 229, 0.1);
+            --color-on-primary: #ffffff;
+            
+            --color-secondary: #ae3203;
+            --color-secondary-container: #fd6a3c;
+            --color-secondary-light: rgba(253, 106, 60, 0.1);
+            --color-on-secondary: #ffffff;
+            
+            --color-tertiary: #732ad3;
+            --color-tertiary-container: #8d4aee;
+            --color-tertiary-light: rgba(115, 42, 211, 0.1);
+            --color-on-tertiary: #ffffff;
+            
+            --color-success: #10b981;
+            --color-success-light: rgba(16, 185, 129, 0.12);
+            --color-error: #ba1a1a;
+            --color-error-light: rgba(186, 26, 26, 0.12);
+            --color-warning: #f59e0b;
+            
+            --color-background: #fcf9f8;
+            --color-on-background: #1c1b1b;
+            --color-surface: #ffffff;
+            --color-on-surface: #1c1b1b;
+            --color-surface-variant: #e5e2e1;
+            --color-on-surface-variant: #494456;
+            --color-surface-container-low: #f6f3f2;
+            --color-surface-container: #f0eded;
+            --color-outline: #7a7487;
+            --color-outline-variant: #cac3d8;
+
+            /* Gradient Presets */
+            --gradient-brand: linear-gradient(135deg, #7b4dff 0%, #ff6b3d 100%);
+            --gradient-card-gold: linear-gradient(135deg, #f5e396 0%, #d4af37 20%, #f9f1c0 40%, #c5a028 60%, #e6be58 80%, #b8860b 100%);
+            --gradient-shimmer: linear-gradient(125deg, transparent 0%, rgba(255, 255, 255, 0.5) 25%, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.5) 35%, transparent 100%);
+            
+            /* Spacing Tokens */
+            --spacing-unit: 4px;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-container-margin: 20px;
+
+            /* Typography */
+            --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-family-mono: 'JetBrains Mono', 'Courier New', monospace;
+            
+            /* Shadows & Elevations */
+            --shadow-subtle: 0px 4px 15px rgba(0, 0, 0, 0.03);
+            --shadow-card: 0px 10px 30px rgba(0, 0, 0, 0.04);
+            --shadow-card-elevated: 0px 18px 45px rgba(0, 0, 0, 0.08);
+            --shadow-gold-card: 0px 24px 50px rgba(184, 134, 11, 0.25), inset 0px 0px 20px rgba(255, 255, 255, 0.6);
+            --shadow-fab: 0px 12px 28px rgba(123, 77, 255, 0.35);
+
+            /* Radii */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+            
+            /* Transitions */
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family-sans);
+            background-color: var(--color-background);
+            color: var(--color-on-background);
+            font-size: 1rem;
+            line-height: 1.5;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            padding-bottom: 96px;
+            overflow-x: hidden;
+        }
+
+        /* Google Material Symbols Font Setup */
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            font-feature-settings: 'liga';
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+            user-select: none;
+            vertical-align: middle;
+        }
+
+        .flex { display: flex; }
+        .flex-col { display: flex; flex-direction: column; }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .items-end { align-items: flex-end; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .justify-around { justify-content: space-around; }
+
+        .gap-xs { gap: var(--spacing-xs); }
+        .gap-sm { gap: var(--spacing-sm); }
+        .gap-md { gap: var(--spacing-md); }
+        .gap-lg { gap: var(--spacing-lg); }
+
+        .w-full { width: 100%; }
+        .relative { position: relative; }
+
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+
+        .font-normal { font-weight: 400; }
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+
+        .text-primary { color: var(--color-primary); }
+        .text-on-surface { color: var(--color-on-surface); }
+        .text-on-surface-variant { color: var(--color-on-surface-variant); }
+        .text-secondary { color: var(--color-secondary); }
+
+        button {
+            font-family: inherit;
+            border: none;
+            background: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+        header.app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+            background-color: rgba(252, 249, 248, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 var(--spacing-container-margin);
+            height: 68px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .profile-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid #ffffff;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-greeting {
+            font-size: 0.8125rem;
+            color: var(--color-on-surface-variant);
+            font-weight: 500;
+        }
+
+        .profile-name {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .icon-circle-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-full);
+            background-color: var(--color-surface-container-low);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-on-surface-variant);
+            transition: background-color var(--transition-fast), transform var(--transition-fast);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .icon-circle-btn:hover {
+            background-color: var(--color-surface-container);
+            color: var(--color-primary);
+        }
+
+        .icon-circle-btn:active {
+            transform: scale(0.93);
+        }
+
+        main.main-dashboard {
+            padding-top: 88px;
+            padding-left: var(--spacing-container-margin);
+            padding-right: var(--spacing-container-margin);
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .chart-card {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            padding: var(--spacing-md);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            position: relative;
+        }
+
+        .badge-pill {
+            background-color: rgba(123, 77, 255, 0.1);
+            color: var(--color-primary-container);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .card-perspective-viewport {
+            perspective: 1200px;
+            width: 100%;
+        }
+
+        .metallic-balance-card {
+            background: var(--gradient-card-gold);
+            box-shadow: var(--shadow-gold-card);
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            position: relative;
+            overflow: hidden;
+            padding: 24px;
+            border-radius: var(--radius-xl);
+            aspect-ratio: 1.586 / 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-family: var(--font-family-mono);
+            cursor: pointer;
+            transform: rotateX(5deg) rotateY(-5deg) scale(1);
+            transition: transform 0.15s ease-out;
+            transform-style: preserve-3d;
+            user-select: none;
+        }
+
+        .metallic-balance-card .card-shimmer {
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-shimmer);
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            transform: translateZ(1px);
+        }
+
+        .twinkle-overlay-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        @keyframes sparkle-animation {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+            30% { transform: translate(-50%, -50%) scale(1.15) rotate(45deg); opacity: 1; filter: blur(0px); }
+            55% { transform: translate(-50%, -50%) scale(0.95) rotate(90deg); opacity: 0.85; filter: blur(0.5px); }
+            100% { transform: translate(-50%, -50%) scale(0) rotate(180deg); opacity: 0; filter: blur(2px); }
+        }
+
+        .twinkle-star {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            animation: sparkle-animation 2s ease-in-out forwards;
+        }
+
+        .twinkle-star::before, .twinkle-star::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background: radial-gradient(circle, #ffffff 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0) 80%);
+            transform: translate(-50%, -50%);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.7);
+        }
+
+        .twinkle-star::before { width: 100%; height: 2px; }
+        .twinkle-star::after { width: 2px; height: 100%; }
+
+        .twinkle-star-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: #ffffff;
+            border-radius: var(--radius-full);
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 12px 4px rgba(255, 255, 255, 0.95);
+            z-index: 3;
+        }
+
+        .sim-chip {
+            width: 42px;
+            height: 32px;
+            background: linear-gradient(135deg, #b8860b 0%, #ffd700 50%, #b8860b 100%);
+            border-radius: 6px;
+            position: relative;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.35);
+        }
+
+        .sim-chip::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+        }
+
+        .chip-grid-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .chip-grid-v {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .obscured-balance-value {
+            filter: blur(8px);
+            opacity: 0.85;
+            transition: filter 0.3s ease-out, opacity 0.3s ease-out;
+            cursor: pointer;
+            display: inline-block;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .obscured-balance-value.revealed,
+        .obscured-balance-value:hover {
+            filter: blur(0px);
+            opacity: 1;
+        }
+
+        .dual-circle-badge {
+            position: relative;
+            width: 40px;
+            height: 24px;
+        }
+
+        .dual-circle-badge .circle-left {
+            width: 24px;
+            height: 24px;
+            background: #eb001b;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            opacity: 0.9;
+        }
+
+        .dual-circle-badge .circle-right {
+            width: 24px;
+            height: 24px;
+            background: #f79e1b;
+            border-radius: 50%;
+            position: absolute;
+            right: 0;
+            opacity: 0.75;
+        }
+
+        .horizontal-stats-slider {
+            display: flex;
+            gap: var(--spacing-sm);
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            padding: 2px 0;
+        }
+
+        .horizontal-stats-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .stat-badge-card {
+            scroll-snap-align: center;
+            flex: 1;
+            min-width: 100px;
+            background-color: var(--color-surface);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 8px 10px 8px;
+            transition: transform var(--transition-fast);
+        }
+
+        .stat-badge-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-icon-wrapper {
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2px;
+            color: #ffffff;
+        }
+
+        .stat-icon-wrapper .material-symbols-outlined {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .calendar-days-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .calendar-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1;
+            border-radius: var(--radius-sm);
+            background-color: rgba(123, 77, 255, 0.04);
+            transition: transform var(--transition-fast);
+        }
+
+        .calendar-cell:hover {
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
+        .calendar-cell.cell-peak {
+            background-color: #ffdad6;
+            border: 1px solid rgba(186, 26, 26, 0.2);
+        }
+
+        .calendar-cell.cell-zero {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+        }
+
+        .calendar-cell.cell-empty {
+            background-color: transparent;
+            border: none;
+        }
+
+        .cell-date-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .cell-spend-amount {
+            font-size: 8px;
+            font-weight: 500;
+        }
+
+        .segmented-control-bar {
+            display: flex;
+            background-color: var(--color-surface-container-low);
+            border-radius: var(--radius-md);
+            padding: 3px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+            gap: 2px;
+        }
+
+        .segmented-tab-btn {
+            padding: 5px 14px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-on-surface-variant);
+            border-radius: 9px;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .segmented-tab-btn.active {
+            background-color: #ffffff;
+            color: var(--color-primary);
+            font-weight: 700;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .chart-view-panel {
+            width: 100%;
+            position: relative;
+        }
+
+        .line-chart-box {
+            height: 180px;
+            width: 100%;
+            margin-top: var(--spacing-sm);
+        }
+
+        /* Donut Ring & Legend styling */
+        .category-view-ring {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-sm);
+        }
+
+        .donut-wrapper {
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .donut-center-label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            pointer-events: none;
+        }
+
+        .category-legend-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .legend-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+        }
+
+        .legend-dot-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        /* Horizontal Category Bar styling */
+        .category-view-bar {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: var(--spacing-sm);
+            animation: fadeInSimple 0.25s ease-out;
+        }
+
+        @keyframes fadeInSimple {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cat-bar-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .cat-bar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+
+        .cat-bar-track {
+            height: 8px;
+            background-color: var(--color-surface-container);
+            border-radius: 4px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .cat-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.fullscreen-active {
+            overflow: hidden !important;
+            touch-action: none;
+        }
+
+        .fullscreen-landscape-mode {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100dvh !important;
+            height: 100dvw !important;
+            transform-origin: 0 0 !important;
+            transform: rotate(90deg) translateY(-100%) !important;
+            z-index: 99999 !important;
+            background-color: var(--color-surface) !important;
+            border-radius: 0 !important;
+            border: none !important;
+            margin: 0 !important;
+            padding: 16px 28px !important;
+            box-shadow: none !important;
+            display: flex !important;
+            flex-direction: column !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+        }
+
+        @supports not (height: 100dvh) {
+            .fullscreen-landscape-mode {
+                width: 100vh !important;
+                height: 100vw !important;
+            }
+        }
+
+        @media (orientation: landscape) {
+            .fullscreen-landscape-mode {
+                transform: none !important;
+                width: 100vw !important;
+                height: 100vh !important;
+            }
+            @supports (height: 100dvh) {
+                .fullscreen-landscape-mode {
+                    width: 100dvw !important;
+                    height: 100dvh !important;
+                }
+            }
+        }
+
+        .fullscreen-landscape-mode .chart-container {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 0 !important;
+        }
+
+        .fullscreen-landscape-mode #view-aug-trend[style*="block"],
+        .fullscreen-landscape-mode #view-aug-bar[style*="block"] {
+            display: flex !important;
+            flex-direction: column !important;
+            flex: 1 !important;
+            min-height: 0 !important;
+        }
+
+        .fullscreen-landscape-mode #view-aug-trend[style*="none"],
+        .fullscreen-landscape-mode #view-aug-bar[style*="none"] {
+            display: none !important;
+        }
+
+        .fullscreen-landscape-mode .line-chart-box {
+            flex: 1 !important;
+            height: 100% !important;
+            min-height: 0 !important;
+            width: 100% !important;
+        }
+
+        .transactions-card {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-sm);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .tx-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 12px;
+            border-radius: var(--radius-md);
+            transition: background-color var(--transition-fast), transform var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .tx-list-item:hover {
+            background-color: var(--color-surface-container-low);
+        }
+
+        .tx-list-item:active {
+            transform: scale(0.98);
+        }
+
+        .tx-avatar-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            background-color: var(--color-surface-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-on-surface-variant);
+            flex-shrink: 0;
+        }
+
+        .divider-line {
+            border: none;
+            border-top: 1px solid var(--color-surface-container);
+            margin: 0 12px;
+        }
+
+        nav.bottom-nav-bar {
+            background-color: rgba(252, 249, 248, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 72px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 16px;
+            padding-bottom: env(safe-area-inset-bottom);
+            border-radius: 16px 16px 0 0;
+            z-index: 50;
+            box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.04);
+            border-top: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-on-surface-variant);
+            transition: color var(--transition-fast), transform var(--transition-fast);
+            padding: 6px;
+        }
+
+        .nav-action-btn.active {
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        .nav-action-btn:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-action-btn:active {
+            transform: scale(0.92);
+        }
+
+        .nav-label {
+            font-size: 0.6875rem;
+            margin-top: 4px;
+        }
+
+        .fab-center-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-brand);
+            color: #ffffff;
+            border-radius: var(--radius-full);
+            transform: translateY(-20px);
+            width: 56px;
+            height: 56px;
+            box-shadow: var(--shadow-fab);
+            transition: transform var(--transition-bounce), box-shadow var(--transition-fast);
+        }
+
+        .fab-center-btn:hover {
+            transform: translateY(-22px) scale(1.04);
+            box-shadow: 0px 16px 36px rgba(123, 77, 255, 0.45);
+        }
+
+        .fab-center-btn:active {
+            transform: translateY(-20px) scale(0.92);
+        }
+
+        /* Desktop Sidebar Navigation */
+        nav.desktop-sidebar-nav {
+            display: none;
+        }
+
+        @media (min-width: 840px) {
+            nav.bottom-nav-bar { display: none; }
+            nav.desktop-sidebar-nav {
+                display: flex;
+                flex-direction: column;
+                width: 250px;
+                height: 100vh;
+                position: fixed;
+                left: 0;
+                top: 0;
+                background-color: var(--color-surface);
+                border-right: 1px solid var(--color-surface-container);
+                padding-top: 88px;
+                padding-left: var(--spacing-lg);
+                padding-right: var(--spacing-lg);
+                z-index: 40;
+                gap: var(--spacing-sm);
+            }
+            .desktop-sidebar-btn {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 10px 16px;
+                border-radius: var(--radius-md);
+                color: var(--color-on-surface-variant);
+                font-size: 0.875rem;
+                font-weight: 500;
+                transition: background-color var(--transition-fast), color var(--transition-fast);
+            }
+            .desktop-sidebar-btn.active {
+                background-color: var(--color-primary-light);
+                color: var(--color-primary);
+                font-weight: 700;
+            }
+            .desktop-sidebar-btn:not(.active):hover {
+                background-color: var(--color-surface-container);
+                color: var(--color-on-surface);
+            }
+            main.main-dashboard {
+                padding-left: 274px;
+            }
+            header.app-header .header-inner {
+                padding-left: 274px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Toast Notification Alert -->
-  <div id="toast" class="toast" role="alert" aria-live="polite">
-    <span class="material-symbols-outlined" id="toast-icon">check_circle</span>
-    <span id="toast-message">Expense saved successfully!</span>
-  </div>
-
-  <!-- Top App Bar / Header -->
-  <header class="header">
-    <div class="header-content">
-      <div class="avatar" aria-label="User Profile">
-        <span class="material-symbols-outlined" style="font-size: 22px;">person</span>
-      </div>
-      <div class="brand-title">Smart Finance</div>
-      <button class="header-icons" type="button" aria-label="Notifications" title="Notifications">
-        <span class="material-symbols-outlined">notifications</span>
-      </button>
+<header class="app-header">
+    <div class="header-inner">
+        <div class="profile-wrapper">
+            <div class="profile-avatar">
+                <img alt="User profile" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&q=80">
+            </div>
+            <div>
+                <div class="profile-greeting">Good Morning,</div>
+                <div class="profile-name">BHANU</div>
+            </div>
+        </div>
+        <button class="icon-circle-btn" id="btn-notifications" aria-label="View notifications">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+        </button>
     </div>
-  </header>
+</header>
 
-  <!-- Main Content Container -->
-  <main class="main-content">
-    <div class="page-header">
-      <h1 class="page-title">Add New Expense</h1>
-      <p class="page-subtitle">Please select the Expense Date &amp; Category</p>
-    </div>
+<main class="main-dashboard">
+    <section class="card-perspective-viewport">
+        <div class="metallic-balance-card" id="main-balance-card" role="region" aria-label="Available Account Balance Card">
+            <div class="card-shimmer"></div>
+            <div class="twinkle-overlay-container" id="twinkle-container"></div>
+            
+            <div class="flex justify-between items-start" style="position: relative; z-index: 2; transform: translateZ(20px);">
+                <span class="text-xs font-bold" style="color: #1c1b1b; letter-spacing: 0.12em; text-transform: uppercase;">Smart Finance</span>
+                <div class="flex items-center gap-xs" style="background: rgba(0, 0, 0, 0.08); backdrop-filter: blur(8px); padding: 2px 8px; border-radius: var(--radius-full); border: 1px solid rgba(0, 0, 0, 0.08);">
+                    <span class="material-symbols-outlined" style="font-size: 14px; color: #1c1b1b;">trending_up</span>
+                    <span class="text-xs font-semibold" style="color: #1c1b1b; font-size: 10px;">+2.4%</span>
+                </div>
+            </div>
 
-    <!-- 1. Interactive Calendar Card -->
-    <section class="card" aria-labelledby="calendar-heading">
-      <div class="calendar-header">
-        <span class="calendar-header-title" id="calendar-heading">September 2026</span>
-        <div class="calendar-nav-buttons">
-          <button type="button" class="calendar-nav-btn" id="cal-prev-btn" aria-label="Previous Month">
-            <span class="material-symbols-outlined" style="font-size: 20px;">chevron_left</span>
-          </button>
-          <button type="button" class="calendar-nav-btn" id="cal-next-btn" aria-label="Next Month">
-            <span class="material-symbols-outlined" style="font-size: 20px;">chevron_right</span>
-          </button>
+            <div style="position: relative; z-index: 2; margin-top: 12px; transform: translateZ(12px);">
+                <div class="sim-chip">
+                    <div class="chip-grid-h"></div>
+                    <div class="chip-grid-v"></div>
+                </div>
+            </div>
+
+            <div class="flex flex-col" style="position: relative; z-index: 2; margin-top: auto; transform: translateZ(28px);">
+                <span style="color: rgba(28, 27, 27, 0.72); letter-spacing: 0.06em; text-transform: uppercase; font-size: 9px; margin-bottom: 2px; margin-top: 8px;">Available Balance</span>
+                <span class="font-medium" style="color: #1c1b1b; font-size: 24px; letter-spacing: 2px; text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.4);">
+                    *** *** *** <span class="obscured-balance-value" id="obscured-balance-target" title="Tap or hold to reveal amount">12,300</span>
+                </span>
+            </div>
+
+            <div class="flex justify-between items-end" style="position: relative; z-index: 2; margin-top: 16px; transform: translateZ(20px);">
+                <div class="flex flex-col">
+                    <span style="color: rgba(28, 27, 27, 0.75); letter-spacing: 0.08em; text-transform: uppercase; font-size: 9px;">Card Holder</span>
+                    <span class="font-semibold" style="color: #1c1b1b; letter-spacing: 0.08em; text-transform: uppercase; font-size: 13px; margin-top: 2px;">CM BHANUTEJA</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span style="color: rgba(28, 27, 27, 0.75); font-size: 8px; letter-spacing: 0.06em; text-transform: uppercase;">Expires</span>
+                    <span class="font-semibold" style="color: #1c1b1b; letter-spacing: 0.05em; font-size: 13px; margin-top: 2px;">31/08/26</span>
+                </div>
+                <div class="dual-circle-badge" aria-hidden="true">
+                    <div class="circle-left"></div>
+                    <div class="circle-right"></div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="calendar-grid" id="calendar-grid" role="grid" aria-readonly="true">
-        <!-- Weekday Headers -->
-        <div class="calendar-day-header" role="columnheader">M</div>
-        <div class="calendar-day-header" role="columnheader">T</div>
-        <div class="calendar-day-header" role="columnheader">W</div>
-        <div class="calendar-day-header" role="columnheader">T</div>
-        <div class="calendar-day-header" role="columnheader">F</div>
-        <div class="calendar-day-header" role="columnheader">S</div>
-        <div class="calendar-day-header" role="columnheader">S</div>
-        <!-- Days generated dynamically by ES6 calendar module -->
-      </div>
     </section>
 
-    <!-- 2. Category Selector & Dropdown Card -->
-    <section class="card category-section" aria-labelledby="category-heading">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <h2 class="section-title" id="category-heading">Select - Category</h2>
-      </div>
-
-      <div class="category-dropdown-wrapper" id="category-dropdown-wrapper">
-        <!-- Trigger Button -->
-        <button type="button" class="selected-category-card" id="category-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="category-dropdown-menu">
-          <div class="category-card-left">
-            <div class="category-icon-box" id="selected-category-icon-bg">
-              <span class="material-symbols-outlined" id="selected-category-icon">eco</span>
+    <section class="chart-card" style="padding: 14px 16px; gap: 10px;">
+        <h2 class="text-base font-bold text-on-surface" style="font-size: 1.125rem;">Quick Statistics</h2>
+        <div class="horizontal-stats-slider">
+            <div class="stat-badge-card">
+                <div class="stat-icon-wrapper" style="background-color: #9d4edd;">
+                    <span class="material-symbols-outlined">payments</span>
+                </div>
+                <span class="text-xs text-on-surface-variant font-medium">Income</span>
+                <span class="font-bold text-on-surface" style="font-size: 17px; line-height: 22px;">₹21,000</span>
             </div>
-            <div class="category-info">
-              <div class="category-title" id="selected-category-title">Vegetables</div>
-              <div class="category-subtitle" id="selected-category-subtitle">Fresh vegetables &amp; greens</div>
+            <div class="stat-badge-card">
+                <div class="stat-icon-wrapper" style="background-color: #c9184a;">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                </div>
+                <span class="text-xs text-on-surface-variant font-medium">Expenses</span>
+                <span class="font-bold text-on-surface" style="font-size: 17px; line-height: 22px;">₹8,700</span>
             </div>
-          </div>
-          <span class="material-symbols-outlined dropdown-chevron" id="dropdown-chevron">expand_more</span>
-        </button>
-
-        <!-- Dropdown Menu Listbox -->
-        <div class="category-dropdown-menu hide-scrollbar" id="category-dropdown-menu" role="listbox" aria-labelledby="category-heading">
-          <button type="button" class="add-category-btn" id="open-add-category-modal-btn">
-            <span class="material-symbols-outlined" style="font-size: 18px;">add_circle</span>
-            <span>+ Add Custom Category</span>
-          </button>
-
-          <!-- Predefined Categories List -->
-          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Grocery" data-icon="local_grocery_store" data-subtitle="Daily essentials &amp; food">
-            <div class="category-card-left">
-              <div class="item-icon-box brand-gradient">
-                <span class="material-symbols-outlined">local_grocery_store</span>
-              </div>
-              <div class="category-info">
-                <div class="category-title" style="font-size: 14px;">Grocery</div>
-                <div class="category-subtitle" style="font-size: 11px;">Daily essentials &amp; food</div>
-              </div>
+            <div class="stat-badge-card">
+                <div class="stat-icon-wrapper" style="background-color: #388a59;">
+                    <span class="material-symbols-outlined">account_balance_wallet</span>
+                </div>
+                <span class="text-xs text-on-surface-variant font-medium">Left Amount</span>
+                <span class="font-bold text-on-surface" style="font-size: 17px; line-height: 22px;">₹12,300</span>
             </div>
-            <span class="material-symbols-outlined check-mark">check</span>
-          </div>
-
-          <div class="category-dropdown-item active" role="option" aria-selected="true" data-category="Vegetables" data-icon="eco" data-subtitle="Fresh vegetables &amp; greens">
-            <div class="category-card-left">
-              <div class="item-icon-box brand-gradient">
-                <span class="material-symbols-outlined">eco</span>
-              </div>
-              <div class="category-info">
-                <div class="category-title" style="font-size: 14px;">Vegetables</div>
-                <div class="category-subtitle" style="font-size: 11px;">Fresh vegetables &amp; greens</div>
-              </div>
-            </div>
-            <span class="material-symbols-outlined check-mark">check</span>
-          </div>
-
-          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Clothes" data-icon="checkroom" data-subtitle="Apparel &amp; laundry">
-            <div class="category-card-left">
-              <div class="item-icon-box brand-gradient">
-                <span class="material-symbols-outlined">checkroom</span>
-              </div>
-              <div class="category-info">
-                <div class="category-title" style="font-size: 14px;">Clothes</div>
-                <div class="category-subtitle" style="font-size: 11px;">Apparel &amp; laundry</div>
-              </div>
-            </div>
-            <span class="material-symbols-outlined check-mark">check</span>
-          </div>
-
-          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Petrol" data-icon="local_gas_station" data-subtitle="Fuel &amp; vehicle maintenance">
-            <div class="category-card-left">
-              <div class="item-icon-box brand-gradient">
-                <span class="material-symbols-outlined">local_gas_station</span>
-              </div>
-              <div class="category-info">
-                <div class="category-title" style="font-size: 14px;">Petrol</div>
-                <div class="category-subtitle" style="font-size: 11px;">Fuel &amp; vehicle maintenance</div>
-              </div>
-            </div>
-            <span class="material-symbols-outlined check-mark">check</span>
-          </div>
-
-          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Travelling" data-icon="flight" data-subtitle="Flights, transit &amp; trips">
-            <div class="category-card-left">
-              <div class="item-icon-box brand-gradient">
-                <span class="material-symbols-outlined">flight</span>
-              </div>
-              <div class="category-info">
-                <div class="category-title" style="font-size: 14px;">Travelling</div>
-                <div class="category-subtitle" style="font-size: 11px;">Flights, transit &amp; trips</div>
-              </div>
-            </div>
-            <span class="material-symbols-outlined check-mark">check</span>
-          </div>
-
-          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Doctor &amp; Medicines" data-icon="medical_services" data-subtitle="Healthcare &amp; pharmacy">
-            <div class="category-card-left">
-              <div class="item-icon-box brand-gradient">
-                <span class="material-symbols-outlined">medical_services</span>
-              </div>
-              <div class="category-info">
-                <div class="category-title" style="font-size: 14px;">Doctor &amp; Medicines</div>
-                <div class="category-subtitle" style="font-size: 11px;">Healthcare &amp; pharmacy</div>
-              </div>
-            </div>
-            <span class="material-symbols-outlined check-mark">check</span>
-          </div>
-
-          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Water" data-icon="water_drop" data-subtitle="Water utility &amp; supplies">
-            <div class="category-card-left">
-              <div class="item-icon-box brand-gradient">
-                <span class="material-symbols-outlined">water_drop</span>
-              </div>
-              <div class="category-info">
-                <div class="category-title" style="font-size: 14px;">Water</div>
-                <div class="category-subtitle" style="font-size: 11px;">Water utility &amp; supplies</div>
-              </div>
-            </div>
-            <span class="material-symbols-outlined check-mark">check</span>
-          </div>
-
-          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Electricity" data-icon="electric_bolt" data-subtitle="Electricity power bills">
-            <div class="category-card-left">
-              <div class="item-icon-box brand-gradient">
-                <span class="material-symbols-outlined">electric_bolt</span>
-              </div>
-              <div class="category-info">
-                <div class="category-title" style="font-size: 14px;">Electricity</div>
-                <div class="category-subtitle" style="font-size: 11px;">Electricity power bills</div>
-              </div>
-            </div>
-            <span class="material-symbols-outlined check-mark">check</span>
-          </div>
-
-          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Other" data-icon="more_horiz" data-subtitle="Miscellaneous expenses">
-            <div class="category-card-left">
-              <div class="item-icon-box brand-gradient">
-                <span class="material-symbols-outlined">more_horiz</span>
-              </div>
-              <div class="category-info">
-                <div class="category-title" style="font-size: 14px;">Other</div>
-                <div class="category-subtitle" style="font-size: 11px;">Miscellaneous expenses</div>
-              </div>
-            </div>
-            <span class="material-symbols-outlined check-mark">check</span>
-          </div>
         </div>
-      </div>
     </section>
 
-    <!-- 3. Items Table Section -->
-    <section aria-labelledby="items-table-title">
-      <div class="table-header-row">
-        <h2 class="section-title" id="items-table-title">Vegetables Items</h2>
-        <button type="button" class="add-row-btn" id="add-row-btn">
-          <span class="material-symbols-outlined" style="font-size: 18px;">add</span> Add Row
-        </button>
-      </div>
-
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th class="th-sno">S.NO</th>
-              <th class="th-items">ITEMS</th>
-              <th class="th-qty">QTY</th>
-              <th class="th-amount">AMOUNT</th>
-            </tr>
-          </thead>
-          <tbody id="items-table-body">
-            <!-- Row 1 -->
-            <tr>
-              <td style="text-align: center; color: var(--outline-variant);" class="row-sno">1</td>
-              <td>
-                <div class="td-flex">
-                  <input type="text" class="table-cell-input item-name" placeholder="Item name" value="Poha" aria-label="Item 1 Name">
-                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item name">
-                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
-                  </button>
-                </div>
-              </td>
-              <td>
-                <div class="td-flex">
-                  <input type="text" class="table-cell-input item-qty" placeholder="Qty" value="20 kg" aria-label="Item 1 Quantity">
-                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item quantity">
-                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
-                  </button>
-                </div>
-              </td>
-              <td class="td-amount">
-                <div class="td-flex" style="justify-content: flex-end;">
-                  <span style="font-size: 14px; font-weight: 600; color: var(--on-surface);">₹</span>
-                  <input type="number" step="0.01" min="0" class="table-cell-input td-amount-input item-amount" placeholder="0.00" value="400" aria-label="Item 1 Amount">
-                  <button type="button" class="row-delete-btn" title="Delete Row" aria-label="Delete row 1">
-                    <span class="material-symbols-outlined" style="font-size: 16px;">close</span>
-                  </button>
-                </div>
-              </td>
-            </tr>
-
-            <!-- Row 2 -->
-            <tr>
-              <td style="text-align: center; color: var(--outline-variant);" class="row-sno">2</td>
-              <td>
-                <div class="td-flex">
-                  <input type="text" class="table-cell-input item-name" placeholder="Item name" value="Rava (Mota)" aria-label="Item 2 Name">
-                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item name">
-                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
-                  </button>
-                </div>
-              </td>
-              <td>
-                <div class="td-flex">
-                  <input type="text" class="table-cell-input item-qty" placeholder="Qty" value="20 kg" aria-label="Item 2 Quantity">
-                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item quantity">
-                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
-                  </button>
-                </div>
-              </td>
-              <td class="td-amount">
-                <div class="td-flex" style="justify-content: flex-end;">
-                  <span style="font-size: 14px; font-weight: 600; color: var(--on-surface);">₹</span>
-                  <input type="number" step="0.01" min="0" class="table-cell-input td-amount-input item-amount" placeholder="0.00" value="600" aria-label="Item 2 Amount">
-                  <button type="button" class="row-delete-btn" title="Delete Row" aria-label="Delete row 2">
-                    <span class="material-symbols-outlined" style="font-size: 16px;">close</span>
-                  </button>
-                </div>
-              </td>
-            </tr>
-
-            <!-- Row 3 -->
-            <tr>
-              <td style="text-align: center; color: var(--outline-variant);" class="row-sno">3</td>
-              <td>
-                <div class="td-flex">
-                  <input type="text" class="table-cell-input item-name" placeholder="Item name" value="Sugar" aria-label="Item 3 Name">
-                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item name">
-                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
-                  </button>
-                </div>
-              </td>
-              <td>
-                <div class="td-flex">
-                  <input type="text" class="table-cell-input item-qty" placeholder="Qty" value="35 kg" aria-label="Item 3 Quantity">
-                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item quantity">
-                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
-                  </button>
-                </div>
-              </td>
-              <td class="td-amount">
-                <div class="td-flex" style="justify-content: flex-end;">
-                  <span style="font-size: 14px; font-weight: 600; color: var(--on-surface);">₹</span>
-                  <input type="number" step="0.01" min="0" class="table-cell-input td-amount-input item-amount" placeholder="0.00" value="1400" aria-label="Item 3 Amount">
-                  <button type="button" class="row-delete-btn" title="Delete Row" aria-label="Delete row 3">
-                    <span class="material-symbols-outlined" style="font-size: 16px;">close</span>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-
-          <tfoot>
-            <tr>
-              <td colspan="3">
-                <div class="total-title-box">
-                  <span class="total-title-text">Total Amount</span>
-                  <span class="total-words-text" id="total-words-display">Two Thousand Four Hundred Rupees Only</span>
-                </div>
-              </td>
-              <td class="total-amount-display" id="total-amount-display">₹2,400.00</td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </section>
-
-    <!-- 4. Payment Mode Section -->
-    <section class="card" aria-labelledby="payment-mode-title">
-      <div class="payment-header">
-        <h2 class="section-title" id="payment-mode-title">Payment Mode</h2>
-        <span class="payment-subtitle">Select method</span>
-      </div>
-
-      <div class="payment-grid" role="radiogroup" aria-labelledby="payment-mode-title">
-        <button type="button" class="payment-card" role="radio" aria-checked="false" data-mode="Credit Card">
-          <div class="payment-icon-bg">
-            <span class="material-symbols-outlined">credit_card</span>
-          </div>
-          <span class="payment-label">Credit Card</span>
-        </button>
-
-        <button type="button" class="payment-card" role="radio" aria-checked="false" data-mode="Cash">
-          <div class="payment-icon-bg">
-            <span class="material-symbols-outlined">payments</span>
-          </div>
-          <span class="payment-label">Cash</span>
-        </button>
-
-        <button type="button" class="payment-card active" role="radio" aria-checked="true" data-mode="UPI">
-          <div class="payment-icon-bg">
-            <span class="material-symbols-outlined">qr_code_scanner</span>
-          </div>
-          <span class="payment-label">UPI</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- 5. Bill Receipt Section -->
-    <section class="card" aria-labelledby="bill-receipt-title">
-      <div class="receipt-header">
-        <h2 class="section-title" id="bill-receipt-title">Bill Receipt</h2>
-        <span class="receipt-info-text">Max 5MB • JPG, PNG, PDF</span>
-      </div>
-
-      <!-- Hidden file input for secure native browsing -->
-      <input type="file" id="receipt-file-input" accept="image/jpeg,image/png,image/webp,application/pdf" style="display: none;" aria-hidden="true">
-
-      <!-- Drag & Drop Zone -->
-      <div class="receipt-dropzone" id="receipt-dropzone" tabindex="0" role="button" aria-label="Upload bill receipt">
-        <div class="receipt-upload-icon-circle">
-          <span class="material-symbols-outlined">cloud_upload</span>
+    <section class="chart-card" style="padding: 14px 16px; gap: 10px;">
+        <div class="flex justify-between items-center">
+            <h2 class="text-base font-bold text-on-surface" style="font-size: 1.125rem;">Budget - Planning</h2>
+            <button aria-label="Open full budget plan" style="display: flex; align-items: center;">
+                <span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+            </button>
         </div>
-        <div class="receipt-drag-title">Drag &amp; drop receipt or tap to upload</div>
-        <div class="receipt-drag-sub">Receipt auto-scan extracts items &amp; totals</div>
-      </div>
-
-      <!-- Attached Bills Indicator -->
-      <div class="attached-bills-bar">
-        <span class="attached-bills-label" id="attached-bills-count">Attached Bills (1 of 5)</span>
-        <div class="attached-bills-dots">
-          <span class="bill-dot active"></span>
-          <span class="bill-dot"></span>
-          <span class="bill-dot"></span>
-          <span class="bill-dot"></span>
-          <span class="bill-dot"></span>
-        </div>
-      </div>
-
-      <!-- Attached File Preview Item -->
-      <div class="receipt-preview-card" id="receipt-preview-card">
-        <div class="receipt-preview-left">
-          <div class="receipt-preview-icon">
-            <span class="material-symbols-outlined">receipt_long</span>
-          </div>
-          <div class="receipt-meta">
-            <div class="receipt-filename-row">
-              <span class="receipt-filename" id="preview-filename">D-Mart_Receipt_Aug05.jpg</span>
-              <span class="receipt-badge">
-                <span class="material-symbols-outlined">check_circle</span> Attached
-              </span>
+        <div class="horizontal-stats-slider">
+            <div class="stat-badge-card">
+                <div class="stat-icon-wrapper" style="background-color: #fd6a3c;">
+                    <span class="material-symbols-outlined">pie_chart</span>
+                </div>
+                <span class="text-xs text-on-surface-variant">Budget</span>
+                <span class="font-bold text-on-surface" style="font-size: 17px; line-height: 22px;">₹13,350</span>
             </div>
-            <span class="receipt-details" id="preview-filesize">1.4 MB • Scanned &amp; Verified</span>
-          </div>
+            <div class="stat-badge-card">
+                <div class="stat-icon-wrapper" style="background-color: #1a73e8;">
+                    <span class="material-symbols-outlined">account_balance_wallet</span>
+                </div>
+                <span class="text-xs text-on-surface-variant">Spent</span>
+                <span class="font-bold text-on-surface" style="font-size: 17px; line-height: 22px;">₹8,700</span>
+            </div>
+            <div class="stat-badge-card">
+                <div class="stat-icon-wrapper" style="background-color: var(--color-primary);">
+                    <span class="material-symbols-outlined">savings</span>
+                </div>
+                <span class="text-xs text-on-surface-variant">Left</span>
+                <span class="font-bold text-on-surface" style="font-size: 17px; line-height: 22px;">₹4,650</span>
+            </div>
         </div>
-        <button type="button" class="receipt-remove-btn" id="remove-receipt-btn" title="Remove attached bill" aria-label="Remove receipt file">
-          <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
-        </button>
-      </div>
     </section>
 
-    <!-- 6. Expense Description Section -->
-    <section class="card description-card" aria-labelledby="desc-heading">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-        <h2 class="section-title" id="desc-heading">Expense Description (Optional)</h2>
-        <span style="font-size: 11px; font-weight: 500; color: var(--outline);">Notes &amp; tags</span>
-      </div>
-      <textarea class="description-input" id="expense-notes" placeholder="Add notes about this expense..." rows="2" aria-label="Expense Notes"></textarea>
+    <section class="chart-card">
+        <div class="flex justify-between items-center">
+            <span class="badge-pill">Aug 2026</span>
+            <button class="icon-circle-btn" style="width: 32px; height: 32px; box-shadow: none;" title="Set Spending Threshold" aria-label="Set Spending Threshold">
+                <span class="material-symbols-outlined" style="font-size: 18px;">tune</span>
+            </button>
+        </div>
+        
+        <div class="flex flex-col gap-sm">
+            <div class="calendar-days-header">
+                <span class="text-xs text-on-surface-variant font-bold">S</span>
+                <span class="text-xs text-on-surface-variant font-bold">M</span>
+                <span class="text-xs text-on-surface-variant font-bold">T</span>
+                <span class="text-xs text-on-surface-variant font-bold">W</span>
+                <span class="text-xs text-on-surface-variant font-bold">T</span>
+                <span class="text-xs text-on-surface-variant font-bold">F</span>
+                <span class="text-xs text-on-surface-variant font-bold">S</span>
+            </div>
+            <div class="calendar-grid">
+                <!-- Empty day offsets for Aug 1 2026 (Saturday) -->
+                <div class="calendar-cell cell-empty"></div>
+                <div class="calendar-cell cell-empty"></div>
+                <div class="calendar-cell cell-empty"></div>
+                <div class="calendar-cell cell-empty"></div>
+                <div class="calendar-cell cell-empty"></div>
+                <div class="calendar-cell cell-empty"></div>
+                
+                <!-- 31 Days of August -->
+                <div class="calendar-cell"><span class="cell-date-num">1</span><span class="cell-spend-amount text-primary">₹150</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">2</span><span class="cell-spend-amount text-primary">₹450</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">3</span><span class="cell-spend-amount text-primary">₹120</span></div>
+                <div class="calendar-cell cell-peak"><span class="cell-date-num">4</span><span class="cell-spend-amount text-secondary">₹1,200</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">5</span><span class="cell-spend-amount text-primary">₹80</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">6</span><span class="cell-spend-amount text-primary">₹200</span></div>
+                <div class="calendar-cell cell-peak"><span class="cell-date-num">7</span><span class="cell-spend-amount text-secondary">₹550</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">8</span><span class="cell-spend-amount text-primary">₹100</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">9</span><span class="cell-spend-amount text-primary">₹300</span></div>
+                <div class="calendar-cell cell-peak"><span class="cell-date-num">10</span><span class="cell-spend-amount text-secondary">₹2,100</span></div>
+                <div class="calendar-cell cell-zero"><span class="cell-date-num">11</span><span class="cell-spend-amount text-primary">₹0</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">12</span><span class="cell-spend-amount text-primary">₹150</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">13</span><span class="cell-spend-amount text-primary">₹400</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">14</span><span class="cell-spend-amount text-primary">₹220</span></div>
+                <div class="calendar-cell cell-peak"><span class="cell-date-num">15</span><span class="cell-spend-amount text-secondary">₹850</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">16</span><span class="cell-spend-amount text-primary">₹110</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">17</span><span class="cell-spend-amount text-primary">₹90</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">18</span><span class="cell-spend-amount text-primary">₹310</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">19</span><span class="cell-spend-amount text-primary">₹140</span></div>
+                <div class="calendar-cell cell-peak"><span class="cell-date-num">20</span><span class="cell-spend-amount text-secondary">₹3,400</span></div>
+                <div class="calendar-cell cell-zero"><span class="cell-date-num">21</span><span class="cell-spend-amount text-primary">₹0</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">22</span><span class="cell-spend-amount text-primary">₹180</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">23</span><span class="cell-spend-amount text-primary">₹250</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">24</span><span class="cell-spend-amount text-primary">₹100</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">25</span><span class="cell-spend-amount text-primary">₹150</span></div>
+                <div class="calendar-cell cell-zero"><span class="cell-date-num">26</span><span class="cell-spend-amount text-primary">₹0</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">27</span><span class="cell-spend-amount text-primary">₹450</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">28</span><span class="cell-spend-amount text-primary">₹120</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">29</span><span class="cell-spend-amount text-primary">₹130</span></div>
+                <div class="calendar-cell"><span class="cell-date-num">30</span><span class="cell-spend-amount text-primary">₹160</span></div>
+                <div class="calendar-cell cell-zero"><span class="cell-date-num">31</span><span class="cell-spend-amount text-primary">₹0</span></div>
+            </div>
+            <div class="flex justify-between items-center" style="margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--color-outline-variant);">
+                <span class="text-sm font-medium text-on-surface-variant">Total Monthly Spend</span>
+                <span class="font-bold text-primary" style="font-size: 1.125rem;">₹12,000</span>
+            </div>
+        </div>
     </section>
 
-    <!-- 7. Save Expense Button -->
-    <button type="button" class="save-btn" id="save-expense-btn">
-      <span class="material-symbols-outlined" id="save-btn-icon" style="font-size: 20px;">check</span>
-      <span id="save-btn-text">Save Expense</span>
+    <section class="chart-card" id="daily-spending-section">
+        <div class="flex justify-between items-center relative" style="z-index: 10;">
+            <div class="flex items-center gap-xs">
+                <h2 class="text-base font-bold text-on-surface">Daily Spending Analysis.</h2>
+                <button class="icon-circle-btn" id="btn-toggle-fullscreen" style="width: 32px; height: 32px; background: transparent; box-shadow: none;" title="Toggle Full Screen Landscape Mode" aria-label="Toggle Full Screen Landscape Mode">
+                    <span class="material-symbols-outlined" id="fullscreen-icon-indicator" style="font-size: 20px;">fullscreen</span>
+                </button>
+            </div>
+            <div class="segmented-control-bar" role="tablist" aria-label="Daily Chart View Selector">
+                <button class="segmented-tab-btn active" id="tab-btn-trend" role="tab" aria-selected="true">Trend</button>
+                <button class="segmented-tab-btn" id="tab-btn-bar" role="tab" aria-selected="false">Bar</button>
+            </div>
+        </div>
+
+        <div class="chart-container" style="z-index: 1;">
+            <!-- Trend View Panel -->
+            <div class="chart-view-panel" id="view-aug-trend" style="display: block;">
+                <div class="line-chart-box">
+                    <svg width="100%" height="100%" viewBox="0 0 310 145" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="augTrendGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#7B4DFF"></stop>
+                                <stop offset="100%" stop-color="#FF6B3D"></stop>
+                            </linearGradient>
+                            <linearGradient id="augFillGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#7B4DFF" stop-opacity="0.2"></stop>
+                                <stop offset="100%" stop-color="#7B4DFF" stop-opacity="0"></stop>
+                            </linearGradient>
+                        </defs>
+                        <!-- Guidelines -->
+                        <line x1="0" y1="100" x2="310" y2="100" stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.5"></line>
+                        <line x1="0" y1="60" x2="310" y2="60" stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.5"></line>
+                        <line x1="0" y1="20" x2="310" y2="20" stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.5"></line>
+                        <!-- Filled Polygon -->
+                        <path d="M 0 110 L 10 105 L 20 100 L 30 102 L 40 70 L 50 105 L 60 100 L 70 85 L 80 102 L 90 95 L 100 40 L 110 110 L 120 105 L 130 95 L 140 100 L 150 80 L 160 105 L 170 108 L 180 102 L 190 105 L 200 10 L 210 110 L 220 105 L 230 102 L 240 105 L 250 102 L 260 110 L 270 95 L 280 102 L 290 100 L 300 105 L 310 110 L 310 120 L 0 120 Z" fill="url(#augFillGrad)"></path>
+                        <!-- Curve Path -->
+                        <path d="M 0 110 C 5 110, 5 105, 10 105 C 15 105, 15 100, 20 100 C 25 100, 35 102, 40 70 C 45 38, 45 105, 50 105 C 55 105, 65 100, 70 85 C 75 70, 85 102, 90 95 C 95 88, 95 40, 100 40 C 105 40, 105 110, 110 110 C 115 110, 125 105, 130 95 C 135 85, 145 100, 150 80 C 155 60, 155 105, 160 105 C 165 105, 195 105, 200 10 C 205 10, 205 110, 210 110 C 215 110, 305 105, 310 110" fill="none" stroke="url(#augTrendGrad)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" vector-effect="non-scaling-stroke"></path>
+
+                        <!-- Dates (1st to 31st rotated -90) -->
+                        <g font-size="6" font-family="var(--font-family-sans)" font-weight="500" fill="var(--color-outline)" text-anchor="end" dominant-baseline="central">
+                            <text transform="rotate(-90 5 126)" x="5" y="126">1st</text>
+                            <text transform="rotate(-90 15 126)" x="15" y="126">2nd</text>
+                            <text transform="rotate(-90 25 126)" x="25" y="126">3rd</text>
+                            <text transform="rotate(-90 35 126)" x="35" y="126">4th</text>
+                            <text transform="rotate(-90 45 126)" x="45" y="126">5th</text>
+                            <text transform="rotate(-90 55 126)" x="55" y="126">6th</text>
+                            <text transform="rotate(-90 65 126)" x="65" y="126">7th</text>
+                            <text transform="rotate(-90 75 126)" x="75" y="126">8th</text>
+                            <text transform="rotate(-90 85 126)" x="85" y="126">9th</text>
+                            <text transform="rotate(-90 95 126)" x="95" y="126">10th</text>
+                            <text transform="rotate(-90 105 126)" x="105" y="126">11th</text>
+                            <text transform="rotate(-90 115 126)" x="115" y="126">12th</text>
+                            <text transform="rotate(-90 125 126)" x="125" y="126">13th</text>
+                            <text transform="rotate(-90 135 126)" x="135" y="126">14th</text>
+                            <text transform="rotate(-90 145 126)" x="145" y="126">15th</text>
+                            <text transform="rotate(-90 155 126)" x="155" y="126">16th</text>
+                            <text transform="rotate(-90 165 126)" x="165" y="126">17th</text>
+                            <text transform="rotate(-90 175 126)" x="175" y="126">18th</text>
+                            <text transform="rotate(-90 185 126)" x="185" y="126">19th</text>
+                            <text transform="rotate(-90 195 126)" x="195" y="126">20th</text>
+                            <text transform="rotate(-90 205 126)" x="205" y="126">21st</text>
+                            <text transform="rotate(-90 215 126)" x="215" y="126">22nd</text>
+                            <text transform="rotate(-90 225 126)" x="225" y="126">23rd</text>
+                            <text transform="rotate(-90 235 126)" x="235" y="126">24th</text>
+                            <text transform="rotate(-90 245 126)" x="245" y="126">25th</text>
+                            <text transform="rotate(-90 255 126)" x="255" y="126">26th</text>
+                            <text transform="rotate(-90 265 126)" x="265" y="126">27th</text>
+                            <text transform="rotate(-90 275 126)" x="275" y="126">28th</text>
+                            <text transform="rotate(-90 285 126)" x="285" y="126">29th</text>
+                            <text transform="rotate(-90 295 126)" x="295" y="126">30th</text>
+                            <text transform="rotate(-90 305 126)" x="305" y="126">31st</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="chart-view-panel" id="view-aug-bar" style="display: none;">
+                <div class="line-chart-box" style="margin-top: var(--spacing-sm);">
+                    <svg width="100%" height="100%" viewBox="0 0 310 190" preserveAspectRatio="none" style="overflow: visible;">
+                        <defs>
+                            <linearGradient id="augBarGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#7B4DFF"></stop>
+                                <stop offset="100%" stop-color="#FF6B3D"></stop>
+                            </linearGradient>
+                        </defs>
+                        <g font-size="7" font-family="var(--font-family-sans)" font-weight="600" fill="var(--color-on-surface-variant)" text-anchor="start" dominant-baseline="central">
+                            <rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="2" y="155"></rect>
+                            <text transform="rotate(-90 5 152)" x="5" y="152">150</text>
+                            <text transform="rotate(-90 5 166)" x="5" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">1st</text>
+
+                            <rect fill="url(#augBarGrad)" height="16" rx="2" width="6" x="12" y="144"></rect>
+                            <text transform="rotate(-90 15 141)" x="15" y="141">450</text>
+                            <text transform="rotate(-90 15 166)" x="15" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">2nd</text>
+
+                            <rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="22" y="156"></rect>
+                            <text transform="rotate(-90 25 153)" x="25" y="153">120</text>
+                            <text transform="rotate(-90 25 166)" x="25" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">3rd</text>
+
+                            <rect fill="url(#augBarGrad)" height="42" rx="2" width="6" x="32" y="118"></rect>
+                            <text transform="rotate(-90 35 115)" x="35" y="115">1,200</text>
+                            <text transform="rotate(-90 35 166)" x="35" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">4th</text>
+
+                            <rect fill="url(#augBarGrad)" height="3" rx="2" width="6" x="42" y="157"></rect>
+                            <text transform="rotate(-90 45 154)" x="45" y="154">80</text>
+                            <text transform="rotate(-90 45 166)" x="45" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">5th</text>
+
+                            <rect fill="url(#augBarGrad)" height="7" rx="2" width="6" x="52" y="153"></rect>
+                            <text transform="rotate(-90 55 150)" x="55" y="150">200</text>
+                            <text transform="rotate(-90 55 166)" x="55" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">6th</text>
+
+                            <rect fill="url(#augBarGrad)" height="19" rx="2" width="6" x="62" y="141"></rect>
+                            <text transform="rotate(-90 65 138)" x="65" y="138">550</text>
+                            <text transform="rotate(-90 65 166)" x="65" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">7th</text>
+
+                            <rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="72" y="156"></rect>
+                            <text transform="rotate(-90 75 153)" x="75" y="153">100</text>
+                            <text transform="rotate(-90 75 166)" x="75" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">8th</text>
+
+                            <rect fill="url(#augBarGrad)" height="11" rx="2" width="6" x="82" y="149"></rect>
+                            <text transform="rotate(-90 85 146)" x="85" y="146">300</text>
+                            <text transform="rotate(-90 85 166)" x="85" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">9th</text>
+
+                            <rect fill="url(#augBarGrad)" height="74" rx="2" width="6" x="92" y="86"></rect>
+                            <text transform="rotate(-90 95 83)" x="95" y="83">2,100</text>
+                            <text transform="rotate(-90 95 166)" x="95" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">10th</text>
+
+                            <rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="102" y="160"></rect>
+                            <text transform="rotate(-90 105 166)" x="105" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">11th</text>
+
+                            <rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="112" y="155"></rect>
+                            <text transform="rotate(-90 115 152)" x="115" y="152">150</text>
+                            <text transform="rotate(-90 115 166)" x="115" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">12th</text>
+
+                            <rect fill="url(#augBarGrad)" height="14" rx="2" width="6" x="122" y="146"></rect>
+                            <text transform="rotate(-90 125 143)" x="125" y="143">400</text>
+                            <text transform="rotate(-90 125 166)" x="125" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">13th</text>
+
+                            <rect fill="url(#augBarGrad)" height="8" rx="2" width="6" x="132" y="152"></rect>
+                            <text transform="rotate(-90 135 149)" x="135" y="149">220</text>
+                            <text transform="rotate(-90 135 166)" x="135" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">14th</text>
+
+                            <rect fill="url(#augBarGrad)" height="30" rx="2" width="6" x="142" y="130"></rect>
+                            <text transform="rotate(-90 145 127)" x="145" y="127">850</text>
+                            <text transform="rotate(-90 145 166)" x="145" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">15th</text>
+
+                            <rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="152" y="156"></rect>
+                            <text transform="rotate(-90 155 153)" x="155" y="153">110</text>
+                            <text transform="rotate(-90 155 166)" x="155" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">16th</text>
+
+                            <rect fill="url(#augBarGrad)" height="3" rx="2" width="6" x="162" y="157"></rect>
+                            <text transform="rotate(-90 165 154)" x="165" y="154">90</text>
+                            <text transform="rotate(-90 165 166)" x="165" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">17th</text>
+
+                            <rect fill="url(#augBarGrad)" height="11" rx="2" width="6" x="172" y="149"></rect>
+                            <text transform="rotate(-90 175 146)" x="175" y="146">310</text>
+                            <text transform="rotate(-90 175 166)" x="175" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">18th</text>
+
+                            <rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="182" y="155"></rect>
+                            <text transform="rotate(-90 185 152)" x="185" y="152">140</text>
+                            <text transform="rotate(-90 185 166)" x="185" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">19th</text>
+
+                            <rect fill="url(#augBarGrad)" height="120" rx="2" width="6" x="192" y="40"></rect>
+                            <text transform="rotate(-90 195 37)" x="195" y="37">3,400</text>
+                            <text transform="rotate(-90 195 166)" x="195" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">20th</text>
+
+                            <rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="202" y="160"></rect>
+                            <text transform="rotate(-90 205 166)" x="205" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">21st</text>
+
+                            <rect fill="url(#augBarGrad)" height="6" rx="2" width="6" x="212" y="154"></rect>
+                            <text transform="rotate(-90 215 151)" x="215" y="151">180</text>
+                            <text transform="rotate(-90 215 166)" x="215" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">22nd</text>
+
+                            <rect fill="url(#augBarGrad)" height="9" rx="2" width="6" x="222" y="151"></rect>
+                            <text transform="rotate(-90 225 148)" x="225" y="148">250</text>
+                            <text transform="rotate(-90 225 166)" x="225" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">23rd</text>
+
+                            <rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="232" y="156"></rect>
+                            <text transform="rotate(-90 235 153)" x="235" y="153">100</text>
+                            <text transform="rotate(-90 235 166)" x="235" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">24th</text>
+
+                            <rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="242" y="155"></rect>
+                            <text transform="rotate(-90 245 152)" x="245" y="152">150</text>
+                            <text transform="rotate(-90 245 166)" x="245" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">25th</text>
+
+                            <rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="252" y="160"></rect>
+                            <text transform="rotate(-90 255 166)" x="255" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">26th</text>
+
+                            <rect fill="url(#augBarGrad)" height="16" rx="2" width="6" x="262" y="144"></rect>
+                            <text transform="rotate(-90 265 141)" x="265" y="141">450</text>
+                            <text transform="rotate(-90 265 166)" x="265" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">27th</text>
+
+                            <rect fill="url(#augBarGrad)" height="4" rx="2" width="6" x="272" y="156"></rect>
+                            <text transform="rotate(-90 275 153)" x="275" y="153">120</text>
+                            <text transform="rotate(-90 275 166)" x="275" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">28th</text>
+
+                            <rect fill="url(#augBarGrad)" height="5" rx="2" width="6" x="282" y="155"></rect>
+                            <text transform="rotate(-90 285 152)" x="285" y="152">130</text>
+                            <text transform="rotate(-90 285 166)" x="285" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">29th</text>
+
+                            <rect fill="url(#augBarGrad)" height="6" rx="2" width="6" x="292" y="154"></rect>
+                            <text transform="rotate(-90 295 151)" x="295" y="151">160</text>
+                            <text transform="rotate(-90 295 166)" x="295" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">30th</text>
+
+                            <rect fill="url(#augBarGrad)" height="0" rx="2" width="6" x="302" y="160"></rect>
+                            <text transform="rotate(-90 305 166)" x="305" y="166" font-size="6" font-weight="500" fill="var(--color-outline)" text-anchor="end">31st</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="chart-card" id="category-section">
+        <div class="flex justify-between items-center">
+            <h2 class="text-sm font-semibold text-on-surface-variant">Spending by Category</h2>
+            <div class="segmented-control-bar" role="tablist" aria-label="Category Chart View Selector">
+                <button class="segmented-tab-btn active" id="btn-category-ring" role="tab" aria-selected="true">Ring</button>
+                <button class="segmented-tab-btn" id="btn-category-bar" role="tab" aria-selected="false">Bar</button>
+            </div>
+        </div>
+
+        <!-- Donut Ring Chart & Legend -->
+        <div class="category-view-ring" id="view-ring">
+            <div class="donut-wrapper">
+                <svg width="100%" height="100%" viewBox="0 0 36 36">
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#f0eded" stroke-width="4"></path>
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#7B4DFF" stroke-dasharray="30, 100" stroke-width="4"></path>
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#10B981" stroke-dasharray="15, 100" stroke-dashoffset="-30" stroke-width="4"></path>
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#FF6B3D" stroke-dasharray="15, 100" stroke-dashoffset="-45" stroke-width="4"></path>
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#0EA5E9" stroke-dasharray="10, 100" stroke-dashoffset="-60" stroke-width="4"></path>
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#E11D48" stroke-dasharray="10, 100" stroke-dashoffset="-70" stroke-width="4"></path>
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#D946EF" stroke-dasharray="10, 100" stroke-dashoffset="-80" stroke-width="4"></path>
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#cac3d8" stroke-dasharray="10, 100" stroke-dashoffset="-90" stroke-width="4"></path>
+                </svg>
+                <div class="donut-center-label">
+                    <span class="font-bold text-on-surface" style="font-size: 1.125rem;">₹11.5k</span>
+                </div>
+            </div>
+            <div class="category-legend-list">
+                <div class="legend-row">
+                    <div class="flex items-center text-on-surface-variant">
+                        <span class="legend-dot-indicator" style="background-color: #7B4DFF;"></span>Grocery
+                    </div>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹3,450</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">30%</span>
+                    </div>
+                </div>
+                <div class="legend-row">
+                    <div class="flex items-center text-on-surface-variant">
+                        <span class="legend-dot-indicator" style="background-color: #10B981;"></span>Vegetables
+                    </div>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,725</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">15%</span>
+                    </div>
+                </div>
+                <div class="legend-row">
+                    <div class="flex items-center text-on-surface-variant">
+                        <span class="legend-dot-indicator" style="background-color: #FF6B3D;"></span>Petrol
+                    </div>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,725</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">15%</span>
+                    </div>
+                </div>
+                <div class="legend-row">
+                    <div class="flex items-center text-on-surface-variant">
+                        <span class="legend-dot-indicator" style="background-color: #0EA5E9;"></span>Travelling
+                    </div>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,150</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">10%</span>
+                    </div>
+                </div>
+                <div class="legend-row">
+                    <div class="flex items-center text-on-surface-variant">
+                        <span class="legend-dot-indicator" style="background-color: #E11D48;"></span>Medical
+                    </div>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,150</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">10%</span>
+                    </div>
+                </div>
+                <div class="legend-row">
+                    <div class="flex items-center text-on-surface-variant">
+                        <span class="legend-dot-indicator" style="background-color: #D946EF;"></span>Clothes
+                    </div>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,150</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">10%</span>
+                    </div>
+                </div>
+                <div class="legend-row">
+                    <div class="flex items-center text-on-surface-variant">
+                        <span class="legend-dot-indicator" style="background-color: #cac3d8;"></span>Others
+                    </div>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,150</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">10%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-view-bar" id="view-bar">
+            <div class="cat-bar-item">
+                <div class="cat-bar-header">
+                    <span class="text-on-surface-variant flex items-center">
+                        <span class="legend-dot-indicator" style="background-color: #7B4DFF;"></span>Grocery
+                    </span>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹3,450</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">30%</span>
+                    </div>
+                </div>
+                <div class="cat-bar-track"><div class="cat-bar-fill" style="width: 30%; background: #7B4DFF;"></div></div>
+            </div>
+            <div class="cat-bar-item">
+                <div class="cat-bar-header">
+                    <span class="text-on-surface-variant flex items-center">
+                        <span class="legend-dot-indicator" style="background-color: #10B981;"></span>Vegetables
+                    </span>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,725</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">15%</span>
+                    </div>
+                </div>
+                <div class="cat-bar-track"><div class="cat-bar-fill" style="width: 15%; background: #10B981;"></div></div>
+            </div>
+            <div class="cat-bar-item">
+                <div class="cat-bar-header">
+                    <span class="text-on-surface-variant flex items-center">
+                        <span class="legend-dot-indicator" style="background-color: #FF6B3D;"></span>Petrol
+                    </span>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,725</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">15%</span>
+                    </div>
+                </div>
+                <div class="cat-bar-track"><div class="cat-bar-fill" style="width: 15%; background: #FF6B3D;"></div></div>
+            </div>
+            <div class="cat-bar-item">
+                <div class="cat-bar-header">
+                    <span class="text-on-surface-variant flex items-center">
+                        <span class="legend-dot-indicator" style="background-color: #0EA5E9;"></span>Travelling
+                    </span>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,150</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">10%</span>
+                    </div>
+                </div>
+                <div class="cat-bar-track"><div class="cat-bar-fill" style="width: 10%; background: #0EA5E9;"></div></div>
+            </div>
+            <div class="cat-bar-item">
+                <div class="cat-bar-header">
+                    <span class="text-on-surface-variant flex items-center">
+                        <span class="legend-dot-indicator" style="background-color: #E11D48;"></span>Medical
+                    </span>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,150</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">10%</span>
+                    </div>
+                </div>
+                <div class="cat-bar-track"><div class="cat-bar-fill" style="width: 10%; background: #E11D48;"></div></div>
+            </div>
+            <div class="cat-bar-item">
+                <div class="cat-bar-header">
+                    <span class="text-on-surface-variant flex items-center">
+                        <span class="legend-dot-indicator" style="background-color: #D946EF;"></span>Clothes
+                    </span>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,150</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">10%</span>
+                    </div>
+                </div>
+                <div class="cat-bar-track"><div class="cat-bar-fill" style="width: 10%; background: #D946EF;"></div></div>
+            </div>
+            <div class="cat-bar-item">
+                <div class="cat-bar-header">
+                    <span class="text-on-surface-variant flex items-center">
+                        <span class="legend-dot-indicator" style="background-color: #cac3d8;"></span>Others
+                    </span>
+                    <div class="flex items-center gap-sm">
+                        <span class="font-medium text-on-surface">₹1,150</span>
+                        <span class="text-xs text-on-surface-variant" style="min-width: 28px; text-align: right;">10%</span>
+                    </div>
+                </div>
+                <div class="cat-bar-track"><div class="cat-bar-fill" style="width: 10%; background: #cac3d8;"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="chart-card">
+        <div class="flex justify-between items-center">
+            <h2 class="text-base font-bold text-on-surface" style="font-size: 1.125rem;">Yearly Analysis</h2>
+            <span class="badge-pill">This Month</span>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-xs text-on-surface-variant">Average Monthly Spending</span>
+            <span class="font-bold text-on-surface" style="font-size: 1.25rem;">₹3,240.00</span>
+        </div>
+        <div class="chart-container">
+            <div style="height: 120px; width: 100%;">
+                <svg width="100%" height="100%" viewBox="0 0 360 100" preserveAspectRatio="none" style="overflow: visible;">
+                    <defs>
+                        <linearGradient id="grad-jan" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8B5CF6"></stop><stop offset="100%" stop-color="#6366F1"></stop></linearGradient>
+                        <linearGradient id="grad-feb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EC4899"></stop><stop offset="100%" stop-color="#F43F5E"></stop></linearGradient>
+                        <linearGradient id="grad-mar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3B82F6"></stop><stop offset="100%" stop-color="#06B6D4"></stop></linearGradient>
+                        <linearGradient id="grad-apr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10B981"></stop><stop offset="100%" stop-color="#059669"></stop></linearGradient>
+                        <linearGradient id="grad-may" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F59E0B"></stop><stop offset="100%" stop-color="#D97706"></stop></linearGradient>
+                        <linearGradient id="grad-jun" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6366F1"></stop><stop offset="100%" stop-color="#A855F7"></stop></linearGradient>
+                        <linearGradient id="grad-jul" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7C3AED"></stop><stop offset="100%" stop-color="#C026D3"></stop></linearGradient>
+                        <linearGradient id="grad-aug" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F97316"></stop><stop offset="100%" stop-color="#EF4444"></stop></linearGradient>
+                        <linearGradient id="grad-sep" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#14B8A6"></stop><stop offset="100%" stop-color="#0D9488"></stop></linearGradient>
+                        <linearGradient id="grad-oct" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0EA5E9"></stop><stop offset="100%" stop-color="#2563EB"></stop></linearGradient>
+                        <linearGradient id="grad-nov" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D946EF"></stop><stop offset="100%" stop-color="#9333EA"></stop></linearGradient>
+                        <linearGradient id="grad-dec" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E11D48"></stop><stop offset="100%" stop-color="#BE185D"></stop></linearGradient>
+                    </defs>
+
+                    <rect x="5" y="40" width="20" height="60" rx="4" fill="url(#grad-jan)"></rect>
+                    <rect x="35" y="30" width="20" height="70" rx="4" fill="url(#grad-feb)"></rect>
+                    <rect x="65" y="50" width="20" height="50" rx="4" fill="url(#grad-mar)"></rect>
+                    <rect x="95" y="20" width="20" height="80" rx="4" fill="url(#grad-apr)"></rect>
+                    <rect x="125" y="45" width="20" height="55" rx="4" fill="url(#grad-may)"></rect>
+                    <rect x="155" y="35" width="20" height="65" rx="4" fill="url(#grad-jun)"></rect>
+                    <rect x="185" y="15" width="20" height="85" rx="4" fill="url(#grad-jul)"></rect>
+                    <rect x="215" y="40" width="20" height="60" rx="4" fill="url(#grad-aug)"></rect>
+                    <rect x="245" y="55" width="20" height="45" rx="4" fill="url(#grad-sep)"></rect>
+                    <rect x="275" y="25" width="20" height="75" rx="4" fill="url(#grad-oct)"></rect>
+                    <rect x="305" y="45" width="20" height="55" rx="4" fill="url(#grad-nov)"></rect>
+                    <rect x="335" y="30" width="20" height="70" rx="4" fill="url(#grad-dec)"></rect>
+
+                    <g font-size="9" font-family="var(--font-family-sans)" font-weight="600" fill="#ffffff" text-anchor="start" dominant-baseline="central">
+                        <text transform="rotate(-90 15 95)" x="15" y="95">11,800</text>
+                        <text transform="rotate(-90 45 95)" x="45" y="95">13,200</text>
+                        <text transform="rotate(-90 75 95)" x="75" y="95">10,500</text>
+                        <text transform="rotate(-90 105 95)" x="105" y="95">14,800</text>
+                        <text transform="rotate(-90 135 95)" x="135" y="95">11,100</text>
+                        <text transform="rotate(-90 165 95)" x="165" y="95">12,500</text>
+                        <text transform="rotate(-90 195 95)" x="195" y="95">15,400</text>
+                        <text transform="rotate(-90 225 95)" x="225" y="95">11,800</text>
+                        <text transform="rotate(-90 255 95)" x="255" y="95">10,100</text>
+                        <text transform="rotate(-90 285 95)" x="285" y="95">14,100</text>
+                        <text transform="rotate(-90 315 95)" x="315" y="95">11,100</text>
+                        <text transform="rotate(-90 345 95)" x="345" y="95">13,200</text>
+                    </g>
+                </svg>
+            </div>
+            <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(12, 1fr); text-align: center; width: 100%; font-size: 0.75rem; color: var(--color-on-surface-variant); font-weight: 500;">
+                <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="flex flex-col gap-sm" style="padding-bottom: var(--spacing-xl);">
+        <div class="flex justify-between items-center w-full">
+            <h2 class="text-base font-bold text-on-surface" style="font-size: 1.125rem;">Recent Transactions</h2>
+            <button class="text-sm font-semibold text-primary" style="padding: 4px;">See All</button>
+        </div>
+        <div class="transactions-card">
+            <div class="tx-list-item">
+                <div class="flex items-center gap-md">
+                    <div class="tx-avatar-icon">
+                        <span class="material-symbols-outlined">shopping_bag</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-semibold text-on-surface">Whole Foods</span>
+                        <span class="text-xs text-on-surface-variant">Groceries • Today, 10:24 AM</span>
+                    </div>
+                </div>
+                <span class="text-sm font-semibold text-on-surface">-₹124.50</span>
+            </div>
+            <hr class="divider-line">
+            <div class="tx-list-item">
+                <div class="flex items-center gap-md">
+                    <div class="tx-avatar-icon">
+                        <span class="material-symbols-outlined">subscriptions</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-semibold text-on-surface">Netflix</span>
+                        <span class="text-xs text-on-surface-variant">Entertainment • Yesterday</span>
+                    </div>
+                </div>
+                <span class="text-sm font-semibold text-on-surface">-₹15.99</span>
+            </div>
+        </div>
+    </section>
+</main>
+
+<nav class="bottom-nav-bar" aria-label="Bottom Navigation">
+    <button class="nav-action-btn active" id="btn-nav-home" aria-label="Home Dashboard">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+        <span class="nav-label">Home</span>
     </button>
-  </main>
-
-  <!-- Bottom App Navigation Bar (Mobile / Responsive) -->
-  <nav class="bottom-nav" aria-label="Main Navigation">
-    <button type="button" class="nav-item" aria-label="Home">
-      <span class="material-symbols-outlined">home</span>
-      <span>Home</span>
+    <button class="nav-action-btn" id="btn-nav-budget" aria-label="Budget Overview">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_balance_wallet</span>
+        <span class="nav-label">Budget</span>
     </button>
-    <button type="button" class="nav-item" aria-label="Budget">
-      <span class="material-symbols-outlined">account_balance_wallet</span>
-      <span>Budget</span>
+    <button class="fab-center-btn" id="btn-fab-add" aria-label="Quick Add Transaction">
+        <span class="material-symbols-outlined" style="font-size: 30px;">add</span>
     </button>
-    <button type="button" class="nav-fab" aria-label="Add New Expense" title="Add Expense">
-      <span class="material-symbols-outlined" style="font-size: 28px;">add</span>
+    <button class="nav-action-btn" id="btn-nav-stats" aria-label="Financial Stats">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">leaderboard</span>
+        <span class="nav-label">Stats</span>
     </button>
-    <button type="button" class="nav-item" aria-label="Statistics">
-      <span class="material-symbols-outlined">leaderboard</span>
-      <span>Stats</span>
+    <button class="nav-action-btn" id="btn-nav-history" aria-label="Transaction History">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history</span>
+        <span class="nav-label">History</span>
     </button>
-    <button type="button" class="nav-item" aria-label="History">
-      <span class="material-symbols-outlined">history</span>
-      <span>History</span>
+</nav>
+
+<nav class="desktop-sidebar-nav" aria-label="Sidebar Navigation">
+    <button class="desktop-sidebar-btn active">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+        <span>Home</span>
     </button>
-  </nav>
+    <button class="desktop-sidebar-btn">
+        <span class="material-symbols-outlined">account_balance_wallet</span>
+        <span>Budget</span>
+    </button>
+    <button class="desktop-sidebar-btn">
+        <span class="material-symbols-outlined">leaderboard</span>
+        <span>Stats</span>
+    </button>
+    <button class="desktop-sidebar-btn">
+        <span class="material-symbols-outlined">history</span>
+        <span>History</span>
+    </button>
+</nav>
 
-  <!-- Secure Custom Modal for Adding Custom Category -->
-  <div class="modal-backdrop" id="add-category-modal" role="dialog" aria-modal="true" aria-labelledby="modal-add-title">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="modal-add-title">Add Custom Category</h3>
-        <button type="button" id="close-category-modal-btn" aria-label="Close modal" style="color: var(--outline); padding: 4px;">
-          <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
-        </button>
-      </div>
-      <div>
-        <label for="custom-category-name-input" style="font-size: 12px; font-weight: 600; color: var(--outline); display: block; margin-bottom: 6px;">Category Name</label>
-        <input type="text" class="modal-input" id="custom-category-name-input" placeholder="e.g. Health & Fitness" maxlength="40">
-      </div>
-      <div class="modal-actions">
-        <button type="button" class="btn-secondary" id="cancel-category-modal-btn">Cancel</button>
-        <button type="button" class="btn-primary" id="confirm-category-modal-btn">Add Category</button>
-      </div>
-    </div>
-  </div>
+<script>
+(() => {
+    'use strict';
 
-  <!-- ==========================================================================
-       16. SECURE ES6+ JAVASCRIPT APPLICATION LOGIC
-       ========================================================================== -->
-  <script>
-    (() => {
-      'use strict';
+    const trendView = document.getElementById('view-aug-trend');
+    const barView = document.getElementById('view-aug-bar');
+    const btnTrend = document.getElementById('tab-btn-trend');
+    const btnBar = document.getElementById('tab-btn-bar');
 
-      // ========================================================================
-      // A. SANITIZATION & SECURITY HELPERS
-      // ========================================================================
-      function sanitizeHTML(str) {
-        if (typeof str !== 'string') return '';
-        const map = {
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#039;'
-        };
-        return str.replace(/[&<>"']/g, (m) => map[m]);
-      }
-
-      function sanitizeText(str) {
-        if (!str) return '';
-        return String(str).trim().replace(/[<>]/g, '');
-      }
-
-      // ========================================================================
-      // B. STATE MANAGEMENT
-      // ========================================================================
-      const state = {
-        currentDisplayDate: new Date(2026, 8, 1), // September 2026
-        selectedDate: new Date(2026, 8, 5),      // Sep 5, 2026 (matching screenshot)
-        selectedCategory: {
-          name: 'Vegetables',
-          icon: 'eco',
-          subtitle: 'Fresh vegetables & greens'
-        },
-        selectedPaymentMode: 'UPI',
-        receiptData: {
-          name: 'D-Mart_Receipt_Aug05.jpg',
-          size: 1.4 * 1024 * 1024,
-          mimeType: 'image/jpeg',
-          base64: null,
-          isAttached: true
-        },
-        isDropdownOpen: false
-      };
-
-      // ========================================================================
-      // C. TOAST NOTIFICATION CONTROLLER
-      // ========================================================================
-      let toastTimer = null;
-      function showToast(message, type = 'success') {
-        const toast = document.getElementById('toast');
-        const toastMsg = document.getElementById('toast-message');
-        const toastIcon = document.getElementById('toast-icon');
-        if (!toast || !toastMsg) return;
-
-        if (toastTimer) clearTimeout(toastTimer);
-
-        toast.className = `toast show ${type === 'success' ? 'success' : 'error'}`;
-        toastMsg.textContent = message;
-        if (toastIcon) {
-          toastIcon.textContent = type === 'success' ? 'check_circle' : 'error';
-        }
-
-        toastTimer = setTimeout(() => {
-          toast.classList.remove('show');
-        }, 3500);
-      }
-
-      // ========================================================================
-      // D. CALENDAR COMPONENT
-      // ========================================================================
-      const monthNames = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-      ];
-
-      function renderCalendar() {
-        const year = state.currentDisplayDate.getFullYear();
-        const month = state.currentDisplayDate.getMonth();
-
-        const titleEl = document.getElementById('calendar-heading');
-        if (titleEl) {
-          titleEl.textContent = `${monthNames[month]} ${year}`;
-        }
-
-        const grid = document.getElementById('calendar-grid');
-        if (!grid) return;
-
-        // Preserve weekday headers
-        const dayHeaders = Array.from(grid.querySelectorAll('.calendar-day-header'));
-        grid.innerHTML = '';
-        dayHeaders.forEach((header) => grid.appendChild(header));
-
-        // Calculate first day of month (Monday = 0, Sunday = 6)
-        const firstDay = new Date(year, month, 1).getDay();
-        const startOffset = (firstDay === 0) ? 6 : firstDay - 1;
-
-        // Number of days in current and previous months
-        const daysInCurrentMonth = new Date(year, month + 1, 0).getDate();
-        const daysInPrevMonth = new Date(year, month, 0).getDate();
-
-        // 1. Previous month trailing days
-        for (let i = startOffset - 1; i >= 0; i--) {
-          const dayNum = daysInPrevMonth - i;
-          const dayBtn = document.createElement('button');
-          dayBtn.type = 'button';
-          dayBtn.className = 'calendar-date muted';
-          dayBtn.textContent = dayNum;
-          dayBtn.setAttribute('aria-label', `${monthNames[(month + 11) % 12]} ${dayNum}, ${month === 0 ? year - 1 : year}`);
-          dayBtn.addEventListener('click', () => {
-            state.currentDisplayDate.setMonth(state.currentDisplayDate.getMonth() - 1);
-            state.selectedDate = new Date(year, month - 1, dayNum);
-            renderCalendar();
-          });
-          grid.appendChild(dayBtn);
-        }
-
-        // 2. Current month active days
-        for (let day = 1; day <= daysInCurrentMonth; day++) {
-          const dayBtn = document.createElement('button');
-          dayBtn.type = 'button';
-          dayBtn.className = 'calendar-date';
-          dayBtn.textContent = day;
-          dayBtn.setAttribute('aria-label', `${monthNames[month]} ${day}, ${year}`);
-
-          const isSelected =
-            state.selectedDate.getDate() === day &&
-            state.selectedDate.getMonth() === month &&
-            state.selectedDate.getFullYear() === year;
-
-          if (isSelected) {
-            dayBtn.classList.add('active');
-            dayBtn.setAttribute('aria-current', 'date');
-          }
-
-          dayBtn.addEventListener('click', () => {
-            state.selectedDate = new Date(year, month, day);
-            renderCalendar();
-          });
-          grid.appendChild(dayBtn);
-        }
-
-        // 3. Next month leading days to complete grid
-        const totalRendered = startOffset + daysInCurrentMonth;
-        const remainingSlots = (totalRendered % 7 === 0) ? 0 : (7 - (totalRendered % 7));
-        for (let nextDay = 1; nextDay <= remainingSlots; nextDay++) {
-          const dayBtn = document.createElement('button');
-          dayBtn.type = 'button';
-          dayBtn.className = 'calendar-date muted';
-          dayBtn.textContent = nextDay;
-          dayBtn.setAttribute('aria-label', `${monthNames[(month + 1) % 12]} ${nextDay}, ${month === 11 ? year + 1 : year}`);
-          dayBtn.addEventListener('click', () => {
-            state.currentDisplayDate.setMonth(state.currentDisplayDate.getMonth() + 1);
-            state.selectedDate = new Date(year, month + 1, nextDay);
-            renderCalendar();
-          });
-          grid.appendChild(dayBtn);
-        }
-      }
-
-      // ========================================================================
-      // E. CATEGORY DROPDOWN CONTROLLER
-      // ========================================================================
-      const dropdownWrapper = document.getElementById('category-dropdown-wrapper');
-      const dropdownTrigger = document.getElementById('category-dropdown-trigger');
-      const dropdownMenu = document.getElementById('category-dropdown-menu');
-
-      function toggleCategoryDropdown(force) {
-        state.isDropdownOpen = typeof force === 'boolean' ? force : !state.isDropdownOpen;
-        if (state.isDropdownOpen) {
-          dropdownMenu.style.display = 'flex';
-          dropdownTrigger.setAttribute('aria-expanded', 'true');
+    const switchDailyView = (targetView) => {
+        if (!trendView || !barView || !btnTrend || !btnBar) return;
+        if (targetView === 'trend') {
+            trendView.style.display = 'block';
+            barView.style.display = 'none';
+            btnTrend.classList.add('active');
+            btnTrend.setAttribute('aria-selected', 'true');
+            btnBar.classList.remove('active');
+            btnBar.setAttribute('aria-selected', 'false');
         } else {
-          dropdownMenu.style.display = 'none';
-          dropdownTrigger.setAttribute('aria-expanded', 'false');
+            trendView.style.display = 'none';
+            barView.style.display = 'block';
+            btnBar.classList.add('active');
+            btnBar.setAttribute('aria-selected', 'true');
+            btnTrend.classList.remove('active');
+            btnTrend.setAttribute('aria-selected', 'false');
         }
-      }
+    };
 
-      function selectCategory(name, icon, subtitle) {
-        state.selectedCategory = {
-          name: sanitizeText(name),
-          icon: sanitizeText(icon) || 'category',
-          subtitle: sanitizeText(subtitle) || `${name} category`
-        };
+    btnTrend?.addEventListener('click', () => switchDailyView('trend'));
+    btnBar?.addEventListener('click', () => switchDailyView('bar'));
 
-        // Update trigger display
-        const titleEl = document.getElementById('selected-category-title');
-        const subEl = document.getElementById('selected-category-subtitle');
-        const iconEl = document.getElementById('selected-category-icon');
-        const tableTitle = document.getElementById('items-table-title');
+    // Category Tabs Switching
+    const ringCatView = document.getElementById('view-ring');
+    const barCatView = document.getElementById('view-bar');
+    const btnRing = document.getElementById('btn-category-ring');
+    const btnCategoryBar = document.getElementById('btn-category-bar');
 
-        if (titleEl) titleEl.textContent = state.selectedCategory.name;
-        if (subEl) subEl.textContent = state.selectedCategory.subtitle;
-        if (iconEl) iconEl.textContent = state.selectedCategory.icon;
-        if (tableTitle) tableTitle.textContent = `${state.selectedCategory.name} Items`;
-
-        // Update active class in dropdown list
-        const items = dropdownMenu.querySelectorAll('.category-dropdown-item');
-        items.forEach((item) => {
-          const itemCat = item.getAttribute('data-category');
-          const isMatch = itemCat === state.selectedCategory.name;
-          item.classList.toggle('active', isMatch);
-          item.setAttribute('aria-selected', isMatch ? 'true' : 'false');
-        });
-
-        toggleCategoryDropdown(false);
-      }
-
-      // ========================================================================
-      // F. NUMBER TO INDIAN WORDS CONVERTER
-      // ========================================================================
-      function convertNumberToWords(amount) {
-        const num = parseFloat(amount);
-        if (isNaN(num) || num <= 0) return 'Zero Rupees Only';
-
-        const units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
-                       'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-        const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-
-        function twoDigits(n) {
-          if (n < 20) return units[n];
-          return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + units[n % 10] : '');
+    const switchCategoryView = (targetView) => {
+        if (!ringCatView || !barCatView || !btnRing || !btnCategoryBar) return;
+        if (targetView === 'ring') {
+            ringCatView.style.display = 'flex';
+            barCatView.style.display = 'none';
+            btnRing.classList.add('active');
+            btnRing.setAttribute('aria-selected', 'true');
+            btnCategoryBar.classList.remove('active');
+            btnCategoryBar.setAttribute('aria-selected', 'false');
+        } else {
+            ringCatView.style.display = 'none';
+            barCatView.style.display = 'flex';
+            btnCategoryBar.classList.add('active');
+            btnCategoryBar.setAttribute('aria-selected', 'true');
+            btnRing.classList.remove('active');
+            btnRing.setAttribute('aria-selected', 'false');
         }
+    };
 
-        function threeDigits(n) {
-          if (n === 0) return '';
-          const hundreds = Math.floor(n / 100);
-          const remainder = n % 100;
-          let str = '';
-          if (hundreds > 0) str += units[hundreds] + ' Hundred';
-          if (remainder > 0) str += (str ? ' ' : '') + twoDigits(remainder);
-          return str;
+    btnRing?.addEventListener('click', () => switchCategoryView('ring'));
+    btnCategoryBar?.addEventListener('click', () => switchCategoryView('bar'));
+
+    const dailySection = document.getElementById('daily-spending-section');
+    const btnFullscreen = document.getElementById('btn-toggle-fullscreen');
+    const fullscreenIcon = document.getElementById('fullscreen-icon-indicator');
+
+    const toggleDailyFullscreen = () => {
+        if (!dailySection || !fullscreenIcon) return;
+        const isCurrentlyFullscreen = dailySection.classList.contains('fullscreen-landscape-mode');
+
+        if (isCurrentlyFullscreen) {
+            dailySection.classList.remove('fullscreen-landscape-mode');
+            document.body.classList.remove('fullscreen-active');
+            fullscreenIcon.textContent = 'fullscreen';
+            btnFullscreen?.setAttribute('title', 'Enter Fullscreen');
+        } else {
+            dailySection.classList.add('fullscreen-landscape-mode');
+            document.body.classList.add('fullscreen-active');
+            fullscreenIcon.textContent = 'close_fullscreen';
+            btnFullscreen?.setAttribute('title', 'Exit Fullscreen');
         }
+    };
 
-        let intPart = Math.floor(num);
-        const decPart = Math.round((num - intPart) * 100);
+    btnFullscreen?.addEventListener('click', toggleDailyFullscreen);
 
-        let words = '';
-        const crore = Math.floor(intPart / 10000000);
-        intPart %= 10000000;
-        const lakh = Math.floor(intPart / 100000);
-        intPart %= 100000;
-        const thousand = Math.floor(intPart / 1000);
-        intPart %= 1000;
-        const remainder = intPart;
-
-        if (crore > 0) words += twoDigits(crore) + ' Crore ';
-        if (lakh > 0) words += twoDigits(lakh) + ' Lakh ';
-        if (thousand > 0) words += twoDigits(thousand) + ' Thousand ';
-        if (remainder > 0) words += threeDigits(remainder);
-
-        words = words.trim() + ' Rupees';
-
-        if (decPart > 0) {
-          words += ' and ' + twoDigits(decPart) + ' Paise';
+    // Allow user to exit fullscreen using Escape key
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && dailySection?.classList.contains('fullscreen-landscape-mode')) {
+            toggleDailyFullscreen();
         }
-
-        return words + ' Only';
-      }
-
-      // ========================================================================
-      // G. ITEMS TABLE CONTROLLER & CALCULATIONS
-      // ========================================================================
-      const tbody = document.getElementById('items-table-body');
-      const addRowBtn = document.getElementById('add-row-btn');
-      const totalAmountDisplay = document.getElementById('total-amount-display');
-      const totalWordsDisplay = document.getElementById('total-words-display');
-
-      function calculateTotal() {
-        const amountInputs = tbody.querySelectorAll('.item-amount');
-        let sum = 0;
-
-        amountInputs.forEach((input) => {
-          const val = parseFloat(input.value);
-          if (!isNaN(val) && val > 0) {
-            sum += val;
-          }
-        });
-
-        if (totalAmountDisplay) {
-          totalAmountDisplay.textContent = '₹' + sum.toLocaleString('en-IN', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-          });
-        }
-
-        if (totalWordsDisplay) {
-          totalWordsDisplay.textContent = convertNumberToWords(sum);
-        }
-      }
-
-      function updateRowIndices() {
-        const rows = tbody.querySelectorAll('tr');
-        rows.forEach((row, idx) => {
-          const sno = row.querySelector('.row-sno');
-          if (sno) sno.textContent = idx + 1;
-        });
-      }
-
-      function attachSpeechRecognition(button, input) {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!SpeechRecognition) {
-          button.style.display = 'none';
-          return;
-        }
-
-        button.addEventListener('click', () => {
-          const recognition = new SpeechRecognition();
-          recognition.lang = 'en-IN';
-          recognition.interimResults = false;
-
-          button.classList.add('listening');
-
-          recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
-            input.value = transcript;
-            calculateTotal();
-          };
-
-          recognition.onerror = () => {
-            button.classList.remove('listening');
-          };
-
-          recognition.onend = () => {
-            button.classList.remove('listening');
-          };
-
-          try {
-            recognition.start();
-          } catch (e) {
-            button.classList.remove('listening');
-          }
-        });
-      }
-
-      function createTableRow(name = '', qty = '', amount = '') {
-        const currentCount = tbody.querySelectorAll('tr').length;
-        const nextSno = currentCount + 1;
-
-        const tr = document.createElement('tr');
-
-        // Column 1: S.NO
-        const tdSno = document.createElement('td');
-        tdSno.style.textAlign = 'center';
-        tdSno.style.color = 'var(--outline-variant)';
-        tdSno.className = 'row-sno';
-        tdSno.textContent = nextSno;
-        tr.appendChild(tdSno);
-
-        // Column 2: Items Name
-        const tdName = document.createElement('td');
-        const divName = document.createElement('div');
-        divName.className = 'td-flex';
-
-        const inputName = document.createElement('input');
-        inputName.type = 'text';
-        inputName.className = 'table-cell-input item-name';
-        inputName.placeholder = 'Item name';
-        inputName.value = name;
-        inputName.setAttribute('aria-label', `Item ${nextSno} Name`);
-
-        const micName = document.createElement('button');
-        micName.type = 'button';
-        micName.className = 'mic-icon-btn';
-        micName.title = 'Voice Input';
-        micName.innerHTML = '<span class="material-symbols-outlined" style="font-size: 16px;">mic</span>';
-        attachSpeechRecognition(micName, inputName);
-
-        divName.appendChild(inputName);
-        divName.appendChild(micName);
-        tdName.appendChild(divName);
-        tr.appendChild(tdName);
-
-        // Column 3: Quantity
-        const tdQty = document.createElement('td');
-        const divQty = document.createElement('div');
-        divQty.className = 'td-flex';
-
-        const inputQty = document.createElement('input');
-        inputQty.type = 'text';
-        inputQty.className = 'table-cell-input item-qty';
-        inputQty.placeholder = 'Qty';
-        inputQty.value = qty;
-        inputQty.setAttribute('aria-label', `Item ${nextSno} Quantity`);
-
-        const micQty = document.createElement('button');
-        micQty.type = 'button';
-        micQty.className = 'mic-icon-btn';
-        micQty.title = 'Voice Input';
-        micQty.innerHTML = '<span class="material-symbols-outlined" style="font-size: 16px;">mic</span>';
-        attachSpeechRecognition(micQty, inputQty);
-
-        divQty.appendChild(inputQty);
-        divQty.appendChild(micQty);
-        tdQty.appendChild(divQty);
-        tr.appendChild(tdQty);
-
-        // Column 4: Amount & Delete
-        const tdAmount = document.createElement('td');
-        tdAmount.className = 'td-amount';
-        const divAmount = document.createElement('div');
-        divAmount.className = 'td-flex';
-        divAmount.style.justifyContent = 'flex-end';
-
-        const spanCurrency = document.createElement('span');
-        spanCurrency.style.fontSize = '14px';
-        spanCurrency.style.fontWeight = '600';
-        spanCurrency.style.color = 'var(--on-surface)';
-        spanCurrency.textContent = '₹';
-
-        const inputAmt = document.createElement('input');
-        inputAmt.type = 'number';
-        inputAmt.step = '0.01';
-        inputAmt.min = '0';
-        inputAmt.className = 'table-cell-input td-amount-input item-amount';
-        inputAmt.placeholder = '0.00';
-        inputAmt.value = amount;
-        inputAmt.setAttribute('aria-label', `Item ${nextSno} Amount`);
-        inputAmt.addEventListener('input', calculateTotal);
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.type = 'button';
-        deleteBtn.className = 'row-delete-btn';
-        deleteBtn.title = 'Delete Row';
-        deleteBtn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 16px;">close</span>';
-        deleteBtn.addEventListener('click', () => {
-          const rows = tbody.querySelectorAll('tr');
-          if (rows.length <= 1) {
-            inputName.value = '';
-            inputQty.value = '';
-            inputAmt.value = '';
-          } else {
-            tr.remove();
-            updateRowIndices();
-          }
-          calculateTotal();
-        });
-
-        divAmount.appendChild(spanCurrency);
-        divAmount.appendChild(inputAmt);
-        divAmount.appendChild(deleteBtn);
-        tdAmount.appendChild(divAmount);
-        tr.appendChild(tdAmount);
-
-        return tr;
-      }
-
-      function addNewRow() {
-        const tr = createTableRow();
-        tbody.appendChild(tr);
-        const nameInput = tr.querySelector('.item-name');
-        if (nameInput) nameInput.focus();
-      }
-
-      // ========================================================================
-      // H. PAYMENT MODE SELECTION
-      // ========================================================================
-      const paymentCards = document.querySelectorAll('.payment-card');
-      paymentCards.forEach((card) => {
-        card.addEventListener('click', () => {
-          paymentCards.forEach((c) => {
-            c.classList.remove('active');
-            c.setAttribute('aria-checked', 'false');
-          });
-          card.classList.add('active');
-          card.setAttribute('aria-checked', 'true');
-          state.selectedPaymentMode = card.getAttribute('data-mode') || 'UPI';
-        });
-      });
-
-      // ========================================================================
-      // I. BILL RECEIPT UPLOAD & DRAG-AND-DROP
-      // ========================================================================
-      const dropzone = document.getElementById('receipt-dropzone');
-      const fileInput = document.getElementById('receipt-file-input');
-      const previewCard = document.getElementById('receipt-preview-card');
-      const previewFilename = document.getElementById('preview-filename');
-      const previewFilesize = document.getElementById('preview-filesize');
-      const removeReceiptBtn = document.getElementById('remove-receipt-btn');
-
-      const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
-      const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
-
-      function validateAndHandleFile(file) {
-        if (!file) return;
-
-        if (!ALLOWED_MIME_TYPES.includes(file.type)) {
-          showToast('Invalid format. Please upload JPG, PNG, or PDF.', 'error');
-          return;
-        }
-
-        if (file.size > MAX_FILE_SIZE_BYTES) {
-          showToast('File size exceeds the 5MB limit!', 'error');
-          return;
-        }
-
-        const safeName = sanitizeText(file.name);
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-          state.receiptData = {
-            name: safeName,
-            size: file.size,
-            mimeType: file.type,
-            base64: e.target.result,
-            isAttached: true
-          };
-
-          if (previewFilename) previewFilename.textContent = safeName;
-          if (previewFilesize) {
-            const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
-            previewFilesize.textContent = `${sizeMB} MB • Attached & Verified`;
-          }
-          if (previewCard) previewCard.style.display = 'flex';
-          showToast('Receipt attached successfully!', 'success');
-        };
-
-        reader.onerror = () => {
-          showToast('Failed to read file. Please try again.', 'error');
-        };
-
-        reader.readAsDataURL(file);
-      }
-
-      if (dropzone && fileInput) {
-        dropzone.addEventListener('click', () => fileInput.click());
-
-        fileInput.addEventListener('change', (e) => {
-          if (e.target.files && e.target.files[0]) {
-            validateAndHandleFile(e.target.files[0]);
-          }
-        });
-
-        ['dragenter', 'dragover'].forEach((eventName) => {
-          dropzone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropzone.classList.add('dragover');
-          });
-        });
-
-        ['dragleave', 'drop'].forEach((eventName) => {
-          dropzone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropzone.classList.remove('dragover');
-          });
-        });
-
-        dropzone.addEventListener('drop', (e) => {
-          const dt = e.dataTransfer;
-          if (dt && dt.files && dt.files[0]) {
-            validateAndHandleFile(dt.files[0]);
-          }
-        });
-      }
-
-      if (removeReceiptBtn) {
-        removeReceiptBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          state.receiptData = null;
-          if (fileInput) fileInput.value = '';
-          if (previewCard) previewCard.style.display = 'none';
-          showToast('Receipt removed', 'success');
-        });
-      }
-
-      // ========================================================================
-      // J. CUSTOM CATEGORY MODAL
-      // ========================================================================
-      const addCategoryModal = document.getElementById('add-category-modal');
-      const openAddCategoryBtn = document.getElementById('open-add-category-modal-btn');
-      const closeCategoryModalBtn = document.getElementById('close-category-modal-btn');
-      const cancelCategoryModalBtn = document.getElementById('cancel-category-modal-btn');
-      const confirmCategoryModalBtn = document.getElementById('confirm-category-modal-btn');
-      const customCategoryInput = document.getElementById('custom-category-name-input');
-
-      function openModal() {
-        toggleCategoryDropdown(false);
-        addCategoryModal.style.display = 'flex';
-        if (customCategoryInput) {
-          customCategoryInput.value = '';
-          setTimeout(() => customCategoryInput.focus(), 50);
-        }
-      }
-
-      function closeModal() {
-        addCategoryModal.style.display = 'none';
-      }
-
-      if (openAddCategoryBtn) openAddCategoryBtn.addEventListener('click', openModal);
-      if (closeCategoryModalBtn) closeCategoryModalBtn.addEventListener('click', closeModal);
-      if (cancelCategoryModalBtn) cancelCategoryModalBtn.addEventListener('click', closeModal);
-
-      if (confirmCategoryModalBtn) {
-        confirmCategoryModalBtn.addEventListener('click', () => {
-          const rawName = customCategoryInput.value;
-          const cleanName = sanitizeText(rawName);
-
-          if (!cleanName) {
-            showToast('Please enter a valid category name', 'error');
-            return;
-          }
-
-          // Add to dropdown list
-          const newItem = document.createElement('div');
-          newItem.className = 'category-dropdown-item';
-          newItem.setAttribute('role', 'option');
-          newItem.setAttribute('aria-selected', 'false');
-          newItem.setAttribute('data-category', cleanName);
-          newItem.setAttribute('data-icon', 'category');
-          newItem.setAttribute('data-subtitle', 'Custom Category');
-
-          newItem.innerHTML = `
-            <div class="category-card-left">
-              <div class="item-icon-box brand-gradient">
-                <span class="material-symbols-outlined">category</span>
-              </div>
-              <div class="category-info">
-                <div class="category-title" style="font-size: 14px;">${sanitizeHTML(cleanName)}</div>
-                <div class="category-subtitle" style="font-size: 11px;">Custom Category</div>
-              </div>
-            </div>
-            <span class="material-symbols-outlined check-mark">check</span>
-          `;
-
-          newItem.addEventListener('click', () => {
-            selectCategory(cleanName, 'category', 'Custom Category');
-          });
-
-          dropdownMenu.appendChild(newItem);
-          selectCategory(cleanName, 'category', 'Custom Category');
-          closeModal();
-          showToast(`Added "${cleanName}" category!`, 'success');
-        });
-      }
-
-      // Close modal on Escape key or backdrop click
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          if (addCategoryModal.style.display === 'flex') closeModal();
-          if (state.isDropdownOpen) toggleCategoryDropdown(false);
-        }
-      });
-
-      addCategoryModal.addEventListener('click', (e) => {
-        if (e.target === addCategoryModal) closeModal();
-      });
-
-      // ========================================================================
-      // K. EVENT DELEGATION & GLOBAL LISTENERS
-      // ========================================================================
-      if (dropdownTrigger) {
-        dropdownTrigger.addEventListener('click', (e) => {
-          e.stopPropagation();
-          toggleCategoryDropdown();
-        });
-      }
-
-      // Handle predefined category clicks
-      dropdownMenu.querySelectorAll('.category-dropdown-item').forEach((item) => {
-        item.addEventListener('click', () => {
-          const name = item.getAttribute('data-category');
-          const icon = item.getAttribute('data-icon');
-          const sub = item.getAttribute('data-subtitle');
-          selectCategory(name, icon, sub);
-        });
-      });
-
-      // Close dropdown when clicking outside
-      document.addEventListener('click', (e) => {
-        if (dropdownWrapper && !dropdownWrapper.contains(e.target)) {
-          toggleCategoryDropdown(false);
-        }
-      });
-
-      // Calendar month buttons
-      const calPrevBtn = document.getElementById('cal-prev-btn');
-      const calNextBtn = document.getElementById('cal-next-btn');
-      if (calPrevBtn) {
-        calPrevBtn.addEventListener('click', () => {
-          state.currentDisplayDate.setMonth(state.currentDisplayDate.getMonth() - 1);
-          renderCalendar();
-        });
-      }
-      if (calNextBtn) {
-        calNextBtn.addEventListener('click', () => {
-          state.currentDisplayDate.setMonth(state.currentDisplayDate.getMonth() + 1);
-          renderCalendar();
-        });
-      }
-
-      // Add row button
-      if (addRowBtn) addRowBtn.addEventListener('click', addNewRow);
-
-      // Existing initial rows mic and delete listeners
-      tbody.querySelectorAll('tr').forEach((row) => {
-        const inputName = row.querySelector('.item-name');
-        const inputQty = row.querySelector('.item-qty');
-        const inputAmt = row.querySelector('.item-amount');
-        const micBtns = row.querySelectorAll('.mic-icon-btn');
-        const delBtn = row.querySelector('.row-delete-btn');
-
-        if (micBtns[0] && inputName) attachSpeechRecognition(micBtns[0], inputName);
-        if (micBtns[1] && inputQty) attachSpeechRecognition(micBtns[1], inputQty);
-
-        if (inputAmt) {
-          inputAmt.addEventListener('input', calculateTotal);
-        }
-
-        if (delBtn) {
-          delBtn.addEventListener('click', () => {
-            const rows = tbody.querySelectorAll('tr');
-            if (rows.length <= 1) {
-              if (inputName) inputName.value = '';
-              if (inputQty) inputQty.value = '';
-              if (inputAmt) inputAmt.value = '';
-            } else {
-              row.remove();
-              updateRowIndices();
+    });
+
+    const twinkleContainer = document.getElementById('twinkle-container');
+    if (twinkleContainer) {
+        const maxTwinkles = 8;
+        let activeCount = 0;
+        const gridCols = 4;
+        const gridRows = 3;
+        const cooldownSet = new Set();
+
+        const spawnTwinkle = () => {
+            if (activeCount >= maxTwinkles) return;
+
+            const eligibleSpots = [];
+            for (let r = 0; r < gridRows; r++) {
+                for (let c = 0; c < gridCols; c++) {
+                    const id = `${r}-${c}`;
+                    if (!cooldownSet.has(id)) eligibleSpots.push({ r, c, id });
+                }
             }
-            calculateTotal();
-          });
+
+            if (eligibleSpots.length === 0) return;
+
+            const chosen = eligibleSpots[Math.floor(Math.random() * eligibleSpots.length)];
+            cooldownSet.add(chosen.id);
+            activeCount++;
+
+            const star = document.createElement('div');
+            star.className = 'twinkle-star';
+
+            const centerCore = document.createElement('div');
+            centerCore.className = 'twinkle-star-center';
+            star.appendChild(centerCore);
+
+            const cellW = 100 / gridCols;
+            const cellH = 100 / gridRows;
+            const randomX = Math.random() * 0.75 + 0.12;
+            const randomY = Math.random() * 0.75 + 0.12;
+
+            star.style.top = `${chosen.r * cellH + (cellH * randomY)}%`;
+            star.style.left = `${chosen.c * cellW + (cellW * randomX)}%`;
+            star.style.transform = `scale(${Math.random() * 0.45 + 0.75})`;
+
+            twinkleContainer.appendChild(star);
+
+            setTimeout(() => {
+                star.remove();
+                activeCount--;
+                setTimeout(() => cooldownSet.delete(chosen.id), 8000);
+            }, 2000);
+        };
+
+        for (let i = 0; i < maxTwinkles; i++) {
+            setTimeout(spawnTwinkle, Math.random() * 1800);
         }
-      });
+        setInterval(spawnTwinkle, 750);
+    }
 
-      // ========================================================================
-      // L. FORM SUBMISSION (GAS BRIDGE + STANDALONE CLIENT PREVIEW)
-      // ========================================================================
-      const saveBtn = document.getElementById('save-expense-btn');
-      const saveBtnIcon = document.getElementById('save-btn-icon');
-      const saveBtnText = document.getElementById('save-btn-text');
+    const obscuredBalance = document.getElementById('obscured-balance-target');
+    if (obscuredBalance) {
+        let hideTimer = null;
 
-      function formatISODate(d) {
-        const y = d.getFullYear();
-        const m = String(d.getMonth() + 1).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0');
-        return `${y}-${m}-${day}`;
-      }
+        const showBalance = () => {
+            obscuredBalance.classList.add('revealed');
+            if (hideTimer) clearTimeout(hideTimer);
+        };
 
-      function submitExpense() {
-        const rows = tbody.querySelectorAll('tr');
-        const items = [];
-        let totalAmount = 0;
+        const hideBalanceDelayed = () => {
+            hideTimer = setTimeout(() => {
+                obscuredBalance.classList.remove('revealed');
+            }, 1800);
+        };
 
-        rows.forEach((row, idx) => {
-          const nameInput = row.querySelector('.item-name');
-          const qtyInput = row.querySelector('.item-qty');
-          const amtInput = row.querySelector('.item-amount');
+        obscuredBalance.addEventListener('touchstart', showBalance, { passive: true });
+        obscuredBalance.addEventListener('touchmove', showBalance, { passive: true });
+        obscuredBalance.addEventListener('touchend', hideBalanceDelayed);
 
-          const name = nameInput ? sanitizeText(nameInput.value) : '';
-          const qty = qtyInput ? sanitizeText(qtyInput.value) : '';
-          const amt = amtInput ? parseFloat(amtInput.value) : 0;
+        let isPointerDown = false;
+        obscuredBalance.addEventListener('mousedown', () => {
+            isPointerDown = true;
+            showBalance();
+        });
 
-          if (name !== '' || amt > 0) {
-            items.push({
-              sno: idx + 1,
-              item: name || `Item ${idx + 1}`,
-              qty: qty || '-',
-              amount: isNaN(amt) ? 0 : amt
+        window.addEventListener('mouseup', () => {
+            if (isPointerDown) {
+                isPointerDown = false;
+                hideBalanceDelayed();
+            }
+        });
+
+        obscuredBalance.addEventListener('mousemove', () => {
+            if (isPointerDown) showBalance();
+        });
+    }
+
+    const cardElement = document.getElementById('main-balance-card');
+    if (cardElement) {
+        let isCardPressed = false;
+
+        const handleCardMotion = (clientX, clientY) => {
+            const rect = cardElement.getBoundingClientRect();
+            const x = (clientX - rect.left) / rect.width - 0.5;
+            const y = (clientY - rect.top) / rect.height - 0.5;
+
+            const rotateY = x * 20;
+            const rotateX = y * -20;
+            const scale = isCardPressed ? 0.96 : 1.02;
+
+            cardElement.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+        };
+
+        const resetCardPosition = () => {
+            isCardPressed = false;
+            cardElement.style.transition = 'transform 0.25s ease-out';
+            cardElement.style.transform = 'rotateX(5deg) rotateY(-5deg) scale(1)';
+        };
+
+        cardElement.addEventListener('mousemove', (e) => {
+            cardElement.style.transition = 'transform 0.05s ease-out';
+            handleCardMotion(e.clientX, e.clientY);
+        });
+
+        cardElement.addEventListener('mouseleave', resetCardPosition);
+
+        cardElement.addEventListener('mousedown', (e) => {
+            isCardPressed = true;
+            cardElement.style.transition = 'transform 0.05s ease-out';
+            handleCardMotion(e.clientX, e.clientY);
+        });
+
+        cardElement.addEventListener('mouseup', () => {
+            isCardPressed = false;
+        });
+
+        cardElement.addEventListener('touchstart', (e) => {
+            isCardPressed = true;
+            cardElement.style.transition = 'transform 0.05s ease-out';
+            if (e.touches.length > 0) {
+                handleCardMotion(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        cardElement.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                handleCardMotion(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        cardElement.addEventListener('touchend', resetCardPosition);
+    }
+
+    const navButtons = document.querySelectorAll('.nav-action-btn');
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            navButtons.forEach(b => {
+                b.classList.remove('active');
+                const symbol = b.querySelector('.material-symbols-outlined');
+                if (symbol) symbol.style.fontVariationSettings = "'FILL' 0";
             });
-            if (!isNaN(amt) && amt > 0) {
-              totalAmount += amt;
-            }
-          }
+            btn.classList.add('active');
+            const activeSymbol = btn.querySelector('.material-symbols-outlined');
+            if (activeSymbol) activeSymbol.style.fontVariationSettings = "'FILL' 1";
         });
+    });
+})();
+</script>
 
-        if (items.length === 0 || totalAmount <= 0) {
-          showToast('Please enter at least one item with a valid amount!', 'error');
-          return;
-        }
-
-        const notesInput = document.getElementById('expense-notes');
-        const notes = notesInput ? sanitizeText(notesInput.value) : '';
-        const formattedDate = formatISODate(state.selectedDate);
-        const totalWords = convertNumberToWords(totalAmount);
-
-        const payload = {
-          date: formattedDate,
-          category: state.selectedCategory.name,
-          totalAmount: totalAmount,
-          totalWords: totalWords,
-          paymentMode: state.selectedPaymentMode,
-          description: notes,
-          items: items,
-          receipt: state.receiptData
-        };
-
-        // UI Loading State
-        saveBtn.disabled = true;
-        saveBtnIcon.innerHTML = '<div class="spinner"></div>';
-        saveBtnText.textContent = 'Saving Expense...';
-
-        // Check if running inside Google Apps Script iframe
-        if (typeof google !== 'undefined' && google.script && google.script.run) {
-          google.script.run
-            .withSuccessHandler((response) => {
-              resetSubmitButton();
-              if (response && response.success) {
-                showToast(response.message || 'Expense saved to Google Sheet!', 'success');
-                resetForm();
-              } else {
-                showToast(response.error || 'Failed to save expense', 'error');
-              }
-            })
-            .withFailureHandler((error) => {
-              resetSubmitButton();
-              showToast(`Error: ${error.message || error}`, 'error');
-            })
-            .saveExpense(payload);
-        } else {
-          // Standalone browser preview mode
-          console.log('[Smart Finance] Expense Payload:', payload);
-          setTimeout(() => {
-            resetSubmitButton();
-            showToast('Expense recorded successfully!', 'success');
-          }, 900);
-        }
-      }
-
-      function resetSubmitButton() {
-        saveBtn.disabled = false;
-        saveBtnIcon.innerHTML = 'check';
-        saveBtnText.textContent = 'Save Expense';
-      }
-
-      function resetForm() {
-        tbody.innerHTML = '';
-        tbody.appendChild(createTableRow('Poha', '20 kg', '400'));
-        tbody.appendChild(createTableRow('Rava (Mota)', '20 kg', '600'));
-        tbody.appendChild(createTableRow('Sugar', '35 kg', '1400'));
-        calculateTotal();
-
-        const notesInput = document.getElementById('expense-notes');
-        if (notesInput) notesInput.value = '';
-      }
-
-      if (saveBtn) saveBtn.addEventListener('click', submitExpense);
-
-      // ========================================================================
-      // M. INITIALIZATION
-      // ========================================================================
-      renderCalendar();
-      calculateTotal();
-    })();
-  </script>
 </body>
 </html>
