@@ -1,59 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Smart Finance - Add New Expense</title>
+  <meta name="theme-color" content="#622ce5">
+  <meta name="description" content="Smart Finance - Modern, secure, and intuitive personal expense tracker">
+  <title>Add New Expense - Smart Finance</title>
 
-  <!-- Google Fonts: Inter and Material Symbols Outlined -->
+  <!-- Google Fonts: Inter & Material Symbols Outlined -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
 
   <style>
+    /* ==========================================================================
+       1. CSS CUSTOM PROPERTIES (DESIGN SYSTEM TOKENS)
+       ========================================================================== */
     :root {
       --primary: #622ce5;
       --primary-dim: #cdbdff;
       --primary-container: #7b4dff;
-      --on-primary: #ffffff;
-      
-      --secondary: #ae3203;
-      --secondary-container: #fd6a3c;
-      
-      --gradient-brand: linear-gradient(135deg, #7b4dff 0%, #ff6b3d 100%);
-      --gradient-brand-h: linear-gradient(90deg, #9b72cf 0%, #f48c71 100%);
-      --gradient-tint: linear-gradient(135deg, rgba(123, 77, 255, 0.08) 0%, rgba(255, 107, 61, 0.08) 100%);
-      --gradient-tint-strong: linear-gradient(135deg, rgba(123, 77, 255, 0.14) 0%, rgba(255, 107, 61, 0.14) 100%);
-      
-      --surface-bg: #fdf8f8;
-      --surface-card: #ffffff;
-      --surface-subtle: #f8f9fa;
-      --surface-active: rgba(98, 44, 229, 0.08);
-      
-      --text-main: #1c1b1b;
-      --text-variant: #494456;
-      --text-muted: #7a7487;
-      --text-faint: #b4aec0;
-      
-      --outline: #cac3d8;
-      --outline-light: #ece7e7;
-      --success: #16a34a;
-      --danger: #ba1a1a;
-      
-      --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
-      --shadow-raised: 0 14px 28px rgba(123, 77, 255, 0.12), 0 4px 10px rgba(0, 0, 0, 0.04);
-      --shadow-brand-glow: 0 8px 20px rgba(123, 77, 255, 0.32);
-      --shadow-button: 0 14px 28px rgba(123, 77, 255, 0.28);
-      
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --radius-xl: 22px;
+      --primary-light: rgba(98, 44, 229, 0.08);
+      --primary-glow: rgba(123, 77, 255, 0.28);
+      --secondary: #ff6b3d;
+
+      --surface: #ffffff;
+      --surface-bg: #FCF9F8;
+      --surface-variant: #f0eded;
+      --surface-container-low: #f6f3f2;
+      --surface-container-high: #ece7e7;
+      --input-bg: #F8F9FA;
+
+      --on-surface: #1c1b1b;
+      --on-surface-variant: #494456;
+      --outline: #7a7487;
+      --outline-variant: #cac3d8;
+
+      --gradient: linear-gradient(135deg, #7B4DFF 0%, #FF6B3D 100%);
+      --header-table-gradient: linear-gradient(90deg, #9B72CF 0%, #F48C71 100%);
+      --card-shadow: 0px 10px 30px rgba(0, 0, 0, 0.04);
+      --gradient-shadow: 0px 14px 28px rgba(123, 77, 255, 0.25);
+      --raised-shadow: 0px 6px 16px rgba(0, 0, 0, 0.06), 0px 1px 3px rgba(0, 0, 0, 0.04);
+
+      --radius-card: 24px;
+      --radius-btn: 18px;
+      --radius-sm: 10px;
+      --radius-md: 14px;
       --radius-pill: 9999px;
-      
-      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
+    /* ==========================================================================
+       2. RESET & BASE STYLES
+       ========================================================================== */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -63,32 +63,16 @@
 
     body {
       font-family: var(--font-family);
-      background-color: #f5f2f4;
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
+      background-color: var(--surface-bg);
+      color: var(--on-surface);
+      font-size: 15px;
+      line-height: 1.5;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-    }
-
-    /* Standardized Material Symbols styling */
-    .material-symbols-outlined {
-      font-family: 'Material Symbols Outlined';
-      font-weight: 400;
-      font-style: normal;
-      font-size: 22px;
-      line-height: 1;
-      display: inline-block;
-      white-space: nowrap;
-      word-wrap: normal;
-      direction: ltr;
-      letter-spacing: normal;
-      text-transform: none;
-      -webkit-font-feature-settings: 'liga';
-      -webkit-font-smoothing: antialiased;
-      vertical-align: middle;
-      user-select: none;
     }
 
     button {
@@ -97,91 +81,116 @@
       font-family: inherit;
       cursor: pointer;
       color: inherit;
-      outline: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    input, textarea {
+    input, textarea, select {
       font-family: inherit;
-      outline: none;
+      color: inherit;
     }
 
-    .app-viewport {
-      width: 100%;
-      max-width: 440px;
-      background-color: var(--surface-bg);
-      min-height: 100vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
+    /* Standard Google Fonts Material Symbols */
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
     }
 
-    .top-bar {
-      position: sticky;
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* ==========================================================================
+       3. TOP APP BAR / HEADER
+       ========================================================================== */
+    .header {
+      position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      height: 60px;
-      background: rgba(253, 248, 248, 0.94);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      z-index: 100;
-      border-bottom: 1px solid rgba(202, 195, 216, 0.25);
+      width: 100%;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
     }
 
-    .top-avatar {
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+      padding: 0 20px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .avatar {
       width: 36px;
       height: 36px;
       border-radius: 50%;
       overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-      border: 1.5px solid #ffffff;
-      flex-shrink: 0;
-      background-color: #ede9fe;
+      background: linear-gradient(135deg, rgba(123, 77, 255, 0.15), rgba(255, 107, 61, 0.15));
+      border: 1.5px solid rgba(123, 77, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
     }
-
-    .top-avatar img {
+    .avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
     }
 
-    .top-title {
-      font-size: 18px;
+    .brand-title {
+      font-size: 19px;
       font-weight: 700;
       color: var(--primary);
       letter-spacing: -0.01em;
     }
 
-    .top-action-btn {
-      width: 36px;
-      height: 36px;
+    .header-icons {
+      color: var(--on-surface-variant);
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--text-variant);
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      transition: background-color 0.2s, color 0.2s;
+      transition: background 0.15s ease;
+    }
+    .header-icons:hover {
+      background: var(--surface-variant);
     }
 
-    .top-action-btn:hover {
-      background: rgba(98, 44, 229, 0.08);
-      color: var(--primary);
-    }
-
-    .content-area {
-      padding: 20px 20px 110px 20px;
+    /* ==========================================================================
+       4. MAIN CONTAINER & PAGE TITLE
+       ========================================================================== */
+    .main-content {
+      width: 100%;
+      max-width: 520px;
+      padding: 76px 18px 105px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
     }
 
-    .page-heading {
+    .page-header {
       margin-top: 4px;
       margin-bottom: 2px;
     }
@@ -190,125 +199,112 @@
       font-size: 26px;
       font-weight: 700;
       letter-spacing: -0.02em;
-      background: var(--gradient-brand);
+      background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      display: inline-block;
       line-height: 1.25;
     }
 
     .page-subtitle {
-      font-size: 13.5px;
-      color: var(--text-muted);
-      margin-top: 5px;
-      font-weight: 400;
+      font-size: 13px;
+      color: var(--outline);
+      margin-top: 4px;
     }
 
+    /* ==========================================================================
+       5. CARD CONTAINERS
+       ========================================================================== */
     .card {
-      background: var(--surface-card);
-      border-radius: var(--radius-xl);
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(0, 0, 0, 0.04);
       padding: 16px;
-      box-shadow: var(--shadow-card);
-      border: 1px solid rgba(202, 195, 216, 0.25);
-      position: relative;
     }
 
     .section-title {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 12px;
+      color: var(--on-surface);
     }
 
-    .calendar-card {
-      padding: 16px 16px 20px 16px;
-    }
-
+    /* ==========================================================================
+       6. INTERACTIVE CALENDAR
+       ========================================================================== */
     .calendar-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
-
-    .calendar-month-text {
+    .calendar-header-title {
       font-size: 15px;
       font-weight: 700;
-      color: var(--text-main);
-      letter-spacing: -0.01em;
+      color: var(--on-surface);
     }
-
     .calendar-nav-buttons {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
-
     .calendar-nav-btn {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      color: var(--text-muted);
-      transition: all 0.2s ease;
+      color: var(--outline);
+      padding: 4px;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
     }
-
     .calendar-nav-btn:hover {
-      background: rgba(98, 44, 229, 0.08);
+      background: var(--surface-container-low);
       color: var(--primary);
     }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      row-gap: 6px;
-      column-gap: 2px;
+      gap: 4px;
       text-align: center;
     }
 
-    .calendar-col-header {
+    .calendar-day-header {
       font-size: 12px;
+      color: var(--outline);
       font-weight: 600;
-      color: var(--text-muted);
-      padding-bottom: 8px;
-      text-transform: uppercase;
+      padding-bottom: 6px;
     }
 
-    .calendar-day-cell {
-      height: 36px;
-      width: 36px;
-      margin: 0 auto;
+    .calendar-date {
+      font-size: 13.5px;
+      font-weight: 500;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13.5px;
-      font-weight: 500;
-      color: var(--text-main);
-      border-radius: 50%;
+      margin: 0 auto;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.15s ease;
       user-select: none;
     }
-
-    .calendar-day-cell:hover:not(.active):not(.muted) {
-      background-color: #f3effe;
+    .calendar-date:hover:not(.active):not(.muted) {
+      background: var(--primary-light);
       color: var(--primary);
     }
-
-    .calendar-day-cell.muted {
-      color: var(--outline);
-      font-weight: 400;
+    .calendar-date.active {
+      background: var(--gradient) !important;
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      box-shadow: 0 4px 12px rgba(123, 77, 255, 0.35);
+    }
+    .calendar-date.muted {
+      color: var(--outline-variant);
     }
 
-    .calendar-day-cell.active {
-      background: var(--gradient-brand);
-      color: #ffffff;
-      font-weight: 700;
-      box-shadow: 0 4px 12px rgba(123, 77, 255, 0.38);
-      transform: scale(1.04);
-    }
-
+    /* ==========================================================================
+       7. CATEGORY SELECTOR & DROPDOWN
+       ========================================================================== */
     .category-section {
+      position: relative;
       z-index: 40;
       overflow: visible;
     }
@@ -318,72 +314,73 @@
       width: 100%;
     }
 
-    .category-trigger-btn {
+    .selected-category-card {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 16px;
-      min-height: 60px;
+      padding: 12px 14px;
+      min-height: 58px;
       background: #ffffff;
-      border: 1px solid var(--outline);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      border: 1.5px solid var(--outline-variant);
+      border-radius: 16px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-
-    .category-trigger-btn:hover {
+    .selected-category-card:hover, .selected-category-card[aria-expanded="true"] {
       border-color: var(--primary);
+      box-shadow: 0 4px 14px rgba(98, 44, 229, 0.12);
     }
 
-    .category-current-info {
+    .category-card-left {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .category-icon-box {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 12px;
-      background: var(--gradient-brand);
+      background: var(--gradient);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
-      box-shadow: var(--shadow-brand-glow);
+      box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);
       flex-shrink: 0;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s;
+    }
+    .category-icon-box .material-symbols-outlined {
+      font-size: 22px;
     }
 
-    .category-text-block {
+    .category-info {
       text-align: left;
     }
-
-    .category-name {
+    .category-title {
       font-size: 15px;
       font-weight: 700;
-      color: var(--text-main);
+      color: var(--on-surface);
       line-height: 1.25;
     }
-
-    .category-desc {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      margin-top: 3px;
+    .category-subtitle {
+      font-size: 12px;
+      color: var(--outline);
+      margin-top: 2px;
     }
 
-    .category-chevron {
+    .dropdown-chevron {
       color: var(--primary);
+      font-size: 24px;
       transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
-    .category-chevron.rotate {
+    .selected-category-card[aria-expanded="true"] .dropdown-chevron {
       transform: rotate(180deg);
     }
 
-    .category-menu {
+    .category-dropdown-menu {
       display: none;
       position: absolute;
       top: calc(100% + 8px);
@@ -391,311 +388,291 @@
       width: 100%;
       background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(20px);
-      border: 1.5px solid var(--outline);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid var(--outline-variant);
       border-radius: 18px;
-      box-shadow: 0 16px 36px rgba(123, 77, 255, 0.16), 0 6px 14px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 20px 45px rgba(123, 77, 255, 0.16), 0 4px 16px rgba(0, 0, 0, 0.08);
       z-index: 100;
-      max-height: 300px;
+      max-height: 310px;
       overflow-y: auto;
       padding: 8px;
       flex-direction: column;
       gap: 4px;
-      scrollbar-width: thin;
-      scrollbar-color: var(--outline) transparent;
+      animation: dropdownFadeIn 0.2s ease-out;
+    }
+    @keyframes dropdownFadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .category-menu.open {
-      display: flex;
-      animation: dropdownSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes dropdownSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .category-add-custom {
+    .add-category-btn {
       display: flex;
       align-items: center;
       gap: 10px;
       width: 100%;
       padding: 10px 12px;
       border-radius: 12px;
-      background: rgba(98, 44, 229, 0.05);
+      background: var(--primary-light);
       border: 1px dashed rgba(98, 44, 229, 0.35);
       color: var(--primary);
       font-weight: 600;
       font-size: 13px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       cursor: pointer;
-      transition: background-color 0.15s;
+      transition: background 0.15s;
+    }
+    .add-category-btn:hover {
+      background: rgba(98, 44, 229, 0.12);
     }
 
-    .category-add-custom:hover {
-      background: rgba(98, 44, 229, 0.1);
-    }
-
-    .category-menu-item {
+    .category-dropdown-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 9px 12px;
+      padding: 8px 12px;
+      min-height: 48px;
       border-radius: 12px;
       cursor: pointer;
+      background: transparent;
+      color: var(--on-surface);
       font-weight: 500;
       border: 1px solid transparent;
       transition: all 0.15s ease;
-      color: var(--text-main);
     }
-
-    .category-menu-item:hover {
-      background: rgba(98, 44, 229, 0.04);
+    .category-dropdown-item:hover {
+      background: var(--primary-light);
     }
-
-    .category-menu-item.active {
+    .category-dropdown-item.active {
       color: var(--primary);
       font-weight: 600;
-      border-color: rgba(98, 44, 229, 0.2);
-      background: rgba(98, 44, 229, 0.07);
+      border: 1px solid rgba(98, 44, 229, 0.2);
+      background: rgba(98, 44, 229, 0.08);
     }
 
-    .menu-item-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .menu-item-icon {
+    .item-icon-box {
       width: 36px;
       height: 36px;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
-      background: var(--gradient-brand);
-      box-shadow: 0 3px 8px rgba(123, 77, 255, 0.25);
+      background: var(--surface-container-high);
+      color: var(--on-surface-variant);
       flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .category-dropdown-item.active .item-icon-box,
+    .item-icon-box.brand-gradient {
+      background: var(--gradient) !important;
+      color: #ffffff !important;
+      box-shadow: 0 3px 8px rgba(123, 77, 255, 0.28);
+    }
+    .item-icon-box .material-symbols-outlined {
+      font-size: 20px;
     }
 
-    .menu-item-text {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-    }
-
-    .menu-item-text .item-name {
-      font-size: 13.5px;
-      font-weight: 600;
-    }
-
-    .menu-item-text .item-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 1px;
-    }
-
-    .category-menu-item .item-check {
+    .category-dropdown-item .check-mark {
       color: var(--primary);
+      font-size: 20px;
       display: none;
     }
-
-    .category-menu-item.active .item-check {
+    .category-dropdown-item.active .check-mark {
       display: inline-block;
     }
 
-    .items-card-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .items-header-bar {
+    /* ==========================================================================
+       8. ITEMS TABLE SECTION
+       ========================================================================== */
+    .table-header-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 12px;
     }
 
-    .items-header-bar .section-title {
-      margin-bottom: 0;
-    }
-
-    .add-row-action {
+    .add-row-btn {
       color: var(--primary);
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 600;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 4px;
-      transition: opacity 0.2s;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: background 0.15s;
     }
-
-    .add-row-action:hover {
-      opacity: 0.8;
+    .add-row-btn:hover {
+      background: var(--primary-light);
     }
 
     .table-container {
-      background: var(--surface-card);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(202, 195, 216, 0.3);
+      overflow-x: auto;
+      width: 100%;
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.04);
     }
 
-    .expense-table {
+    table {
       width: 100%;
       border-collapse: collapse;
       table-layout: fixed;
     }
 
-    .expense-table thead tr {
-      background: var(--gradient-brand-h);
+    thead tr {
+      background: var(--header-table-gradient);
       color: #ffffff;
     }
 
-    .expense-table th {
-      padding: 10px 8px;
+    th {
+      padding: 10px 6px;
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
       border: none;
     }
+    th.th-sno { width: 12%; text-align: center; }
+    th.th-items { width: 38%; text-align: left; padding-left: 10px; }
+    th.th-qty { width: 25%; text-align: left; padding-left: 6px; }
+    th.th-amount { width: 25%; text-align: right; padding-right: 12px; }
 
-    .expense-table th.col-sno { width: 13%; text-align: center; }
-    .expense-table th.col-item { width: 37%; text-align: left; padding-left: 12px; }
-    .expense-table th.col-qty { width: 25%; text-align: left; }
-    .expense-table th.col-amount { width: 25%; text-align: right; padding-right: 14px; }
-
-    .expense-table tbody tr {
-      border-bottom: 1px solid var(--outline-light);
-      transition: background-color 0.15s;
-    }
-
-    .expense-table tbody tr:hover {
-      background-color: #faf8fd;
-    }
-
-    .expense-table td {
-      padding: 10px 8px;
-      font-size: 13.5px;
-      color: var(--text-main);
+    td {
+      padding: 8px 6px;
+      border-bottom: 1px solid var(--surface-variant);
+      font-size: 14px;
       vertical-align: middle;
     }
 
-    .cell-sno {
-      text-align: center;
-      color: var(--text-faint);
-      font-weight: 500;
-    }
-
-    .cell-inline-flex {
+    .td-flex {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 6px;
+      gap: 4px;
+      position: relative;
     }
 
-    .cell-inline-flex input {
-      border: none;
-      background: transparent;
+    .table-cell-input {
       width: 100%;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      padding: 5px 6px;
       font-size: 13.5px;
-      color: var(--text-main);
-      font-weight: 500;
+      background: transparent;
+      transition: all 0.15s ease;
+      color: var(--on-surface);
+    }
+    .table-cell-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 2px rgba(98, 44, 229, 0.12);
+    }
+    .table-cell-input::placeholder {
+      color: #b8b3c4;
     }
 
-    .cell-inline-flex input:focus {
-      color: var(--primary);
-    }
-
-    .mic-icon {
-      font-size: 16px;
-      color: var(--outline);
+    .mic-icon-btn {
+      color: var(--outline-variant);
       cursor: pointer;
-      transition: color 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      border-radius: 4px;
+      transition: color 0.15s, transform 0.15s;
       flex-shrink: 0;
     }
-
-    .mic-icon:hover {
+    .mic-icon-btn:hover {
       color: var(--primary);
+      transform: scale(1.1);
+    }
+    .mic-icon-btn.listening {
+      color: #ef4444;
+      animation: pulseMic 1s infinite alternate;
+    }
+    @keyframes pulseMic {
+      from { transform: scale(1); opacity: 0.8; }
+      to { transform: scale(1.2); opacity: 1; }
     }
 
-    .cell-amount {
+    .td-amount {
       text-align: right;
       font-weight: 600;
-      padding-right: 14px !important;
-      white-space: nowrap;
+      padding-right: 10px;
     }
-
-    .cell-amount input {
-      width: 100%;
+    .td-amount-input {
       text-align: right;
-      border: none;
-      background: transparent;
       font-weight: 600;
-      font-size: 13.5px;
-      color: var(--text-main);
+      color: var(--on-surface);
     }
 
-    .expense-table tfoot {
-      background: var(--gradient-tint-strong);
-      border-top: 1px solid var(--outline);
-    }
-
-    .total-cell-text {
-      padding: 14px 12px;
-    }
-
-    .total-label-row {
-      display: flex;
+    .row-delete-btn {
+      color: var(--outline-variant);
+      padding: 4px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      color: var(--primary);
-      font-size: 12.5px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      justify-content: center;
+      transition: color 0.15s;
+    }
+    .row-delete-btn:hover {
+      color: #ef4444;
     }
 
-    .total-words-row {
+    /* Table Footer Total Row */
+    tfoot {
+      background: linear-gradient(135deg, rgba(123, 77, 255, 0.1), rgba(255, 107, 61, 0.1));
+      border-top: 1.5px solid var(--outline-variant);
+      border-bottom: 3px solid transparent;
+      border-image: var(--gradient) 1 / 1 / 0 stretch;
+    }
+
+    .total-title-box {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 12px 10px;
+    }
+    .total-title-text {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .total-words-text {
       font-size: 11px;
       font-weight: 500;
-      color: var(--text-variant);
-      margin-top: 3px;
+      color: var(--on-surface-variant);
       letter-spacing: 0.01em;
     }
-
-    .total-cell-number {
+    .total-amount-display {
       text-align: right;
-      font-size: 16px;
-      font-weight: 800;
+      font-weight: 700;
+      font-size: 17px;
       color: var(--primary);
-      padding: 14px 14px 14px 4px;
+      padding: 12px 10px 12px 4px;
       white-space: nowrap;
       vertical-align: middle;
     }
 
-    .payment-section {
-      padding: 16px 16px 20px;
-    }
-
+    /* ==========================================================================
+       9. PAYMENT MODE SECTION
+       ========================================================================== */
     .payment-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 14px;
     }
-
     .payment-subtitle {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 600;
-      color: var(--text-muted);
+      color: var(--outline);
+      letter-spacing: 0.02em;
     }
 
     .payment-grid {
@@ -704,313 +681,313 @@
       gap: 12px;
     }
 
-    .payment-option-btn {
+    .payment-card {
       background: #ffffff;
-      border: 1.5px solid var(--outline-light);
-      border-radius: var(--radius-lg);
-      padding: 14px 8px;
+      border-radius: 16px;
+      padding: 14px 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.2s ease;
+      border: 1.5px solid transparent;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
     }
-
-    .payment-option-btn:hover {
-      border-color: var(--primary-dim);
-      transform: translateY(-2px);
+    .payment-card:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
     }
-
-    .payment-option-btn.active {
+    .payment-card.active {
+      background: rgba(98, 44, 229, 0.05);
       border-color: var(--primary);
-      background: #faf8fd;
-      box-shadow: 0 6px 18px rgba(123, 77, 255, 0.16);
+      box-shadow: 0 6px 18px rgba(123, 77, 255, 0.2);
     }
 
-    .payment-icon-wrap {
+    .payment-icon-bg {
       width: 44px;
       height: 44px;
       border-radius: 12px;
-      background: var(--gradient-brand);
+      background: var(--gradient);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(123, 77, 255, 0.28);
+      box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);
+    }
+    .payment-icon-bg .material-symbols-outlined {
+      font-size: 22px;
     }
 
-    .payment-title {
+    .payment-label {
       font-size: 13px;
       font-weight: 600;
-      color: var(--text-main);
+      color: var(--on-surface);
     }
 
-    .payment-option-btn.active .payment-title {
-      color: var(--primary);
-      font-weight: 700;
-    }
-
-    .receipt-section {
-      padding: 16px;
-    }
-
+    /* ==========================================================================
+       10. BILL RECEIPT SECTION
+       ========================================================================== */
     .receipt-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 14px;
     }
-
-    .receipt-meta {
+    .receipt-info-text {
       font-size: 11px;
-      color: var(--text-muted);
       font-weight: 500;
+      color: var(--outline);
     }
 
-    .dropzone-box {
-      border: 1.5px dashed var(--outline);
+    .receipt-dropzone {
+      border: 1.5px dashed var(--outline-variant);
       border-radius: 14px;
-      background: #fbfaff;
-      padding: 20px 14px;
+      background: #fcfbfe;
+      padding: 18px 14px;
       text-align: center;
       cursor: pointer;
+      transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s ease;
     }
-
-    .dropzone-box:hover, .dropzone-box.drag-active {
+    .receipt-dropzone:hover, .receipt-dropzone.dragover {
       border-color: var(--primary);
       background: rgba(98, 44, 229, 0.04);
+      box-shadow: 0 0 0 3px rgba(98, 44, 229, 0.08);
     }
 
-    .dropzone-icon-circle {
+    .receipt-upload-icon-circle {
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(123, 77, 255, 0.12) 0%, rgba(255, 107, 61, 0.15) 100%);
+      background: linear-gradient(135deg, rgba(123, 77, 255, 0.12), rgba(255, 107, 61, 0.15));
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--primary);
       margin-bottom: 2px;
     }
+    .receipt-upload-icon-circle .material-symbols-outlined {
+      font-size: 24px;
+    }
 
-    .dropzone-primary-text {
+    .receipt-drag-title {
       font-size: 13px;
       font-weight: 600;
-      color: var(--text-main);
+      color: var(--on-surface);
     }
-
-    .dropzone-secondary-text {
+    .receipt-drag-sub {
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--outline);
     }
 
-    .attached-bar {
+    .attached-bills-bar {
       margin-top: 14px;
       margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-
-    .attached-title {
+    .attached-bills-label {
       font-size: 12px;
       font-weight: 600;
-      color: var(--text-variant);
+      color: var(--on-surface-variant);
     }
-
-    .attached-dots {
+    .attached-bills-dots {
       display: flex;
       gap: 4px;
       align-items: center;
     }
-
-    .dot-pill {
-      width: 14px;
+    .bill-dot {
+      width: 5px;
       height: 5px;
-      border-radius: 99px;
+      border-radius: var(--radius-pill);
+      background: var(--outline-variant);
+    }
+    .bill-dot.active {
+      width: 14px;
       background: var(--primary);
     }
 
-    .dot-circle {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--outline);
-    }
-
     .receipt-preview-card {
-      margin-top: 8px;
+      margin-top: 12px;
       padding: 10px 12px;
       background: #fafaff;
-      border: 1px solid var(--outline);
+      border: 1px solid var(--outline-variant);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
     }
-
-    .preview-left {
+    .receipt-preview-left {
       display: flex;
       align-items: center;
       gap: 10px;
       min-width: 0;
     }
-
-    .preview-icon-box {
+    .receipt-preview-icon {
       width: 38px;
       height: 38px;
       border-radius: 10px;
-      background: var(--gradient-brand);
+      background: var(--gradient);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
-      box-shadow: 0 2px 6px rgba(123, 77, 255, 0.25);
       flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(123, 77, 255, 0.25);
+    }
+    .receipt-preview-icon .material-symbols-outlined {
+      font-size: 20px;
     }
 
-    .preview-details {
+    .receipt-meta {
       display: flex;
       flex-direction: column;
       min-width: 0;
       text-align: left;
     }
-
-    .preview-title-row {
+    .receipt-filename-row {
       display: flex;
       align-items: center;
       gap: 6px;
     }
-
-    .file-name {
-      font-size: 12.5px;
+    .receipt-filename {
+      font-size: 13px;
       font-weight: 600;
-      color: var(--text-main);
+      color: var(--on-surface);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 160px;
     }
-
-    .badge-verified {
+    .receipt-badge {
       font-size: 10px;
       font-weight: 600;
-      color: var(--success);
+      color: #16a34a;
       background: rgba(22, 163, 74, 0.12);
-      padding: 2px 6px;
+      padding: 1px 6px;
       border-radius: 4px;
       display: inline-flex;
       align-items: center;
-      gap: 3px;
+      gap: 2px;
       flex-shrink: 0;
     }
-
-    .file-meta-text {
+    .receipt-badge .material-symbols-outlined {
       font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 2px;
+    }
+    .receipt-details {
+      font-size: 11px;
+      color: var(--outline);
+      margin-top: 1px;
     }
 
-    .preview-close-btn {
-      color: var(--text-muted);
-      padding: 6px;
+    .receipt-remove-btn {
+      color: var(--outline);
+      padding: 4px;
       border-radius: 6px;
-      transition: all 0.15s;
-    }
-
-    .preview-close-btn:hover {
-      color: var(--danger);
-      background: rgba(186, 26, 26, 0.08);
-    }
-
-    .desc-section {
-      padding: 16px;
-    }
-
-    .desc-header {
+      cursor: pointer;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      justify-content: center;
+      transition: color 0.15s;
+      flex-shrink: 0;
+    }
+    .receipt-remove-btn:hover {
+      color: #ef4444;
     }
 
-    .desc-header .section-title {
-      margin-bottom: 0;
+    /* ==========================================================================
+       11. EXPENSE DESCRIPTION SECTION
+       ========================================================================== */
+    .description-card {
+      margin-top: 8px;
     }
-
-    .desc-meta {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--text-muted);
-    }
-
-    .desc-textarea {
+    .description-input {
       width: 100%;
-      height: 80px;
-      background-color: #ffffff;
-      border: 1px solid var(--outline);
-      border-radius: var(--radius-md);
+      height: 76px;
+      min-height: 76px;
       padding: 12px 14px;
-      font-size: 13.5px;
-      color: var(--text-main);
+      background-color: #FFFFFF;
+      border: 1px solid rgba(202, 195, 216, 0.5);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 14px;
       resize: none;
+      color: var(--on-surface);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-
-    .desc-textarea:focus {
+    .description-input:focus {
+      outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(98, 44, 229, 0.1);
+      box-shadow: 0 0 0 2px rgba(98, 44, 229, 0.1);
+    }
+    .description-input::placeholder {
+      color: #a8a2b5;
     }
 
-    .desc-textarea::placeholder {
-      color: var(--text-muted);
-      opacity: 0.8;
-    }
-
-    .save-expense-btn {
-      width: 100%;
+    /* ==========================================================================
+       12. SAVE BUTTON & SPINNER
+       ========================================================================== */
+    .save-btn {
       height: 50px;
-      border-radius: 18px;
-      background: var(--gradient-brand);
+      border-radius: var(--radius-btn);
+      background: var(--gradient);
       color: #ffffff;
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: var(--shadow-button);
+      width: 100%;
+      box-shadow: var(--gradient-shadow);
+      margin-top: 8px;
+      margin-bottom: 24px;
       cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      margin-top: 4px;
+      transition: transform 0.15s ease, opacity 0.2s, box-shadow 0.2s;
+    }
+    .save-btn:hover:not(:disabled) {
+      box-shadow: 0px 16px 32px rgba(123, 77, 255, 0.35);
+      transform: translateY(-1px);
+    }
+    .save-btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+    .save-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
     }
 
-    .save-expense-btn:hover {
-      box-shadow: 0 16px 32px rgba(123, 77, 255, 0.36);
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(255, 255, 255, 0.4);
+      border-top-color: #FFFFFF;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
-    .save-expense-btn:active {
-      transform: scale(0.985);
-    }
-
-    .bottom-navbar {
+    /* ==========================================================================
+       13. BOTTOM NAVIGATION BAR
+       ========================================================================== */
+    .bottom-nav {
       position: fixed;
       bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
       width: 100%;
-      max-width: 440px;
-      height: 72px;
-      background: rgba(255, 255, 255, 0.94);
+      height: 68px;
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       display: flex;
@@ -1018,1139 +995,1516 @@
       align-items: center;
       padding: 0 16px;
       padding-bottom: env(safe-area-inset-bottom);
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
-      border-top: 1px solid rgba(202, 195, 216, 0.25);
-      z-index: 100;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
+      z-index: 50;
     }
-
-    .nav-link {
+    .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: var(--text-muted);
-      gap: 3px;
+      color: var(--outline);
+      transition: color 0.15s ease;
+      cursor: pointer;
       width: 60px;
-      transition: color 0.2s;
     }
-
-    .nav-link span:not(.material-symbols-outlined) {
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .nav-link:hover, .nav-link.active {
+    .nav-item:hover, .nav-item.active {
       color: var(--primary);
     }
+    .nav-item span:last-child {
+      font-size: 11px;
+      font-weight: 500;
+      margin-top: 2px;
+    }
 
-    .fab-add-btn {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--gradient-brand);
+    .nav-fab {
+      background: var(--gradient);
       color: #ffffff;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       transform: translateY(-20px);
-      box-shadow: 0 10px 24px rgba(123, 77, 255, 0.38);
+      box-shadow: 0 8px 22px rgba(123, 77, 255, 0.42);
       cursor: pointer;
-      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.15s, box-shadow 0.15s;
     }
-
-    .fab-add-btn:hover {
-      transform: translateY(-24px) scale(1.05);
+    .nav-fab:hover {
+      transform: translateY(-22px) scale(1.04);
+      box-shadow: 0 10px 26px rgba(123, 77, 255, 0.5);
     }
-
-    .fab-add-btn:active {
+    .nav-fab:active {
       transform: translateY(-18px) scale(0.96);
     }
 
-    .custom-toast {
+    /* ==========================================================================
+       14. TOAST NOTIFICATION
+       ========================================================================== */
+    .toast {
       position: fixed;
-      top: 24px;
+      top: 20px;
       left: 50%;
       transform: translateX(-50%) translateY(-100px);
       background: #1c1b1b;
       color: #ffffff;
       padding: 12px 20px;
       border-radius: var(--radius-pill);
-      font-size: 13.5px;
-      font-weight: 600;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
       display: flex;
       align-items: center;
       gap: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
       z-index: 999;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+      max-width: 90%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
-
-    .custom-toast.show {
-      opacity: 1;
+    .toast.show {
       transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .toast.success {
+      background: linear-gradient(135deg, #10B981, #059669);
+    }
+    .toast.error {
+      background: linear-gradient(135deg, #EF4444, #DC2626);
     }
 
-    .custom-toast .material-symbols-outlined {
-      color: #22c55e;
-      font-size: 20px;
-    }
-
-    .modal-overlay {
+    /* ==========================================================================
+       15. CUSTOM SECURE MODAL (ADD CATEGORY)
+       ========================================================================== */
+    .modal-backdrop {
+      display: none;
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(4px);
-      display: none;
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 200;
       align-items: center;
       justify-content: center;
-      z-index: 500;
       padding: 20px;
+      animation: modalFadeIn 0.2s ease-out;
     }
-
-    .modal-overlay.open {
-      display: flex;
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-
-    .modal-card {
+    .modal-content {
       background: #ffffff;
-      border-radius: var(--radius-xl);
-      padding: 22px;
       width: 100%;
-      max-width: 360px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-      animation: modalScale 0.2s ease-out;
+      max-width: 400px;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    @keyframes modalScale {
-      from { transform: scale(0.92); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    @keyframes modalSlideUp {
+      from { transform: translateY(20px); opacity: 0.8; }
+      to { transform: translateY(0); opacity: 1; }
     }
-
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
     }
-
     .modal-title {
       font-size: 16px;
       font-weight: 700;
-      color: var(--text-main);
+      color: var(--on-surface);
     }
-
     .modal-input {
       width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--outline);
+      padding: 10px 12px;
+      border: 1.5px solid var(--outline-variant);
+      border-radius: 10px;
       font-size: 14px;
-      margin-bottom: 16px;
+      transition: border-color 0.2s;
     }
-
     .modal-input:focus {
+      outline: none;
       border-color: var(--primary);
     }
-
-    .modal-buttons {
+    .modal-actions {
       display: flex;
       justify-content: flex-end;
       gap: 10px;
+      margin-top: 4px;
     }
-
     .btn-secondary {
-      padding: 9px 16px;
+      padding: 8px 16px;
       border-radius: 10px;
-      background: #f1edec;
-      color: var(--text-main);
       font-size: 13.5px;
       font-weight: 600;
+      color: var(--outline);
+      background: var(--surface-container-low);
+      transition: background 0.15s;
+    }
+    .btn-secondary:hover {
+      background: var(--surface-container-high);
+    }
+    .btn-primary {
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #ffffff;
+      background: var(--gradient);
+      box-shadow: 0 4px 12px rgba(123, 77, 255, 0.25);
     }
 
-    .btn-primary {
-      padding: 9px 18px;
-      border-radius: 10px;
-      background: var(--gradient-brand);
-      color: #ffffff;
-      font-size: 13.5px;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(123, 77, 255, 0.28);
+    /* Desktop Responsive Centering */
+    @media (min-width: 768px) {
+      .main-content {
+        padding-top: 84px;
+        padding-bottom: 90px;
+      }
+      .bottom-nav {
+        max-width: 520px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 20px 20px 0 0;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="app-viewport">
-
-    <!-- Top App Bar -->
-    <header class="top-bar">
-      <div class="top-avatar">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="User profile avatar" onerror="this.src='https://placehold.co/72x72/e7deff/622ce5?text=U'">
-      </div>
-      <div class="top-title">Smart Finance</div>
-      <button type="button" class="top-action-btn" aria-label="Notifications" id="notification-btn">
-        <span class="material-symbols-outlined">notifications</span>
-      </button>
-    </header>
-
-    <!-- Main Content Area -->
-    <main class="content-area">
-
-      <!-- Page Titles -->
-      <section class="page-heading">
-        <h1 class="page-title">Add New Expense</h1>
-        <p class="page-subtitle">Please select the Expense Date &amp; Category</p>
-      </section>
-
-      <section class="card calendar-card" aria-label="Expense Date Picker">
-        <div class="calendar-header">
-          <span class="calendar-month-text" id="calendar-month-title">September 2026</span>
-          <div class="calendar-nav-buttons">
-            <button type="button" class="calendar-nav-btn" id="prev-month-btn" aria-label="Previous Month">
-              <span class="material-symbols-outlined">chevron_left</span>
-            </button>
-            <button type="button" class="calendar-nav-btn" id="next-month-btn" aria-label="Next Month">
-              <span class="material-symbols-outlined">chevron_right</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="calendar-grid" id="calendar-grid" role="grid">
-          <!-- Calendar columns header will be generated dynamically -->
-        </div>
-      </section>
-
-      <section class="card category-section">
-        <h2 class="section-title">Select - Category</h2>
-
-        <div class="category-dropdown-wrapper" id="category-dropdown-wrapper">
-          <!-- Dropdown Trigger Button -->
-          <button type="button" class="category-trigger-btn" id="category-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
-            <div class="category-current-info">
-              <div class="category-icon-box" id="selected-category-icon-bg">
-                <span class="material-symbols-outlined" id="selected-category-icon">eco</span>
-              </div>
-              <div class="category-text-block">
-                <div class="category-name" id="selected-category-title">Vegetables</div>
-                <div class="category-desc" id="selected-category-subtitle">Fresh vegetables &amp; greens</div>
-              </div>
-            </div>
-            <span class="material-symbols-outlined category-chevron" id="dropdown-chevron">expand_more</span>
-          </button>
-
-          <!-- Dropdown Menu Flyout -->
-          <div class="category-menu" id="category-dropdown-menu" role="listbox">
-            <!-- Custom Category Action -->
-            <button type="button" class="category-add-custom" id="add-category-btn">
-              <span class="material-symbols-outlined">add_circle</span>
-              <span>+ Add Custom Category</span>
-            </button>
-
-            <!-- Predefined Categories with Google Fonts Icons -->
-            <div class="category-menu-item" data-category="Grocery" data-icon="shopping_cart" data-subtitle="Daily essentials &amp; food">
-              <div class="menu-item-left">
-                <div class="menu-item-icon"><span class="material-symbols-outlined">shopping_cart</span></div>
-                <div class="menu-item-text">
-                  <span class="item-name">Grocery</span>
-                  <span class="item-sub">Daily essentials &amp; food</span>
-                </div>
-              </div>
-              <span class="material-symbols-outlined item-check">check</span>
-            </div>
-
-            <div class="category-menu-item active" data-category="Vegetables" data-icon="eco" data-subtitle="Fresh vegetables &amp; greens">
-              <div class="menu-item-left">
-                <div class="menu-item-icon"><span class="material-symbols-outlined">eco</span></div>
-                <div class="menu-item-text">
-                  <span class="item-name">Vegetables</span>
-                  <span class="item-sub">Fresh vegetables &amp; greens</span>
-                </div>
-              </div>
-              <span class="material-symbols-outlined item-check">check</span>
-            </div>
-
-            <div class="category-menu-item" data-category="Clothes" data-icon="checkroom" data-subtitle="Apparel &amp; laundry">
-              <div class="menu-item-left">
-                <div class="menu-item-icon"><span class="material-symbols-outlined">checkroom</span></div>
-                <div class="menu-item-text">
-                  <span class="item-name">Clothes</span>
-                  <span class="item-sub">Apparel &amp; laundry</span>
-                </div>
-              </div>
-              <span class="material-symbols-outlined item-check">check</span>
-            </div>
-
-            <div class="category-menu-item" data-category="Petrol" data-icon="local_gas_station" data-subtitle="Fuel &amp; vehicle maintenance">
-              <div class="menu-item-left">
-                <div class="menu-item-icon"><span class="material-symbols-outlined">local_gas_station</span></div>
-                <div class="menu-item-text">
-                  <span class="item-name">Petrol</span>
-                  <span class="item-sub">Fuel &amp; vehicle maintenance</span>
-                </div>
-              </div>
-              <span class="material-symbols-outlined item-check">check</span>
-            </div>
-
-            <div class="category-menu-item" data-category="Travelling" data-icon="flight" data-subtitle="Flights, transit &amp; trips">
-              <div class="menu-item-left">
-                <div class="menu-item-icon"><span class="material-symbols-outlined">flight</span></div>
-                <div class="menu-item-text">
-                  <span class="item-name">Travelling</span>
-                  <span class="item-sub">Flights, transit &amp; trips</span>
-                </div>
-              </div>
-              <span class="material-symbols-outlined item-check">check</span>
-            </div>
-
-            <div class="category-menu-item" data-category="Doctor &amp; Medicines" data-icon="medical_services" data-subtitle="Healthcare &amp; pharmacy">
-              <div class="menu-item-left">
-                <div class="menu-item-icon"><span class="material-symbols-outlined">medical_services</span></div>
-                <div class="menu-item-text">
-                  <span class="item-name">Doctor &amp; Medicines</span>
-                  <span class="item-sub">Healthcare &amp; pharmacy</span>
-                </div>
-              </div>
-              <span class="material-symbols-outlined item-check">check</span>
-            </div>
-
-            <div class="category-menu-item" data-category="Water" data-icon="water_drop" data-subtitle="Water utility &amp; supplies">
-              <div class="menu-item-left">
-                <div class="menu-item-icon"><span class="material-symbols-outlined">water_drop</span></div>
-                <div class="menu-item-text">
-                  <span class="item-name">Water</span>
-                  <span class="item-sub">Water utility &amp; supplies</span>
-                </div>
-              </div>
-              <span class="material-symbols-outlined item-check">check</span>
-            </div>
-
-            <div class="category-menu-item" data-category="Electricity" data-icon="bolt" data-subtitle="Electricity power bills">
-              <div class="menu-item-left">
-                <div class="menu-item-icon"><span class="material-symbols-outlined">bolt</span></div>
-                <div class="menu-item-text">
-                  <span class="item-name">Electricity</span>
-                  <span class="item-sub">Electricity power bills</span>
-                </div>
-              </div>
-              <span class="material-symbols-outlined item-check">check</span>
-            </div>
-
-            <div class="category-menu-item" data-category="Other" data-icon="more_horiz" data-subtitle="Miscellaneous expenses">
-              <div class="menu-item-left">
-                <div class="menu-item-icon"><span class="material-symbols-outlined">more_horiz</span></div>
-                <div class="menu-item-text">
-                  <span class="item-name">Other</span>
-                  <span class="item-sub">Miscellaneous expenses</span>
-                </div>
-              </div>
-              <span class="material-symbols-outlined item-check">check</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="items-card-wrapper">
-        <div class="items-header-bar">
-          <h2 class="section-title" id="items-table-title">Vegetables Items</h2>
-          <button type="button" class="add-row-action" id="add-table-row-btn">
-            <span class="material-symbols-outlined" style="font-size: 18px;">add</span> Add Row
-          </button>
-        </div>
-
-        <div class="table-container">
-          <table class="expense-table" id="expense-table">
-            <thead>
-              <tr>
-                <th class="col-sno">S.NO</th>
-                <th class="col-item">ITEMS</th>
-                <th class="col-qty">QTY</th>
-                <th class="col-amount">AMOUNT</th>
-              </tr>
-            </thead>
-            <tbody id="expense-table-body">
-              <tr>
-                <td class="cell-sno">1</td>
-                <td>
-                  <div class="cell-inline-flex">
-                    <input type="text" value="Poha" placeholder="Item name" aria-label="Item 1 Name">
-                    <span class="material-symbols-outlined mic-icon" title="Voice input" role="button" aria-label="Voice input">mic</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="cell-inline-flex">
-                    <input type="text" value="20 kg" placeholder="Qty" aria-label="Item 1 Quantity">
-                    <span class="material-symbols-outlined mic-icon" title="Voice input" role="button" aria-label="Voice input">mic</span>
-                  </div>
-                </td>
-                <td class="cell-amount">
-                  <input type="number" class="amount-input" value="400" min="0" step="any" aria-label="Item 1 Amount">
-                </td>
-              </tr>
-              <tr>
-                <td class="cell-sno">2</td>
-                <td>
-                  <div class="cell-inline-flex">
-                    <input type="text" value="Rava (Mota)" placeholder="Item name" aria-label="Item 2 Name">
-                    <span class="material-symbols-outlined mic-icon" title="Voice input" role="button" aria-label="Voice input">mic</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="cell-inline-flex">
-                    <input type="text" value="20 kg" placeholder="Qty" aria-label="Item 2 Quantity">
-                    <span class="material-symbols-outlined mic-icon" title="Voice input" role="button" aria-label="Voice input">mic</span>
-                  </div>
-                </td>
-                <td class="cell-amount">
-                  <input type="number" class="amount-input" value="600" min="0" step="any" aria-label="Item 2 Amount">
-                </td>
-              </tr>
-              <tr>
-                <td class="cell-sno">3</td>
-                <td>
-                  <div class="cell-inline-flex">
-                    <input type="text" value="Sugar" placeholder="Item name" aria-label="Item 3 Name">
-                    <span class="material-symbols-outlined mic-icon" title="Voice input" role="button" aria-label="Voice input">mic</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="cell-inline-flex">
-                    <input type="text" value="35 kg" placeholder="Qty" aria-label="Item 3 Quantity">
-                    <span class="material-symbols-outlined mic-icon" title="Voice input" role="button" aria-label="Voice input">mic</span>
-                  </div>
-                </td>
-                <td class="cell-amount">
-                  <input type="number" class="amount-input" value="1400" min="0" step="any" aria-label="Item 3 Amount">
-                </td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="3" class="total-cell-text">
-                  <div class="total-label-row">
-                    <span>Total Amount</span>
-                  </div>
-                  <div class="total-words-row" id="total-words-display">
-                    Two Thousand Four Hundred Rupees Only
-                  </div>
-                </td>
-                <td class="total-cell-number" id="total-amount-display">
-                  ₹2,400.00
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </section>
-
-      <section class="card payment-section">
-        <div class="payment-header">
-          <h2 class="section-title" style="margin-bottom:0;">Payment Mode</h2>
-          <span class="payment-subtitle">Select method</span>
-        </div>
-
-        <div class="payment-grid" id="payment-mode-container" role="radiogroup" aria-label="Select Payment Method">
-          <button type="button" class="payment-option-btn active" data-mode="card" role="radio" aria-checked="true">
-            <div class="payment-icon-wrap">
-              <span class="material-symbols-outlined">credit_card</span>
-            </div>
-            <span class="payment-title">Credit Card</span>
-          </button>
-
-          <button type="button" class="payment-option-btn" data-mode="cash" role="radio" aria-checked="false">
-            <div class="payment-icon-wrap">
-              <span class="material-symbols-outlined">payments</span>
-            </div>
-            <span class="payment-title">Cash</span>
-          </button>
-
-          <button type="button" class="payment-option-btn" data-mode="upi" role="radio" aria-checked="false">
-            <div class="payment-icon-wrap">
-              <span class="material-symbols-outlined">qr_code_scanner</span>
-            </div>
-            <span class="payment-title">UPI</span>
-          </button>
-        </div>
-      </section>
-
-      <section class="card receipt-section">
-        <div class="receipt-header">
-          <h2 class="section-title" style="margin-bottom:0;">Bill Receipt</h2>
-          <span class="receipt-meta">Max 5MB • JPG, PNG, PDF</span>
-        </div>
-
-        <!-- Hidden File Input with accept filter -->
-        <input type="file" id="file-upload-input" accept=".jpg,.jpeg,.png,.pdf" style="display: none;">
-
-        <!-- Dropzone Box -->
-        <div class="dropzone-box" id="dropzone-box" role="button" tabindex="0" aria-label="Upload bill receipt">
-          <div class="dropzone-icon-circle">
-            <span class="material-symbols-outlined">cloud_upload</span>
-          </div>
-          <div class="dropzone-primary-text">Drag &amp; drop receipt or tap to upload</div>
-          <div class="dropzone-secondary-text">Receipt auto-scan extracts items &amp; totals</div>
-        </div>
-
-        <!-- Attachment Status Indicator -->
-        <div class="attached-bar">
-          <span class="attached-title" id="attached-counter-text">Attached Bills (1 of 5)</span>
-          <div class="attached-dots" id="indicator-dots">
-            <span class="dot-pill"></span>
-            <span class="dot-circle"></span>
-            <span class="dot-circle"></span>
-            <span class="dot-circle"></span>
-            <span class="dot-circle"></span>
-          </div>
-        </div>
-
-        <!-- Attached File Card Preview -->
-        <div class="receipt-preview-card" id="receipt-preview-card">
-          <div class="preview-left">
-            <div class="preview-icon-box">
-              <span class="material-symbols-outlined">receipt_long</span>
-            </div>
-            <div class="preview-details">
-              <div class="preview-title-row">
-                <span class="file-name" id="receipt-file-name">D-Mart_Receipt_Aug05.jpg</span>
-                <span class="badge-verified">
-                  <span class="material-symbols-outlined" style="font-size:13px;">check_circle</span> Attached
-                </span>
-              </div>
-              <span class="file-meta-text" id="receipt-file-meta">1.4 MB • Scanned &amp; Verified</span>
-            </div>
-          </div>
-          <button type="button" class="preview-close-btn" id="remove-receipt-btn" aria-label="Remove attachment">
-            <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
-          </button>
-        </div>
-      </section>
-
-      <section class="card desc-section">
-        <div class="desc-header">
-          <h2 class="section-title">Expense Description (Optional)</h2>
-          <span class="desc-meta">Notes &amp; tags</span>
-        </div>
-        <textarea class="desc-textarea" id="expense-notes" placeholder="Add notes about this expense..." maxlength="500"></textarea>
-      </section>
-
-      <!-- Primary Save Button -->
-      <button type="button" class="save-expense-btn" id="save-expense-btn">
-        <span class="material-symbols-outlined">check</span>
-        <span>Save Expense</span>
-      </button>
-
-    </main>
-
-    <nav class="bottom-navbar" aria-label="Bottom Navigation">
-      <button type="button" class="nav-link">
-        <span class="material-symbols-outlined">home</span>
-        <span>Home</span>
-      </button>
-
-      <button type="button" class="nav-link">
-        <span class="material-symbols-outlined">account_balance_wallet</span>
-        <span>Budget</span>
-      </button>
-
-      <!-- Floating Plus Action -->
-      <button type="button" class="fab-add-btn" id="fab-add-btn" aria-label="Quick Add New Expense">
-        <span class="material-symbols-outlined" style="font-size: 26px;">add</span>
-      </button>
-
-      <button type="button" class="nav-link">
-        <span class="material-symbols-outlined">leaderboard</span>
-        <span>Stats</span>
-      </button>
-
-      <button type="button" class="nav-link">
-        <span class="material-symbols-outlined">history</span>
-        <span>History</span>
-      </button>
-    </nav>
-
+  <!-- Toast Notification Alert -->
+  <div id="toast" class="toast" role="alert" aria-live="polite">
+    <span class="material-symbols-outlined" id="toast-icon">check_circle</span>
+    <span id="toast-message">Expense saved successfully!</span>
   </div>
 
-  <div class="modal-overlay" id="add-category-modal" role="dialog" aria-modal="true" aria-labelledby="custom-modal-heading">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 class="modal-title" id="custom-modal-heading">Add Custom Category</h3>
-        <button type="button" id="modal-close-btn" aria-label="Close dialog" style="color:var(--text-muted);">
-          <span class="material-symbols-outlined">close</span>
+  <!-- Top App Bar / Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="avatar" aria-label="User Profile">
+        <span class="material-symbols-outlined" style="font-size: 22px;">person</span>
+      </div>
+      <div class="brand-title">Smart Finance</div>
+      <button class="header-icons" type="button" aria-label="Notifications" title="Notifications">
+        <span class="material-symbols-outlined">notifications</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Add New Expense</h1>
+      <p class="page-subtitle">Please select the Expense Date &amp; Category</p>
+    </div>
+
+    <!-- 1. Interactive Calendar Card -->
+    <section class="card" aria-labelledby="calendar-heading">
+      <div class="calendar-header">
+        <span class="calendar-header-title" id="calendar-heading">September 2026</span>
+        <div class="calendar-nav-buttons">
+          <button type="button" class="calendar-nav-btn" id="cal-prev-btn" aria-label="Previous Month">
+            <span class="material-symbols-outlined" style="font-size: 20px;">chevron_left</span>
+          </button>
+          <button type="button" class="calendar-nav-btn" id="cal-next-btn" aria-label="Next Month">
+            <span class="material-symbols-outlined" style="font-size: 20px;">chevron_right</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="calendar-grid" id="calendar-grid" role="grid" aria-readonly="true">
+        <!-- Weekday Headers -->
+        <div class="calendar-day-header" role="columnheader">M</div>
+        <div class="calendar-day-header" role="columnheader">T</div>
+        <div class="calendar-day-header" role="columnheader">W</div>
+        <div class="calendar-day-header" role="columnheader">T</div>
+        <div class="calendar-day-header" role="columnheader">F</div>
+        <div class="calendar-day-header" role="columnheader">S</div>
+        <div class="calendar-day-header" role="columnheader">S</div>
+        <!-- Days generated dynamically by ES6 calendar module -->
+      </div>
+    </section>
+
+    <!-- 2. Category Selector & Dropdown Card -->
+    <section class="card category-section" aria-labelledby="category-heading">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h2 class="section-title" id="category-heading">Select - Category</h2>
+      </div>
+
+      <div class="category-dropdown-wrapper" id="category-dropdown-wrapper">
+        <!-- Trigger Button -->
+        <button type="button" class="selected-category-card" id="category-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="category-dropdown-menu">
+          <div class="category-card-left">
+            <div class="category-icon-box" id="selected-category-icon-bg">
+              <span class="material-symbols-outlined" id="selected-category-icon">eco</span>
+            </div>
+            <div class="category-info">
+              <div class="category-title" id="selected-category-title">Vegetables</div>
+              <div class="category-subtitle" id="selected-category-subtitle">Fresh vegetables &amp; greens</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined dropdown-chevron" id="dropdown-chevron">expand_more</span>
+        </button>
+
+        <!-- Dropdown Menu Listbox -->
+        <div class="category-dropdown-menu hide-scrollbar" id="category-dropdown-menu" role="listbox" aria-labelledby="category-heading">
+          <button type="button" class="add-category-btn" id="open-add-category-modal-btn">
+            <span class="material-symbols-outlined" style="font-size: 18px;">add_circle</span>
+            <span>+ Add Custom Category</span>
+          </button>
+
+          <!-- Predefined Categories List -->
+          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Grocery" data-icon="local_grocery_store" data-subtitle="Daily essentials &amp; food">
+            <div class="category-card-left">
+              <div class="item-icon-box brand-gradient">
+                <span class="material-symbols-outlined">local_grocery_store</span>
+              </div>
+              <div class="category-info">
+                <div class="category-title" style="font-size: 14px;">Grocery</div>
+                <div class="category-subtitle" style="font-size: 11px;">Daily essentials &amp; food</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined check-mark">check</span>
+          </div>
+
+          <div class="category-dropdown-item active" role="option" aria-selected="true" data-category="Vegetables" data-icon="eco" data-subtitle="Fresh vegetables &amp; greens">
+            <div class="category-card-left">
+              <div class="item-icon-box brand-gradient">
+                <span class="material-symbols-outlined">eco</span>
+              </div>
+              <div class="category-info">
+                <div class="category-title" style="font-size: 14px;">Vegetables</div>
+                <div class="category-subtitle" style="font-size: 11px;">Fresh vegetables &amp; greens</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined check-mark">check</span>
+          </div>
+
+          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Clothes" data-icon="checkroom" data-subtitle="Apparel &amp; laundry">
+            <div class="category-card-left">
+              <div class="item-icon-box brand-gradient">
+                <span class="material-symbols-outlined">checkroom</span>
+              </div>
+              <div class="category-info">
+                <div class="category-title" style="font-size: 14px;">Clothes</div>
+                <div class="category-subtitle" style="font-size: 11px;">Apparel &amp; laundry</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined check-mark">check</span>
+          </div>
+
+          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Petrol" data-icon="local_gas_station" data-subtitle="Fuel &amp; vehicle maintenance">
+            <div class="category-card-left">
+              <div class="item-icon-box brand-gradient">
+                <span class="material-symbols-outlined">local_gas_station</span>
+              </div>
+              <div class="category-info">
+                <div class="category-title" style="font-size: 14px;">Petrol</div>
+                <div class="category-subtitle" style="font-size: 11px;">Fuel &amp; vehicle maintenance</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined check-mark">check</span>
+          </div>
+
+          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Travelling" data-icon="flight" data-subtitle="Flights, transit &amp; trips">
+            <div class="category-card-left">
+              <div class="item-icon-box brand-gradient">
+                <span class="material-symbols-outlined">flight</span>
+              </div>
+              <div class="category-info">
+                <div class="category-title" style="font-size: 14px;">Travelling</div>
+                <div class="category-subtitle" style="font-size: 11px;">Flights, transit &amp; trips</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined check-mark">check</span>
+          </div>
+
+          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Doctor &amp; Medicines" data-icon="medical_services" data-subtitle="Healthcare &amp; pharmacy">
+            <div class="category-card-left">
+              <div class="item-icon-box brand-gradient">
+                <span class="material-symbols-outlined">medical_services</span>
+              </div>
+              <div class="category-info">
+                <div class="category-title" style="font-size: 14px;">Doctor &amp; Medicines</div>
+                <div class="category-subtitle" style="font-size: 11px;">Healthcare &amp; pharmacy</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined check-mark">check</span>
+          </div>
+
+          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Water" data-icon="water_drop" data-subtitle="Water utility &amp; supplies">
+            <div class="category-card-left">
+              <div class="item-icon-box brand-gradient">
+                <span class="material-symbols-outlined">water_drop</span>
+              </div>
+              <div class="category-info">
+                <div class="category-title" style="font-size: 14px;">Water</div>
+                <div class="category-subtitle" style="font-size: 11px;">Water utility &amp; supplies</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined check-mark">check</span>
+          </div>
+
+          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Electricity" data-icon="electric_bolt" data-subtitle="Electricity power bills">
+            <div class="category-card-left">
+              <div class="item-icon-box brand-gradient">
+                <span class="material-symbols-outlined">electric_bolt</span>
+              </div>
+              <div class="category-info">
+                <div class="category-title" style="font-size: 14px;">Electricity</div>
+                <div class="category-subtitle" style="font-size: 11px;">Electricity power bills</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined check-mark">check</span>
+          </div>
+
+          <div class="category-dropdown-item" role="option" aria-selected="false" data-category="Other" data-icon="more_horiz" data-subtitle="Miscellaneous expenses">
+            <div class="category-card-left">
+              <div class="item-icon-box brand-gradient">
+                <span class="material-symbols-outlined">more_horiz</span>
+              </div>
+              <div class="category-info">
+                <div class="category-title" style="font-size: 14px;">Other</div>
+                <div class="category-subtitle" style="font-size: 11px;">Miscellaneous expenses</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined check-mark">check</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Items Table Section -->
+    <section aria-labelledby="items-table-title">
+      <div class="table-header-row">
+        <h2 class="section-title" id="items-table-title">Vegetables Items</h2>
+        <button type="button" class="add-row-btn" id="add-row-btn">
+          <span class="material-symbols-outlined" style="font-size: 18px;">add</span> Add Row
         </button>
       </div>
-      <input type="text" class="modal-input" id="custom-cat-input" placeholder="e.g. Internet Bills, Books..." maxlength="40">
-      <div class="modal-buttons">
-        <button type="button" class="btn-secondary" id="modal-cancel-btn">Cancel</button>
-        <button type="button" class="btn-primary" id="modal-save-btn">Add Category</button>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th class="th-sno">S.NO</th>
+              <th class="th-items">ITEMS</th>
+              <th class="th-qty">QTY</th>
+              <th class="th-amount">AMOUNT</th>
+            </tr>
+          </thead>
+          <tbody id="items-table-body">
+            <!-- Row 1 -->
+            <tr>
+              <td style="text-align: center; color: var(--outline-variant);" class="row-sno">1</td>
+              <td>
+                <div class="td-flex">
+                  <input type="text" class="table-cell-input item-name" placeholder="Item name" value="Poha" aria-label="Item 1 Name">
+                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item name">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div class="td-flex">
+                  <input type="text" class="table-cell-input item-qty" placeholder="Qty" value="20 kg" aria-label="Item 1 Quantity">
+                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item quantity">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
+                  </button>
+                </div>
+              </td>
+              <td class="td-amount">
+                <div class="td-flex" style="justify-content: flex-end;">
+                  <span style="font-size: 14px; font-weight: 600; color: var(--on-surface);">₹</span>
+                  <input type="number" step="0.01" min="0" class="table-cell-input td-amount-input item-amount" placeholder="0.00" value="400" aria-label="Item 1 Amount">
+                  <button type="button" class="row-delete-btn" title="Delete Row" aria-label="Delete row 1">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">close</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 2 -->
+            <tr>
+              <td style="text-align: center; color: var(--outline-variant);" class="row-sno">2</td>
+              <td>
+                <div class="td-flex">
+                  <input type="text" class="table-cell-input item-name" placeholder="Item name" value="Rava (Mota)" aria-label="Item 2 Name">
+                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item name">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div class="td-flex">
+                  <input type="text" class="table-cell-input item-qty" placeholder="Qty" value="20 kg" aria-label="Item 2 Quantity">
+                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item quantity">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
+                  </button>
+                </div>
+              </td>
+              <td class="td-amount">
+                <div class="td-flex" style="justify-content: flex-end;">
+                  <span style="font-size: 14px; font-weight: 600; color: var(--on-surface);">₹</span>
+                  <input type="number" step="0.01" min="0" class="table-cell-input td-amount-input item-amount" placeholder="0.00" value="600" aria-label="Item 2 Amount">
+                  <button type="button" class="row-delete-btn" title="Delete Row" aria-label="Delete row 2">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">close</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 3 -->
+            <tr>
+              <td style="text-align: center; color: var(--outline-variant);" class="row-sno">3</td>
+              <td>
+                <div class="td-flex">
+                  <input type="text" class="table-cell-input item-name" placeholder="Item name" value="Sugar" aria-label="Item 3 Name">
+                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item name">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div class="td-flex">
+                  <input type="text" class="table-cell-input item-qty" placeholder="Qty" value="35 kg" aria-label="Item 3 Quantity">
+                  <button type="button" class="mic-icon-btn" title="Voice Input" aria-label="Voice input for item quantity">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">mic</span>
+                  </button>
+                </div>
+              </td>
+              <td class="td-amount">
+                <div class="td-flex" style="justify-content: flex-end;">
+                  <span style="font-size: 14px; font-weight: 600; color: var(--on-surface);">₹</span>
+                  <input type="number" step="0.01" min="0" class="table-cell-input td-amount-input item-amount" placeholder="0.00" value="1400" aria-label="Item 3 Amount">
+                  <button type="button" class="row-delete-btn" title="Delete Row" aria-label="Delete row 3">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">close</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td colspan="3">
+                <div class="total-title-box">
+                  <span class="total-title-text">Total Amount</span>
+                  <span class="total-words-text" id="total-words-display">Two Thousand Four Hundred Rupees Only</span>
+                </div>
+              </td>
+              <td class="total-amount-display" id="total-amount-display">₹2,400.00</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. Payment Mode Section -->
+    <section class="card" aria-labelledby="payment-mode-title">
+      <div class="payment-header">
+        <h2 class="section-title" id="payment-mode-title">Payment Mode</h2>
+        <span class="payment-subtitle">Select method</span>
+      </div>
+
+      <div class="payment-grid" role="radiogroup" aria-labelledby="payment-mode-title">
+        <button type="button" class="payment-card" role="radio" aria-checked="false" data-mode="Credit Card">
+          <div class="payment-icon-bg">
+            <span class="material-symbols-outlined">credit_card</span>
+          </div>
+          <span class="payment-label">Credit Card</span>
+        </button>
+
+        <button type="button" class="payment-card" role="radio" aria-checked="false" data-mode="Cash">
+          <div class="payment-icon-bg">
+            <span class="material-symbols-outlined">payments</span>
+          </div>
+          <span class="payment-label">Cash</span>
+        </button>
+
+        <button type="button" class="payment-card active" role="radio" aria-checked="true" data-mode="UPI">
+          <div class="payment-icon-bg">
+            <span class="material-symbols-outlined">qr_code_scanner</span>
+          </div>
+          <span class="payment-label">UPI</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 5. Bill Receipt Section -->
+    <section class="card" aria-labelledby="bill-receipt-title">
+      <div class="receipt-header">
+        <h2 class="section-title" id="bill-receipt-title">Bill Receipt</h2>
+        <span class="receipt-info-text">Max 5MB • JPG, PNG, PDF</span>
+      </div>
+
+      <!-- Hidden file input for secure native browsing -->
+      <input type="file" id="receipt-file-input" accept="image/jpeg,image/png,image/webp,application/pdf" style="display: none;" aria-hidden="true">
+
+      <!-- Drag & Drop Zone -->
+      <div class="receipt-dropzone" id="receipt-dropzone" tabindex="0" role="button" aria-label="Upload bill receipt">
+        <div class="receipt-upload-icon-circle">
+          <span class="material-symbols-outlined">cloud_upload</span>
+        </div>
+        <div class="receipt-drag-title">Drag &amp; drop receipt or tap to upload</div>
+        <div class="receipt-drag-sub">Receipt auto-scan extracts items &amp; totals</div>
+      </div>
+
+      <!-- Attached Bills Indicator -->
+      <div class="attached-bills-bar">
+        <span class="attached-bills-label" id="attached-bills-count">Attached Bills (1 of 5)</span>
+        <div class="attached-bills-dots">
+          <span class="bill-dot active"></span>
+          <span class="bill-dot"></span>
+          <span class="bill-dot"></span>
+          <span class="bill-dot"></span>
+          <span class="bill-dot"></span>
+        </div>
+      </div>
+
+      <!-- Attached File Preview Item -->
+      <div class="receipt-preview-card" id="receipt-preview-card">
+        <div class="receipt-preview-left">
+          <div class="receipt-preview-icon">
+            <span class="material-symbols-outlined">receipt_long</span>
+          </div>
+          <div class="receipt-meta">
+            <div class="receipt-filename-row">
+              <span class="receipt-filename" id="preview-filename">D-Mart_Receipt_Aug05.jpg</span>
+              <span class="receipt-badge">
+                <span class="material-symbols-outlined">check_circle</span> Attached
+              </span>
+            </div>
+            <span class="receipt-details" id="preview-filesize">1.4 MB • Scanned &amp; Verified</span>
+          </div>
+        </div>
+        <button type="button" class="receipt-remove-btn" id="remove-receipt-btn" title="Remove attached bill" aria-label="Remove receipt file">
+          <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 6. Expense Description Section -->
+    <section class="card description-card" aria-labelledby="desc-heading">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <h2 class="section-title" id="desc-heading">Expense Description (Optional)</h2>
+        <span style="font-size: 11px; font-weight: 500; color: var(--outline);">Notes &amp; tags</span>
+      </div>
+      <textarea class="description-input" id="expense-notes" placeholder="Add notes about this expense..." rows="2" aria-label="Expense Notes"></textarea>
+    </section>
+
+    <!-- 7. Save Expense Button -->
+    <button type="button" class="save-btn" id="save-expense-btn">
+      <span class="material-symbols-outlined" id="save-btn-icon" style="font-size: 20px;">check</span>
+      <span id="save-btn-text">Save Expense</span>
+    </button>
+  </main>
+
+  <!-- Bottom App Navigation Bar (Mobile / Responsive) -->
+  <nav class="bottom-nav" aria-label="Main Navigation">
+    <button type="button" class="nav-item" aria-label="Home">
+      <span class="material-symbols-outlined">home</span>
+      <span>Home</span>
+    </button>
+    <button type="button" class="nav-item" aria-label="Budget">
+      <span class="material-symbols-outlined">account_balance_wallet</span>
+      <span>Budget</span>
+    </button>
+    <button type="button" class="nav-fab" aria-label="Add New Expense" title="Add Expense">
+      <span class="material-symbols-outlined" style="font-size: 28px;">add</span>
+    </button>
+    <button type="button" class="nav-item" aria-label="Statistics">
+      <span class="material-symbols-outlined">leaderboard</span>
+      <span>Stats</span>
+    </button>
+    <button type="button" class="nav-item" aria-label="History">
+      <span class="material-symbols-outlined">history</span>
+      <span>History</span>
+    </button>
+  </nav>
+
+  <!-- Secure Custom Modal for Adding Custom Category -->
+  <div class="modal-backdrop" id="add-category-modal" role="dialog" aria-modal="true" aria-labelledby="modal-add-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-add-title">Add Custom Category</h3>
+        <button type="button" id="close-category-modal-btn" aria-label="Close modal" style="color: var(--outline); padding: 4px;">
+          <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+        </button>
+      </div>
+      <div>
+        <label for="custom-category-name-input" style="font-size: 12px; font-weight: 600; color: var(--outline); display: block; margin-bottom: 6px;">Category Name</label>
+        <input type="text" class="modal-input" id="custom-category-name-input" placeholder="e.g. Health & Fitness" maxlength="40">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="cancel-category-modal-btn">Cancel</button>
+        <button type="button" class="btn-primary" id="confirm-category-modal-btn">Add Category</button>
       </div>
     </div>
   </div>
 
-  <div class="custom-toast" id="custom-toast" role="status" aria-live="polite">
-    <span class="material-symbols-outlined">check_circle</span>
-    <span id="toast-message">Expense saved successfully!</span>
-  </div>
-
+  <!-- ==========================================================================
+       16. SECURE ES6+ JAVASCRIPT APPLICATION LOGIC
+       ========================================================================== -->
   <script>
-    /**
-     * Smart Finance Application Logic (Vanilla ES6+ Secure Architecture)
-     */
-    'use strict';
+    (() => {
+      'use strict';
 
-    // Application state
-    const appState = {
-      currentYear: 2026,
-      currentMonth: 8, // September (0-indexed: 8)
-      selectedDate: { year: 2026, month: 8, day: 5 },
-      selectedCategory: {
-        name: 'Vegetables',
-        icon: 'eco',
-        subtitle: 'Fresh vegetables & greens'
-      },
-      paymentMode: 'card',
-      hasReceipt: true
-    };
-
-    const MONTH_NAMES = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-
-    /**
-     * Security Utility: Sanitize plain text strings before injecting into DOM
-     */
-    function escapeHTML(str) {
-      if (!str) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    /**
-     * Accessible Feedback Toast
-     */
-    let toastTimeout = null;
-    function showToast(message, iconName = 'check_circle') {
-      const toast = document.getElementById('custom-toast');
-      const msgEl = document.getElementById('toast-message');
-      const iconEl = toast ? toast.querySelector('.material-symbols-outlined') : null;
-
-      if (toast && msgEl) {
-        msgEl.textContent = message;
-        if (iconEl) iconEl.textContent = iconName;
-        toast.classList.add('show');
-
-        if (toastTimeout) clearTimeout(toastTimeout);
-        toastTimeout = setTimeout(() => {
-          toast.classList.remove('show');
-        }, 3200);
-      }
-    }
-
-    function renderCalendar() {
-      const grid = document.getElementById('calendar-grid');
-      const monthTitle = document.getElementById('calendar-month-title');
-
-      if (!grid || !monthTitle) return;
-
-      monthTitle.textContent = `${MONTH_NAMES[appState.currentMonth]} ${appState.currentYear}`;
-
-      // Reset grid with accessible column headers
-      grid.innerHTML = `
-        <div class="calendar-col-header" aria-label="Monday">M</div>
-        <div class="calendar-col-header" aria-label="Tuesday">T</div>
-        <div class="calendar-col-header" aria-label="Wednesday">W</div>
-        <div class="calendar-col-header" aria-label="Thursday">T</div>
-        <div class="calendar-col-header" aria-label="Friday">F</div>
-        <div class="calendar-col-header" aria-label="Saturday">S</div>
-        <div class="calendar-col-header" aria-label="Sunday">S</div>
-      `;
-
-      // 1st day of month (Monday = 0, ..., Sunday = 6)
-      const firstDay = new Date(appState.currentYear, appState.currentMonth, 1).getDay();
-      const startingIndex = (firstDay + 6) % 7;
-
-      const daysInCurrentMonth = new Date(appState.currentYear, appState.currentMonth + 1, 0).getDate();
-      const daysInPrevMonth = new Date(appState.currentYear, appState.currentMonth, 0).getDate();
-
-      // Trailing days from previous month
-      for (let i = startingIndex - 1; i >= 0; i--) {
-        const dayNum = daysInPrevMonth - i;
-        const cell = document.createElement('div');
-        cell.className = 'calendar-day-cell muted';
-        cell.textContent = String(dayNum);
-        cell.setAttribute('aria-disabled', 'true');
-        grid.appendChild(cell);
+      // ========================================================================
+      // A. SANITIZATION & SECURITY HELPERS
+      // ========================================================================
+      function sanitizeHTML(str) {
+        if (typeof str !== 'string') return '';
+        const map = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        };
+        return str.replace(/[&<>"']/g, (m) => map[m]);
       }
 
-      // Active days of current month
-      for (let day = 1; day <= daysInCurrentMonth; day++) {
-        const cell = document.createElement('div');
-        cell.className = 'calendar-day-cell';
-        cell.textContent = String(day);
-        cell.setAttribute('role', 'button');
-        cell.setAttribute('tabindex', '0');
+      function sanitizeText(str) {
+        if (!str) return '';
+        return String(str).trim().replace(/[<>]/g, '');
+      }
 
-        const isSelected = appState.selectedDate.year === appState.currentYear &&
-                           appState.selectedDate.month === appState.currentMonth &&
-                           appState.selectedDate.day === day;
+      // ========================================================================
+      // B. STATE MANAGEMENT
+      // ========================================================================
+      const state = {
+        currentDisplayDate: new Date(2026, 8, 1), // September 2026
+        selectedDate: new Date(2026, 8, 5),      // Sep 5, 2026 (matching screenshot)
+        selectedCategory: {
+          name: 'Vegetables',
+          icon: 'eco',
+          subtitle: 'Fresh vegetables & greens'
+        },
+        selectedPaymentMode: 'UPI',
+        receiptData: {
+          name: 'D-Mart_Receipt_Aug05.jpg',
+          size: 1.4 * 1024 * 1024,
+          mimeType: 'image/jpeg',
+          base64: null,
+          isAttached: true
+        },
+        isDropdownOpen: false
+      };
 
-        if (isSelected) {
-          cell.classList.add('active');
-          cell.setAttribute('aria-selected', 'true');
+      // ========================================================================
+      // C. TOAST NOTIFICATION CONTROLLER
+      // ========================================================================
+      let toastTimer = null;
+      function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-message');
+        const toastIcon = document.getElementById('toast-icon');
+        if (!toast || !toastMsg) return;
+
+        if (toastTimer) clearTimeout(toastTimer);
+
+        toast.className = `toast show ${type === 'success' ? 'success' : 'error'}`;
+        toastMsg.textContent = message;
+        if (toastIcon) {
+          toastIcon.textContent = type === 'success' ? 'check_circle' : 'error';
         }
 
-        const handleDatePick = () => {
-          appState.selectedDate = {
-            year: appState.currentYear,
-            month: appState.currentMonth,
-            day: day
-          };
-          renderCalendar();
-          showToast(`Date set to ${day} ${MONTH_NAMES[appState.currentMonth]} ${appState.currentYear}`);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3500);
+      }
+
+      // ========================================================================
+      // D. CALENDAR COMPONENT
+      // ========================================================================
+      const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+
+      function renderCalendar() {
+        const year = state.currentDisplayDate.getFullYear();
+        const month = state.currentDisplayDate.getMonth();
+
+        const titleEl = document.getElementById('calendar-heading');
+        if (titleEl) {
+          titleEl.textContent = `${monthNames[month]} ${year}`;
+        }
+
+        const grid = document.getElementById('calendar-grid');
+        if (!grid) return;
+
+        // Preserve weekday headers
+        const dayHeaders = Array.from(grid.querySelectorAll('.calendar-day-header'));
+        grid.innerHTML = '';
+        dayHeaders.forEach((header) => grid.appendChild(header));
+
+        // Calculate first day of month (Monday = 0, Sunday = 6)
+        const firstDay = new Date(year, month, 1).getDay();
+        const startOffset = (firstDay === 0) ? 6 : firstDay - 1;
+
+        // Number of days in current and previous months
+        const daysInCurrentMonth = new Date(year, month + 1, 0).getDate();
+        const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+        // 1. Previous month trailing days
+        for (let i = startOffset - 1; i >= 0; i--) {
+          const dayNum = daysInPrevMonth - i;
+          const dayBtn = document.createElement('button');
+          dayBtn.type = 'button';
+          dayBtn.className = 'calendar-date muted';
+          dayBtn.textContent = dayNum;
+          dayBtn.setAttribute('aria-label', `${monthNames[(month + 11) % 12]} ${dayNum}, ${month === 0 ? year - 1 : year}`);
+          dayBtn.addEventListener('click', () => {
+            state.currentDisplayDate.setMonth(state.currentDisplayDate.getMonth() - 1);
+            state.selectedDate = new Date(year, month - 1, dayNum);
+            renderCalendar();
+          });
+          grid.appendChild(dayBtn);
+        }
+
+        // 2. Current month active days
+        for (let day = 1; day <= daysInCurrentMonth; day++) {
+          const dayBtn = document.createElement('button');
+          dayBtn.type = 'button';
+          dayBtn.className = 'calendar-date';
+          dayBtn.textContent = day;
+          dayBtn.setAttribute('aria-label', `${monthNames[month]} ${day}, ${year}`);
+
+          const isSelected =
+            state.selectedDate.getDate() === day &&
+            state.selectedDate.getMonth() === month &&
+            state.selectedDate.getFullYear() === year;
+
+          if (isSelected) {
+            dayBtn.classList.add('active');
+            dayBtn.setAttribute('aria-current', 'date');
+          }
+
+          dayBtn.addEventListener('click', () => {
+            state.selectedDate = new Date(year, month, day);
+            renderCalendar();
+          });
+          grid.appendChild(dayBtn);
+        }
+
+        // 3. Next month leading days to complete grid
+        const totalRendered = startOffset + daysInCurrentMonth;
+        const remainingSlots = (totalRendered % 7 === 0) ? 0 : (7 - (totalRendered % 7));
+        for (let nextDay = 1; nextDay <= remainingSlots; nextDay++) {
+          const dayBtn = document.createElement('button');
+          dayBtn.type = 'button';
+          dayBtn.className = 'calendar-date muted';
+          dayBtn.textContent = nextDay;
+          dayBtn.setAttribute('aria-label', `${monthNames[(month + 1) % 12]} ${nextDay}, ${month === 11 ? year + 1 : year}`);
+          dayBtn.addEventListener('click', () => {
+            state.currentDisplayDate.setMonth(state.currentDisplayDate.getMonth() + 1);
+            state.selectedDate = new Date(year, month + 1, nextDay);
+            renderCalendar();
+          });
+          grid.appendChild(dayBtn);
+        }
+      }
+
+      // ========================================================================
+      // E. CATEGORY DROPDOWN CONTROLLER
+      // ========================================================================
+      const dropdownWrapper = document.getElementById('category-dropdown-wrapper');
+      const dropdownTrigger = document.getElementById('category-dropdown-trigger');
+      const dropdownMenu = document.getElementById('category-dropdown-menu');
+
+      function toggleCategoryDropdown(force) {
+        state.isDropdownOpen = typeof force === 'boolean' ? force : !state.isDropdownOpen;
+        if (state.isDropdownOpen) {
+          dropdownMenu.style.display = 'flex';
+          dropdownTrigger.setAttribute('aria-expanded', 'true');
+        } else {
+          dropdownMenu.style.display = 'none';
+          dropdownTrigger.setAttribute('aria-expanded', 'false');
+        }
+      }
+
+      function selectCategory(name, icon, subtitle) {
+        state.selectedCategory = {
+          name: sanitizeText(name),
+          icon: sanitizeText(icon) || 'category',
+          subtitle: sanitizeText(subtitle) || `${name} category`
         };
 
-        cell.addEventListener('click', handleDatePick);
-        cell.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handleDatePick();
+        // Update trigger display
+        const titleEl = document.getElementById('selected-category-title');
+        const subEl = document.getElementById('selected-category-subtitle');
+        const iconEl = document.getElementById('selected-category-icon');
+        const tableTitle = document.getElementById('items-table-title');
+
+        if (titleEl) titleEl.textContent = state.selectedCategory.name;
+        if (subEl) subEl.textContent = state.selectedCategory.subtitle;
+        if (iconEl) iconEl.textContent = state.selectedCategory.icon;
+        if (tableTitle) tableTitle.textContent = `${state.selectedCategory.name} Items`;
+
+        // Update active class in dropdown list
+        const items = dropdownMenu.querySelectorAll('.category-dropdown-item');
+        items.forEach((item) => {
+          const itemCat = item.getAttribute('data-category');
+          const isMatch = itemCat === state.selectedCategory.name;
+          item.classList.toggle('active', isMatch);
+          item.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        });
+
+        toggleCategoryDropdown(false);
+      }
+
+      // ========================================================================
+      // F. NUMBER TO INDIAN WORDS CONVERTER
+      // ========================================================================
+      function convertNumberToWords(amount) {
+        const num = parseFloat(amount);
+        if (isNaN(num) || num <= 0) return 'Zero Rupees Only';
+
+        const units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+                       'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+        const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+        function twoDigits(n) {
+          if (n < 20) return units[n];
+          return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + units[n % 10] : '');
+        }
+
+        function threeDigits(n) {
+          if (n === 0) return '';
+          const hundreds = Math.floor(n / 100);
+          const remainder = n % 100;
+          let str = '';
+          if (hundreds > 0) str += units[hundreds] + ' Hundred';
+          if (remainder > 0) str += (str ? ' ' : '') + twoDigits(remainder);
+          return str;
+        }
+
+        let intPart = Math.floor(num);
+        const decPart = Math.round((num - intPart) * 100);
+
+        let words = '';
+        const crore = Math.floor(intPart / 10000000);
+        intPart %= 10000000;
+        const lakh = Math.floor(intPart / 100000);
+        intPart %= 100000;
+        const thousand = Math.floor(intPart / 1000);
+        intPart %= 1000;
+        const remainder = intPart;
+
+        if (crore > 0) words += twoDigits(crore) + ' Crore ';
+        if (lakh > 0) words += twoDigits(lakh) + ' Lakh ';
+        if (thousand > 0) words += twoDigits(thousand) + ' Thousand ';
+        if (remainder > 0) words += threeDigits(remainder);
+
+        words = words.trim() + ' Rupees';
+
+        if (decPart > 0) {
+          words += ' and ' + twoDigits(decPart) + ' Paise';
+        }
+
+        return words + ' Only';
+      }
+
+      // ========================================================================
+      // G. ITEMS TABLE CONTROLLER & CALCULATIONS
+      // ========================================================================
+      const tbody = document.getElementById('items-table-body');
+      const addRowBtn = document.getElementById('add-row-btn');
+      const totalAmountDisplay = document.getElementById('total-amount-display');
+      const totalWordsDisplay = document.getElementById('total-words-display');
+
+      function calculateTotal() {
+        const amountInputs = tbody.querySelectorAll('.item-amount');
+        let sum = 0;
+
+        amountInputs.forEach((input) => {
+          const val = parseFloat(input.value);
+          if (!isNaN(val) && val > 0) {
+            sum += val;
           }
         });
 
-        grid.appendChild(cell);
-      }
-
-      // Trailing days into next month
-      const totalRendered = startingIndex + daysInCurrentMonth;
-      const remainder = (7 - (totalRendered % 7)) % 7;
-      for (let day = 1; day <= remainder; day++) {
-        const cell = document.createElement('div');
-        cell.className = 'calendar-day-cell muted';
-        cell.textContent = String(day);
-        cell.setAttribute('aria-disabled', 'true');
-        grid.appendChild(cell);
-      }
-    }
-
-    const dropdownTrigger = document.getElementById('category-dropdown-trigger');
-    const dropdownMenu = document.getElementById('category-dropdown-menu');
-    const dropdownChevron = document.getElementById('dropdown-chevron');
-    const dropdownWrapper = document.getElementById('category-dropdown-wrapper');
-
-    function toggleCategoryDropdown(forceClose = false) {
-      if (!dropdownMenu || !dropdownChevron || !dropdownTrigger) return;
-      const isOpen = dropdownMenu.classList.contains('open');
-      if (isOpen || forceClose) {
-        dropdownMenu.classList.remove('open');
-        dropdownChevron.classList.remove('rotate');
-        dropdownTrigger.setAttribute('aria-expanded', 'false');
-      } else {
-        dropdownMenu.classList.add('open');
-        dropdownChevron.classList.add('rotate');
-        dropdownTrigger.setAttribute('aria-expanded', 'true');
-      }
-    }
-
-    if (dropdownTrigger) {
-      dropdownTrigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleCategoryDropdown();
-      });
-    }
-
-    document.addEventListener('click', (e) => {
-      if (dropdownWrapper && !dropdownWrapper.contains(e.target)) {
-        toggleCategoryDropdown(true);
-      }
-    });
-
-    function selectCategory(name, iconSymbol, subtitle) {
-      appState.selectedCategory = { name, icon: iconSymbol, subtitle };
-
-      const titleEl = document.getElementById('selected-category-title');
-      const subEl = document.getElementById('selected-category-subtitle');
-      const iconEl = document.getElementById('selected-category-icon');
-      const tableTitleEl = document.getElementById('items-table-title');
-
-      if (titleEl) titleEl.textContent = name;
-      if (subEl) subEl.textContent = subtitle || `${name} category`;
-      if (iconEl) iconEl.textContent = iconSymbol;
-      if (tableTitleEl) tableTitleEl.textContent = `${name} Items`;
-
-      // Update active menu item
-      const menuItems = document.querySelectorAll('.category-menu-item');
-      menuItems.forEach((item) => {
-        const itemCat = item.getAttribute('data-category');
-        if (itemCat === name) {
-          item.classList.add('active');
-          item.setAttribute('aria-selected', 'true');
-        } else {
-          item.classList.remove('active');
-          item.setAttribute('aria-selected', 'false');
+        if (totalAmountDisplay) {
+          totalAmountDisplay.textContent = '₹' + sum.toLocaleString('en-IN', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          });
         }
+
+        if (totalWordsDisplay) {
+          totalWordsDisplay.textContent = convertNumberToWords(sum);
+        }
+      }
+
+      function updateRowIndices() {
+        const rows = tbody.querySelectorAll('tr');
+        rows.forEach((row, idx) => {
+          const sno = row.querySelector('.row-sno');
+          if (sno) sno.textContent = idx + 1;
+        });
+      }
+
+      function attachSpeechRecognition(button, input) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+          button.style.display = 'none';
+          return;
+        }
+
+        button.addEventListener('click', () => {
+          const recognition = new SpeechRecognition();
+          recognition.lang = 'en-IN';
+          recognition.interimResults = false;
+
+          button.classList.add('listening');
+
+          recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            input.value = transcript;
+            calculateTotal();
+          };
+
+          recognition.onerror = () => {
+            button.classList.remove('listening');
+          };
+
+          recognition.onend = () => {
+            button.classList.remove('listening');
+          };
+
+          try {
+            recognition.start();
+          } catch (e) {
+            button.classList.remove('listening');
+          }
+        });
+      }
+
+      function createTableRow(name = '', qty = '', amount = '') {
+        const currentCount = tbody.querySelectorAll('tr').length;
+        const nextSno = currentCount + 1;
+
+        const tr = document.createElement('tr');
+
+        // Column 1: S.NO
+        const tdSno = document.createElement('td');
+        tdSno.style.textAlign = 'center';
+        tdSno.style.color = 'var(--outline-variant)';
+        tdSno.className = 'row-sno';
+        tdSno.textContent = nextSno;
+        tr.appendChild(tdSno);
+
+        // Column 2: Items Name
+        const tdName = document.createElement('td');
+        const divName = document.createElement('div');
+        divName.className = 'td-flex';
+
+        const inputName = document.createElement('input');
+        inputName.type = 'text';
+        inputName.className = 'table-cell-input item-name';
+        inputName.placeholder = 'Item name';
+        inputName.value = name;
+        inputName.setAttribute('aria-label', `Item ${nextSno} Name`);
+
+        const micName = document.createElement('button');
+        micName.type = 'button';
+        micName.className = 'mic-icon-btn';
+        micName.title = 'Voice Input';
+        micName.innerHTML = '<span class="material-symbols-outlined" style="font-size: 16px;">mic</span>';
+        attachSpeechRecognition(micName, inputName);
+
+        divName.appendChild(inputName);
+        divName.appendChild(micName);
+        tdName.appendChild(divName);
+        tr.appendChild(tdName);
+
+        // Column 3: Quantity
+        const tdQty = document.createElement('td');
+        const divQty = document.createElement('div');
+        divQty.className = 'td-flex';
+
+        const inputQty = document.createElement('input');
+        inputQty.type = 'text';
+        inputQty.className = 'table-cell-input item-qty';
+        inputQty.placeholder = 'Qty';
+        inputQty.value = qty;
+        inputQty.setAttribute('aria-label', `Item ${nextSno} Quantity`);
+
+        const micQty = document.createElement('button');
+        micQty.type = 'button';
+        micQty.className = 'mic-icon-btn';
+        micQty.title = 'Voice Input';
+        micQty.innerHTML = '<span class="material-symbols-outlined" style="font-size: 16px;">mic</span>';
+        attachSpeechRecognition(micQty, inputQty);
+
+        divQty.appendChild(inputQty);
+        divQty.appendChild(micQty);
+        tdQty.appendChild(divQty);
+        tr.appendChild(tdQty);
+
+        // Column 4: Amount & Delete
+        const tdAmount = document.createElement('td');
+        tdAmount.className = 'td-amount';
+        const divAmount = document.createElement('div');
+        divAmount.className = 'td-flex';
+        divAmount.style.justifyContent = 'flex-end';
+
+        const spanCurrency = document.createElement('span');
+        spanCurrency.style.fontSize = '14px';
+        spanCurrency.style.fontWeight = '600';
+        spanCurrency.style.color = 'var(--on-surface)';
+        spanCurrency.textContent = '₹';
+
+        const inputAmt = document.createElement('input');
+        inputAmt.type = 'number';
+        inputAmt.step = '0.01';
+        inputAmt.min = '0';
+        inputAmt.className = 'table-cell-input td-amount-input item-amount';
+        inputAmt.placeholder = '0.00';
+        inputAmt.value = amount;
+        inputAmt.setAttribute('aria-label', `Item ${nextSno} Amount`);
+        inputAmt.addEventListener('input', calculateTotal);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'row-delete-btn';
+        deleteBtn.title = 'Delete Row';
+        deleteBtn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 16px;">close</span>';
+        deleteBtn.addEventListener('click', () => {
+          const rows = tbody.querySelectorAll('tr');
+          if (rows.length <= 1) {
+            inputName.value = '';
+            inputQty.value = '';
+            inputAmt.value = '';
+          } else {
+            tr.remove();
+            updateRowIndices();
+          }
+          calculateTotal();
+        });
+
+        divAmount.appendChild(spanCurrency);
+        divAmount.appendChild(inputAmt);
+        divAmount.appendChild(deleteBtn);
+        tdAmount.appendChild(divAmount);
+        tr.appendChild(tdAmount);
+
+        return tr;
+      }
+
+      function addNewRow() {
+        const tr = createTableRow();
+        tbody.appendChild(tr);
+        const nameInput = tr.querySelector('.item-name');
+        if (nameInput) nameInput.focus();
+      }
+
+      // ========================================================================
+      // H. PAYMENT MODE SELECTION
+      // ========================================================================
+      const paymentCards = document.querySelectorAll('.payment-card');
+      paymentCards.forEach((card) => {
+        card.addEventListener('click', () => {
+          paymentCards.forEach((c) => {
+            c.classList.remove('active');
+            c.setAttribute('aria-checked', 'false');
+          });
+          card.classList.add('active');
+          card.setAttribute('aria-checked', 'true');
+          state.selectedPaymentMode = card.getAttribute('data-mode') || 'UPI';
+        });
       });
 
-      toggleCategoryDropdown(true);
-    }
+      // ========================================================================
+      // I. BILL RECEIPT UPLOAD & DRAG-AND-DROP
+      // ========================================================================
+      const dropzone = document.getElementById('receipt-dropzone');
+      const fileInput = document.getElementById('receipt-file-input');
+      const previewCard = document.getElementById('receipt-preview-card');
+      const previewFilename = document.getElementById('preview-filename');
+      const previewFilesize = document.getElementById('preview-filesize');
+      const removeReceiptBtn = document.getElementById('remove-receipt-btn');
 
-    function attachCategoryItemListeners() {
-      const menuItems = document.querySelectorAll('.category-menu-item');
-      menuItems.forEach((item) => {
-        item.onclick = function () {
-          const name = this.getAttribute('data-category');
-          const icon = this.getAttribute('data-icon');
-          const subtitle = this.getAttribute('data-subtitle');
-          selectCategory(name, icon, subtitle);
+      const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
+      const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
+
+      function validateAndHandleFile(file) {
+        if (!file) return;
+
+        if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+          showToast('Invalid format. Please upload JPG, PNG, or PDF.', 'error');
+          return;
+        }
+
+        if (file.size > MAX_FILE_SIZE_BYTES) {
+          showToast('File size exceeds the 5MB limit!', 'error');
+          return;
+        }
+
+        const safeName = sanitizeText(file.name);
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          state.receiptData = {
+            name: safeName,
+            size: file.size,
+            mimeType: file.type,
+            base64: e.target.result,
+            isAttached: true
+          };
+
+          if (previewFilename) previewFilename.textContent = safeName;
+          if (previewFilesize) {
+            const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
+            previewFilesize.textContent = `${sizeMB} MB • Attached & Verified`;
+          }
+          if (previewCard) previewCard.style.display = 'flex';
+          showToast('Receipt attached successfully!', 'success');
         };
-      });
-    }
 
-    // Modal elements
-    const addCatModal = document.getElementById('add-category-modal');
-    const addCatBtn = document.getElementById('add-category-btn');
-    const modalCloseBtn = document.getElementById('modal-close-btn');
-    const modalCancelBtn = document.getElementById('modal-cancel-btn');
-    const modalSaveBtn = document.getElementById('modal-save-btn');
-    const customCatInput = document.getElementById('custom-cat-input');
+        reader.onerror = () => {
+          showToast('Failed to read file. Please try again.', 'error');
+        };
 
-    function openCategoryModal() {
-      toggleCategoryDropdown(true);
-      if (addCatModal) {
-        addCatModal.classList.add('open');
-        if (customCatInput) {
-          customCatInput.value = '';
-          setTimeout(() => customCatInput.focus(), 60);
+        reader.readAsDataURL(file);
+      }
+
+      if (dropzone && fileInput) {
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+          if (e.target.files && e.target.files[0]) {
+            validateAndHandleFile(e.target.files[0]);
+          }
+        });
+
+        ['dragenter', 'dragover'].forEach((eventName) => {
+          dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.add('dragover');
+          });
+        });
+
+        ['dragleave', 'drop'].forEach((eventName) => {
+          dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.remove('dragover');
+          });
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+          const dt = e.dataTransfer;
+          if (dt && dt.files && dt.files[0]) {
+            validateAndHandleFile(dt.files[0]);
+          }
+        });
+      }
+
+      if (removeReceiptBtn) {
+        removeReceiptBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          state.receiptData = null;
+          if (fileInput) fileInput.value = '';
+          if (previewCard) previewCard.style.display = 'none';
+          showToast('Receipt removed', 'success');
+        });
+      }
+
+      // ========================================================================
+      // J. CUSTOM CATEGORY MODAL
+      // ========================================================================
+      const addCategoryModal = document.getElementById('add-category-modal');
+      const openAddCategoryBtn = document.getElementById('open-add-category-modal-btn');
+      const closeCategoryModalBtn = document.getElementById('close-category-modal-btn');
+      const cancelCategoryModalBtn = document.getElementById('cancel-category-modal-btn');
+      const confirmCategoryModalBtn = document.getElementById('confirm-category-modal-btn');
+      const customCategoryInput = document.getElementById('custom-category-name-input');
+
+      function openModal() {
+        toggleCategoryDropdown(false);
+        addCategoryModal.style.display = 'flex';
+        if (customCategoryInput) {
+          customCategoryInput.value = '';
+          setTimeout(() => customCategoryInput.focus(), 50);
         }
       }
-    }
 
-    function closeCategoryModal() {
-      if (addCatModal) addCatModal.classList.remove('open');
-    }
+      function closeModal() {
+        addCategoryModal.style.display = 'none';
+      }
 
-    if (addCatBtn) addCatBtn.addEventListener('click', openCategoryModal);
-    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeCategoryModal);
-    if (modalCancelBtn) modalCancelBtn.addEventListener('click', closeCategoryModal);
+      if (openAddCategoryBtn) openAddCategoryBtn.addEventListener('click', openModal);
+      if (closeCategoryModalBtn) closeCategoryModalBtn.addEventListener('click', closeModal);
+      if (cancelCategoryModalBtn) cancelCategoryModalBtn.addEventListener('click', closeModal);
 
-    if (modalSaveBtn && customCatInput && dropdownMenu) {
-      const handleSaveCustomCategory = () => {
-        const rawName = customCatInput.value.trim();
-        if (rawName.length > 0) {
-          const safeName = escapeHTML(rawName);
+      if (confirmCategoryModalBtn) {
+        confirmCategoryModalBtn.addEventListener('click', () => {
+          const rawName = customCategoryInput.value;
+          const cleanName = sanitizeText(rawName);
 
+          if (!cleanName) {
+            showToast('Please enter a valid category name', 'error');
+            return;
+          }
+
+          // Add to dropdown list
           const newItem = document.createElement('div');
-          newItem.className = 'category-menu-item';
-          newItem.setAttribute('data-category', safeName);
-          newItem.setAttribute('data-icon', 'sell');
-          newItem.setAttribute('data-subtitle', 'Custom expense category');
+          newItem.className = 'category-dropdown-item';
+          newItem.setAttribute('role', 'option');
+          newItem.setAttribute('aria-selected', 'false');
+          newItem.setAttribute('data-category', cleanName);
+          newItem.setAttribute('data-icon', 'category');
+          newItem.setAttribute('data-subtitle', 'Custom Category');
+
           newItem.innerHTML = `
-            <div class="menu-item-left">
-              <div class="menu-item-icon"><span class="material-symbols-outlined">sell</span></div>
-              <div class="menu-item-text">
-                <span class="item-name">${safeName}</span>
-                <span class="item-sub">Custom expense category</span>
+            <div class="category-card-left">
+              <div class="item-icon-box brand-gradient">
+                <span class="material-symbols-outlined">category</span>
+              </div>
+              <div class="category-info">
+                <div class="category-title" style="font-size: 14px;">${sanitizeHTML(cleanName)}</div>
+                <div class="category-subtitle" style="font-size: 11px;">Custom Category</div>
               </div>
             </div>
-            <span class="material-symbols-outlined item-check">check</span>
+            <span class="material-symbols-outlined check-mark">check</span>
           `;
 
+          newItem.addEventListener('click', () => {
+            selectCategory(cleanName, 'category', 'Custom Category');
+          });
+
           dropdownMenu.appendChild(newItem);
-          attachCategoryItemListeners();
-          selectCategory(safeName, 'sell', 'Custom expense category');
-          closeCategoryModal();
-          showToast(`Added "${safeName}" category!`);
-        }
-      };
-
-      modalSaveBtn.addEventListener('click', handleSaveCustomCategory);
-      customCatInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          handleSaveCustomCategory();
-        }
-      });
-    }
-
-    function numberToWordsINR(amount) {
-      const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
-      const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-
-      let num = Math.floor(Math.abs(amount));
-      if (num === 0) return 'Zero Rupees Only';
-
-      function inWords(n) {
-        let str = '';
-        if (n > 99) {
-          str += a[Math.floor(n / 100)] + 'Hundred ';
-          n %= 100;
-        }
-        if (n > 19) {
-          str += b[Math.floor(n / 10)] + ' ' + a[n % 10];
-        } else {
-          str += a[n];
-        }
-        return str;
-      }
-
-      let result = '';
-      const crore = Math.floor(num / 10000000);
-      num %= 10000000;
-      const lakh = Math.floor(num / 100000);
-      num %= 100000;
-      const thousand = Math.floor(num / 1000);
-      num %= 1000;
-
-      if (crore > 0) result += inWords(crore) + 'Crore ';
-      if (lakh > 0) result += inWords(lakh) + 'Lakh ';
-      if (thousand > 0) result += inWords(thousand) + 'Thousand ';
-      if (num > 0) result += inWords(num);
-
-      return result.trim() + ' Rupees Only';
-    }
-
-    function calculateTotalAmount() {
-      const inputs = document.querySelectorAll('.amount-input');
-      let total = 0;
-      inputs.forEach(input => {
-        const val = parseFloat(input.value) || 0;
-        total += Math.max(0, val);
-      });
-
-      const totalDisplay = document.getElementById('total-amount-display');
-      const wordsDisplay = document.getElementById('total-words-display');
-
-      if (totalDisplay) {
-        totalDisplay.textContent = '₹' + total.toLocaleString('en-IN', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
+          selectCategory(cleanName, 'category', 'Custom Category');
+          closeModal();
+          showToast(`Added "${cleanName}" category!`, 'success');
         });
       }
 
-      if (wordsDisplay) {
-        wordsDisplay.textContent = numberToWordsINR(total);
-      }
-    }
-
-    const addRowBtn = document.getElementById('add-table-row-btn');
-    const tableBody = document.getElementById('expense-table-body');
-
-    function attachMicFeedback(element) {
-      element.addEventListener('click', () => {
-        showToast('Voice listening...', 'mic');
-      });
-    }
-
-    if (addRowBtn && tableBody) {
-      addRowBtn.addEventListener('click', () => {
-        const rowCount = tableBody.querySelectorAll('tr').length + 1;
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-          <td class="cell-sno">${rowCount}</td>
-          <td>
-            <div class="cell-inline-flex">
-              <input type="text" placeholder="Item name" aria-label="Item ${rowCount} Name">
-              <span class="material-symbols-outlined mic-icon" title="Voice input" role="button" aria-label="Voice input">mic</span>
-            </div>
-          </td>
-          <td>
-            <div class="cell-inline-flex">
-              <input type="text" placeholder="Qty" aria-label="Item ${rowCount} Quantity">
-              <span class="material-symbols-outlined mic-icon" title="Voice input" role="button" aria-label="Voice input">mic</span>
-            </div>
-          </td>
-          <td class="cell-amount">
-            <input type="number" class="amount-input" value="0" min="0" step="any" aria-label="Item ${rowCount} Amount">
-          </td>
-        `;
-        tableBody.appendChild(newRow);
-
-        const newAmountInput = newRow.querySelector('.amount-input');
-        if (newAmountInput) {
-          newAmountInput.addEventListener('input', calculateTotalAmount);
+      // Close modal on Escape key or backdrop click
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (addCategoryModal.style.display === 'flex') closeModal();
+          if (state.isDropdownOpen) toggleCategoryDropdown(false);
         }
-
-        const newMics = newRow.querySelectorAll('.mic-icon');
-        newMics.forEach(attachMicFeedback);
-
-        const nameInput = newRow.querySelector('input[type="text"]');
-        if (nameInput) nameInput.focus();
-
-        calculateTotalAmount();
-        showToast('New item row added');
       });
-    }
 
-    document.querySelectorAll('.amount-input').forEach(input => {
-      input.addEventListener('input', calculateTotalAmount);
-    });
+      addCategoryModal.addEventListener('click', (e) => {
+        if (e.target === addCategoryModal) closeModal();
+      });
 
-    document.querySelectorAll('.mic-icon').forEach(attachMicFeedback);
-
-    const paymentButtons = document.querySelectorAll('.payment-option-btn');
-    paymentButtons.forEach(btn => {
-      btn.addEventListener('click', function () {
-        paymentButtons.forEach(b => {
-          b.classList.remove('active');
-          b.setAttribute('aria-checked', 'false');
+      // ========================================================================
+      // K. EVENT DELEGATION & GLOBAL LISTENERS
+      // ========================================================================
+      if (dropdownTrigger) {
+        dropdownTrigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleCategoryDropdown();
         });
-        this.classList.add('active');
-        this.setAttribute('aria-checked', 'true');
-        appState.paymentMode = this.getAttribute('data-mode');
-        const title = this.querySelector('.payment-title');
-        if (title) showToast(`Payment method: ${title.textContent}`, 'credit_card');
-      });
-    });
-
-    // File Upload Handling
-    const dropzone = document.getElementById('dropzone-box');
-    const fileInput = document.getElementById('file-upload-input');
-    const previewCard = document.getElementById('receipt-preview-card');
-    const fileNameEl = document.getElementById('receipt-file-name');
-    const fileMetaEl = document.getElementById('receipt-file-meta');
-    const removeReceiptBtn = document.getElementById('remove-receipt-btn');
-    const attachedCounter = document.getElementById('attached-counter-text');
-
-    function handleSelectedFile(file) {
-      if (!file) return;
-
-      // Security check: File size validation (max 5MB)
-      const maxBytes = 5 * 1024 * 1024;
-      if (file.size > maxBytes) {
-        showToast('File exceeds 5MB limit!', 'error');
-        return;
       }
 
-      // Security check: Allowed MIME types
-      const allowedMimes = ['image/jpeg', 'image/png', 'application/pdf'];
-      if (!allowedMimes.includes(file.type) && !/\.(jpe?g|png|pdf)$/i.test(file.name)) {
-        showToast('Only JPG, PNG, and PDF files allowed', 'error');
-        return;
+      // Handle predefined category clicks
+      dropdownMenu.querySelectorAll('.category-dropdown-item').forEach((item) => {
+        item.addEventListener('click', () => {
+          const name = item.getAttribute('data-category');
+          const icon = item.getAttribute('data-icon');
+          const sub = item.getAttribute('data-subtitle');
+          selectCategory(name, icon, sub);
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (dropdownWrapper && !dropdownWrapper.contains(e.target)) {
+          toggleCategoryDropdown(false);
+        }
+      });
+
+      // Calendar month buttons
+      const calPrevBtn = document.getElementById('cal-prev-btn');
+      const calNextBtn = document.getElementById('cal-next-btn');
+      if (calPrevBtn) {
+        calPrevBtn.addEventListener('click', () => {
+          state.currentDisplayDate.setMonth(state.currentDisplayDate.getMonth() - 1);
+          renderCalendar();
+        });
+      }
+      if (calNextBtn) {
+        calNextBtn.addEventListener('click', () => {
+          state.currentDisplayDate.setMonth(state.currentDisplayDate.getMonth() + 1);
+          renderCalendar();
+        });
       }
 
-      const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
-      const safeName = escapeHTML(file.name);
+      // Add row button
+      if (addRowBtn) addRowBtn.addEventListener('click', addNewRow);
 
-      if (fileNameEl) fileNameEl.textContent = safeName;
-      if (fileMetaEl) fileMetaEl.textContent = `${sizeMB} MB • Scanned & Verified`;
-      if (previewCard) previewCard.style.display = 'flex';
-      if (attachedCounter) attachedCounter.textContent = 'Attached Bills (1 of 5)';
-      appState.hasReceipt = true;
+      // Existing initial rows mic and delete listeners
+      tbody.querySelectorAll('tr').forEach((row) => {
+        const inputName = row.querySelector('.item-name');
+        const inputQty = row.querySelector('.item-qty');
+        const inputAmt = row.querySelector('.item-amount');
+        const micBtns = row.querySelectorAll('.mic-icon-btn');
+        const delBtn = row.querySelector('.row-delete-btn');
 
-      showToast(`Attached "${safeName}"`);
-    }
+        if (micBtns[0] && inputName) attachSpeechRecognition(micBtns[0], inputName);
+        if (micBtns[1] && inputQty) attachSpeechRecognition(micBtns[1], inputQty);
 
-    if (dropzone && fileInput) {
-      dropzone.addEventListener('click', () => fileInput.click());
-      dropzone.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          fileInput.click();
+        if (inputAmt) {
+          inputAmt.addEventListener('input', calculateTotal);
+        }
+
+        if (delBtn) {
+          delBtn.addEventListener('click', () => {
+            const rows = tbody.querySelectorAll('tr');
+            if (rows.length <= 1) {
+              if (inputName) inputName.value = '';
+              if (inputQty) inputQty.value = '';
+              if (inputAmt) inputAmt.value = '';
+            } else {
+              row.remove();
+              updateRowIndices();
+            }
+            calculateTotal();
+          });
         }
       });
 
-      dropzone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropzone.classList.add('drag-active');
-      });
+      // ========================================================================
+      // L. FORM SUBMISSION (GAS BRIDGE + STANDALONE CLIENT PREVIEW)
+      // ========================================================================
+      const saveBtn = document.getElementById('save-expense-btn');
+      const saveBtnIcon = document.getElementById('save-btn-icon');
+      const saveBtnText = document.getElementById('save-btn-text');
 
-      dropzone.addEventListener('dragleave', () => {
-        dropzone.classList.remove('drag-active');
-      });
+      function formatISODate(d) {
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
+      }
 
-      dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropzone.classList.remove('drag-active');
-        if (e.dataTransfer && e.dataTransfer.files.length > 0) {
-          handleSelectedFile(e.dataTransfer.files[0]);
+      function submitExpense() {
+        const rows = tbody.querySelectorAll('tr');
+        const items = [];
+        let totalAmount = 0;
+
+        rows.forEach((row, idx) => {
+          const nameInput = row.querySelector('.item-name');
+          const qtyInput = row.querySelector('.item-qty');
+          const amtInput = row.querySelector('.item-amount');
+
+          const name = nameInput ? sanitizeText(nameInput.value) : '';
+          const qty = qtyInput ? sanitizeText(qtyInput.value) : '';
+          const amt = amtInput ? parseFloat(amtInput.value) : 0;
+
+          if (name !== '' || amt > 0) {
+            items.push({
+              sno: idx + 1,
+              item: name || `Item ${idx + 1}`,
+              qty: qty || '-',
+              amount: isNaN(amt) ? 0 : amt
+            });
+            if (!isNaN(amt) && amt > 0) {
+              totalAmount += amt;
+            }
+          }
+        });
+
+        if (items.length === 0 || totalAmount <= 0) {
+          showToast('Please enter at least one item with a valid amount!', 'error');
+          return;
         }
-      });
 
-      fileInput.addEventListener('change', (e) => {
-        if (e.target.files && e.target.files.length > 0) {
-          handleSelectedFile(e.target.files[0]);
-        }
-      });
-    }
+        const notesInput = document.getElementById('expense-notes');
+        const notes = notesInput ? sanitizeText(notesInput.value) : '';
+        const formattedDate = formatISODate(state.selectedDate);
+        const totalWords = convertNumberToWords(totalAmount);
 
-    if (removeReceiptBtn && previewCard) {
-      removeReceiptBtn.addEventListener('click', () => {
-        previewCard.style.display = 'none';
-        if (fileInput) fileInput.value = '';
-        if (attachedCounter) attachedCounter.textContent = 'Attached Bills (0 of 5)';
-        appState.hasReceipt = false;
-        showToast('Receipt removed', 'delete');
-      });
-    }
+        const payload = {
+          date: formattedDate,
+          category: state.selectedCategory.name,
+          totalAmount: totalAmount,
+          totalWords: totalWords,
+          paymentMode: state.selectedPaymentMode,
+          description: notes,
+          items: items,
+          receipt: state.receiptData
+        };
 
-    const prevMonthBtn = document.getElementById('prev-month-btn');
-    const nextMonthBtn = document.getElementById('next-month-btn');
+        // UI Loading State
+        saveBtn.disabled = true;
+        saveBtnIcon.innerHTML = '<div class="spinner"></div>';
+        saveBtnText.textContent = 'Saving Expense...';
 
-    if (prevMonthBtn) {
-      prevMonthBtn.addEventListener('click', () => {
-        if (appState.currentMonth === 0) {
-          appState.currentMonth = 11;
-          appState.currentYear--;
+        // Check if running inside Google Apps Script iframe
+        if (typeof google !== 'undefined' && google.script && google.script.run) {
+          google.script.run
+            .withSuccessHandler((response) => {
+              resetSubmitButton();
+              if (response && response.success) {
+                showToast(response.message || 'Expense saved to Google Sheet!', 'success');
+                resetForm();
+              } else {
+                showToast(response.error || 'Failed to save expense', 'error');
+              }
+            })
+            .withFailureHandler((error) => {
+              resetSubmitButton();
+              showToast(`Error: ${error.message || error}`, 'error');
+            })
+            .saveExpense(payload);
         } else {
-          appState.currentMonth--;
+          // Standalone browser preview mode
+          console.log('[Smart Finance] Expense Payload:', payload);
+          setTimeout(() => {
+            resetSubmitButton();
+            showToast('Expense recorded successfully!', 'success');
+          }, 900);
         }
-        renderCalendar();
-      });
-    }
+      }
 
-    if (nextMonthBtn) {
-      nextMonthBtn.addEventListener('click', () => {
-        if (appState.currentMonth === 11) {
-          appState.currentMonth = 0;
-          appState.currentYear++;
-        } else {
-          appState.currentMonth++;
-        }
-        renderCalendar();
-      });
-    }
+      function resetSubmitButton() {
+        saveBtn.disabled = false;
+        saveBtnIcon.innerHTML = 'check';
+        saveBtnText.textContent = 'Save Expense';
+      }
 
-    const saveExpenseBtn = document.getElementById('save-expense-btn');
-    if (saveExpenseBtn) {
-      saveExpenseBtn.addEventListener('click', () => {
-        const total = document.getElementById('total-amount-display')?.textContent || '₹0.00';
-        showToast(`Expense of ${total} saved successfully!`, 'check_circle');
-      });
-    }
+      function resetForm() {
+        tbody.innerHTML = '';
+        tbody.appendChild(createTableRow('Poha', '20 kg', '400'));
+        tbody.appendChild(createTableRow('Rava (Mota)', '20 kg', '600'));
+        tbody.appendChild(createTableRow('Sugar', '35 kg', '1400'));
+        calculateTotal();
 
-    const fabBtn = document.getElementById('fab-add-btn');
-    if (fabBtn) {
-      fabBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        showToast('Ready to record expense', 'add');
-      });
-    }
+        const notesInput = document.getElementById('expense-notes');
+        if (notesInput) notesInput.value = '';
+      }
 
-    const notificationBtn = document.getElementById('notification-btn');
-    if (notificationBtn) {
-      notificationBtn.addEventListener('click', () => {
-        showToast('No new notifications', 'notifications');
-      });
-    }
+      if (saveBtn) saveBtn.addEventListener('click', submitExpense);
 
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', function () {
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-      });
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
+      // ========================================================================
+      // M. INITIALIZATION
+      // ========================================================================
       renderCalendar();
-      attachCategoryItemListeners();
-      calculateTotalAmount();
-    });
+      calculateTotal();
+    })();
   </script>
 </body>
 </html>
