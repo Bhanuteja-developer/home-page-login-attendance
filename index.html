@@ -1,408 +1,153 @@
-<!DOCTYPE html><html lang="en" style=""><head>
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Login - Smart Finance</title>
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<title>FinNexus - Sign Up</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "on-background": "#1c1b1b",
+                    "background": "#ffffff",
+                    "outline": "#7a7487",
+                    "on-tertiary-fixed": "#280057",
+                    "secondary-fixed-dim": "#ffb59f",
+                    "on-primary-fixed-variant": "#4e00d1",
+                    "surface-container-high": "#eae7e7",
+                    "tertiary-container": "#8d4aee",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#5f1600",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#ecdcff",
+                    "secondary-container": "#fd6a3c",
+                    "on-secondary-fixed-variant": "#862300",
+                    "tertiary-fixed-dim": "#d6baff",
+                    "on-secondary-fixed": "#3a0a00",
+                    "on-tertiary-fixed-variant": "#5f00c0",
+                    "surface-dim": "#dcd9d9",
+                    "on-surface-variant": "#494456",
+                    "inverse-surface": "#313030",
+                    "primary-fixed": "#e7deff",
+                    "secondary-fixed": "#ffdbd1",
+                    "error": "#ba1a1a",
+                    "primary": "#622ce5",
+                    "on-primary-fixed": "#1f005f",
+                    "tertiary": "#732ad3",
+                    "surface-bright": "#fcf9f8",
+                    "on-tertiary-container": "#fdf6ff",
+                    "primary-container": "#7b4dff",
+                    "on-surface": "#1c1b1b",
+                    "surface": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e5e2e1",
+                    "inverse-on-surface": "#f3f0ef",
+                    "surface-container": "#f0eded",
+                    "surface-tint": "#6733ea",
+                    "outline-variant": "#cac3d8",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#ae3203",
+                    "primary-fixed-dim": "#cdbdff",
+                    "surface-container-low": "#f6f3f2",
+                    "inverse-primary": "#cdbdff",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-primary-container": "#fcf6ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "xs": "4px",
+                    "unit": "4px",
+                    "xl": "32px",
+                    "gutter": "16px",
+                    "container-margin": "20px",
+                    "lg": "24px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-data": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                    "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                    "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                    "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "display-data": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.04em", "fontWeight": "700" }]
+            }
+          }
+        }
+      }
+    </script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <style>
-    :root {
-        --primary: #622ce5;
-        --primary-hover: #4e00d1;
-        --surface: #FCF9F8;
-        --surface-card: #FFFFFF;
-        --on-surface: #1c1b1b;
-        --on-surface-variant: #494456;
-        --outline-variant: #cac3d8;
-        --input-bg: #F8F9FA;
-        --accent: #fd6a3c;
-        --error: #ba1a1a;
-        
-        --font-family: 'Inter', sans-serif;
-        
-        --spacing-xs: 4px;
-        --spacing-sm: 8px;
-        --spacing-md: 16px;
-        --spacing-lg: 24px;
-        --spacing-xl: 32px;
-    }
-
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
+        body { font-family: 'Inter', sans-serif; }
+        .btn-primary-gradient {
+            background: linear-gradient(135deg, #7B4DFF 0%, #FF6B3D 100%);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #7B4DFF 0%, #FF6B3D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+<style>
     body {
-        font-family: var(--font-family);
-        background-color: var(--surface);
-        color: var(--on-surface);
-        -webkit-font-smoothing: antialiased;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+      min-height: max(884px, 100dvh);
     }
-
-    .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
-
-    /* Layout */
-    .page-wrapper {
-        position: relative;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .top-gradient {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 45vh;
-        background: linear-gradient(135deg, #7B4DFF 0%, #FF6B3D 100%);
-        z-index: 0;
-        border-bottom-left-radius: 24px;
-        border-bottom-right-radius: 24px;
-    }
-
-    .content-container {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        max-width: 480px;
-        padding: var(--spacing-xl) var(--spacing-md);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 2vh;
-    }
-
-    /* Header */
-    .header {
-        text-align: center;
-        color: #ffffff;
-        margin-bottom: var(--spacing-xl);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .logo-box {
-        width: 64px;
-        height: 64px;
-        border-radius: 16px;
-        background-color: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: var(--spacing-md);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .logo-box .material-symbols-outlined {
-        font-size: 32px;
-        color: #ffffff;
-    }
-
-    .header h1 {
-        font-size: 24px;
-        font-weight: 700;
-        line-height: 32px;
-        letter-spacing: -0.02em;
-        margin-bottom: var(--spacing-xs);
-    }
-
-    @media (min-width: 768px) {
-        .header h1 {
-            font-size: 32px;
-            line-height: 40px;
-        }
-    }
-
-    .header p {
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-        color: rgba(255, 255, 255, 0.9);
-    }
-
-    /* Card */
-    .card {
-        background-color: var(--surface-card);
-        border-radius: 24px;
-        padding: var(--spacing-xl) var(--spacing-lg);
-        width: 100%;
-        box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.08);
-    }
-
-    /* Form Elements */
-    .form-group {
-        margin-bottom: var(--spacing-md);
-    }
-
-    .form-label {
-        display: block;
-        font-size: 12px;
-        font-weight: 500;
-        line-height: 16px;
-        color: var(--on-surface-variant);
-        margin-bottom: var(--spacing-sm);
-    }
-
-    .form-label-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: var(--spacing-sm);
-    }
-
-    .form-label-row .form-label {
-        margin-bottom: 0;
-    }
-
-    .forgot-link {
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--accent);
-        text-decoration: none;
-        transition: color 0.2s;
-    }
-
-    .forgot-link:hover {
-        color: #e55a2b;
-    }
-
-    .input-wrapper {
-        position: relative;
-    }
-
-    .input-icon-left {
-        position: absolute;
-        left: var(--spacing-md);
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--outline-variant);
-    }
-
-    .input-icon-right {
-        position: absolute;
-        right: var(--spacing-md);
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--outline-variant);
-        background: none;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-    }
-
-    .input-icon-right:hover {
-        color: var(--on-surface);
-    }
-
-    .form-input {
-        width: 100%;
-        height: 56px;
-        padding-left: 48px;
-        padding-right: var(--spacing-md);
-        background-color: var(--input-bg);
-        border: 1px solid var(--outline-variant);
-        border-radius: 8px;
-        font-family: var(--font-family);
-        font-size: 16px;
-        color: var(--on-surface);
-        transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .form-input.has-right-icon {
-        padding-right: 48px;
-    }
-
-    .form-input::placeholder {
-        color: var(--outline-variant);
-    }
-
-    .form-input:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 1px var(--primary);
-    }
-
-    .checkbox-wrapper {
-        display: flex;
-        align-items: center;
-        margin-top: var(--spacing-sm);
-        margin-bottom: var(--spacing-xl);
-    }
-
-    .checkbox-input {
-        width: 20px;
-        height: 20px;
-        accent-color: var(--primary);
-        cursor: pointer;
-    }
-
-    .checkbox-label {
-        margin-left: var(--spacing-sm);
-        font-size: 16px;
-        color: var(--on-surface-variant);
-        cursor: pointer;
-    }
-
-    .btn-submit {
-        width: 100%;
-        height: 48px;
-        background-color: var(--primary);
-        color: #ffffff;
-        border: none;
-        border-radius: 18px;
-        font-family: var(--font-family);
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s, transform 0.1s;
-    }
-
-    .btn-submit:hover {
-        background-color: var(--primary-hover);
-    }
-
-    .btn-submit:active {
-        transform: scale(0.98);
-    }
-
-    /* Divider */
-    .divider {
-        display: flex;
-        align-items: center;
-        margin: var(--spacing-xl) 0;
-    }
-
-    .divider-line {
-        flex-grow: 1;
-        height: 1px;
-        background-color: var(--outline-variant);
-        opacity: 0.5;
-    }
-
-    .divider-text {
-        margin: 0 var(--spacing-md);
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--on-surface-variant);
-    }
-
-    /* Footer */
-    .footer-text {
-        text-align: center;
-        font-size: 16px;
-        color: var(--on-surface-variant);
-        margin-top: var(--spacing-lg);
-    }
-
-    .footer-link {
-        color: var(--primary);
-        font-weight: 600;
-        text-decoration: none;
-        margin-left: var(--spacing-xs);
-        transition: color 0.2s;
-    }
-
-    .footer-link:hover {
-        color: var(--primary-hover);
-    }
-</style>
+  </style>
 </head>
-<body>
-<div class="page-wrapper">
-<!-- Top Gradient Background -->
-<div class="top-gradient"></div>
-<div class="content-container">
-<!-- Logo Header -->
-<div class="header">
-<div class="logo-box"><span class="material-symbols-outlined">account_balance_wallet</span></div>
-<h1 class="">Smart Finance</h1>
+<body class="text-on-background min-h-screen flex items-center justify-center p-container-margin md:p-0 bg-white" style="background-color: #FFFFFF;">
+<!-- Note: TopAppBar and BottomNavBar are suppressed as this is a linear/transactional intent page (Sign Up). -->
+<main class="w-full max-w-md mx-auto relative z-10">
+<div class="w-full relative z-10">
+<div class="text-center mb-xl">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Create Account</h1>
 
 </div>
-<!-- Login Card -->
-<div class="card">
-<form action="#" method="POST">
-<!-- Email Input -->
-<div class="form-group">
-<label class="form-label" for="email">Email Address or Mobile Number</label>
-<div class="input-wrapper">
-<span class="material-symbols-outlined input-icon-left">person</span>
-<input class="form-input" id="email" name="email" placeholder="Enter your email or 10-digit number" required="" type="text">
+<form class="flex flex-col gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="name">Full Name</label>
+<input class="w-full h-12 px-md rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md" id="name" placeholder="John Doe" type="text">
 </div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="email">Email</label>
+<input class="w-full h-12 px-md rounded-lg border border-outline-variant bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md" id="email" placeholder="john@example.com" type="email">
 </div>
-<!-- Password Input -->
-<div class="form-group">
-<div class="form-label-row">
-<label class="form-label" for="password">Password</label>
-<a class="forgot-link" href="#">Forgot Password?</a>
+<div class="flex flex-col gap-xs">
+
+
 </div>
-<div class="input-wrapper">
-<span class="material-symbols-outlined input-icon-left">lock</span>
-<input class="form-input has-right-icon" id="password" name="password" placeholder="Enter your password" required="" type="password">
-<button aria-label="Toggle password visibility" class="input-icon-right" type="button">
-<span class="material-symbols-outlined">visibility_off</span>
-</button>
-</div>
-</div>
-<!-- Remember Me -->
-<div class="checkbox-wrapper">
-<input class="checkbox-input" id="remember" name="remember" type="checkbox">
-<label class="checkbox-label" for="remember">Remember me on this device</label>
-</div>
-<!-- Submit Button -->
-<button class="btn-submit" type="submit">
-                    Secure Login
-                </button>
+<button class="w-full h-12 mt-md rounded-full btn-primary-gradient text-white font-label-md text-label-md flex items-center justify-center transition-transform active:scale-95" type="button">
+            Click Here To Verify</button>
 </form>
-<!-- Divider -->
-<div class="divider">
-<div class="divider-line"></div>
-<span class="divider-text">or</span>
-<div class="divider-line"></div>
-</div>
-<!-- Footer Links inside card for better containment -->
-<div class="footer-text">
-                Don't have an account? 
-                <a class="footer-link" href="#">Sign up now</a>
+<div class="mt-lg text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Already have an account? 
+            <a class="text-primary font-label-md font-semibold hover:underline cursor-pointer">Log In</a>
+</p>
 </div>
 </div>
-</div>
-</div>
-<script>
-    // Simple password toggle logic
-    document.addEventListener('DOMContentLoaded', () => {
-        const toggleBtn = document.querySelector('button[aria-label="Toggle password visibility"]');
-        const passwordInput = document.getElementById('password');
-        const icon = toggleBtn.querySelector('.material-symbols-outlined');
-
-        if(toggleBtn && passwordInput && icon) {
-            toggleBtn.addEventListener('click', () => {
-                if (passwordInput.type === 'password') {
-                    passwordInput.type = 'text';
-                    icon.textContent = 'visibility';
-                    icon.style.color = 'var(--primary)';
-                } else {
-                    passwordInput.type = 'password';
-                    icon.textContent = 'visibility_off';
-                    icon.style.color = '';
-                }
-            });
-        }
-    });
-</script>
+</main>
 
 
 </body></html>
