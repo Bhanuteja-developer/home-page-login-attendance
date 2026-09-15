@@ -4,60 +4,77 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <title>Smart Finance - Profile &amp; Settings</title>
-<!-- Google Fonts: Inter and Google Material Symbols Outlined -->
+<!-- Google Fonts Inter & Material Symbols Outlined -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
         :root {
-            /* Theme Tokens (Smart Finance Design System) */
-            --color-primary: #7b4dff;
-            --color-primary-container: #8d4aee;
-            --color-primary-light: rgba(123, 77, 255, 0.12);
-            --color-on-primary: #ffffff;
-            --color-secondary: #fd6a3c;
-            --color-surface: #fdf8f8;
-            --color-surface-container: #f1edec;
-            --color-surface-container-low: #ffffff;
-            --color-surface-container-high: #ece7e7;
-            --color-on-surface: #1c1b1b;
-            --color-on-surface-variant: #615d6c;
-            --color-outline: #e5e0e0;
-            --color-outline-variant: #f0eded;
-            --color-error: #ba1a1a;
-            --color-error-container: #ffdad6;
-            --color-success: #16a34a;
-
-            /* Gradients */
-            --gradient-primary: linear-gradient(135deg, #7b4dff 0%, #fd6a3c 100%);
-            --gradient-card: linear-gradient(135deg, #efeaff 0%, #ffece6 100%);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --gradient-primary: linear-gradient(135deg, #7B4DFF 0%, #FF6B3D 100%);
+            --gradient-primary-glow: rgba(123, 77, 255, 0.4);
+            --gradient-subtle: linear-gradient(135deg, rgba(123, 77, 255, 0.15) 0%, rgba(255, 107, 61, 0.08) 100%);
             
-            /* Elevation & Shadows */
-            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.03);
-            --shadow-card: 0 10px 30px rgba(123, 77, 255, 0.08);
-            --shadow-button: 0 8px 25px rgba(123, 77, 255, 0.25);
-            --shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.25);
+            /* Dark Obsidian Theme (Default) */
+            --bg-body: #0d0c13;
+            --bg-shell: #12111a;
+            --bg-card: rgba(26, 24, 38, 0.75);
+            --bg-card-secondary: rgba(33, 30, 48, 0.75);
+            --bg-input: rgba(18, 17, 26, 0.85);
+            --border-card: rgba(255, 255, 255, 0.08);
+            --border-card-highlight: rgba(123, 77, 255, 0.3);
+            --border-subtle: rgba(255, 255, 255, 0.05);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #9e9bb0;
+            --text-muted: #6b6782;
+            
+            --color-primary: #7B4DFF;
+            --color-secondary: #FF6B3D;
+            --color-accent: #a476ff;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-error-glow: rgba(239, 68, 68, 0.2);
+
+            --nav-bg: rgba(18, 17, 26, 0.85);
+            --header-bg: rgba(18, 17, 26, 0.85);
+            --modal-bg: #1a1827;
+            --modal-sheet-border: rgba(255, 255, 255, 0.12);
 
             --radius-xl: 28px;
             --radius-lg: 20px;
             --radius-md: 14px;
             --radius-pill: 9999px;
-            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+            --shadow-card: 0 16px 36px rgba(0, 0, 0, 0.45);
+            --shadow-glow: 0 10px 30px rgba(123, 77, 255, 0.35);
+            --shadow-danger: 0 8px 24px rgba(239, 68, 68, 0.25);
         }
 
-        /* Dark Mode Support (Active by default based on design snapshot) */
-        body.dark-mode {
-            --color-surface: #121118;
-            --color-surface-container: #1b1924;
-            --color-surface-container-low: #232030;
-            --color-surface-container-high: #2d2a3c;
-            --color-on-surface: #f5f2f9;
-            --color-on-surface-variant: #a29db0;
-            --color-outline: #2e2b3d;
-            --color-outline-variant: #282436;
-            --gradient-card: linear-gradient(135deg, #252038 0%, #30212b 100%);
-            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.45);
+        /* Light Theme Mode */
+        body.light-mode {
+            --bg-body: #f4f2f8;
+            --bg-shell: #faf9fd;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-card-secondary: rgba(246, 244, 252, 0.95);
+            --bg-input: #f0edfa;
+            --border-card: rgba(123, 77, 255, 0.12);
+            --border-card-highlight: rgba(123, 77, 255, 0.4);
+            --border-subtle: rgba(0, 0, 0, 0.06);
+
+            --text-primary: #191624;
+            --text-secondary: #635f79;
+            --text-muted: #9691b0;
+
+            --nav-bg: rgba(250, 249, 253, 0.92);
+            --header-bg: rgba(250, 249, 253, 0.88);
+            --modal-bg: #ffffff;
+            --modal-sheet-border: rgba(123, 77, 255, 0.15);
+
+            --shadow-card: 0 12px 30px rgba(123, 77, 255, 0.08);
+            --shadow-glow: 0 8px 25px rgba(123, 77, 255, 0.2);
+            --shadow-danger: 0 8px 24px rgba(239, 68, 68, 0.15);
         }
 
         * {
@@ -69,32 +86,32 @@
 
         body {
             font-family: var(--font-family);
-            background-color: var(--color-surface);
-            color: var(--color-on-surface);
+            background-color: var(--bg-body);
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 0;
             overflow-x: hidden;
-            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Mobile viewport wrapper */
+        /* Mobile Container / Frame */
         .app-shell {
             width: 100%;
             max-width: 430px;
             min-height: 100vh;
-            background-color: var(--color-surface);
+            background-color: var(--bg-shell);
             position: relative;
             display: flex;
             flex-direction: column;
-            padding-bottom: 96px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.12);
-            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-bottom: 100px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s ease;
+            overflow: hidden;
         }
 
-        /* Material Symbols Utility */
+        /* Material Icons Base */
         .material-symbols-outlined {
             font-family: 'Material Symbols Outlined';
             font-weight: 400;
@@ -102,443 +119,549 @@
             font-size: 22px;
             line-height: 1;
             display: inline-block;
-            white-space: nowrap;
-            letter-spacing: normal;
-            text-transform: none;
-            direction: ltr;
-            -webkit-font-smoothing: antialiased;
+            vertical-align: middle;
             user-select: none;
         }
 
-        /* Header */
+        /* Ambient Glow Decorator */
+        .ambient-glow {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(123, 77, 255, 0.22) 0%, rgba(255, 107, 61, 0.08) 60%, transparent 80%);
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            filter: blur(45px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Top Navigation Header */
         .top-header {
             position: sticky;
             top: 0;
-            z-index: 40;
-            background-color: rgba(253, 248, 248, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            z-index: 30;
+            background: var(--header-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 20px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-        body.dark-mode .top-header {
-            background-color: rgba(18, 17, 24, 0.85);
-            border-bottom-color: rgba(255, 255, 255, 0.05);
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         .header-title {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             letter-spacing: -0.01em;
-            color: var(--color-on-surface);
+            color: var(--text-primary);
         }
 
-        .header-btn {
-            width: 40px;
-            height: 40px;
+        .icon-btn {
+            width: 42px;
+            height: 42px;
             border-radius: var(--radius-pill);
-            background: var(--color-surface-container-low);
-            border: 1px solid var(--color-outline-variant);
-            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: var(--color-on-surface);
+            color: var(--text-primary);
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-subtle);
-        }
-        .header-btn:hover {
-            background: var(--color-surface-container);
-        }
-        .header-btn:active {
-            transform: scale(0.92);
-        }
-        .header-btn.danger-icon {
-            color: var(--color-error);
         }
 
-        /* Main Content Container */
-        .main-scroll {
-            padding: 16px 20px;
+        .icon-btn:hover {
+            border-color: var(--border-card-highlight);
+            transform: scale(1.04);
+        }
+
+        .icon-btn:active {
+            transform: scale(0.92);
+        }
+
+        .icon-btn.danger-btn {
+            color: var(--color-error);
+            border-color: rgba(239, 68, 68, 0.25);
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        .icon-btn.danger-btn:hover {
+            background: rgba(239, 68, 68, 0.16);
+            border-color: var(--color-error);
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            padding: 18px 18px 24px 18px;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
         /* Profile Hero Card */
-        .profile-hero {
-            background: var(--gradient-card);
-            border-radius: var(--radius-xl);
-            padding: 24px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: var(--shadow-card);
+        .profile-hero-card {
             position: relative;
-            overflow: hidden;
+            background: var(--bg-card);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-xl);
+            padding: 26px 20px 22px 20px;
+            box-shadow: var(--shadow-card);
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        body.dark-mode .profile-hero {
-            border-color: rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
-        .avatar-box {
+        .profile-hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .avatar-wrapper {
             position: relative;
-            width: 92px;
-            height: 92px;
+            width: 96px;
+            height: 96px;
             margin-bottom: 14px;
         }
-        .avatar-img {
+
+        .avatar-ring {
             width: 100%;
             height: 100%;
-            border-radius: var(--radius-pill);
-            object-fit: cover;
-            border: 3px solid #ffffff;
-            box-shadow: 0 8px 24px rgba(123, 77, 255, 0.25);
-            transition: filter 0.2s ease;
-        }
-        .avatar-badge {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 30px;
-            height: 30px;
-            border-radius: var(--radius-pill);
+            border-radius: 50%;
+            padding: 3px;
             background: var(--gradient-primary);
-            color: #ffffff;
+            box-shadow: 0 6px 20px var(--gradient-primary-glow);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #ffffff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .avatar-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--bg-shell);
+            background: #252336;
+        }
+
+        .avatar-camera-badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            border: 2px solid var(--bg-shell);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
             cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .avatar-badge:hover {
-            transform: scale(1.1);
+
+        .avatar-camera-badge:hover {
+            transform: scale(1.12);
         }
-        .avatar-badge:active {
+
+        .avatar-camera-badge:active {
             transform: scale(0.92);
         }
-        .avatar-badge .material-symbols-outlined {
+
+        .avatar-camera-badge .material-symbols-outlined {
             font-size: 16px;
         }
 
         .profile-name {
             font-size: 22px;
             font-weight: 700;
-            color: var(--color-on-surface);
             letter-spacing: -0.02em;
+            color: var(--text-primary);
             margin-bottom: 4px;
-            transition: color 0.3s ease;
-        }
-        .profile-email {
-            font-size: 13px;
-            color: var(--color-on-surface-variant);
-            font-weight: 500;
-            margin-bottom: 12px;
-            transition: color 0.3s ease;
         }
 
-        .elite-badge {
+        .profile-email {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+        }
+
+        .tier-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(123, 77, 255, 0.12);
-            color: var(--color-primary);
             padding: 6px 14px;
             border-radius: var(--radius-pill);
+            background: rgba(123, 77, 255, 0.15);
+            border: 1px solid rgba(123, 77, 255, 0.35);
+            color: var(--color-accent);
             font-size: 12px;
             font-weight: 600;
-            letter-spacing: 0.01em;
+            letter-spacing: 0.02em;
             margin-bottom: 20px;
-            border: 1px solid rgba(123, 77, 255, 0.2);
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        body.dark-mode .elite-badge {
-            background: rgba(123, 77, 255, 0.22);
-            color: #c4a7ff;
-            border-color: rgba(196, 167, 255, 0.25);
-        }
-        .elite-badge .material-symbols-outlined {
-            font-size: 16px;
         }
 
-        .profile-actions-row {
+        .tier-badge .material-symbols-outlined {
+            font-size: 15px;
+            color: var(--color-secondary);
+        }
+
+        .profile-actions-grid {
             display: flex;
             align-items: center;
             gap: 12px;
             width: 100%;
         }
 
-        .btn-edit-profile {
+        .btn-edit-hero {
             flex: 1;
             height: 48px;
-            background: var(--gradient-primary);
-            color: var(--color-on-primary);
-            border: none;
             border-radius: var(--radius-pill);
+            background: var(--gradient-primary);
+            border: none;
+            color: #ffffff;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.01em;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             cursor: pointer;
-            box-shadow: var(--shadow-button);
+            box-shadow: var(--shadow-glow);
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .btn-edit-profile:hover {
-            opacity: 0.96;
+
+        .btn-edit-hero:hover {
             transform: translateY(-1px);
+            box-shadow: 0 12px 30px rgba(123, 77, 255, 0.5);
         }
-        .btn-edit-profile:active {
+
+        .btn-edit-hero:active {
             transform: scale(0.97);
         }
 
-        .btn-theme-toggle {
+        .btn-theme-quick {
             width: 48px;
             height: 48px;
             border-radius: var(--radius-pill);
-            background: var(--color-surface-container-low);
-            border: 1px solid var(--color-outline-variant);
+            background: var(--bg-card-secondary);
+            border: 1px solid var(--border-card);
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--color-on-surface);
             cursor: pointer;
-            box-shadow: var(--shadow-subtle);
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .btn-theme-toggle:hover {
-            background: var(--color-surface-container);
+
+        .btn-theme-quick:hover {
+            border-color: var(--border-card-highlight);
+            transform: rotate(15deg);
         }
-        .btn-theme-toggle:active {
+
+        .btn-theme-quick:active {
             transform: scale(0.92);
         }
 
-        /* Navigation Tab Pills */
-        .tabs-pill-nav {
-            display: flex;
-            background: var(--color-surface-container-low);
+        /* SPA Segmented Tabs Control */
+        .tabs-segmented-wrapper {
+            position: relative;
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             padding: 5px;
             border-radius: var(--radius-pill);
-            border: 1px solid var(--color-outline);
-            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-card);
+            display: flex;
             gap: 4px;
-            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
-        .tab-btn {
+        .tab-button {
             flex: 1;
             height: 42px;
             border-radius: var(--radius-pill);
             border: none;
             background: transparent;
+            color: var(--text-secondary);
             font-size: 13px;
             font-weight: 600;
-            color: var(--color-on-surface-variant);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
             cursor: pointer;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .tab-btn .material-symbols-outlined {
-            font-size: 18px;
-        }
-        .tab-btn.active {
-            background: var(--color-surface);
-            color: var(--color-primary);
-            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-        }
-        body.dark-mode .tab-btn.active {
-            background: var(--color-surface-container);
-            color: #b595ff;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
         }
 
-        /* Content Sections (SPA Tabs) */
-        .spa-tab-content {
+        .tab-button .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        .tab-button.active {
+            color: #ffffff;
+            background: var(--gradient-primary);
+            box-shadow: 0 4px 14px rgba(123, 77, 255, 0.35);
+        }
+
+        /* Tab Content Panels */
+        .tab-pane {
             display: none;
             flex-direction: column;
             gap: 16px;
-            animation: tabFadeIn 0.25s ease-out;
+            animation: fadeInTab 0.25s ease-out forwards;
         }
-        .spa-tab-content.active {
+
+        .tab-pane.active {
             display: flex;
         }
 
-        @keyframes tabFadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInTab {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Card Panels */
-        .panel-card {
-            background: var(--color-surface-container-low);
+        /* Card Section Styles */
+        .settings-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: var(--radius-lg);
-            border: 1px solid var(--color-outline-variant);
-            padding: 18px 16px;
-            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-card);
+            padding: 18px;
             display: flex;
             flex-direction: column;
             gap: 14px;
+            box-shadow: var(--shadow-card);
             transition: background 0.3s ease, border-color 0.3s ease;
         }
 
-        .panel-header {
+        .card-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-        }
-        .panel-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--color-on-surface);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .panel-title .material-symbols-outlined {
-            color: var(--color-primary);
-            font-size: 20px;
+            padding-bottom: 4px;
         }
 
-        /* List Items */
-        .setting-row {
+        .card-title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title-group .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--color-primary);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        /* Settings List Rows */
+        .setting-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 8px 0;
-            border-bottom: 1px solid var(--color-outline-variant);
+            border-bottom: 1px solid var(--border-subtle);
             cursor: pointer;
-            transition: background-color 0.15s ease;
-            border-radius: 8px;
+            transition: opacity 0.15s ease;
         }
-        .setting-row:last-child {
+
+        .setting-item:last-child {
             border-bottom: none;
             padding-bottom: 0;
         }
-        .setting-left {
+
+        .setting-item:active {
+            opacity: 0.75;
+        }
+
+        .setting-info-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
+
         .setting-icon-box {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: var(--color-surface-container);
-            color: var(--color-on-surface-variant);
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-md);
+            background: var(--bg-card-secondary);
+            border: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
         }
+
+        .setting-item:hover .setting-icon-box {
+            border-color: var(--border-card-highlight);
+            color: var(--color-accent);
+        }
+
+        .setting-texts {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
         .setting-label {
             font-size: 14px;
             font-weight: 600;
-            color: var(--color-on-surface);
+            color: var(--text-primary);
         }
-        .setting-subtext {
+
+        .setting-desc {
             font-size: 12px;
-            color: var(--color-on-surface-variant);
-            margin-top: 1px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 2px;
         }
-        .setting-right {
+
+        .setting-action-right {
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--color-on-surface-variant);
+            color: var(--text-secondary);
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        /* Toggle Switch */
-        .switch {
+        .status-chip {
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .status-chip.success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--color-success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* Toggle Switches */
+        .switch-toggle {
             position: relative;
             display: inline-block;
-            width: 44px;
-            height: 24px;
+            width: 46px;
+            height: 26px;
             flex-shrink: 0;
+            cursor: pointer;
         }
-        .switch input {
+
+        .switch-toggle input {
             opacity: 0;
             width: 0;
             height: 0;
         }
-        .slider {
+
+        .slider-round {
             position: absolute;
             cursor: pointer;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: var(--color-outline);
-            transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: var(--bg-card-secondary);
+            border: 1px solid var(--border-card);
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 34px;
         }
-        .slider:before {
+
+        .slider-round::before {
             position: absolute;
             content: "";
             height: 18px;
             width: 18px;
             left: 3px;
             bottom: 3px;
-            background-color: white;
-            transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #ffffff;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
-        input:checked + .slider {
+
+        .switch-toggle input:checked + .slider-round {
             background: var(--gradient-primary);
+            border-color: transparent;
         }
-        input:checked + .slider:before {
+
+        .switch-toggle input:checked + .slider-round::before {
             transform: translateX(20px);
         }
 
         /* Sign Out Bottom Button */
-        .signout-container {
-            margin-top: 10px;
+        .signout-section {
+            margin-top: 6px;
         }
-        .btn-signout {
+
+        .btn-signout-main {
             width: 100%;
             height: 52px;
             border-radius: var(--radius-pill);
-            background: var(--color-surface-container-low);
-            border: 1.5px solid rgba(186, 26, 26, 0.35);
-            color: #ef4444;
+            background: rgba(239, 68, 68, 0.08);
+            border: 1.5px solid rgba(239, 68, 68, 0.35);
+            color: var(--color-error);
             font-size: 15px;
             font-weight: 700;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             cursor: pointer;
-            box-shadow: var(--shadow-subtle);
-            transition: all 0.2s ease;
-        }
-        .btn-signout:hover {
-            background: rgba(220, 38, 38, 0.08);
-            border-color: #ef4444;
-        }
-        .btn-signout:active {
-            transform: scale(0.98);
-        }
-        .btn-signout .material-symbols-outlined {
-            font-size: 20px;
+            box-shadow: var(--shadow-danger);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Persistent Bottom Navigation */
-        .bottom-nav {
+        .btn-signout-main:hover {
+            background: rgba(239, 68, 68, 0.16);
+            border-color: var(--color-error);
+            transform: translateY(-1px);
+        }
+
+        .btn-signout-main:active {
+            transform: scale(0.98);
+        }
+
+        /* Persistent Bottom Dock Navigation */
+        .bottom-dock-nav {
             position: fixed;
             bottom: 0;
             left: 50%;
@@ -546,52 +669,51 @@
             width: 100%;
             max-width: 430px;
             height: 76px;
-            background: rgba(253, 248, 248, 0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            background: var(--nav-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-top: 1px solid var(--border-subtle);
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 0 10px;
-            padding-bottom: env(safe-area-inset-bottom);
-            z-index: 50;
+            padding: 0 12px env(safe-area-inset-bottom) 12px;
+            z-index: 40;
             transition: background 0.3s ease, border-color 0.3s ease;
         }
-        body.dark-mode .bottom-nav {
-            background: rgba(18, 17, 24, 0.9);
-            border-top-color: rgba(255, 255, 255, 0.06);
-        }
 
-        .nav-link {
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background: none;
             border: none;
-            color: var(--color-on-surface-variant);
+            color: var(--text-muted);
             cursor: pointer;
             gap: 4px;
-            transition: color 0.2s ease, transform 0.15s ease;
             width: 60px;
+            transition: all 0.2s ease;
         }
-        .nav-link:active {
+
+        .nav-item:active {
             transform: scale(0.9);
         }
-        .nav-link .nav-text {
+
+        .nav-item-label {
             font-size: 11px;
             font-weight: 600;
         }
-        .nav-link.active {
-            color: var(--color-primary);
-        }
-        body.dark-mode .nav-link.active {
-            color: #b595ff;
+
+        .nav-item.active {
+            color: var(--color-accent);
         }
 
-        /* Center Elevated FAB */
-        .fab-btn {
+        .nav-fab-wrap {
+            position: relative;
+            top: -18px;
+        }
+
+        .nav-fab {
             width: 52px;
             height: 52px;
             border-radius: var(--radius-pill);
@@ -601,23 +723,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: -24px;
-            box-shadow: 0 12px 28px rgba(123, 77, 255, 0.35);
+            box-shadow: 0 10px 24px var(--gradient-primary-glow);
             cursor: pointer;
             transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .fab-btn:active {
-            transform: scale(0.9);
+
+        .nav-fab:active {
+            transform: scale(0.92);
         }
-        .fab-btn .material-symbols-outlined {
+
+        .nav-fab .material-symbols-outlined {
             font-size: 26px;
         }
 
-        /* Modals & Bottom Sheets */
-        .modal-overlay {
+        /* Modal Dialog & Bottom Sheets */
+        .sheet-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             display: flex;
@@ -628,208 +751,229 @@
             pointer-events: none;
             transition: opacity 0.25s ease;
         }
-        .modal-overlay.active {
+
+        .sheet-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .modal-sheet {
+        .sheet-modal {
             width: 100%;
             max-width: 430px;
-            background: var(--color-surface-container-low);
+            background: var(--modal-bg);
             border-radius: 28px 28px 0 0;
-            padding: 20px 24px 34px 24px;
-            box-shadow: var(--shadow-modal);
+            border-top: 1px solid var(--modal-sheet-border);
+            padding: 18px 22px 36px 22px;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
             transform: translateY(100%);
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
-            border-top: 1px solid var(--color-outline-variant);
-            max-height: 88vh;
+            max-height: 85vh;
             overflow-y: auto;
         }
-        .modal-overlay.active .modal-sheet {
+
+        .sheet-overlay.active .sheet-modal {
             transform: translateY(0);
         }
 
-        .modal-drag-pill {
-            width: 44px;
+        .sheet-drag-pill {
+            width: 42px;
             height: 4px;
             border-radius: 2px;
-            background: var(--color-outline);
-            margin: 0 auto 18px auto;
+            background: var(--border-card-highlight);
+            margin: 0 auto 16px auto;
         }
 
-        .modal-icon-badge {
+        .sheet-icon-banner {
             width: 60px;
             height: 60px;
-            border-radius: var(--radius-pill);
-            background: rgba(220, 38, 38, 0.12);
-            color: #ef4444;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px auto;
         }
-        .modal-icon-badge.purple {
-            background: rgba(123, 77, 255, 0.12);
-            color: var(--color-primary);
-        }
-        .modal-icon-badge .material-symbols-outlined {
-            font-size: 30px;
+
+        .sheet-icon-banner.danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--color-error);
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
-        .modal-title {
+        .sheet-icon-banner.purple {
+            background: rgba(123, 77, 255, 0.15);
+            color: var(--color-accent);
+            border: 1px solid rgba(123, 77, 255, 0.3);
+        }
+
+        .sheet-title {
             font-size: 19px;
             font-weight: 700;
-            color: var(--color-on-surface);
-            margin-bottom: 8px;
+            color: var(--text-primary);
             text-align: center;
+            margin-bottom: 6px;
         }
 
-        .modal-message {
+        .sheet-subtitle {
             font-size: 14px;
-            line-height: 20px;
-            color: var(--color-on-surface-variant);
-            margin-bottom: 24px;
-            padding: 0 8px;
+            line-height: 1.45;
+            color: var(--text-secondary);
             text-align: center;
+            margin-bottom: 22px;
+            padding: 0 10px;
         }
 
-        .modal-buttons-col {
+        .sheet-btn-group {
             display: flex;
             flex-direction: column;
             gap: 10px;
             width: 100%;
         }
 
-        .btn-confirm-signout {
+        .btn-confirm-danger {
             width: 100%;
             height: 50px;
             border-radius: var(--radius-pill);
-            background: #ba1a1a;
+            background: var(--color-error);
             color: #ffffff;
             border: none;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(186, 26, 26, 0.3);
-            transition: transform 0.15s ease, opacity 0.2s ease;
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+            transition: transform 0.15s ease;
         }
-        .btn-confirm-signout:active {
+
+        .btn-confirm-danger:active {
             transform: scale(0.97);
         }
 
-        .btn-cancel-modal {
+        .btn-cancel-sheet {
             width: 100%;
             height: 50px;
             border-radius: var(--radius-pill);
-            background: var(--color-surface-container);
-            color: var(--color-on-surface);
-            border: 1px solid var(--color-outline-variant);
+            background: var(--bg-card-secondary);
+            border: 1px solid var(--border-card);
+            color: var(--text-primary);
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.15s ease;
         }
-        .btn-cancel-modal:active {
+
+        .btn-cancel-sheet:active {
             transform: scale(0.97);
         }
 
-        .btn-save-modal {
+        .btn-submit-gradient {
             width: 100%;
             height: 50px;
             border-radius: var(--radius-pill);
             background: var(--gradient-primary);
-            color: #ffffff;
             border: none;
+            color: #ffffff;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: var(--shadow-button);
+            box-shadow: var(--shadow-glow);
             transition: transform 0.15s ease;
         }
-        .btn-save-modal:active {
+
+        .btn-submit-gradient:active {
             transform: scale(0.97);
         }
 
-        /* Modal Form Elements */
-        .form-group {
+        /* Form Inputs in Sheets */
+        .input-group {
             margin-bottom: 16px;
             text-align: left;
             width: 100%;
         }
-        .form-label {
+
+        .input-label {
             display: block;
             font-size: 13px;
             font-weight: 600;
-            color: var(--color-on-surface);
+            color: var(--text-secondary);
             margin-bottom: 6px;
         }
-        .form-input {
+
+        .text-input {
             width: 100%;
             height: 48px;
-            background: var(--color-surface-container);
-            border: 1px solid var(--color-outline-variant);
+            background: var(--bg-input);
+            border: 1px solid var(--border-card);
             border-radius: var(--radius-md);
             padding: 0 14px;
             font-size: 14px;
-            color: var(--color-on-surface);
+            color: var(--text-primary);
             font-family: inherit;
             outline: none;
             transition: border-color 0.2s ease;
         }
-        .form-input:focus {
-            border-color: var(--color-primary);
+
+        .text-input:focus {
+            border-color: var(--color-accent);
         }
 
-        /* Option list inside dialogs */
-        .selectable-option-list {
+        /* Selectable Options in Sheets */
+        .sheet-option-list {
             display: flex;
             flex-direction: column;
             gap: 8px;
             width: 100%;
             margin-bottom: 20px;
         }
-        .selectable-option-item {
+
+        .sheet-option-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 14px 16px;
             border-radius: var(--radius-md);
-            background: var(--color-surface-container);
-            border: 1px solid var(--color-outline-variant);
+            background: var(--bg-card-secondary);
+            border: 1px solid var(--border-card);
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        .selectable-option-item.selected {
+
+        .sheet-option-row.selected {
             border-color: var(--color-primary);
-            background: rgba(123, 77, 255, 0.12);
+            background: rgba(123, 77, 255, 0.15);
         }
-        .selectable-option-item .option-text {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--color-on-surface);
+
+        .sheet-option-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
         }
-        .selectable-option-item .check-icon {
+
+        .sheet-option-left .material-symbols-outlined {
             color: var(--color-primary);
-            opacity: 0;
-            font-size: 20px;
         }
-        .selectable-option-item.selected .check-icon {
+
+        .sheet-option-check {
+            color: var(--color-accent);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .sheet-option-row.selected .sheet-option-check {
             opacity: 1;
         }
 
-        /* Feedback Toast */
-        .toast-notification {
+        /* Toast Feedback */
+        .toast-bubble {
             position: fixed;
             top: 76px;
             left: 50%;
             transform: translateX(-50%) translateY(-20px);
-            background: #1c1b1b;
+            background: rgba(26, 24, 38, 0.95);
+            border: 1px solid rgba(123, 77, 255, 0.35);
             color: #ffffff;
             padding: 10px 18px;
             border-radius: var(--radius-pill);
@@ -842,936 +986,852 @@
             pointer-events: none;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 120;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(12px);
             max-width: 90%;
         }
-        body.dark-mode .toast-notification {
-            background: #2d2a3c;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+
+        body.light-mode .toast-bubble {
+            background: rgba(25, 22, 36, 0.92);
         }
-        .toast-notification.show {
+
+        .toast-bubble.visible {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
-        .toast-notification .material-symbols-outlined {
-            color: #4ade80;
+
+        .toast-bubble .material-symbols-outlined {
+            color: var(--color-accent);
             font-size: 18px;
         }
-</style>
+    </style>
 </head>
-<body class="dark-mode">
+<body>
 <div class="app-shell">
-<!-- Hidden file input for Avatar selection -->
-<input accept="image/*" id="avatar-file-input" style="display: none;" type="file"/>
-<!-- Top App Header -->
+<div class="ambient-glow"></div>
+<input accept="image/*" id="avatar-picker" style="display: none;" type="file"/>
+<!-- Top Header Navigation -->
 <header class="top-header">
-<button aria-label="Go Back" class="header-btn" id="btn-back" title="Back">
+<button aria-label="Go Back" class="icon-btn" id="btn-header-back" title="Go Back">
 <span class="material-symbols-outlined">arrow_back</span>
 </button>
 <h1 class="header-title">Profile &amp; Settings</h1>
-<button aria-label="Sign Out" class="header-btn danger-icon" id="btn-header-signout" title="Sign Out">
+<button aria-label="Sign Out" class="icon-btn danger-btn" id="btn-header-logout" title="Sign Out">
 <span class="material-symbols-outlined">logout</span>
 </button>
 </header>
-<!-- Main Content Area -->
-<main class="main-scroll">
-<!-- Hero Section -->
-<section class="profile-hero">
-<div class="avatar-box">
-<img alt="CM Bhanuteja" class="avatar-img" id="hero-avatar-img" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi_T0hd0FHKIZrvotYp9xVRa-kdF59TyK2IjqwANQG9GhkD_oUr439yGg0enB8vOuMRDNJCzbZPCytYN3_p-OoE6RxulicEOK8DNhb_IZL7DqZIq1m2AHvzG38rb3v075cZszZyTARvuMWhCj3Lmug5gmDxKu30bvWRtUNU3BAB3S4fjO8W5QjzKw_LN2INVGRQPCO7Qi25L7kEWTUQU_MBLhQL1_mCuOZqeDrCpMcVYisDyzZPuNS"/>
-<button aria-label="Change photo" class="avatar-badge" id="btn-change-avatar" title="Change Avatar">
+<!-- Main Content View -->
+<main class="main-content">
+<!-- Profile Hero Card -->
+<section class="profile-hero-card">
+<div class="avatar-wrapper">
+<div class="avatar-ring">
+<img alt="CM Bhanuteja" class="avatar-image" id="avatar-img-view" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi_T0hd0FHKIZrvotYp9xVRa-kdF59TyK2IjqwANQG9GhkD_oUr439yGg0enB8vOuMRDNJCzbZPCytYN3_p-OoE6RxulicEOK8DNhb_IZL7DqZIq1m2AHvzG38rb3v075cZszZyTARvuMWhCj3Lmug5gmDxKu30bvWRtUNU3BAB3S4fjO8W5QjzKw_LN2INVGRQPCO7Qi25L7kEWTUQU_MBLhQL1_mCuOZqeDrCpMcVYisDyzZPuNS"/>
+</div>
+<button aria-label="Change Profile Photo" class="avatar-camera-badge" id="btn-camera-trigger" title="Change Avatar">
 <span class="material-symbols-outlined">photo_camera</span>
 </button>
 </div>
-<h2 class="profile-name" id="hero-profile-name">CM Bhanuteja</h2>
-<p class="profile-email" id="hero-profile-email">bhanu.teja@smartfinance.in</p>
-<div class="elite-badge" id="hero-status-badge">
+<h2 class="profile-name" id="display-user-name">CM Bhanuteja</h2>
+<p class="profile-email" id="display-user-email">bhanu.teja@smartfinance.in</p>
+<div class="tier-badge">
 <span class="material-symbols-outlined">verified</span>
-<span id="hero-status-text">Verified Elite Member</span>
+<span>Verified Elite Member</span>
 </div>
-<div class="profile-actions-row">
-<button class="btn-edit-profile" id="btn-edit-profile">
+<div class="profile-actions-grid">
+<button class="btn-edit-hero" id="btn-open-edit-profile">
 <span class="material-symbols-outlined">edit</span>
 <span>Edit Profile</span>
 </button>
-<button aria-label="Toggle Theme" class="btn-theme-toggle" id="btn-dark-toggle" title="Toggle Theme Mode">
-<span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+<button aria-label="Toggle Theme Mode" class="btn-theme-quick" id="btn-quick-theme" title="Toggle Light/Dark Theme">
+<span class="material-symbols-outlined" id="theme-icon-quick">light_mode</span>
 </button>
 </div>
 </section>
-<!-- Segmented Tab Navigation -->
-<nav aria-label="Settings Categories" class="tabs-pill-nav">
-<button class="tab-btn" data-tab="account">
+<!-- Segmented Pill Tabs Navigation -->
+<nav aria-label="Settings Categories" class="tabs-segmented-wrapper">
+<button class="tab-button" data-target="tab-account">
 <span class="material-symbols-outlined">person</span>
 <span>Account</span>
 </button>
-<button class="tab-btn active" data-tab="preferences">
+<button class="tab-button active" data-target="tab-preferences">
 <span class="material-symbols-outlined">tune</span>
 <span>Preferences</span>
 </button>
-<button class="tab-btn" data-tab="security">
+<button class="tab-button" data-target="tab-security">
 <span class="material-symbols-outlined">shield</span>
 <span>Security</span>
 </button>
 </nav>
-<!-- TAB 1: Account -->
-<section class="spa-tab-content" id="tab-account">
-<div class="panel-card">
-<div class="panel-header">
-<h3 class="panel-title">
-<span class="material-symbols-outlined">badge</span>
-<span>Personal Information</span>
-</h3>
-<button class="btn-edit-profile" id="btn-quick-edit" style="width: auto; height: 32px; padding: 0 12px; font-size: 12px; box-shadow: none;">Edit</button>
-</div>
-<div class="setting-row" id="row-account-name">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">account_circle</span></div>
-<div>
-<div class="setting-label">Full Name</div>
-<div class="setting-subtext" id="display-acc-name">CM Bhanuteja</div>
-</div>
-</div>
-<div class="setting-right">
-<span class="material-symbols-outlined">chevron_right</span>
-</div>
-</div>
-<div class="setting-row" id="row-account-email">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">mail</span></div>
-<div>
-<div class="setting-label">Email Address</div>
-<div class="setting-subtext" id="display-acc-email">bhanu.teja@smartfinance.in</div>
-</div>
-</div>
-<div class="setting-right">
-<span class="material-symbols-outlined">chevron_right</span>
-</div>
-</div>
-<div class="setting-row" id="row-account-phone">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">call</span></div>
-<div>
-<div class="setting-label">Phone Number</div>
-<div class="setting-subtext" id="display-acc-phone">+91 98765 43210</div>
-</div>
-</div>
-<div class="setting-right">
-<span class="material-symbols-outlined">chevron_right</span>
-</div>
-</div>
-<div class="setting-row" onclick="showToast('KYC Verification is Complete')">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">verified_user</span></div>
-<div>
-<div class="setting-label">KYC Verification</div>
-<div class="setting-subtext">Aadhaar &amp; PAN Linked</div>
-</div>
-</div>
-<div class="setting-right">
-<span style="color: var(--color-success); font-weight: 600; font-size: 12px;">Active</span>
-</div>
-</div>
-</div>
-<div class="panel-card">
-<div class="panel-header">
-<h3 class="panel-title">
-<span class="material-symbols-outlined">credit_card</span>
-<span>Linked Payment Methods</span>
-</h3>
-</div>
-<div class="setting-row" onclick="showToast('Smart Premier Card Selected')">
-<div class="setting-left">
-<div class="setting-icon-box" style="color:#eab308;"><span class="material-symbols-outlined">credit_card</span></div>
-<div>
-<div class="setting-label">Mastercard Gold •••• 12,300</div>
-<div class="setting-subtext">Expires 31/08/26</div>
-</div>
-</div>
-<div class="setting-right">
-<span class="material-symbols-outlined">chevron_right</span>
-</div>
-</div>
-<div class="setting-row" onclick="showToast('UPI ID copied to clipboard!')">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">account_balance</span></div>
-<div>
-<div class="setting-label">UPI ID</div>
-<div class="setting-subtext">bhanu@okhdfcbank</div>
-</div>
-</div>
-<div class="setting-right">
-<span class="material-symbols-outlined">chevron_right</span>
-</div>
-</div>
-</div>
-<div class="panel-card">
-<div class="panel-header">
-<h3 class="panel-title">
-<span class="material-symbols-outlined">cloud_sync</span>
-<span>Data &amp; Backup</span>
-</h3>
-</div>
-<div class="setting-row" onclick="showToast('Exporting July &amp; August report...')">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">download</span></div>
-<div>
-<div class="setting-label">Export Statement</div>
-<div class="setting-subtext">Excel &amp; PDF financial sheets</div>
-</div>
-</div>
-<div class="setting-right">
-<span class="material-symbols-outlined">chevron_right</span>
-</div>
-</div>
-</div>
-</section>
-<!-- TAB 2: Preferences (Active by default) -->
-<section class="spa-tab-content active" id="tab-preferences">
-<div class="panel-card">
-<div class="panel-header">
-<h3 class="panel-title">
+<!-- TAB 1: Preferences (Default View) -->
+<section class="tab-pane active" id="tab-preferences">
+<!-- App Experience Card -->
+<div class="settings-card">
+<div class="card-header">
+<div class="card-title-group">
 <span class="material-symbols-outlined">palette</span>
-<span>App Experience</span>
-</h3>
-</div>
-<div class="setting-row" id="row-appearance-toggle">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined" id="pref-theme-icon">dark_mode</span></div>
-<div>
-<div class="setting-label">Appearance</div>
-<div class="setting-subtext" id="pref-theme-label">Dark mode theme</div>
+<h3 class="card-title">App Experience</h3>
 </div>
 </div>
-<label class="switch">
-<input checked="" id="theme-toggle-switch" type="checkbox"/>
-<span class="slider"></span>
+<!-- Appearance Switch -->
+<div class="setting-item" id="row-appearance">
+<div class="setting-info-left">
+<div class="setting-icon-box">
+<span class="material-symbols-outlined" id="theme-icon-row">dark_mode</span>
+</div>
+<div class="setting-texts">
+<span class="setting-label">Appearance</span>
+<span class="setting-desc" id="theme-desc-row">Dark mode theme</span>
+</div>
+</div>
+<label aria-label="Dark mode toggle" class="switch-toggle">
+<input checked="" id="theme-switch-checkbox" type="checkbox"/>
+<span class="slider-round"></span>
 </label>
 </div>
-<div class="setting-row" id="btn-open-currency">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined" id="currency-icon">currency_rupee</span></div>
-<div>
-<div class="setting-label">Primary Currency</div>
-<div class="setting-subtext" id="currency-subtext">INR (₹ Indian Rupee)</div>
+<!-- Primary Currency Row -->
+<div class="setting-item" id="row-currency">
+<div class="setting-info-left">
+<div class="setting-icon-box">
+<span class="material-symbols-outlined" id="currency-icon-symbol">currency_rupee</span>
+</div>
+<div class="setting-texts">
+<span class="setting-label">Primary Currency</span>
+<span class="setting-desc" id="currency-desc-label">INR (₹ Indian Rupee)</span>
 </div>
 </div>
-<div class="setting-right">
-<span id="currency-badge" style="font-weight: 600;">₹ INR</span>
+<div class="setting-action-right">
+<span id="currency-tag-text" style="color: var(--color-accent);">₹ INR</span>
 <span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
-<div class="setting-row">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">notifications</span></div>
-<div>
-<div class="setting-label">Spending Alerts</div>
-<div class="setting-subtext">Push notifications on daily limit</div>
+<!-- Spending Alerts Switch -->
+<div class="setting-item">
+<div class="setting-info-left">
+<div class="setting-icon-box">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div class="setting-texts">
+<span class="setting-label">Spending Alerts</span>
+<span class="setting-desc">Push notifications on daily limit</span>
 </div>
 </div>
-<label class="switch">
-<input checked="" id="spending-alerts-switch" type="checkbox"/>
-<span class="slider"></span>
+<label aria-label="Spending alerts toggle" class="switch-toggle">
+<input checked="" id="spending-switch" type="checkbox"/>
+<span class="slider-round"></span>
 </label>
 </div>
-<div class="setting-row">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">visibility_off</span></div>
-<div>
-<div class="setting-label">Hide Balance on Launch</div>
-<div class="setting-subtext">Keep available funds blurred</div>
+<!-- Hide Balance on Launch Switch -->
+<div class="setting-item">
+<div class="setting-info-left">
+<div class="setting-icon-box">
+<span class="material-symbols-outlined">visibility_off</span>
+</div>
+<div class="setting-texts">
+<span class="setting-label">Hide Balance on Launch</span>
+<span class="setting-desc">Keep available funds blurred</span>
 </div>
 </div>
-<label class="switch">
+<label aria-label="Hide balance toggle" class="switch-toggle">
 <input checked="" id="hide-balance-switch" type="checkbox"/>
-<span class="slider"></span>
+<span class="slider-round"></span>
 </label>
 </div>
 </div>
-<div class="panel-card">
-<div class="panel-header">
-<h3 class="panel-title">
+<!-- Localization Card -->
+<div class="settings-card">
+<div class="card-header">
+<div class="card-title-group">
 <span class="material-symbols-outlined">language</span>
-<span>Localization</span>
-</h3>
-</div>
-<div class="setting-row" id="btn-open-language">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">translate</span></div>
-<div>
-<div class="setting-label">Language</div>
-<div class="setting-subtext" id="language-subtext">English (India)</div>
+<h3 class="card-title">Localization</h3>
 </div>
 </div>
-<div class="setting-right">
+<div class="setting-item" id="row-language">
+<div class="setting-info-left">
+<div class="setting-icon-box">
+<span class="material-symbols-outlined">translate</span>
+</div>
+<div class="setting-texts">
+<span class="setting-label">Language</span>
+<span class="setting-desc" id="language-desc-label">English (India)</span>
+</div>
+</div>
+<div class="setting-action-right">
 <span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
 </div>
 </section>
-<!-- TAB 3: Security -->
-<section class="spa-tab-content" id="tab-security">
-<div class="panel-card">
-<div class="panel-header">
-<h3 class="panel-title">
+<!-- TAB 2: Account View -->
+<section class="tab-pane" id="tab-account">
+<!-- Personal Info Card -->
+<div class="settings-card">
+<div class="card-header">
+<div class="card-title-group">
+<span class="material-symbols-outlined">badge</span>
+<h3 class="card-title">Personal Information</h3>
+</div>
+</div>
+<div class="setting-item" id="row-acc-name">
+<div class="setting-info-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">person</span></div>
+<div class="setting-texts">
+<span class="setting-label">Full Name</span>
+<span class="setting-desc" id="acc-name-text">CM Bhanuteja</span>
+</div>
+</div>
+<div class="setting-action-right">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+<div class="setting-item" id="row-acc-email">
+<div class="setting-info-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">mail</span></div>
+<div class="setting-texts">
+<span class="setting-label">Email Address</span>
+<span class="setting-desc" id="acc-email-text">bhanu.teja@smartfinance.in</span>
+</div>
+</div>
+<div class="setting-action-right">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+<div class="setting-item" id="row-acc-phone">
+<div class="setting-info-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">call</span></div>
+<div class="setting-texts">
+<span class="setting-label">Phone Number</span>
+<span class="setting-desc" id="acc-phone-text">+91 98765 43210</span>
+</div>
+</div>
+<div class="setting-action-right">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Membership & KYC Status -->
+<div class="settings-card">
+<div class="card-header">
+<div class="card-title-group">
+<span class="material-symbols-outlined">workspace_premium</span>
+<h3 class="card-title">Status &amp; Verification</h3>
+</div>
+</div>
+<div class="setting-item" onclick="showFeedback('Elite Tier Membership renewal in Dec 2026')">
+<div class="setting-info-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">stars</span></div>
+<div class="setting-texts">
+<span class="setting-label">Membership</span>
+<span class="setting-desc">Elite Tier - Active until Dec 2026</span>
+</div>
+</div>
+<div class="setting-action-right">
+<span class="status-chip success">Active</span>
+</div>
+</div>
+<div class="setting-item" onclick="showFeedback('KYC verified via Aadhaar &amp; PAN card')">
+<div class="setting-info-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">verified_user</span></div>
+<div class="setting-texts">
+<span class="setting-label">KYC Status</span>
+<span class="setting-desc">Verified (Full Access)</span>
+</div>
+</div>
+<div class="setting-action-right">
+<span class="status-chip success">Verified</span>
+</div>
+</div>
+</div>
+</section>
+<!-- TAB 3: Security View -->
+<section class="tab-pane" id="tab-security">
+<div class="settings-card">
+<div class="card-header">
+<div class="card-title-group">
 <span class="material-symbols-outlined">security</span>
-<span>Account Security</span>
-</h3>
-</div>
-<div class="setting-row">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">fingerprint</span></div>
-<div>
-<div class="setting-label">Biometric App Lock</div>
-<div class="setting-subtext">Face ID / Fingerprint required</div>
+<h3 class="card-title">Security Preferences</h3>
 </div>
 </div>
-<label class="switch">
-<input checked="" id="biometric-switch" type="checkbox"/>
-<span class="slider"></span>
+<!-- Biometric Unlock -->
+<div class="setting-item">
+<div class="setting-info-left">
+<div class="setting-icon-box">
+<span class="material-symbols-outlined">fingerprint</span>
+</div>
+<div class="setting-texts">
+<span class="setting-label">Biometric Unlock</span>
+<span class="setting-desc">Face ID / Fingerprint verification</span>
+</div>
+</div>
+<label aria-label="Biometric unlock toggle" class="switch-toggle">
+<input checked="" id="biometric-toggle" type="checkbox"/>
+<span class="slider-round"></span>
 </label>
 </div>
-<div class="setting-row" id="btn-open-pin-modal">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">pin</span></div>
-<div>
-<div class="setting-label">Change App PIN</div>
-<div class="setting-subtext">Last modified 2 months ago</div>
+<!-- 2FA Switch -->
+<div class="setting-item">
+<div class="setting-info-left">
+<div class="setting-icon-box">
+<span class="material-symbols-outlined">security_update_good</span>
+</div>
+<div class="setting-texts">
+<span class="setting-label">Two-Factor Authentication</span>
+<span class="setting-desc">SMS / Authenticator OTP</span>
 </div>
 </div>
-<div class="setting-right">
+<label aria-label="Two factor authentication toggle" class="switch-toggle">
+<input checked="" id="twofactor-toggle" type="checkbox"/>
+<span class="slider-round"></span>
+</label>
+</div>
+<!-- Change App PIN -->
+<div class="setting-item" id="row-open-pin">
+<div class="setting-info-left">
+<div class="setting-icon-box">
+<span class="material-symbols-outlined">pin</span>
+</div>
+<div class="setting-texts">
+<span class="setting-label">Change Security PIN</span>
+<span class="setting-desc">Update your 4-digit master code</span>
+</div>
+</div>
+<div class="setting-action-right">
 <span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
-<div class="setting-row">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">security_update_good</span></div>
-<div>
-<div class="setting-label">Two-Factor Authentication</div>
-<div class="setting-subtext">SMS / Authenticator OTP</div>
 </div>
-</div>
-<label class="switch">
-<input checked="" id="two-factor-switch" type="checkbox"/>
-<span class="slider"></span>
-</label>
-</div>
-<div class="setting-row" onclick="showToast('Password change link sent to email')">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">key</span></div>
-<div>
-<div class="setting-label">Change Password</div>
-<div class="setting-subtext">Secured with 12 characters</div>
-</div>
-</div>
-<div class="setting-right">
-<span class="material-symbols-outlined">chevron_right</span>
-</div>
-</div>
-</div>
-<div class="panel-card">
-<div class="panel-header">
-<h3 class="panel-title">
+<!-- Active Sessions Card -->
+<div class="settings-card">
+<div class="card-header">
+<div class="card-title-group">
 <span class="material-symbols-outlined">devices</span>
-<span>Active Login Sessions</span>
-</h3>
-</div>
-<div class="setting-row">
-<div class="setting-left">
-<div class="setting-icon-box" style="color:var(--color-primary);"><span class="material-symbols-outlined">smartphone</span></div>
-<div>
-<div class="setting-label">iPhone 15 Pro (Current)</div>
-<div class="setting-subtext">Hyderabad, IN • Today, 15 Sep 2026</div>
+<h3 class="card-title">Active Sessions</h3>
 </div>
 </div>
-<span style="color: var(--color-success); font-weight: 700; font-size: 11px;">Active</span>
+<div class="setting-item">
+<div class="setting-info-left">
+<div class="setting-icon-box" style="color: var(--color-accent);"><span class="material-symbols-outlined">smartphone</span></div>
+<div class="setting-texts">
+<span class="setting-label">iPhone 15 Pro (Current)</span>
+<span class="setting-desc">Hyderabad, IN • Active Now</span>
 </div>
-<div class="setting-row" id="session-macbook">
-<div class="setting-left">
+</div>
+<span class="status-chip success">Current</span>
+</div>
+<div class="setting-item" id="row-session-laptop">
+<div class="setting-info-left">
 <div class="setting-icon-box"><span class="material-symbols-outlined">laptop_mac</span></div>
-<div>
-<div class="setting-label">MacBook Pro M3</div>
-<div class="setting-subtext">Bengaluru, IN • 14 Sep 2026</div>
+<div class="setting-texts">
+<span class="setting-label">MacBook Pro M3</span>
+<span class="setting-desc">Bengaluru, IN • 14 Sep 2026</span>
 </div>
 </div>
-<button id="btn-revoke-macbook" style="background: none; border: none; color: #ef4444; font-size: 12px; font-weight: 600; cursor: pointer; padding: 4px 8px;">Revoke</button>
-</div>
-<div class="setting-row" id="session-ipad">
-<div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">tablet_mac</span></div>
-<div>
-<div class="setting-label">iPad Air (5th Gen)</div>
-<div class="setting-subtext">Mumbai, IN • 10 Sep 2026</div>
-</div>
-</div>
-<button id="btn-revoke-ipad" style="background: none; border: none; color: #ef4444; font-size: 12px; font-weight: 600; cursor: pointer; padding: 4px 8px;">Revoke</button>
+<button id="btn-revoke-other" style="background:none; border:none; color:var(--color-error); font-size:12px; font-weight:700; cursor:pointer; padding:6px 10px;">
+                            Revoke
+                        </button>
 </div>
 </div>
 </section>
-<!-- Sign Out Primary Trigger -->
-<div class="signout-container">
-<button class="btn-signout" id="btn-signout-trigger">
+<!-- Sign Out Trigger Action -->
+<div class="signout-section">
+<button class="btn-signout-main" id="btn-signout-banner">
 <span class="material-symbols-outlined">logout</span>
 <span>Sign Out of Smart Finance</span>
 </button>
 </div>
 </main>
-<!-- Persistent Bottom Navigation Bar -->
-<nav class="bottom-nav">
-<button class="nav-link" data-nav="home" id="nav-home">
+<!-- Persistent Bottom Mobile Navigation Bar -->
+<nav aria-label="Bottom Navigation" class="bottom-dock-nav">
+<button class="nav-item" data-name="Home">
 <span class="material-symbols-outlined">home</span>
-<span class="nav-text">Home</span>
+<span class="nav-item-label">Home</span>
 </button>
-<button class="nav-link" data-nav="budget" id="nav-budget">
+<button class="nav-item" data-name="Budget">
 <span class="material-symbols-outlined">account_balance_wallet</span>
-<span class="nav-text">Budget</span>
+<span class="nav-item-label">Budget</span>
 </button>
-<!-- Center Floating Action Button -->
-<button class="fab-btn" id="btn-add-expense" title="Add Expense">
+<div class="nav-fab-wrap">
+<button aria-label="Add Expense" class="nav-fab" id="btn-nav-fab" title="Add Expense">
 <span class="material-symbols-outlined">add</span>
 </button>
-<button class="nav-link" data-nav="stats" id="nav-stats">
+</div>
+<button class="nav-item" data-name="Stats">
 <span class="material-symbols-outlined">leaderboard</span>
-<span class="nav-text">Stats</span>
+<span class="nav-item-label">Stats</span>
 </button>
-<button class="nav-link active" data-nav="profile" id="nav-profile">
+<button class="nav-item active" data-name="Profile">
 <span class="material-symbols-outlined">person</span>
-<span class="nav-text">Profile</span>
+<span class="nav-item-label">Profile</span>
 </button>
 </nav>
 </div>
 <!-- ================= MODALS & BOTTOM SHEETS ================= -->
-<!-- 1. Sign Out Confirmation Modal -->
-<div aria-labelledby="modal-heading" aria-modal="true" class="modal-overlay" id="signout-modal" role="dialog">
-<div class="modal-sheet">
-<div class="modal-drag-pill"></div>
-<div class="modal-icon-badge">
-<span class="material-symbols-outlined">logout</span>
+<!-- 1. Sign Out Confirmation Sheet -->
+<div aria-labelledby="signout-title" aria-modal="true" class="sheet-overlay" id="sheet-signout" role="dialog">
+<div class="sheet-modal">
+<div class="sheet-drag-pill"></div>
+<div class="sheet-icon-banner danger">
+<span class="material-symbols-outlined" style="font-size:32px;">logout</span>
 </div>
-<h3 class="modal-title" id="modal-heading">Sign Out</h3>
-<p class="modal-message">
-    Are you sure you want to sign out of Smart Finance? You'll need to log back in to access your financial data.
-</p>
-<div class="modal-buttons-col">
-<button class="btn-confirm-signout" id="btn-confirm-signout">
-    Sign Out
-</button>
-<button class="btn-cancel-modal" id="btn-cancel-signout">
-    Cancel
-</button>
+<h3 class="sheet-title" id="signout-title">Sign Out</h3>
+<p class="sheet-subtitle">
+                Are you sure you want to sign out of Smart Finance? You'll need to log back in to access your financial data.
+            </p>
+<div class="sheet-btn-group">
+<button class="btn-confirm-danger" id="btn-confirm-signout">Sign Out</button>
+<button class="btn-cancel-sheet" id="btn-cancel-signout">Cancel</button>
 </div>
 </div>
 </div>
-<!-- 2. Edit Profile Modal Sheet -->
-<div aria-labelledby="edit-profile-heading" aria-modal="true" class="modal-overlay" id="edit-profile-modal" role="dialog">
-<div class="modal-sheet">
-<div class="modal-drag-pill"></div>
-<h3 class="modal-title" id="edit-profile-heading">Edit Profile</h3>
-<p class="modal-message" style="margin-bottom: 16px;">Update your personal details below</p>
-<div class="form-group">
-<label class="form-label" for="input-edit-name">Full Name</label>
-<input class="form-input" id="input-edit-name" type="text" value="CM Bhanuteja"/>
+<!-- 2. Edit Profile Bottom Sheet -->
+<div aria-labelledby="edit-profile-title" aria-modal="true" class="sheet-overlay" id="sheet-edit-profile" role="dialog">
+<div class="sheet-modal">
+<div class="sheet-drag-pill"></div>
+<h3 class="sheet-title" id="edit-profile-title">Edit Profile</h3>
+<p class="sheet-subtitle" style="margin-bottom: 16px;">Update your personal profile details</p>
+<div class="input-group">
+<label class="input-label" for="input-profile-name">Full Name</label>
+<input class="text-input" id="input-profile-name" type="text" value="CM Bhanuteja"/>
 </div>
-<div class="form-group">
-<label class="form-label" for="input-edit-email">Email Address</label>
-<input class="form-input" id="input-edit-email" type="email" value="bhanu.teja@smartfinance.in"/>
+<div class="input-group">
+<label class="input-label" for="input-profile-email">Email Address</label>
+<input class="text-input" id="input-profile-email" type="email" value="bhanu.teja@smartfinance.in"/>
 </div>
-<div class="form-group">
-<label class="form-label" for="input-edit-phone">Phone Number</label>
-<input class="form-input" id="input-edit-phone" type="tel" value="+91 98765 43210"/>
+<div class="input-group">
+<label class="input-label" for="input-profile-phone">Phone Number</label>
+<input class="text-input" id="input-profile-phone" type="tel" value="+91 98765 43210"/>
 </div>
-<div class="modal-buttons-col">
-<button class="btn-save-modal" id="btn-save-profile">Save Changes</button>
-<button class="btn-cancel-modal" id="btn-cancel-profile">Cancel</button>
+<div class="sheet-btn-group">
+<button class="btn-submit-gradient" id="btn-save-profile">Save Changes</button>
+<button class="btn-cancel-sheet" id="btn-cancel-profile">Cancel</button>
 </div>
 </div>
 </div>
-<!-- 3. Primary Currency Modal Sheet -->
-<div aria-labelledby="currency-modal-heading" aria-modal="true" class="modal-overlay" id="currency-modal" role="dialog">
-<div class="modal-sheet">
-<div class="modal-drag-pill"></div>
-<h3 class="modal-title" id="currency-modal-heading">Select Currency</h3>
-<p class="modal-message" style="margin-bottom: 16px;">Choose default currency for all transactions</p>
-<div class="selectable-option-list" id="currency-option-list">
-<div class="selectable-option-item selected" data-code="INR" data-icon="currency_rupee" data-name="INR (₹ Indian Rupee)" data-symbol="₹">
-<div class="option-text">
-<span class="material-symbols-outlined" style="color:var(--color-primary);">currency_rupee</span>
+<!-- 3. Primary Currency Selection Sheet -->
+<div aria-labelledby="currency-sheet-title" aria-modal="true" class="sheet-overlay" id="sheet-currency" role="dialog">
+<div class="sheet-modal">
+<div class="sheet-drag-pill"></div>
+<h3 class="sheet-title" id="currency-sheet-title">Select Primary Currency</h3>
+<p class="sheet-subtitle" style="margin-bottom: 16px;">Choose default currency for transactions &amp; dashboards</p>
+<div class="sheet-option-list" id="currency-list">
+<div class="sheet-option-row selected" data-code="INR" data-icon="currency_rupee" data-name="INR (₹ Indian Rupee)" data-symbol="₹">
+<div class="sheet-option-left">
+<span class="material-symbols-outlined">currency_rupee</span>
 <span>INR - Indian Rupee (₹)</span>
 </div>
-<span class="material-symbols-outlined check-icon">check</span>
+<span class="material-symbols-outlined sheet-option-check">check_circle</span>
 </div>
-<div class="selectable-option-item" data-code="USD" data-icon="attach_money" data-name="USD ($ US Dollar)" data-symbol="$">
-<div class="option-text">
-<span class="material-symbols-outlined" style="color:var(--color-primary);">attach_money</span>
+<div class="sheet-option-row" data-code="USD" data-icon="attach_money" data-name="USD ($ US Dollar)" data-symbol="$">
+<div class="sheet-option-left">
+<span class="material-symbols-outlined">attach_money</span>
 <span>USD - US Dollar ($)</span>
 </div>
-<span class="material-symbols-outlined check-icon">check</span>
+<span class="material-symbols-outlined sheet-option-check">check_circle</span>
 </div>
-<div class="selectable-option-item" data-code="EUR" data-icon="euro" data-name="EUR (€ Euro)" data-symbol="€">
-<div class="option-text">
-<span class="material-symbols-outlined" style="color:var(--color-primary);">euro</span>
+<div class="sheet-option-row" data-code="EUR" data-icon="euro" data-name="EUR (€ Euro)" data-symbol="€">
+<div class="sheet-option-left">
+<span class="material-symbols-outlined">euro</span>
 <span>EUR - Euro (€)</span>
 </div>
-<span class="material-symbols-outlined check-icon">check</span>
+<span class="material-symbols-outlined sheet-option-check">check_circle</span>
 </div>
-<div class="selectable-option-item" data-code="GBP" data-icon="currency_pound" data-name="GBP (£ British Pound)" data-symbol="£">
-<div class="option-text">
-<span class="material-symbols-outlined" style="color:var(--color-primary);">currency_pound</span>
+<div class="sheet-option-row" data-code="GBP" data-icon="currency_pound" data-name="GBP (£ British Pound)" data-symbol="£">
+<div class="sheet-option-left">
+<span class="material-symbols-outlined">currency_pound</span>
 <span>GBP - British Pound (£)</span>
 </div>
-<span class="material-symbols-outlined check-icon">check</span>
+<span class="material-symbols-outlined sheet-option-check">check_circle</span>
 </div>
 </div>
-<div class="modal-buttons-col">
-<button class="btn-cancel-modal" id="btn-close-currency">Close</button>
+<div class="sheet-btn-group">
+<button class="btn-cancel-sheet" id="btn-close-currency">Close</button>
 </div>
 </div>
 </div>
-<!-- 4. Language Selection Modal Sheet -->
-<div aria-labelledby="language-modal-heading" aria-modal="true" class="modal-overlay" id="language-modal" role="dialog">
-<div class="modal-sheet">
-<div class="modal-drag-pill"></div>
-<h3 class="modal-title" id="language-modal-heading">Select Language</h3>
-<p class="modal-message" style="margin-bottom: 16px;">Select your preferred display language</p>
-<div class="selectable-option-list" id="language-option-list">
-<div class="selectable-option-item selected" data-lang="English (India)">
-<div class="option-text">
-<span class="material-symbols-outlined" style="color:var(--color-primary);">language</span>
+<!-- 4. Language Selection Sheet -->
+<div aria-labelledby="lang-sheet-title" aria-modal="true" class="sheet-overlay" id="sheet-language" role="dialog">
+<div class="sheet-modal">
+<div class="sheet-drag-pill"></div>
+<h3 class="sheet-title" id="lang-sheet-title">Select Language</h3>
+<p class="sheet-subtitle" style="margin-bottom: 16px;">Select your preferred display language</p>
+<div class="sheet-option-list" id="language-list">
+<div class="sheet-option-row selected" data-lang="English (India)">
+<div class="sheet-option-left">
+<span class="material-symbols-outlined">translate</span>
 <span>English (India)</span>
 </div>
-<span class="material-symbols-outlined check-icon">check</span>
+<span class="material-symbols-outlined sheet-option-check">check_circle</span>
 </div>
-<div class="selectable-option-item" data-lang="हिंदी (Hindi)">
-<div class="option-text">
-<span class="material-symbols-outlined" style="color:var(--color-primary);">language</span>
+<div class="sheet-option-row" data-lang="हिंदी (Hindi)">
+<div class="sheet-option-left">
+<span class="material-symbols-outlined">translate</span>
 <span>हिंदी (Hindi)</span>
 </div>
-<span class="material-symbols-outlined check-icon">check</span>
+<span class="material-symbols-outlined sheet-option-check">check_circle</span>
 </div>
-<div class="selectable-option-item" data-lang="తెలుగు (Telugu)">
-<div class="option-text">
-<span class="material-symbols-outlined" style="color:var(--color-primary);">language</span>
+<div class="sheet-option-row" data-lang="తెలుగు (Telugu)">
+<div class="sheet-option-left">
+<span class="material-symbols-outlined">translate</span>
 <span>తెలుగు (Telugu)</span>
 </div>
-<span class="material-symbols-outlined check-icon">check</span>
+<span class="material-symbols-outlined sheet-option-check">check_circle</span>
 </div>
-<div class="selectable-option-item" data-lang="தமிழ் (Tamil)">
-<div class="option-text">
-<span class="material-symbols-outlined" style="color:var(--color-primary);">language</span>
+<div class="sheet-option-row" data-lang="தமிழ் (Tamil)">
+<div class="sheet-option-left">
+<span class="material-symbols-outlined">translate</span>
 <span>தமிழ் (Tamil)</span>
 </div>
-<span class="material-symbols-outlined check-icon">check</span>
+<span class="material-symbols-outlined sheet-option-check">check_circle</span>
 </div>
 </div>
-<div class="modal-buttons-col">
-<button class="btn-cancel-modal" id="btn-close-language">Close</button>
-</div>
-</div>
-</div>
-<!-- 5. Change PIN Modal Sheet -->
-<div aria-labelledby="pin-modal-heading" aria-modal="true" class="modal-overlay" id="pin-modal" role="dialog">
-<div class="modal-sheet">
-<div class="modal-drag-pill"></div>
-<div class="modal-icon-badge purple">
-<span class="material-symbols-outlined">pin</span>
-</div>
-<h3 class="modal-title" id="pin-modal-heading">Change App PIN</h3>
-<p class="modal-message" style="margin-bottom: 16px;">Enter your 4-digit security PIN</p>
-<div class="form-group">
-<label class="form-label" for="input-old-pin">Current PIN</label>
-<input class="form-input" id="input-old-pin" maxlength="4" placeholder="••••" style="letter-spacing: 6px; text-align: center; font-size: 18px;" type="password"/>
-</div>
-<div class="form-group">
-<label class="form-label" for="input-new-pin">New 4-Digit PIN</label>
-<input class="form-input" id="input-new-pin" maxlength="4" placeholder="••••" style="letter-spacing: 6px; text-align: center; font-size: 18px;" type="password"/>
-</div>
-<div class="modal-buttons-col">
-<button class="btn-save-modal" id="btn-save-pin">Update PIN</button>
-<button class="btn-cancel-modal" id="btn-cancel-pin">Cancel</button>
+<div class="sheet-btn-group">
+<button class="btn-cancel-sheet" id="btn-close-language">Close</button>
 </div>
 </div>
 </div>
-<!-- Toast UI -->
-<div class="toast-notification" id="toast">
+<!-- 5. Change PIN Sheet -->
+<div aria-labelledby="pin-sheet-title" aria-modal="true" class="sheet-overlay" id="sheet-pin" role="dialog">
+<div class="sheet-modal">
+<div class="sheet-drag-pill"></div>
+<div class="sheet-icon-banner purple">
+<span class="material-symbols-outlined" style="font-size:30px;">pin</span>
+</div>
+<h3 class="sheet-title" id="pin-sheet-title">Change Security PIN</h3>
+<p class="sheet-subtitle" style="margin-bottom: 16px;">Set a new 4-digit code to protect your account</p>
+<div class="input-group">
+<label class="input-label" for="input-old-pin">Current PIN</label>
+<input class="text-input" id="input-old-pin" maxlength="4" placeholder="••••" style="text-align: center; letter-spacing: 8px; font-size: 20px;" type="password"/>
+</div>
+<div class="input-group">
+<label class="input-label" for="input-new-pin">New 4-Digit PIN</label>
+<input class="text-input" id="input-new-pin" maxlength="4" placeholder="••••" style="text-align: center; letter-spacing: 8px; font-size: 20px;" type="password"/>
+</div>
+<div class="sheet-btn-group">
+<button class="btn-submit-gradient" id="btn-save-pin">Update PIN</button>
+<button class="btn-cancel-sheet" id="btn-cancel-pin">Cancel</button>
+</div>
+</div>
+</div>
+<!-- Toast Notification -->
+<div class="toast-bubble" id="toast-bubble">
 <span class="material-symbols-outlined" id="toast-icon">check_circle</span>
-<span id="toast-text">Settings updated</span>
+<span id="toast-msg">Settings saved</span>
 </div>
-<!-- Pure Vanilla ES6+ Script -->
+<!-- ES6+ Interactive Logic -->
 <script>
-    (function () {
-        'use strict';
+        (function() {
+            'use strict';
 
-        // State variables
-        let isDarkMode = document.body.classList.contains('dark-mode');
+            // State management
+            let isDark = true;
+            const body = document.body;
 
-        // Cached Elements
-        const toastEl = document.getElementById('toast');
-        const toastText = document.getElementById('toast-text');
-        const toastIcon = document.getElementById('toast-icon');
-        let toastTimeout = null;
+            // Toast helper
+            const toastBubble = document.getElementById('toast-bubble');
+            const toastIcon = document.getElementById('toast-icon');
+            const toastMsg = document.getElementById('toast-msg');
+            let toastTimer = null;
 
-        // Toast Helper
-        window.showToast = function (msg, icon = 'check_circle') {
-            if (!toastEl || !toastText) return;
-            toastText.textContent = msg;
-            if (toastIcon) toastIcon.textContent = icon;
-            toastEl.classList.add('show');
-            if (toastTimeout) clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toastEl.classList.remove('show');
-            }, 2400);
-        };
+            window.showFeedback = function(message, icon = 'check_circle') {
+                if (!toastBubble || !toastMsg) return;
+                toastMsg.textContent = message;
+                if (toastIcon) toastIcon.textContent = icon;
+                toastBubble.classList.add('visible');
 
-        // Modal Helpers
-        function openModal(modalEl) {
-            if (modalEl) modalEl.classList.add('active');
-        }
-        function closeModal(modalEl) {
-            if (modalEl) modalEl.classList.remove('active');
-        }
+                if (toastTimer) clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
+                    toastBubble.classList.remove('visible');
+                }, 2200);
+            };
 
-        // Close modal when tapping overlay background
-        document.querySelectorAll('.modal-overlay').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal(modal);
-                }
-            });
-        });
-
-        /* ================= 1. THEME TOGGLING (LIGHT / DARK) ================= */
-        const quickThemeBtn = document.getElementById('btn-dark-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const appearanceSwitch = document.getElementById('theme-toggle-switch');
-        const prefThemeIcon = document.getElementById('pref-theme-icon');
-        const prefThemeLabel = document.getElementById('pref-theme-label');
-
-        function updateTheme(dark, notify = true) {
-            isDarkMode = dark;
-            if (isDarkMode) {
-                document.body.classList.add('dark-mode');
-                if (themeIcon) themeIcon.textContent = 'light_mode';
-                if (prefThemeIcon) prefThemeIcon.textContent = 'dark_mode';
-                if (prefThemeLabel) prefThemeLabel.textContent = 'Dark mode theme';
-                if (appearanceSwitch) appearanceSwitch.checked = true;
-                if (notify) showToast('Dark mode enabled', 'dark_mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-                if (themeIcon) themeIcon.textContent = 'dark_mode';
-                if (prefThemeIcon) prefThemeIcon.textContent = 'light_mode';
-                if (prefThemeLabel) prefThemeLabel.textContent = 'Light mode theme';
-                if (appearanceSwitch) appearanceSwitch.checked = false;
-                if (notify) showToast('Light mode enabled', 'light_mode');
+            // Modal Sheet helper functions
+            function openSheet(sheetEl) {
+                if (sheetEl) sheetEl.classList.add('active');
             }
-        }
 
-        if (quickThemeBtn) {
-            quickThemeBtn.addEventListener('click', () => {
-                updateTheme(!isDarkMode);
-            });
-        }
+            function closeSheet(sheetEl) {
+                if (sheetEl) sheetEl.classList.remove('active');
+            }
 
-        if (appearanceSwitch) {
-            appearanceSwitch.addEventListener('change', (e) => {
-                updateTheme(e.target.checked);
-            });
-        }
-
-        /* ================= 2. TAB SWITCHING ================= */
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabPanels = document.querySelectorAll('.spa-tab-content');
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const targetTab = button.getAttribute('data-tab');
-
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                tabPanels.forEach(panel => {
-                    if (panel.id === `tab-${targetTab}`) {
-                        panel.classList.add('active');
-                    } else {
-                        panel.classList.remove('active');
+            // Close sheet on backdrop click
+            document.querySelectorAll('.sheet-overlay').forEach(sheet => {
+                sheet.addEventListener('click', (e) => {
+                    if (e.target === sheet) {
+                        closeSheet(sheet);
                     }
                 });
             });
-        });
 
-        /* ================= 3. EDIT PROFILE & AVATAR ================= */
-        const editProfileModal = document.getElementById('edit-profile-modal');
-        const btnEditProfile = document.getElementById('btn-edit-profile');
-        const btnQuickEdit = document.getElementById('btn-quick-edit');
-        const btnCancelProfile = document.getElementById('btn-cancel-profile');
-        const btnSaveProfile = document.getElementById('btn-save-profile');
+            // 1. Theme Controller (Dark Obsidian Default <-> Light)
+            const quickThemeBtn = document.getElementById('btn-quick-theme');
+            const quickThemeIcon = document.getElementById('theme-icon-quick');
+            const themeSwitch = document.getElementById('theme-switch-checkbox');
+            const rowThemeIcon = document.getElementById('theme-icon-row');
+            const rowThemeDesc = document.getElementById('theme-desc-row');
 
-        const heroAvatarImg = document.getElementById('hero-avatar-img');
-        const heroProfileName = document.getElementById('hero-profile-name');
-        const heroProfileEmail = document.getElementById('hero-profile-email');
-        const displayAccName = document.getElementById('display-acc-name');
-        const displayAccEmail = document.getElementById('display-acc-email');
-        const displayAccPhone = document.getElementById('display-acc-phone');
+            function applyTheme(darkMode, showToast = true) {
+                isDark = darkMode;
+                if (isDark) {
+                    body.classList.remove('light-mode');
+                    if (quickThemeIcon) quickThemeIcon.textContent = 'light_mode';
+                    if (themeSwitch) themeSwitch.checked = true;
+                    if (rowThemeIcon) rowThemeIcon.textContent = 'dark_mode';
+                    if (rowThemeDesc) rowThemeDesc.textContent = 'Dark mode theme';
+                    if (showToast) showFeedback('Dark mode activated', 'dark_mode');
+                } else {
+                    body.classList.add('light-mode');
+                    if (quickThemeIcon) quickThemeIcon.textContent = 'dark_mode';
+                    if (themeSwitch) themeSwitch.checked = false;
+                    if (rowThemeIcon) rowThemeIcon.textContent = 'light_mode';
+                    if (rowThemeDesc) rowThemeDesc.textContent = 'Light mode theme';
+                    if (showToast) showFeedback('Light mode activated', 'light_mode');
+                }
+            }
 
-        const inputEditName = document.getElementById('input-edit-name');
-        const inputEditEmail = document.getElementById('input-edit-email');
-        const inputEditPhone = document.getElementById('input-edit-phone');
+            if (quickThemeBtn) {
+                quickThemeBtn.addEventListener('click', () => applyTheme(!isDark));
+            }
+            if (themeSwitch) {
+                themeSwitch.addEventListener('change', (e) => applyTheme(e.target.checked));
+            }
 
-        function openEditProfile() {
-            if (inputEditName && heroProfileName) inputEditName.value = heroProfileName.textContent.trim();
-            if (inputEditEmail && heroProfileEmail) inputEditEmail.value = heroProfileEmail.textContent.trim();
-            if (inputEditPhone && displayAccPhone) inputEditPhone.value = displayAccPhone.textContent.trim();
-            openModal(editProfileModal);
-        }
+            // 2. SPA Tab Switching Logic
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanes = document.querySelectorAll('.tab-pane');
 
-        if (btnEditProfile) btnEditProfile.addEventListener('click', openEditProfile);
-        if (btnQuickEdit) btnQuickEdit.addEventListener('click', openEditProfile);
-        if (btnCancelProfile) btnCancelProfile.addEventListener('click', () => closeModal(editProfileModal));
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.getAttribute('data-target');
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
 
-        if (btnSaveProfile) {
-            btnSaveProfile.addEventListener('click', () => {
-                const newName = inputEditName.value.trim() || 'CM Bhanuteja';
-                const newEmail = inputEditEmail.value.trim() || 'bhanu.teja@smartfinance.in';
-                const newPhone = inputEditPhone.value.trim() || '+91 98765 43210';
-
-                if (heroProfileName) heroProfileName.textContent = newName;
-                if (heroProfileEmail) heroProfileEmail.textContent = newEmail;
-                if (displayAccName) displayAccName.textContent = newName;
-                if (displayAccEmail) displayAccEmail.textContent = newEmail;
-                if (displayAccPhone) displayAccPhone.textContent = newPhone;
-
-                closeModal(editProfileModal);
-                showToast('Profile updated successfully!');
-            });
-        }
-
-        // Account rows tap to edit
-        document.getElementById('row-account-name')?.addEventListener('click', openEditProfile);
-        document.getElementById('row-account-email')?.addEventListener('click', openEditProfile);
-        document.getElementById('row-account-phone')?.addEventListener('click', openEditProfile);
-
-        // Avatar change interaction
-        const avatarChangeBtn = document.getElementById('btn-change-avatar');
-        const avatarFileInput = document.getElementById('avatar-file-input');
-
-        if (avatarChangeBtn && avatarFileInput) {
-            avatarChangeBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                avatarFileInput.click();
-            });
-
-            avatarFileInput.addEventListener('change', (e) => {
-                if (e.target.files && e.target.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        if (heroAvatarImg) {
-                            heroAvatarImg.src = event.target.result;
-                            showToast('Profile photo updated!', 'photo_camera');
+                    tabPanes.forEach(pane => {
+                        if (pane.id === targetId) {
+                            pane.classList.add('active');
+                        } else {
+                            pane.classList.remove('active');
                         }
-                    };
-                    reader.readAsDataURL(e.target.files[0]);
-                }
+                    });
+                });
             });
-        }
 
-        /* ================= 4. PREFERENCES (CURRENCY & LANGUAGE & TOGGLES) ================= */
-        // Currency Modal
-        const currencyModal = document.getElementById('currency-modal');
-        const btnOpenCurrency = document.getElementById('btn-open-currency');
-        const btnCloseCurrency = document.getElementById('btn-close-currency');
-        const currencyItems = document.querySelectorAll('#currency-option-list .selectable-option-item');
-        const currencyBadge = document.getElementById('currency-badge');
-        const currencySubtext = document.getElementById('currency-subtext');
-        const currencyIcon = document.getElementById('currency-icon');
+            // 3. Edit Profile Modal Sheet & Image Upload
+            const sheetEditProfile = document.getElementById('sheet-edit-profile');
+            const btnOpenEditProfile = document.getElementById('btn-open-edit-profile');
+            const btnCancelProfile = document.getElementById('btn-cancel-profile');
+            const btnSaveProfile = document.getElementById('btn-save-profile');
 
-        if (btnOpenCurrency) {
-            btnOpenCurrency.addEventListener('click', () => openModal(currencyModal));
-        }
-        if (btnCloseCurrency) {
-            btnCloseCurrency.addEventListener('click', () => closeModal(currencyModal));
-        }
+            const inputProfileName = document.getElementById('input-profile-name');
+            const inputProfileEmail = document.getElementById('input-profile-email');
+            const inputProfilePhone = document.getElementById('input-profile-phone');
 
-        currencyItems.forEach(item => {
-            item.addEventListener('click', () => {
-                currencyItems.forEach(i => i.classList.remove('selected'));
-                item.classList.add('selected');
+            const displayUserName = document.getElementById('display-user-name');
+            const displayUserEmail = document.getElementById('display-user-email');
+            const accNameText = document.getElementById('acc-name-text');
+            const accEmailText = document.getElementById('acc-email-text');
+            const accPhoneText = document.getElementById('acc-phone-text');
 
-                const code = item.getAttribute('data-code');
-                const symbol = item.getAttribute('data-symbol');
-                const name = item.getAttribute('data-name');
-                const icon = item.getAttribute('data-icon');
+            function launchEditProfile() {
+                if (inputProfileName && displayUserName) inputProfileName.value = displayUserName.textContent.trim();
+                if (inputProfileEmail && displayUserEmail) inputProfileEmail.value = displayUserEmail.textContent.trim();
+                if (inputProfilePhone && accPhoneText) inputProfilePhone.value = accPhoneText.textContent.trim();
+                openSheet(sheetEditProfile);
+            }
 
-                if (currencyBadge) currencyBadge.textContent = `${symbol} ${code}`;
-                if (currencySubtext) currencySubtext.textContent = name;
-                if (currencyIcon) currencyIcon.textContent = icon;
+            if (btnOpenEditProfile) btnOpenEditProfile.addEventListener('click', launchEditProfile);
+            if (btnCancelProfile) btnCancelProfile.addEventListener('click', () => closeSheet(sheetEditProfile));
 
-                closeModal(currencyModal);
-                showToast(`Primary currency set to ${code}`);
+            document.getElementById('row-acc-name')?.addEventListener('click', launchEditProfile);
+            document.getElementById('row-acc-email')?.addEventListener('click', launchEditProfile);
+            document.getElementById('row-acc-phone')?.addEventListener('click', launchEditProfile);
+
+            if (btnSaveProfile) {
+                btnSaveProfile.addEventListener('click', () => {
+                    const newName = inputProfileName.value.trim() || 'CM Bhanuteja';
+                    const newEmail = inputProfileEmail.value.trim() || 'bhanu.teja@smartfinance.in';
+                    const newPhone = inputProfilePhone.value.trim() || '+91 98765 43210';
+
+                    if (displayUserName) displayUserName.textContent = newName;
+                    if (displayUserEmail) displayUserEmail.textContent = newEmail;
+                    if (accNameText) accNameText.textContent = newName;
+                    if (accEmailText) accEmailText.textContent = newEmail;
+                    if (accPhoneText) accPhoneText.textContent = newPhone;
+
+                    closeSheet(sheetEditProfile);
+                    showFeedback('Profile updated successfully!');
+                });
+            }
+
+            // Camera photo upload preview
+            const cameraTrigger = document.getElementById('btn-camera-trigger');
+            const avatarPicker = document.getElementById('avatar-picker');
+            const avatarImgView = document.getElementById('avatar-img-view');
+
+            if (cameraTrigger && avatarPicker) {
+                cameraTrigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    avatarPicker.click();
+                });
+
+                avatarPicker.addEventListener('change', (e) => {
+                    if (e.target.files && e.target.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                            if (avatarImgView) avatarImgView.src = ev.target.result;
+                            showFeedback('Profile photo updated!', 'photo_camera');
+                        };
+                        reader.readAsDataURL(e.target.files[0]);
+                    }
+                });
+            }
+
+            // 4. Currency Selection Sheet
+            const sheetCurrency = document.getElementById('sheet-currency');
+            const rowCurrency = document.getElementById('row-currency');
+            const btnCloseCurrency = document.getElementById('btn-close-currency');
+            const currencyOptions = document.querySelectorAll('#currency-list .sheet-option-row');
+            const currencyTagText = document.getElementById('currency-tag-text');
+            const currencyDescLabel = document.getElementById('currency-desc-label');
+            const currencyIconSymbol = document.getElementById('currency-icon-symbol');
+
+            if (rowCurrency) rowCurrency.addEventListener('click', () => openSheet(sheetCurrency));
+            if (btnCloseCurrency) btnCloseCurrency.addEventListener('click', () => closeSheet(sheetCurrency));
+
+            currencyOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    currencyOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+
+                    const code = option.getAttribute('data-code');
+                    const sym = option.getAttribute('data-symbol');
+                    const name = option.getAttribute('data-name');
+                    const icon = option.getAttribute('data-icon');
+
+                    if (currencyTagText) currencyTagText.textContent = `${sym} ${code}`;
+                    if (currencyDescLabel) currencyDescLabel.textContent = name;
+                    if (currencyIconSymbol) currencyIconSymbol.textContent = icon;
+
+                    closeSheet(sheetCurrency);
+                    showFeedback(`Currency set to ${code}`);
+                });
             });
-        });
 
-        // Language Modal
-        const languageModal = document.getElementById('language-modal');
-        const btnOpenLanguage = document.getElementById('btn-open-language');
-        const btnCloseLanguage = document.getElementById('btn-close-language');
-        const languageItems = document.querySelectorAll('#language-option-list .selectable-option-item');
-        const languageSubtext = document.getElementById('language-subtext');
+            // 5. Language Selection Sheet
+            const sheetLanguage = document.getElementById('sheet-language');
+            const rowLanguage = document.getElementById('row-language');
+            const btnCloseLanguage = document.getElementById('btn-close-language');
+            const languageOptions = document.querySelectorAll('#language-list .sheet-option-row');
+            const languageDescLabel = document.getElementById('language-desc-label');
 
-        if (btnOpenLanguage) {
-            btnOpenLanguage.addEventListener('click', () => openModal(languageModal));
-        }
-        if (btnCloseLanguage) {
-            btnCloseLanguage.addEventListener('click', () => closeModal(languageModal));
-        }
+            if (rowLanguage) rowLanguage.addEventListener('click', () => openSheet(sheetLanguage));
+            if (btnCloseLanguage) btnCloseLanguage.addEventListener('click', () => closeSheet(sheetLanguage));
 
-        languageItems.forEach(item => {
-            item.addEventListener('click', () => {
-                languageItems.forEach(i => i.classList.remove('selected'));
-                item.classList.add('selected');
+            languageOptions.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    languageOptions.forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
 
-                const lang = item.getAttribute('data-lang');
-                if (languageSubtext) languageSubtext.textContent = lang;
+                    const lang = opt.getAttribute('data-lang');
+                    if (languageDescLabel) languageDescLabel.textContent = lang;
 
-                closeModal(languageModal);
-                showToast(`Language switched to ${lang}`);
+                    closeSheet(sheetLanguage);
+                    showFeedback(`Language changed to ${lang}`);
+                });
             });
-        });
 
-        // Interactive switches in preferences
-        const spendingSwitch = document.getElementById('spending-alerts-switch');
-        if (spendingSwitch) {
-            spendingSwitch.addEventListener('change', (e) => {
-                showToast(e.target.checked ? 'Daily spending alerts enabled' : 'Spending alerts silenced');
+            // 6. Security PIN Sheet
+            const sheetPin = document.getElementById('sheet-pin');
+            const rowOpenPin = document.getElementById('row-open-pin');
+            const btnCancelPin = document.getElementById('btn-cancel-pin');
+            const btnSavePin = document.getElementById('btn-save-pin');
+            const inputOldPin = document.getElementById('input-old-pin');
+            const inputNewPin = document.getElementById('input-new-pin');
+
+            if (rowOpenPin) {
+                rowOpenPin.addEventListener('click', () => {
+                    if (inputOldPin) inputOldPin.value = '';
+                    if (inputNewPin) inputNewPin.value = '';
+                    openSheet(sheetPin);
+                });
+            }
+            if (btnCancelPin) btnCancelPin.addEventListener('click', () => closeSheet(sheetPin));
+
+            if (btnSavePin) {
+                btnSavePin.addEventListener('click', () => {
+                    if (inputNewPin && inputNewPin.value.length === 4) {
+                        closeSheet(sheetPin);
+                        showFeedback('Security PIN updated successfully!', 'lock_reset');
+                    } else {
+                        showFeedback('Please enter a 4-digit PIN', 'error');
+                    }
+                });
+            }
+
+            // Active sessions revoke
+            const btnRevokeOther = document.getElementById('btn-revoke-other');
+            const rowSessionLaptop = document.getElementById('row-session-laptop');
+            if (btnRevokeOther && rowSessionLaptop) {
+                btnRevokeOther.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    rowSessionLaptop.style.opacity = '0.35';
+                    rowSessionLaptop.style.pointerEvents = 'none';
+                    btnRevokeOther.textContent = 'Revoked';
+                    showFeedback('MacBook Pro M3 session revoked');
+                });
+            }
+
+            // Toggle micro-feedbacks
+            document.getElementById('spending-switch')?.addEventListener('change', (e) => {
+                showFeedback(e.target.checked ? 'Spending limits alert enabled' : 'Spending alerts disabled');
             });
-        }
-
-        const hideBalanceSwitch = document.getElementById('hide-balance-switch');
-        if (hideBalanceSwitch) {
-            hideBalanceSwitch.addEventListener('change', (e) => {
-                showToast(e.target.checked ? 'Balance will be hidden on launch' : 'Balance privacy unmasked');
+            document.getElementById('hide-balance-switch')?.addEventListener('change', (e) => {
+                showFeedback(e.target.checked ? 'Balance masked on app start' : 'Balance displayed on launch');
             });
-        }
-
-        /* ================= 5. SECURITY INTERACTIONS ================= */
-        const biometricSwitch = document.getElementById('biometric-switch');
-        if (biometricSwitch) {
-            biometricSwitch.addEventListener('change', (e) => {
-                showToast(e.target.checked ? 'Face ID & Biometrics required' : 'Biometric unlock disabled');
+            document.getElementById('biometric-toggle')?.addEventListener('change', (e) => {
+                showFeedback(e.target.checked ? 'Biometrics required for sign-in' : 'Biometric unlock turned off');
             });
-        }
-
-        const twoFactorSwitch = document.getElementById('two-factor-switch');
-        if (twoFactorSwitch) {
-            twoFactorSwitch.addEventListener('change', (e) => {
-                showToast(e.target.checked ? '2FA enabled for login & transactions' : '2FA disabled (caution)');
+            document.getElementById('twofactor-toggle')?.addEventListener('change', (e) => {
+                showFeedback(e.target.checked ? 'Two-Factor OTP protection enabled' : '2FA disabled (caution)');
             });
-        }
 
-        // Change PIN Modal
-        const pinModal = document.getElementById('pin-modal');
-        const btnOpenPin = document.getElementById('btn-open-pin-modal');
-        const btnCancelPin = document.getElementById('btn-cancel-pin');
-        const btnSavePin = document.getElementById('btn-save-pin');
-        const inputOldPin = document.getElementById('input-old-pin');
-        const inputNewPin = document.getElementById('input-new-pin');
+            // 7. Sign Out Confirmation Flow
+            const sheetSignout = document.getElementById('sheet-signout');
+            const btnSignoutBanner = document.getElementById('btn-signout-banner');
+            const btnHeaderLogout = document.getElementById('btn-header-logout');
+            const btnCancelSignout = document.getElementById('btn-cancel-signout');
+            const btnConfirmSignout = document.getElementById('btn-confirm-signout');
 
-        if (btnOpenPin) {
-            btnOpenPin.addEventListener('click', () => {
-                if (inputOldPin) inputOldPin.value = '';
-                if (inputNewPin) inputNewPin.value = '';
-                openModal(pinModal);
+            if (btnSignoutBanner) btnSignoutBanner.addEventListener('click', () => openSheet(sheetSignout));
+            if (btnHeaderLogout) btnHeaderLogout.addEventListener('click', () => openSheet(sheetSignout));
+            if (btnCancelSignout) btnCancelSignout.addEventListener('click', () => closeSheet(sheetSignout));
+
+            if (btnConfirmSignout) {
+                btnConfirmSignout.addEventListener('click', () => {
+                    closeSheet(sheetSignout);
+                    showFeedback('Signed out successfully. Redirecting...', 'logout');
+                });
+            }
+
+            // 8. Navigation Micro-Interactions
+            document.querySelectorAll('.bottom-dock-nav .nav-item').forEach(nav => {
+                nav.addEventListener('click', () => {
+                    document.querySelectorAll('.bottom-dock-nav .nav-item').forEach(n => n.classList.remove('active'));
+                    nav.classList.add('active');
+                    const tabName = nav.getAttribute('data-name');
+                    if (tabName !== 'Profile') {
+                        showFeedback(`Opening ${tabName}...`, 'navigation');
+                    }
+                });
             });
-        }
-        if (btnCancelPin) {
-            btnCancelPin.addEventListener('click', () => closeModal(pinModal));
-        }
-        if (btnSavePin) {
-            btnSavePin.addEventListener('click', () => {
-                if (inputNewPin && inputNewPin.value.length === 4) {
-                    closeModal(pinModal);
-                    showToast('App PIN changed successfully!', 'lock_reset');
-                } else {
-                    showToast('Please enter a 4-digit PIN', 'error');
-                }
+
+            document.getElementById('btn-nav-fab')?.addEventListener('click', () => {
+                showFeedback('Opening Add Expense modal...', 'add_circle');
             });
-        }
 
-        // Revoke Sessions
-        const btnRevokeMacbook = document.getElementById('btn-revoke-macbook');
-        const sessionMacbook = document.getElementById('session-macbook');
-        if (btnRevokeMacbook && sessionMacbook) {
-            btnRevokeMacbook.addEventListener('click', (e) => {
-                e.stopPropagation();
-                sessionMacbook.style.opacity = '0.4';
-                sessionMacbook.style.pointerEvents = 'none';
-                btnRevokeMacbook.textContent = 'Revoked';
-                btnRevokeMacbook.style.color = 'var(--color-on-surface-variant)';
-                showToast('MacBook Pro M3 session revoked');
+            document.getElementById('btn-header-back')?.addEventListener('click', () => {
+                showFeedback('Navigating back to Home...', 'arrow_back');
             });
-        }
 
-        const btnRevokeIpad = document.getElementById('btn-revoke-ipad');
-        const sessionIpad = document.getElementById('session-ipad');
-        if (btnRevokeIpad && sessionIpad) {
-            btnRevokeIpad.addEventListener('click', (e) => {
-                e.stopPropagation();
-                sessionIpad.style.opacity = '0.4';
-                sessionIpad.style.pointerEvents = 'none';
-                btnRevokeIpad.textContent = 'Revoked';
-                btnRevokeIpad.style.color = 'var(--color-on-surface-variant)';
-                showToast('iPad Air session revoked');
-            });
-        }
-
-        /* ================= 6. SIGN OUT CONFIRMATION MODAL ================= */
-        const signoutModal = document.getElementById('signout-modal');
-        const btnSignoutTrigger = document.getElementById('btn-signout-trigger');
-        const btnHeaderSignout = document.getElementById('btn-header-signout');
-        const btnCancelSignout = document.getElementById('btn-cancel-signout');
-        const btnConfirmSignout = document.getElementById('btn-confirm-signout');
-
-        if (btnSignoutTrigger) btnSignoutTrigger.addEventListener('click', () => openModal(signoutModal));
-        if (btnHeaderSignout) btnHeaderSignout.addEventListener('click', () => openModal(signoutModal));
-        if (btnCancelSignout) btnCancelSignout.addEventListener('click', () => closeModal(signoutModal));
-
-        if (btnConfirmSignout) {
-            btnConfirmSignout.addEventListener('click', () => {
-                closeModal(signoutModal);
-                showToast('Signed out safely. Redirecting...', 'logout');
-                setTimeout(() => {
-                    showToast('Session terminated.', 'check_circle');
-                }, 1400);
-            });
-        }
-
-        /* ================= 7. BOTTOM NAVIGATION INTERACTIVITY ================= */
-        const navLinks = document.querySelectorAll('.bottom-nav .nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-                const label = link.querySelector('.nav-text')?.textContent || 'Tab';
-                if (label !== 'Profile') {
-                    showToast(`Navigating to ${label}...`, 'navigation');
-                } else {
-                    showToast('Viewing Profile & Settings', 'person');
-                }
-            });
-        });
-
-        const fabBtn = document.getElementById('btn-add-expense');
-        if (fabBtn) {
-            fabBtn.addEventListener('click', () => {
-                showToast('Opening Add Expense form...', 'add_circle');
-            });
-        }
-
-        const backBtn = document.getElementById('btn-back');
-        if (backBtn) {
-            backBtn.addEventListener('click', () => {
-                showToast('Navigating back to Dashboard...', 'arrow_back');
-            });
-        }
-
-    })();
-</script>
+        })();
+    </script>
 </body></html>
