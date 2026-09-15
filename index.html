@@ -1,28 +1,32 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <title>Smart Finance - Profile &amp; Settings</title>
 <!-- Google Fonts: Inter and Google Material Symbols Outlined -->
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
         :root {
-            /* Theme Tokens from Smart Finance (DESIGN_SYSTEM_2) */
+            /* Theme Tokens (Smart Finance Design System) */
             --color-primary: #7b4dff;
             --color-primary-container: #8d4aee;
-            --color-primary-light: rgba(123, 77, 255, 0.1);
+            --color-primary-light: rgba(123, 77, 255, 0.12);
             --color-on-primary: #ffffff;
             --color-secondary: #fd6a3c;
             --color-surface: #fdf8f8;
-            --color-surface-container: #f7f2f2;
+            --color-surface-container: #f1edec;
             --color-surface-container-low: #ffffff;
+            --color-surface-container-high: #ece7e7;
             --color-on-surface: #1c1b1b;
             --color-on-surface-variant: #615d6c;
             --color-outline: #e5e0e0;
             --color-outline-variant: #f0eded;
-            --color-error: #dc2626;
+            --color-error: #ba1a1a;
+            --color-error-container: #ffdad6;
             --color-success: #16a34a;
 
             /* Gradients */
@@ -33,7 +37,7 @@
             --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.03);
             --shadow-card: 0 10px 30px rgba(123, 77, 255, 0.08);
             --shadow-button: 0 8px 25px rgba(123, 77, 255, 0.25);
-            --shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.15);
+            --shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.25);
 
             --radius-xl: 28px;
             --radius-lg: 20px;
@@ -42,17 +46,18 @@
             --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        /* Dark Mode Support */
+        /* Dark Mode Support (Active by default based on design snapshot) */
         body.dark-mode {
             --color-surface: #121118;
             --color-surface-container: #1b1924;
             --color-surface-container-low: #232030;
+            --color-surface-container-high: #2d2a3c;
             --color-on-surface: #f5f2f9;
             --color-on-surface-variant: #a29db0;
             --color-outline: #2e2b3d;
             --color-outline-variant: #282436;
             --gradient-card: linear-gradient(135deg, #252038 0%, #30212b 100%);
-            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.45);
         }
 
         * {
@@ -72,7 +77,7 @@
             align-items: flex-start;
             padding: 0;
             overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Mobile viewport wrapper */
@@ -85,7 +90,8 @@
             display: flex;
             flex-direction: column;
             padding-bottom: 96px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.05);
+            box-shadow: 0 0 50px rgba(0,0,0,0.12);
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Material Symbols Utility */
@@ -101,6 +107,7 @@
             text-transform: none;
             direction: ltr;
             -webkit-font-smoothing: antialiased;
+            user-select: none;
         }
 
         /* Header */
@@ -115,8 +122,8 @@
             align-items: center;
             justify-content: space-between;
             padding: 16px 20px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-            transition: background-color 0.3s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
         body.dark-mode .top-header {
             background-color: rgba(18, 17, 24, 0.85);
@@ -141,7 +148,7 @@
             justify-content: center;
             color: var(--color-on-surface);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow-subtle);
         }
         .header-btn:hover {
@@ -175,6 +182,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
         body.dark-mode .profile-hero {
             border-color: rgba(255, 255, 255, 0.08);
@@ -192,7 +200,8 @@
             border-radius: var(--radius-pill);
             object-fit: cover;
             border: 3px solid #ffffff;
-            box-shadow: 0 8px 24px rgba(123, 77, 255, 0.2);
+            box-shadow: 0 8px 24px rgba(123, 77, 255, 0.25);
+            transition: filter 0.2s ease;
         }
         .avatar-badge {
             position: absolute;
@@ -207,8 +216,15 @@
             align-items: center;
             justify-content: center;
             border: 2px solid #ffffff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .avatar-badge:hover {
+            transform: scale(1.1);
+        }
+        .avatar-badge:active {
+            transform: scale(0.92);
         }
         .avatar-badge .material-symbols-outlined {
             font-size: 16px;
@@ -220,12 +236,14 @@
             color: var(--color-on-surface);
             letter-spacing: -0.02em;
             margin-bottom: 4px;
+            transition: color 0.3s ease;
         }
         .profile-email {
             font-size: 13px;
             color: var(--color-on-surface-variant);
             font-weight: 500;
             margin-bottom: 12px;
+            transition: color 0.3s ease;
         }
 
         .elite-badge {
@@ -240,6 +258,13 @@
             font-weight: 600;
             letter-spacing: 0.01em;
             margin-bottom: 20px;
+            border: 1px solid rgba(123, 77, 255, 0.2);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        body.dark-mode .elite-badge {
+            background: rgba(123, 77, 255, 0.22);
+            color: #c4a7ff;
+            border-color: rgba(196, 167, 255, 0.25);
         }
         .elite-badge .material-symbols-outlined {
             font-size: 16px;
@@ -267,10 +292,10 @@
             gap: 8px;
             cursor: pointer;
             box-shadow: var(--shadow-button);
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .btn-edit-profile:hover {
-            opacity: 0.95;
+            opacity: 0.96;
             transform: translateY(-1px);
         }
         .btn-edit-profile:active {
@@ -289,7 +314,10 @@
             color: var(--color-on-surface);
             cursor: pointer;
             box-shadow: var(--shadow-subtle);
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-theme-toggle:hover {
+            background: var(--color-surface-container);
         }
         .btn-theme-toggle:active {
             transform: scale(0.92);
@@ -304,6 +332,7 @@
             border: 1px solid var(--color-outline);
             box-shadow: var(--shadow-subtle);
             gap: 4px;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         .tab-btn {
@@ -320,7 +349,7 @@
             justify-content: center;
             gap: 6px;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .tab-btn .material-symbols-outlined {
             font-size: 18px;
@@ -333,6 +362,7 @@
         body.dark-mode .tab-btn.active {
             background: var(--color-surface-container);
             color: #b595ff;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
         }
 
         /* Content Sections (SPA Tabs) */
@@ -340,7 +370,7 @@
             display: none;
             flex-direction: column;
             gap: 16px;
-            animation: tabFadeIn 0.3s ease-out;
+            animation: tabFadeIn 0.25s ease-out;
         }
         .spa-tab-content.active {
             display: flex;
@@ -361,6 +391,7 @@
             display: flex;
             flex-direction: column;
             gap: 14px;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         .panel-header {
@@ -389,6 +420,8 @@
             padding: 8px 0;
             border-bottom: 1px solid var(--color-outline-variant);
             cursor: pointer;
+            transition: background-color 0.15s ease;
+            border-radius: 8px;
         }
         .setting-row:last-child {
             border-bottom: none;
@@ -408,6 +441,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .setting-label {
             font-size: 14px;
@@ -434,6 +468,7 @@
             display: inline-block;
             width: 44px;
             height: 24px;
+            flex-shrink: 0;
         }
         .switch input {
             opacity: 0;
@@ -464,7 +499,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         input:checked + .slider {
-            background-color: var(--color-primary);
+            background: var(--gradient-primary);
         }
         input:checked + .slider:before {
             transform: translateX(20px);
@@ -479,8 +514,8 @@
             height: 52px;
             border-radius: var(--radius-pill);
             background: var(--color-surface-container-low);
-            border: 1.5px solid rgba(220, 38, 38, 0.35);
-            color: var(--color-error);
+            border: 1.5px solid rgba(186, 26, 26, 0.35);
+            color: #ef4444;
             font-size: 15px;
             font-weight: 700;
             display: flex;
@@ -492,8 +527,8 @@
             transition: all 0.2s ease;
         }
         .btn-signout:hover {
-            background: rgba(220, 38, 38, 0.05);
-            border-color: var(--color-error);
+            background: rgba(220, 38, 38, 0.08);
+            border-color: #ef4444;
         }
         .btn-signout:active {
             transform: scale(0.98);
@@ -521,6 +556,7 @@
             padding: 0 10px;
             padding-bottom: env(safe-area-inset-bottom);
             z-index: 50;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
         body.dark-mode .bottom-nav {
             background: rgba(18, 17, 24, 0.9);
@@ -537,8 +573,11 @@
             color: var(--color-on-surface-variant);
             cursor: pointer;
             gap: 4px;
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, transform 0.15s ease;
             width: 60px;
+        }
+        .nav-link:active {
+            transform: scale(0.9);
         }
         .nav-link .nav-text {
             font-size: 11px;
@@ -574,11 +613,11 @@
             font-size: 26px;
         }
 
-        /* Confirmation Dialog Modal */
+        /* Modals & Bottom Sheets */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             display: flex;
@@ -599,14 +638,15 @@
             max-width: 430px;
             background: var(--color-surface-container-low);
             border-radius: 28px 28px 0 0;
-            padding: 24px 24px 36px 24px;
+            padding: 20px 24px 34px 24px;
             box-shadow: var(--shadow-modal);
             transform: translateY(100%);
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
+            border-top: 1px solid var(--color-outline-variant);
+            max-height: 88vh;
+            overflow-y: auto;
         }
         .modal-overlay.active .modal-sheet {
             transform: translateY(0);
@@ -617,19 +657,23 @@
             height: 4px;
             border-radius: 2px;
             background: var(--color-outline);
-            margin-bottom: 20px;
+            margin: 0 auto 18px auto;
         }
 
         .modal-icon-badge {
             width: 60px;
             height: 60px;
             border-radius: var(--radius-pill);
-            background: rgba(220, 38, 38, 0.1);
-            color: var(--color-error);
+            background: rgba(220, 38, 38, 0.12);
+            color: #ef4444;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
+            margin: 0 auto 16px auto;
+        }
+        .modal-icon-badge.purple {
+            background: rgba(123, 77, 255, 0.12);
+            color: var(--color-primary);
         }
         .modal-icon-badge .material-symbols-outlined {
             font-size: 30px;
@@ -640,6 +684,7 @@
             font-weight: 700;
             color: var(--color-on-surface);
             margin-bottom: 8px;
+            text-align: center;
         }
 
         .modal-message {
@@ -648,6 +693,7 @@
             color: var(--color-on-surface-variant);
             margin-bottom: 24px;
             padding: 0 8px;
+            text-align: center;
         }
 
         .modal-buttons-col {
@@ -661,13 +707,13 @@
             width: 100%;
             height: 50px;
             border-radius: var(--radius-pill);
-            background: var(--color-error);
+            background: #ba1a1a;
             color: #ffffff;
             border: none;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.25);
+            box-shadow: 0 6px 20px rgba(186, 26, 26, 0.3);
             transition: transform 0.15s ease, opacity 0.2s ease;
         }
         .btn-confirm-signout:active {
@@ -690,6 +736,93 @@
             transform: scale(0.97);
         }
 
+        .btn-save-modal {
+            width: 100%;
+            height: 50px;
+            border-radius: var(--radius-pill);
+            background: var(--gradient-primary);
+            color: #ffffff;
+            border: none;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--shadow-button);
+            transition: transform 0.15s ease;
+        }
+        .btn-save-modal:active {
+            transform: scale(0.97);
+        }
+
+        /* Modal Form Elements */
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+            width: 100%;
+        }
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-on-surface);
+            margin-bottom: 6px;
+        }
+        .form-input {
+            width: 100%;
+            height: 48px;
+            background: var(--color-surface-container);
+            border: 1px solid var(--color-outline-variant);
+            border-radius: var(--radius-md);
+            padding: 0 14px;
+            font-size: 14px;
+            color: var(--color-on-surface);
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .form-input:focus {
+            border-color: var(--color-primary);
+        }
+
+        /* Option list inside dialogs */
+        .selectable-option-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .selectable-option-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-radius: var(--radius-md);
+            background: var(--color-surface-container);
+            border: 1px solid var(--color-outline-variant);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .selectable-option-item.selected {
+            border-color: var(--color-primary);
+            background: rgba(123, 77, 255, 0.12);
+        }
+        .selectable-option-item .option-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-on-surface);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .selectable-option-item .check-icon {
+            color: var(--color-primary);
+            opacity: 0;
+            font-size: 20px;
+        }
+        .selectable-option-item.selected .check-icon {
+            opacity: 1;
+        }
+
         /* Feedback Toast */
         .toast-notification {
             position: fixed;
@@ -708,8 +841,13 @@
             opacity: 0;
             pointer-events: none;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 110;
+            z-index: 120;
             box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            max-width: 90%;
+        }
+        body.dark-mode .toast-notification {
+            background: #2d2a3c;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .toast-notification.show {
             opacity: 1;
@@ -719,10 +857,12 @@
             color: #4ade80;
             font-size: 18px;
         }
-    </style>
+</style>
 </head>
 <body class="dark-mode">
 <div class="app-shell">
+<!-- Hidden file input for Avatar selection -->
+<input accept="image/*" id="avatar-file-input" style="display: none;" type="file"/>
 <!-- Top App Header -->
 <header class="top-header">
 <button aria-label="Go Back" class="header-btn" id="btn-back" title="Back">
@@ -738,67 +878,82 @@
 <!-- Hero Section -->
 <section class="profile-hero">
 <div class="avatar-box">
-<img alt="CM Bhanuteja" class="avatar-img" loading="lazy" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg">
+<img alt="CM Bhanuteja" class="avatar-img" id="hero-avatar-img" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi_T0hd0FHKIZrvotYp9xVRa-kdF59TyK2IjqwANQG9GhkD_oUr439yGg0enB8vOuMRDNJCzbZPCytYN3_p-OoE6RxulicEOK8DNhb_IZL7DqZIq1m2AHvzG38rb3v075cZszZyTARvuMWhCj3Lmug5gmDxKu30bvWRtUNU3BAB3S4fjO8W5QjzKw_LN2INVGRQPCO7Qi25L7kEWTUQU_MBLhQL1_mCuOZqeDrCpMcVYisDyzZPuNS"/>
 <button aria-label="Change photo" class="avatar-badge" id="btn-change-avatar" title="Change Avatar">
 <span class="material-symbols-outlined">photo_camera</span>
 </button>
 </div>
-<h2 class="profile-name">CM Bhanuteja</h2>
-<p class="profile-email">bhanu.teja@smartfinance.in</p>
-<div class="elite-badge">
+<h2 class="profile-name" id="hero-profile-name">CM Bhanuteja</h2>
+<p class="profile-email" id="hero-profile-email">bhanu.teja@smartfinance.in</p>
+<div class="elite-badge" id="hero-status-badge">
 <span class="material-symbols-outlined">verified</span>
-<span class="">Verified Elite Member</span>
+<span id="hero-status-text">Verified Elite Member</span>
 </div>
 <div class="profile-actions-row">
 <button class="btn-edit-profile" id="btn-edit-profile">
 <span class="material-symbols-outlined">edit</span>
-<span class="">Edit Profile</span>
+<span>Edit Profile</span>
 </button>
-
+<button aria-label="Toggle Theme" class="btn-theme-toggle" id="btn-dark-toggle" title="Toggle Theme Mode">
+<span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+</button>
 </div>
 </section>
 <!-- Segmented Tab Navigation -->
 <nav aria-label="Settings Categories" class="tabs-pill-nav">
 <button class="tab-btn" data-tab="account">
 <span class="material-symbols-outlined">person</span>
-<span class="">Account</span>
+<span>Account</span>
 </button>
 <button class="tab-btn active" data-tab="preferences">
 <span class="material-symbols-outlined">tune</span>
-<span class="">Preferences</span>
+<span>Preferences</span>
 </button>
 <button class="tab-btn" data-tab="security">
 <span class="material-symbols-outlined">shield</span>
-<span class="">Security</span>
+<span>Security</span>
 </button>
 </nav>
-<!-- TAB 1: Account (Default) -->
+<!-- TAB 1: Account -->
 <section class="spa-tab-content" id="tab-account">
 <div class="panel-card">
 <div class="panel-header">
 <h3 class="panel-title">
 <span class="material-symbols-outlined">badge</span>
-<span class="">Personal Information</span>
+<span>Personal Information</span>
 </h3>
+<button class="btn-edit-profile" id="btn-quick-edit" style="width: auto; height: 32px; padding: 0 12px; font-size: 12px; box-shadow: none;">Edit</button>
 </div>
-<div class="setting-row" onclick="showToast('Name editing modal opened')">
+<div class="setting-row" id="row-account-name">
 <div class="setting-left">
 <div class="setting-icon-box"><span class="material-symbols-outlined">account_circle</span></div>
 <div>
 <div class="setting-label">Full Name</div>
-<div class="setting-subtext">CM Bhanuteja</div>
+<div class="setting-subtext" id="display-acc-name">CM Bhanuteja</div>
 </div>
 </div>
 <div class="setting-right">
 <span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
-<div class="setting-row" onclick="showToast('Phone updated')">
+<div class="setting-row" id="row-account-email">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">mail</span></div>
+<div>
+<div class="setting-label">Email Address</div>
+<div class="setting-subtext" id="display-acc-email">bhanu.teja@smartfinance.in</div>
+</div>
+</div>
+<div class="setting-right">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+<div class="setting-row" id="row-account-phone">
 <div class="setting-left">
 <div class="setting-icon-box"><span class="material-symbols-outlined">call</span></div>
 <div>
 <div class="setting-label">Phone Number</div>
-<div class="setting-subtext">+91 98765 43210</div>
+<div class="setting-subtext" id="display-acc-phone">+91 98765 43210</div>
 </div>
 </div>
 <div class="setting-right">
@@ -814,7 +969,7 @@
 </div>
 </div>
 <div class="setting-right">
-<span style="color: var(--color-success); font-weight: 600; font-size: 12px;" class="">Active</span>
+<span style="color: var(--color-success); font-weight: 600; font-size: 12px;">Active</span>
 </div>
 </div>
 </div>
@@ -822,7 +977,7 @@
 <div class="panel-header">
 <h3 class="panel-title">
 <span class="material-symbols-outlined">credit_card</span>
-<span class="">Linked Payment Methods</span>
+<span>Linked Payment Methods</span>
 </h3>
 </div>
 <div class="setting-row" onclick="showToast('Smart Premier Card Selected')">
@@ -837,7 +992,7 @@
 <span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
-<div class="setting-row" onclick="showToast('UPI ID copied')">
+<div class="setting-row" onclick="showToast('UPI ID copied to clipboard!')">
 <div class="setting-left">
 <div class="setting-icon-box"><span class="material-symbols-outlined">account_balance</span></div>
 <div>
@@ -854,7 +1009,7 @@
 <div class="panel-header">
 <h3 class="panel-title">
 <span class="material-symbols-outlined">cloud_sync</span>
-<span class="">Data &amp; Backup</span>
+<span>Data &amp; Backup</span>
 </h3>
 </div>
 <div class="setting-row" onclick="showToast('Exporting July &amp; August report...')">
@@ -871,25 +1026,39 @@
 </div>
 </div>
 </section>
-<!-- TAB 2: Preferences -->
+<!-- TAB 2: Preferences (Active by default) -->
 <section class="spa-tab-content active" id="tab-preferences">
 <div class="panel-card">
 <div class="panel-header">
 <h3 class="panel-title">
 <span class="material-symbols-outlined">palette</span>
-<span class="">App Experience</span>
+<span>App Experience</span>
 </h3>
 </div>
-<div class="setting-row">
+<div class="setting-row" id="row-appearance-toggle">
 <div class="setting-left">
-<div class="setting-icon-box"><span class="material-symbols-outlined">currency_rupee</span></div>
+<div class="setting-icon-box"><span class="material-symbols-outlined" id="pref-theme-icon">dark_mode</span></div>
+<div>
+<div class="setting-label">Appearance</div>
+<div class="setting-subtext" id="pref-theme-label">Dark mode theme</div>
+</div>
+</div>
+<label class="switch">
+<input checked="" id="theme-toggle-switch" type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+<div class="setting-row" id="btn-open-currency">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined" id="currency-icon">currency_rupee</span></div>
 <div>
 <div class="setting-label">Primary Currency</div>
-<div class="setting-subtext">INR (₹ Indian Rupee)</div>
+<div class="setting-subtext" id="currency-subtext">INR (₹ Indian Rupee)</div>
 </div>
 </div>
 <div class="setting-right">
-<span style="font-weight: 600;" class="">₹ INR</span>
+<span id="currency-badge" style="font-weight: 600;">₹ INR</span>
+<span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
 <div class="setting-row">
@@ -901,7 +1070,7 @@
 </div>
 </div>
 <label class="switch">
-<input checked="" onchange="showToast('Notification preference updated')" type="checkbox">
+<input checked="" id="spending-alerts-switch" type="checkbox"/>
 <span class="slider"></span>
 </label>
 </div>
@@ -914,7 +1083,7 @@
 </div>
 </div>
 <label class="switch">
-<input checked="" onchange="showToast('Balance privacy setting saved')" type="checkbox">
+<input checked="" id="hide-balance-switch" type="checkbox"/>
 <span class="slider"></span>
 </label>
 </div>
@@ -923,15 +1092,15 @@
 <div class="panel-header">
 <h3 class="panel-title">
 <span class="material-symbols-outlined">language</span>
-<span class="">Localization</span>
+<span>Localization</span>
 </h3>
 </div>
-<div class="setting-row" onclick="showToast('Language: English (India)')">
+<div class="setting-row" id="btn-open-language">
 <div class="setting-left">
 <div class="setting-icon-box"><span class="material-symbols-outlined">translate</span></div>
 <div>
 <div class="setting-label">Language</div>
-<div class="setting-subtext">English (India)</div>
+<div class="setting-subtext" id="language-subtext">English (India)</div>
 </div>
 </div>
 <div class="setting-right">
@@ -946,7 +1115,7 @@
 <div class="panel-header">
 <h3 class="panel-title">
 <span class="material-symbols-outlined">security</span>
-<span class="">Account Security</span>
+<span>Account Security</span>
 </h3>
 </div>
 <div class="setting-row">
@@ -958,11 +1127,11 @@
 </div>
 </div>
 <label class="switch">
-<input checked="" onchange="showToast('Biometric lock enabled')" type="checkbox">
+<input checked="" id="biometric-switch" type="checkbox"/>
 <span class="slider"></span>
 </label>
 </div>
-<div class="setting-row" onclick="showToast('PIN change prompt triggered')">
+<div class="setting-row" id="btn-open-pin-modal">
 <div class="setting-left">
 <div class="setting-icon-box"><span class="material-symbols-outlined">pin</span></div>
 <div>
@@ -974,7 +1143,20 @@
 <span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
-<div class="setting-row" onclick="showToast('Password updated')">
+<div class="setting-row">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">security_update_good</span></div>
+<div>
+<div class="setting-label">Two-Factor Authentication</div>
+<div class="setting-subtext">SMS / Authenticator OTP</div>
+</div>
+</div>
+<label class="switch">
+<input checked="" id="two-factor-switch" type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+<div class="setting-row" onclick="showToast('Password change link sent to email')">
 <div class="setting-left">
 <div class="setting-icon-box"><span class="material-symbols-outlined">key</span></div>
 <div>
@@ -991,7 +1173,7 @@
 <div class="panel-header">
 <h3 class="panel-title">
 <span class="material-symbols-outlined">devices</span>
-<span class="">Active Login Sessions</span>
+<span>Active Login Sessions</span>
 </h3>
 </div>
 <div class="setting-row">
@@ -1002,9 +1184,9 @@
 <div class="setting-subtext">Hyderabad, IN • Today, 15 Sep 2026</div>
 </div>
 </div>
-<span style="color: var(--color-success); font-weight: 700; font-size: 11px;" class="">Active</span>
+<span style="color: var(--color-success); font-weight: 700; font-size: 11px;">Active</span>
 </div>
-<div class="setting-row">
+<div class="setting-row" id="session-macbook">
 <div class="setting-left">
 <div class="setting-icon-box"><span class="material-symbols-outlined">laptop_mac</span></div>
 <div>
@@ -1012,7 +1194,17 @@
 <div class="setting-subtext">Bengaluru, IN • 14 Sep 2026</div>
 </div>
 </div>
-<button onclick="showToast('Logged out of MacBook Pro')" style="background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; color: var(--color-error); font-size: 12px; font-weight: 600; cursor: pointer;" class="">Revoke</button>
+<button id="btn-revoke-macbook" style="background: none; border: none; color: #ef4444; font-size: 12px; font-weight: 600; cursor: pointer; padding: 4px 8px;">Revoke</button>
+</div>
+<div class="setting-row" id="session-ipad">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">tablet_mac</span></div>
+<div>
+<div class="setting-label">iPad Air (5th Gen)</div>
+<div class="setting-subtext">Mumbai, IN • 10 Sep 2026</div>
+</div>
+</div>
+<button id="btn-revoke-ipad" style="background: none; border: none; color: #ef4444; font-size: 12px; font-weight: 600; cursor: pointer; padding: 4px 8px;">Revoke</button>
 </div>
 </div>
 </section>
@@ -1020,35 +1212,36 @@
 <div class="signout-container">
 <button class="btn-signout" id="btn-signout-trigger">
 <span class="material-symbols-outlined">logout</span>
-<span class="">Sign Out of Smart Finance</span>
+<span>Sign Out of Smart Finance</span>
 </button>
 </div>
 </main>
 <!-- Persistent Bottom Navigation Bar -->
 <nav class="bottom-nav">
-<button class="nav-link" id="nav-home" onclick="showToast('Navigating to Home...')">
+<button class="nav-link" data-nav="home" id="nav-home">
 <span class="material-symbols-outlined">home</span>
 <span class="nav-text">Home</span>
 </button>
-<button class="nav-link" id="nav-budget" onclick="showToast('Navigating to Budget...')">
+<button class="nav-link" data-nav="budget" id="nav-budget">
 <span class="material-symbols-outlined">account_balance_wallet</span>
 <span class="nav-text">Budget</span>
 </button>
 <!-- Center Floating Action Button -->
-<button class="fab-btn" id="btn-add-expense" onclick="showToast('Opening Add Expense form...')" title="Add Expense">
+<button class="fab-btn" id="btn-add-expense" title="Add Expense">
 <span class="material-symbols-outlined">add</span>
 </button>
-<button class="nav-link" id="nav-stats" onclick="showToast('Navigating to Stats &amp; Analytics...')">
+<button class="nav-link" data-nav="stats" id="nav-stats">
 <span class="material-symbols-outlined">leaderboard</span>
 <span class="nav-text">Stats</span>
 </button>
-<button class="nav-link active" id="nav-profile" onclick="showToast('You are on Profile &amp; Settings')">
+<button class="nav-link active" data-nav="profile" id="nav-profile">
 <span class="material-symbols-outlined">person</span>
 <span class="nav-text">Profile</span>
 </button>
 </nav>
 </div>
-<!-- Modal Confirmation Dialog -->
+<!-- ================= MODALS & BOTTOM SHEETS ================= -->
+<!-- 1. Sign Out Confirmation Modal -->
 <div aria-labelledby="modal-heading" aria-modal="true" class="modal-overlay" id="signout-modal" role="dialog">
 <div class="modal-sheet">
 <div class="modal-drag-pill"></div>
@@ -1057,48 +1250,171 @@
 </div>
 <h3 class="modal-title" id="modal-heading">Sign Out</h3>
 <p class="modal-message">
-            Are you sure you want to sign out of Smart Finance? You'll need to log back in to access your financial data.
-        </p>
+    Are you sure you want to sign out of Smart Finance? You'll need to log back in to access your financial data.
+</p>
 <div class="modal-buttons-col">
 <button class="btn-confirm-signout" id="btn-confirm-signout">
-                Sign Out
-            </button>
+    Sign Out
+</button>
 <button class="btn-cancel-modal" id="btn-cancel-signout">
-                Cancel
-            </button>
+    Cancel
+</button>
+</div>
+</div>
+</div>
+<!-- 2. Edit Profile Modal Sheet -->
+<div aria-labelledby="edit-profile-heading" aria-modal="true" class="modal-overlay" id="edit-profile-modal" role="dialog">
+<div class="modal-sheet">
+<div class="modal-drag-pill"></div>
+<h3 class="modal-title" id="edit-profile-heading">Edit Profile</h3>
+<p class="modal-message" style="margin-bottom: 16px;">Update your personal details below</p>
+<div class="form-group">
+<label class="form-label" for="input-edit-name">Full Name</label>
+<input class="form-input" id="input-edit-name" type="text" value="CM Bhanuteja"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="input-edit-email">Email Address</label>
+<input class="form-input" id="input-edit-email" type="email" value="bhanu.teja@smartfinance.in"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="input-edit-phone">Phone Number</label>
+<input class="form-input" id="input-edit-phone" type="tel" value="+91 98765 43210"/>
+</div>
+<div class="modal-buttons-col">
+<button class="btn-save-modal" id="btn-save-profile">Save Changes</button>
+<button class="btn-cancel-modal" id="btn-cancel-profile">Cancel</button>
+</div>
+</div>
+</div>
+<!-- 3. Primary Currency Modal Sheet -->
+<div aria-labelledby="currency-modal-heading" aria-modal="true" class="modal-overlay" id="currency-modal" role="dialog">
+<div class="modal-sheet">
+<div class="modal-drag-pill"></div>
+<h3 class="modal-title" id="currency-modal-heading">Select Currency</h3>
+<p class="modal-message" style="margin-bottom: 16px;">Choose default currency for all transactions</p>
+<div class="selectable-option-list" id="currency-option-list">
+<div class="selectable-option-item selected" data-code="INR" data-icon="currency_rupee" data-name="INR (₹ Indian Rupee)" data-symbol="₹">
+<div class="option-text">
+<span class="material-symbols-outlined" style="color:var(--color-primary);">currency_rupee</span>
+<span>INR - Indian Rupee (₹)</span>
+</div>
+<span class="material-symbols-outlined check-icon">check</span>
+</div>
+<div class="selectable-option-item" data-code="USD" data-icon="attach_money" data-name="USD ($ US Dollar)" data-symbol="$">
+<div class="option-text">
+<span class="material-symbols-outlined" style="color:var(--color-primary);">attach_money</span>
+<span>USD - US Dollar ($)</span>
+</div>
+<span class="material-symbols-outlined check-icon">check</span>
+</div>
+<div class="selectable-option-item" data-code="EUR" data-icon="euro" data-name="EUR (€ Euro)" data-symbol="€">
+<div class="option-text">
+<span class="material-symbols-outlined" style="color:var(--color-primary);">euro</span>
+<span>EUR - Euro (€)</span>
+</div>
+<span class="material-symbols-outlined check-icon">check</span>
+</div>
+<div class="selectable-option-item" data-code="GBP" data-icon="currency_pound" data-name="GBP (£ British Pound)" data-symbol="£">
+<div class="option-text">
+<span class="material-symbols-outlined" style="color:var(--color-primary);">currency_pound</span>
+<span>GBP - British Pound (£)</span>
+</div>
+<span class="material-symbols-outlined check-icon">check</span>
+</div>
+</div>
+<div class="modal-buttons-col">
+<button class="btn-cancel-modal" id="btn-close-currency">Close</button>
+</div>
+</div>
+</div>
+<!-- 4. Language Selection Modal Sheet -->
+<div aria-labelledby="language-modal-heading" aria-modal="true" class="modal-overlay" id="language-modal" role="dialog">
+<div class="modal-sheet">
+<div class="modal-drag-pill"></div>
+<h3 class="modal-title" id="language-modal-heading">Select Language</h3>
+<p class="modal-message" style="margin-bottom: 16px;">Select your preferred display language</p>
+<div class="selectable-option-list" id="language-option-list">
+<div class="selectable-option-item selected" data-lang="English (India)">
+<div class="option-text">
+<span class="material-symbols-outlined" style="color:var(--color-primary);">language</span>
+<span>English (India)</span>
+</div>
+<span class="material-symbols-outlined check-icon">check</span>
+</div>
+<div class="selectable-option-item" data-lang="हिंदी (Hindi)">
+<div class="option-text">
+<span class="material-symbols-outlined" style="color:var(--color-primary);">language</span>
+<span>हिंदी (Hindi)</span>
+</div>
+<span class="material-symbols-outlined check-icon">check</span>
+</div>
+<div class="selectable-option-item" data-lang="తెలుగు (Telugu)">
+<div class="option-text">
+<span class="material-symbols-outlined" style="color:var(--color-primary);">language</span>
+<span>తెలుగు (Telugu)</span>
+</div>
+<span class="material-symbols-outlined check-icon">check</span>
+</div>
+<div class="selectable-option-item" data-lang="தமிழ் (Tamil)">
+<div class="option-text">
+<span class="material-symbols-outlined" style="color:var(--color-primary);">language</span>
+<span>தமிழ் (Tamil)</span>
+</div>
+<span class="material-symbols-outlined check-icon">check</span>
+</div>
+</div>
+<div class="modal-buttons-col">
+<button class="btn-cancel-modal" id="btn-close-language">Close</button>
+</div>
+</div>
+</div>
+<!-- 5. Change PIN Modal Sheet -->
+<div aria-labelledby="pin-modal-heading" aria-modal="true" class="modal-overlay" id="pin-modal" role="dialog">
+<div class="modal-sheet">
+<div class="modal-drag-pill"></div>
+<div class="modal-icon-badge purple">
+<span class="material-symbols-outlined">pin</span>
+</div>
+<h3 class="modal-title" id="pin-modal-heading">Change App PIN</h3>
+<p class="modal-message" style="margin-bottom: 16px;">Enter your 4-digit security PIN</p>
+<div class="form-group">
+<label class="form-label" for="input-old-pin">Current PIN</label>
+<input class="form-input" id="input-old-pin" maxlength="4" placeholder="••••" style="letter-spacing: 6px; text-align: center; font-size: 18px;" type="password"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="input-new-pin">New 4-Digit PIN</label>
+<input class="form-input" id="input-new-pin" maxlength="4" placeholder="••••" style="letter-spacing: 6px; text-align: center; font-size: 18px;" type="password"/>
+</div>
+<div class="modal-buttons-col">
+<button class="btn-save-modal" id="btn-save-pin">Update PIN</button>
+<button class="btn-cancel-modal" id="btn-cancel-pin">Cancel</button>
 </div>
 </div>
 </div>
 <!-- Toast UI -->
 <div class="toast-notification" id="toast">
-<span class="material-symbols-outlined">check_circle</span>
-<span id="toast-text" class="">Dark mode enabled</span>
+<span class="material-symbols-outlined" id="toast-icon">check_circle</span>
+<span id="toast-text">Settings updated</span>
 </div>
-<!-- Pure Vanilla ES6+ Script (No third party JS or frameworks) -->
+<!-- Pure Vanilla ES6+ Script -->
 <script>
     (function () {
         'use strict';
 
-        // DOM Element Cache
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabPanels = document.querySelectorAll('.spa-tab-content');
-        const themeToggleBtn = document.getElementById('btn-dark-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const modalOverlay = document.getElementById('signout-modal');
-        const triggerBtn = document.getElementById('btn-signout-trigger');
-        const headerSignoutBtn = document.getElementById('btn-header-signout');
-        const cancelModalBtn = document.getElementById('btn-cancel-signout');
-        const confirmSignoutBtn = document.getElementById('btn-confirm-signout');
-        const backBtn = document.getElementById('btn-back');
+        // State variables
+        let isDarkMode = document.body.classList.contains('dark-mode');
+
+        // Cached Elements
         const toastEl = document.getElementById('toast');
         const toastText = document.getElementById('toast-text');
-
+        const toastIcon = document.getElementById('toast-icon');
         let toastTimeout = null;
 
         // Toast Helper
-        window.showToast = function (msg) {
+        window.showToast = function (msg, icon = 'check_circle') {
             if (!toastEl || !toastText) return;
             toastText.textContent = msg;
+            if (toastIcon) toastIcon.textContent = icon;
             toastEl.classList.add('show');
             if (toastTimeout) clearTimeout(toastTimeout);
             toastTimeout = setTimeout(() => {
@@ -1106,16 +1422,72 @@
             }, 2400);
         };
 
-        // Tab Switching (SPA Logic)
+        // Modal Helpers
+        function openModal(modalEl) {
+            if (modalEl) modalEl.classList.add('active');
+        }
+        function closeModal(modalEl) {
+            if (modalEl) modalEl.classList.remove('active');
+        }
+
+        // Close modal when tapping overlay background
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        });
+
+        /* ================= 1. THEME TOGGLING (LIGHT / DARK) ================= */
+        const quickThemeBtn = document.getElementById('btn-dark-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const appearanceSwitch = document.getElementById('theme-toggle-switch');
+        const prefThemeIcon = document.getElementById('pref-theme-icon');
+        const prefThemeLabel = document.getElementById('pref-theme-label');
+
+        function updateTheme(dark, notify = true) {
+            isDarkMode = dark;
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                if (themeIcon) themeIcon.textContent = 'light_mode';
+                if (prefThemeIcon) prefThemeIcon.textContent = 'dark_mode';
+                if (prefThemeLabel) prefThemeLabel.textContent = 'Dark mode theme';
+                if (appearanceSwitch) appearanceSwitch.checked = true;
+                if (notify) showToast('Dark mode enabled', 'dark_mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                if (themeIcon) themeIcon.textContent = 'dark_mode';
+                if (prefThemeIcon) prefThemeIcon.textContent = 'light_mode';
+                if (prefThemeLabel) prefThemeLabel.textContent = 'Light mode theme';
+                if (appearanceSwitch) appearanceSwitch.checked = false;
+                if (notify) showToast('Light mode enabled', 'light_mode');
+            }
+        }
+
+        if (quickThemeBtn) {
+            quickThemeBtn.addEventListener('click', () => {
+                updateTheme(!isDarkMode);
+            });
+        }
+
+        if (appearanceSwitch) {
+            appearanceSwitch.addEventListener('change', (e) => {
+                updateTheme(e.target.checked);
+            });
+        }
+
+        /* ================= 2. TAB SWITCHING ================= */
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.spa-tab-content');
+
         tabButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const targetTab = button.getAttribute('data-tab');
 
-                // Update active tab buttons
                 tabButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
 
-                // Switch visible panel
                 tabPanels.forEach(panel => {
                     if (panel.id === `tab-${targetTab}`) {
                         panel.classList.add('active');
@@ -1126,86 +1498,280 @@
             });
         });
 
-        // Theme Toggle Logic
-        if (themeToggleBtn) {
-            themeToggleBtn.addEventListener('click', () => {
-                const isDark = document.body.classList.toggle('dark-mode');
-                if (themeIcon) {
-                    themeIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
-                }
-                showToast(isDark ? 'Dark mode enabled' : 'Light mode enabled');
+        /* ================= 3. EDIT PROFILE & AVATAR ================= */
+        const editProfileModal = document.getElementById('edit-profile-modal');
+        const btnEditProfile = document.getElementById('btn-edit-profile');
+        const btnQuickEdit = document.getElementById('btn-quick-edit');
+        const btnCancelProfile = document.getElementById('btn-cancel-profile');
+        const btnSaveProfile = document.getElementById('btn-save-profile');
+
+        const heroAvatarImg = document.getElementById('hero-avatar-img');
+        const heroProfileName = document.getElementById('hero-profile-name');
+        const heroProfileEmail = document.getElementById('hero-profile-email');
+        const displayAccName = document.getElementById('display-acc-name');
+        const displayAccEmail = document.getElementById('display-acc-email');
+        const displayAccPhone = document.getElementById('display-acc-phone');
+
+        const inputEditName = document.getElementById('input-edit-name');
+        const inputEditEmail = document.getElementById('input-edit-email');
+        const inputEditPhone = document.getElementById('input-edit-phone');
+
+        function openEditProfile() {
+            if (inputEditName && heroProfileName) inputEditName.value = heroProfileName.textContent.trim();
+            if (inputEditEmail && heroProfileEmail) inputEditEmail.value = heroProfileEmail.textContent.trim();
+            if (inputEditPhone && displayAccPhone) inputEditPhone.value = displayAccPhone.textContent.trim();
+            openModal(editProfileModal);
+        }
+
+        if (btnEditProfile) btnEditProfile.addEventListener('click', openEditProfile);
+        if (btnQuickEdit) btnQuickEdit.addEventListener('click', openEditProfile);
+        if (btnCancelProfile) btnCancelProfile.addEventListener('click', () => closeModal(editProfileModal));
+
+        if (btnSaveProfile) {
+            btnSaveProfile.addEventListener('click', () => {
+                const newName = inputEditName.value.trim() || 'CM Bhanuteja';
+                const newEmail = inputEditEmail.value.trim() || 'bhanu.teja@smartfinance.in';
+                const newPhone = inputEditPhone.value.trim() || '+91 98765 43210';
+
+                if (heroProfileName) heroProfileName.textContent = newName;
+                if (heroProfileEmail) heroProfileEmail.textContent = newEmail;
+                if (displayAccName) displayAccName.textContent = newName;
+                if (displayAccEmail) displayAccEmail.textContent = newEmail;
+                if (displayAccPhone) displayAccPhone.textContent = newPhone;
+
+                closeModal(editProfileModal);
+                showToast('Profile updated successfully!');
             });
         }
 
-        // Sign Out Confirmation Modal Controls
-        function openSignoutModal() {
-            if (modalOverlay) {
-                modalOverlay.classList.add('active');
-            }
-        }
+        // Account rows tap to edit
+        document.getElementById('row-account-name')?.addEventListener('click', openEditProfile);
+        document.getElementById('row-account-email')?.addEventListener('click', openEditProfile);
+        document.getElementById('row-account-phone')?.addEventListener('click', openEditProfile);
 
-        function closeSignoutModal() {
-            if (modalOverlay) {
-                modalOverlay.classList.remove('active');
-            }
-        }
+        // Avatar change interaction
+        const avatarChangeBtn = document.getElementById('btn-change-avatar');
+        const avatarFileInput = document.getElementById('avatar-file-input');
 
-        if (triggerBtn) {
-            triggerBtn.addEventListener('click', openSignoutModal);
-        }
-        if (headerSignoutBtn) {
-            headerSignoutBtn.addEventListener('click', openSignoutModal);
-        }
-        if (cancelModalBtn) {
-            cancelModalBtn.addEventListener('click', closeSignoutModal);
-        }
+        if (avatarChangeBtn && avatarFileInput) {
+            avatarChangeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                avatarFileInput.click();
+            });
 
-        // Close on backdrop tap
-        if (modalOverlay) {
-            modalOverlay.addEventListener('click', (e) => {
-                if (e.target === modalOverlay) {
-                    closeSignoutModal();
+            avatarFileInput.addEventListener('change', (e) => {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        if (heroAvatarImg) {
+                            heroAvatarImg.src = event.target.result;
+                            showToast('Profile photo updated!', 'photo_camera');
+                        }
+                    };
+                    reader.readAsDataURL(e.target.files[0]);
                 }
             });
         }
 
-        // Sign Out Execution
-        if (confirmSignoutBtn) {
-            confirmSignoutBtn.addEventListener('click', () => {
-                closeSignoutModal();
-                showToast('Signed out safely. Redirecting to Login...');
+        /* ================= 4. PREFERENCES (CURRENCY & LANGUAGE & TOGGLES) ================= */
+        // Currency Modal
+        const currencyModal = document.getElementById('currency-modal');
+        const btnOpenCurrency = document.getElementById('btn-open-currency');
+        const btnCloseCurrency = document.getElementById('btn-close-currency');
+        const currencyItems = document.querySelectorAll('#currency-option-list .selectable-option-item');
+        const currencyBadge = document.getElementById('currency-badge');
+        const currencySubtext = document.getElementById('currency-subtext');
+        const currencyIcon = document.getElementById('currency-icon');
+
+        if (btnOpenCurrency) {
+            btnOpenCurrency.addEventListener('click', () => openModal(currencyModal));
+        }
+        if (btnCloseCurrency) {
+            btnCloseCurrency.addEventListener('click', () => closeModal(currencyModal));
+        }
+
+        currencyItems.forEach(item => {
+            item.addEventListener('click', () => {
+                currencyItems.forEach(i => i.classList.remove('selected'));
+                item.classList.add('selected');
+
+                const code = item.getAttribute('data-code');
+                const symbol = item.getAttribute('data-symbol');
+                const name = item.getAttribute('data-name');
+                const icon = item.getAttribute('data-icon');
+
+                if (currencyBadge) currencyBadge.textContent = `${symbol} ${code}`;
+                if (currencySubtext) currencySubtext.textContent = name;
+                if (currencyIcon) currencyIcon.textContent = icon;
+
+                closeModal(currencyModal);
+                showToast(`Primary currency set to ${code}`);
+            });
+        });
+
+        // Language Modal
+        const languageModal = document.getElementById('language-modal');
+        const btnOpenLanguage = document.getElementById('btn-open-language');
+        const btnCloseLanguage = document.getElementById('btn-close-language');
+        const languageItems = document.querySelectorAll('#language-option-list .selectable-option-item');
+        const languageSubtext = document.getElementById('language-subtext');
+
+        if (btnOpenLanguage) {
+            btnOpenLanguage.addEventListener('click', () => openModal(languageModal));
+        }
+        if (btnCloseLanguage) {
+            btnCloseLanguage.addEventListener('click', () => closeModal(languageModal));
+        }
+
+        languageItems.forEach(item => {
+            item.addEventListener('click', () => {
+                languageItems.forEach(i => i.classList.remove('selected'));
+                item.classList.add('selected');
+
+                const lang = item.getAttribute('data-lang');
+                if (languageSubtext) languageSubtext.textContent = lang;
+
+                closeModal(languageModal);
+                showToast(`Language switched to ${lang}`);
+            });
+        });
+
+        // Interactive switches in preferences
+        const spendingSwitch = document.getElementById('spending-alerts-switch');
+        if (spendingSwitch) {
+            spendingSwitch.addEventListener('change', (e) => {
+                showToast(e.target.checked ? 'Daily spending alerts enabled' : 'Spending alerts silenced');
+            });
+        }
+
+        const hideBalanceSwitch = document.getElementById('hide-balance-switch');
+        if (hideBalanceSwitch) {
+            hideBalanceSwitch.addEventListener('change', (e) => {
+                showToast(e.target.checked ? 'Balance will be hidden on launch' : 'Balance privacy unmasked');
+            });
+        }
+
+        /* ================= 5. SECURITY INTERACTIONS ================= */
+        const biometricSwitch = document.getElementById('biometric-switch');
+        if (biometricSwitch) {
+            biometricSwitch.addEventListener('change', (e) => {
+                showToast(e.target.checked ? 'Face ID & Biometrics required' : 'Biometric unlock disabled');
+            });
+        }
+
+        const twoFactorSwitch = document.getElementById('two-factor-switch');
+        if (twoFactorSwitch) {
+            twoFactorSwitch.addEventListener('change', (e) => {
+                showToast(e.target.checked ? '2FA enabled for login & transactions' : '2FA disabled (caution)');
+            });
+        }
+
+        // Change PIN Modal
+        const pinModal = document.getElementById('pin-modal');
+        const btnOpenPin = document.getElementById('btn-open-pin-modal');
+        const btnCancelPin = document.getElementById('btn-cancel-pin');
+        const btnSavePin = document.getElementById('btn-save-pin');
+        const inputOldPin = document.getElementById('input-old-pin');
+        const inputNewPin = document.getElementById('input-new-pin');
+
+        if (btnOpenPin) {
+            btnOpenPin.addEventListener('click', () => {
+                if (inputOldPin) inputOldPin.value = '';
+                if (inputNewPin) inputNewPin.value = '';
+                openModal(pinModal);
+            });
+        }
+        if (btnCancelPin) {
+            btnCancelPin.addEventListener('click', () => closeModal(pinModal));
+        }
+        if (btnSavePin) {
+            btnSavePin.addEventListener('click', () => {
+                if (inputNewPin && inputNewPin.value.length === 4) {
+                    closeModal(pinModal);
+                    showToast('App PIN changed successfully!', 'lock_reset');
+                } else {
+                    showToast('Please enter a 4-digit PIN', 'error');
+                }
+            });
+        }
+
+        // Revoke Sessions
+        const btnRevokeMacbook = document.getElementById('btn-revoke-macbook');
+        const sessionMacbook = document.getElementById('session-macbook');
+        if (btnRevokeMacbook && sessionMacbook) {
+            btnRevokeMacbook.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sessionMacbook.style.opacity = '0.4';
+                sessionMacbook.style.pointerEvents = 'none';
+                btnRevokeMacbook.textContent = 'Revoked';
+                btnRevokeMacbook.style.color = 'var(--color-on-surface-variant)';
+                showToast('MacBook Pro M3 session revoked');
+            });
+        }
+
+        const btnRevokeIpad = document.getElementById('btn-revoke-ipad');
+        const sessionIpad = document.getElementById('session-ipad');
+        if (btnRevokeIpad && sessionIpad) {
+            btnRevokeIpad.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sessionIpad.style.opacity = '0.4';
+                sessionIpad.style.pointerEvents = 'none';
+                btnRevokeIpad.textContent = 'Revoked';
+                btnRevokeIpad.style.color = 'var(--color-on-surface-variant)';
+                showToast('iPad Air session revoked');
+            });
+        }
+
+        /* ================= 6. SIGN OUT CONFIRMATION MODAL ================= */
+        const signoutModal = document.getElementById('signout-modal');
+        const btnSignoutTrigger = document.getElementById('btn-signout-trigger');
+        const btnHeaderSignout = document.getElementById('btn-header-signout');
+        const btnCancelSignout = document.getElementById('btn-cancel-signout');
+        const btnConfirmSignout = document.getElementById('btn-confirm-signout');
+
+        if (btnSignoutTrigger) btnSignoutTrigger.addEventListener('click', () => openModal(signoutModal));
+        if (btnHeaderSignout) btnHeaderSignout.addEventListener('click', () => openModal(signoutModal));
+        if (btnCancelSignout) btnCancelSignout.addEventListener('click', () => closeModal(signoutModal));
+
+        if (btnConfirmSignout) {
+            btnConfirmSignout.addEventListener('click', () => {
+                closeModal(signoutModal);
+                showToast('Signed out safely. Redirecting...', 'logout');
                 setTimeout(() => {
-                    showToast('Logged out successfully.');
-                }, 1200);
+                    showToast('Session terminated.', 'check_circle');
+                }, 1400);
             });
         }
 
-        // Back button action
+        /* ================= 7. BOTTOM NAVIGATION INTERACTIVITY ================= */
+        const navLinks = document.querySelectorAll('.bottom-nav .nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                const label = link.querySelector('.nav-text')?.textContent || 'Tab';
+                if (label !== 'Profile') {
+                    showToast(`Navigating to ${label}...`, 'navigation');
+                } else {
+                    showToast('Viewing Profile & Settings', 'person');
+                }
+            });
+        });
+
+        const fabBtn = document.getElementById('btn-add-expense');
+        if (fabBtn) {
+            fabBtn.addEventListener('click', () => {
+                showToast('Opening Add Expense form...', 'add_circle');
+            });
+        }
+
+        const backBtn = document.getElementById('btn-back');
         if (backBtn) {
             backBtn.addEventListener('click', () => {
-                showToast('Navigating back to Dashboard...');
+                showToast('Navigating back to Dashboard...', 'arrow_back');
             });
         }
 
-        // Avatar change
-        const avatarChangeBtn = document.getElementById('btn-change-avatar');
-        if (avatarChangeBtn) {
-            avatarChangeBtn.addEventListener('click', () => {
-                showToast('Upload photo dialog opened');
-            });
-        }
-
-        // Edit Profile
-        const editProfileBtn = document.getElementById('btn-edit-profile');
-        if (editProfileBtn) {
-            editProfileBtn.addEventListener('click', () => {
-                showToast('Opening Edit Profile screen...');
-            });
-        }
     })();
 </script>
-
-
-
-
 </body></html>
