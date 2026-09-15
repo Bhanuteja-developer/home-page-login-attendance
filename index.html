@@ -1,49 +1,58 @@
-<!DOCTYPE html><html lang="en" style=""><head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
-<title>Smart Finance Tracker - Profile &amp; Settings</title>
-<!-- Dependencies -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+<title>Smart Finance - Profile &amp; Settings</title>
+<!-- Google Fonts: Inter and Google Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 <style>
         :root {
-            /* Brand Theme Tokens (Smart Finance / Luminous Finance) */
+            /* Theme Tokens from Smart Finance (DESIGN_SYSTEM_2) */
             --color-primary: #7b4dff;
             --color-primary-container: #8d4aee;
-            --color-primary-gradient: linear-gradient(135deg, #7b4dff, #ff6b3d);
-            --color-secondary: #ff6b3d;
-            --color-success: #10b981;
-            --color-error: #ba1a1a;
-            --color-bg-canvas: #fcf9f8;
-            --color-surface-card: #ffffff;
-            --color-surface-container-low: #f7f2f2;
-            --color-surface-container: #f0eded;
-            --color-text-main: #1c1b1b;
-            --color-text-muted: #494456;
-            --color-outline: #e5e2e1;
-            --color-outline-variant: #cac3d8;
+            --color-primary-light: rgba(123, 77, 255, 0.1);
+            --color-on-primary: #ffffff;
+            --color-secondary: #fd6a3c;
+            --color-surface: #fdf8f8;
+            --color-surface-container: #f7f2f2;
+            --color-surface-container-low: #ffffff;
+            --color-on-surface: #1c1b1b;
+            --color-on-surface-variant: #615d6c;
+            --color-outline: #e5e0e0;
+            --color-outline-variant: #f0eded;
+            --color-error: #dc2626;
+            --color-success: #16a34a;
 
-            /* Spacing & Radii */
-            --radius-card: 24px;
-            --radius-btn: 18px;
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #7b4dff 0%, #fd6a3c 100%);
+            --gradient-card: linear-gradient(135deg, #efeaff 0%, #ffece6 100%);
+            
+            /* Elevation & Shadows */
+            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.03);
+            --shadow-card: 0 10px 30px rgba(123, 77, 255, 0.08);
+            --shadow-button: 0 8px 25px rgba(123, 77, 255, 0.25);
+            --shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.15);
+
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
             --radius-pill: 9999px;
-            --spacing-margin: 20px;
-
-            /* Transitions */
-            --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        /* Dark Mode Theme Variables */
-        body.dark-theme {
-            --color-bg-canvas: #121118;
-            --color-surface-card: #1c1a24;
-            --color-surface-container-low: #252230;
-            --color-surface-container: #2e2b3b;
-            --color-text-main: #fcf9f8;
-            --color-text-muted: #a6a0b3;
-            --color-outline: #2e2a3b;
-            --color-outline-variant: #3e3a4d;
+        /* Dark Mode Support */
+        body.dark-mode {
+            --color-surface: #121118;
+            --color-surface-container: #1b1924;
+            --color-surface-container-low: #232030;
+            --color-on-surface: #f5f2f9;
+            --color-on-surface-variant: #a29db0;
+            --color-outline: #2e2b3d;
+            --color-outline-variant: #282436;
+            --gradient-card: linear-gradient(135deg, #252038 0%, #30212b 100%);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
         }
 
         * {
@@ -54,387 +63,383 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-bg-canvas);
-            color: var(--color-text-main);
+            font-family: var(--font-family);
+            background-color: var(--color-surface);
+            color: var(--color-on-surface);
             min-height: 100vh;
-            padding-bottom: 96px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0;
+            overflow-x: hidden;
             transition: background-color 0.3s ease, color 0.3s ease;
-            -webkit-font-smoothing: antialiased;
         }
 
+        /* Mobile viewport wrapper */
+        .app-shell {
+            width: 100%;
+            max-width: 430px;
+            min-height: 100vh;
+            background-color: var(--color-surface);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 96px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.05);
+        }
+
+        /* Material Symbols Utility */
         .material-symbols-outlined {
             font-family: 'Material Symbols Outlined';
-            font-weight: normal;
+            font-weight: 400;
+            font-style: normal;
             font-size: 22px;
             line-height: 1;
             display: inline-block;
-            vertical-align: middle;
-            user-select: none;
+            white-space: nowrap;
+            letter-spacing: normal;
+            text-transform: none;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Header Bar */
-        header {
-            position: fixed;
+        /* Header */
+        .top-header {
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 64px;
-            background: rgba(252, 249, 248, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 50;
+            z-index: 40;
+            background-color: rgba(253, 248, 248, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 var(--spacing-margin);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            transition: background 0.3s ease;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            transition: background-color 0.3s ease;
+        }
+        body.dark-mode .top-header {
+            background-color: rgba(18, 17, 24, 0.85);
+            border-bottom-color: rgba(255, 255, 255, 0.05);
         }
 
-        body.dark-theme header {
-            background: rgba(18, 17, 24, 0.85);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--color-on-surface);
         }
 
         .header-btn {
             width: 40px;
             height: 40px;
-            border-radius: 50%;
-            background: var(--color-surface-card);
-            border: 1px solid var(--color-outline);
-            color: var(--color-text-main);
+            border-radius: var(--radius-pill);
+            background: var(--color-surface-container-low);
+            border: 1px solid var(--color-outline-variant);
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--color-on-surface);
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-            transition: var(--transition-smooth);
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-subtle);
         }
-
+        .header-btn:hover {
+            background: var(--color-surface-container);
+        }
         .header-btn:active {
             transform: scale(0.92);
         }
-
-        .header-title {
-            font-size: 17px;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            color: var(--color-text-main);
+        .header-btn.danger-icon {
+            color: var(--color-error);
         }
 
-        /* Main Container */
-        main {
-            padding-top: 80px;
-            padding-left: var(--spacing-margin);
-            padding-right: var(--spacing-margin);
-            max-width: 480px;
-            margin: 0 auto;
+        /* Main Content Container */
+        .main-scroll {
+            padding: 16px 20px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
-        /* Hero Profile Card */
-        .profile-hero-card {
-            background: var(--color-surface-card);
-            border-radius: var(--radius-card);
+        /* Profile Hero Card */
+        .profile-hero {
+            background: var(--gradient-card);
+            border-radius: var(--radius-xl);
             padding: 24px 20px;
-            box-shadow: 0 12px 32px rgba(123, 77, 255, 0.06);
-            border: 1px solid var(--color-outline);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
+        }
+        body.dark-mode .profile-hero {
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .avatar-box {
             position: relative;
-            overflow: hidden;
-            transition: var(--transition-smooth);
+            width: 92px;
+            height: 92px;
+            margin-bottom: 14px;
         }
-
-        .profile-hero-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background: linear-gradient(135deg, rgba(123, 77, 255, 0.15), rgba(255, 107, 61, 0.12));
-            z-index: 0;
-            border-radius: 24px 24px 0 0;
-        }
-
-        .avatar-wrap {
-            position: relative;
-            z-index: 1;
-            width: 88px;
-            height: 88px;
-            border-radius: 50%;
-            margin-top: 10px;
-            margin-bottom: 12px;
-            border: 3.5px solid var(--color-surface-card);
-            box-shadow: 0 8px 24px rgba(123, 77, 255, 0.2);
-            overflow: visible;
-        }
-
-        .avatar-wrap img {
+        .avatar-img {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
+            border-radius: var(--radius-pill);
             object-fit: cover;
-            display: block;
+            border: 3px solid #ffffff;
+            box-shadow: 0 8px 24px rgba(123, 77, 255, 0.2);
         }
-
         .avatar-badge {
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: var(--color-primary-gradient);
+            width: 30px;
+            height: 30px;
+            border-radius: var(--radius-pill);
+            background: var(--gradient-primary);
             color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid var(--color-surface-card);
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            transition: var(--transition-smooth);
         }
-
-        .avatar-badge:hover {
-            transform: scale(1.08);
+        .avatar-badge .material-symbols-outlined {
+            font-size: 16px;
         }
 
         .profile-name {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
-            color: var(--color-text-main);
-            margin-bottom: 3px;
-            z-index: 1;
+            color: var(--color-on-surface);
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
         }
-
         .profile-email {
             font-size: 13px;
-            color: var(--color-text-muted);
-            margin-bottom: 10px;
+            color: var(--color-on-surface-variant);
             font-weight: 500;
-            z-index: 1;
+            margin-bottom: 12px;
         }
 
-        .status-pill {
+        .elite-badge {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            background: rgba(123, 77, 255, 0.1);
+            gap: 6px;
+            background: rgba(123, 77, 255, 0.12);
             color: var(--color-primary);
-            padding: 4px 12px;
+            padding: 6px 14px;
             border-radius: var(--radius-pill);
             font-size: 12px;
             font-weight: 600;
-            z-index: 1;
+            letter-spacing: 0.01em;
+            margin-bottom: 20px;
+        }
+        .elite-badge .material-symbols-outlined {
+            font-size: 16px;
         }
 
-        .profile-hero-actions {
+        .profile-actions-row {
             display: flex;
-            gap: 10px;
+            align-items: center;
+            gap: 12px;
             width: 100%;
-            margin-top: 16px;
-            z-index: 1;
         }
 
         .btn-edit-profile {
             flex: 1;
-            padding: 10px 16px;
-            border-radius: var(--radius-btn);
-            background: var(--color-primary-gradient);
-            color: #ffffff;
+            height: 48px;
+            background: var(--gradient-primary);
+            color: var(--color-on-primary);
             border: none;
-            font-size: 13px;
+            border-radius: var(--radius-pill);
+            font-size: 14px;
             font-weight: 600;
-            cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            box-shadow: 0 6px 18px rgba(123, 77, 255, 0.25);
-            transition: var(--transition-smooth);
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: var(--shadow-button);
+            transition: all 0.2s ease;
         }
-
+        .btn-edit-profile:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
         .btn-edit-profile:active {
             transform: scale(0.97);
         }
 
-        .btn-share-profile {
-            width: 42px;
-            height: 42px;
-            border-radius: var(--radius-btn);
+        .btn-theme-toggle {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-pill);
             background: var(--color-surface-container-low);
-            border: 1px solid var(--color-outline);
-            color: var(--color-text-main);
+            border: 1px solid var(--color-outline-variant);
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--color-on-surface);
             cursor: pointer;
-            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.2s ease;
+        }
+        .btn-theme-toggle:active {
+            transform: scale(0.92);
         }
 
-        .btn-share-profile:active {
-            transform: scale(0.93);
-        }
-
-        /* SPA Segmented Navigation Tabs */
-        .spa-nav-tabs {
+        /* Navigation Tab Pills */
+        .tabs-pill-nav {
             display: flex;
             background: var(--color-surface-container-low);
-            border-radius: 16px;
-            padding: 4px;
-            gap: 4px;
+            padding: 5px;
+            border-radius: var(--radius-pill);
             border: 1px solid var(--color-outline);
+            box-shadow: var(--shadow-subtle);
+            gap: 4px;
         }
 
-        .spa-tab-btn {
+        .tab-btn {
             flex: 1;
-            padding: 8px 4px;
-            border-radius: 12px;
+            height: 42px;
+            border-radius: var(--radius-pill);
             border: none;
             background: transparent;
             font-size: 13px;
             font-weight: 600;
-            color: var(--color-text-muted);
-            cursor: pointer;
-            transition: var(--transition-smooth);
+            color: var(--color-on-surface-variant);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
+            cursor: pointer;
+            transition: all 0.25s ease;
         }
-
-        .spa-tab-btn.active {
-            background: var(--color-surface-card);
+        .tab-btn .material-symbols-outlined {
+            font-size: 18px;
+        }
+        .tab-btn.active {
+            background: var(--color-surface);
             color: var(--color-primary);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        }
+        body.dark-mode .tab-btn.active {
+            background: var(--color-surface-container);
+            color: #b595ff;
         }
 
-        /* SPA Tab Content Panels */
-        .tab-panel {
+        /* Content Sections (SPA Tabs) */
+        .spa-tab-content {
             display: none;
             flex-direction: column;
             gap: 16px;
-            animation: fadeInTab 0.25s ease forwards;
+            animation: tabFadeIn 0.3s ease-out;
         }
-
-        .tab-panel.active {
+        .spa-tab-content.active {
             display: flex;
         }
 
-        @keyframes fadeInTab {
+        @keyframes tabFadeIn {
             from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Section Headings */
-        .section-label {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--color-text-muted);
-            margin-left: 6px;
-            margin-bottom: -6px;
-        }
-
-        /* Settings Card & List Group */
-        .settings-card {
-            background: var(--color-surface-card);
-            border-radius: var(--radius-card);
-            padding: 6px 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
-            border: 1px solid var(--color-outline);
+        /* Card Panels */
+        .panel-card {
+            background: var(--color-surface-container-low);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-outline-variant);
+            padding: 18px 16px;
+            box-shadow: var(--shadow-subtle);
             display: flex;
             flex-direction: column;
+            gap: 14px;
         }
 
-        .settings-item {
+        .panel-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 4px;
-            border-bottom: 1px solid var(--color-outline);
-            cursor: pointer;
-            transition: background 0.15s ease;
         }
-
-        .settings-item:last-child {
-            border-bottom: none;
-        }
-
-        .settings-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .settings-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            background: var(--color-surface-container-low);
-            color: var(--color-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 18px;
-        }
-
-        .settings-text {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .settings-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--color-text-main);
-        }
-
-        .settings-subtitle {
-            font-size: 12px;
-            color: var(--color-text-muted);
-            font-weight: 400;
-        }
-
-        .settings-right {
+        .panel-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--color-on-surface);
             display: flex;
             align-items: center;
             gap: 8px;
         }
-
-        .value-badge {
-            font-size: 13px;
-            font-weight: 600;
+        .panel-title .material-symbols-outlined {
             color: var(--color-primary);
-            background: rgba(123, 77, 255, 0.08);
-            padding: 3px 10px;
-            border-radius: 8px;
+            font-size: 20px;
         }
 
-        /* Toggle Switch UI */
+        /* List Items */
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--color-outline-variant);
+            cursor: pointer;
+        }
+        .setting-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .setting-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .setting-icon-box {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--color-surface-container);
+            color: var(--color-on-surface-variant);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .setting-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-on-surface);
+        }
+        .setting-subtext {
+            font-size: 12px;
+            color: var(--color-on-surface-variant);
+            margin-top: 1px;
+        }
+        .setting-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--color-on-surface-variant);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Toggle Switch */
         .switch {
             position: relative;
             display: inline-block;
-            width: 46px;
-            height: 26px;
+            width: 44px;
+            height: 24px;
         }
-
         .switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
-
         .slider {
             position: absolute;
             cursor: pointer;
@@ -442,806 +447,765 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: var(--color-surface-container);
-            border: 1px solid var(--color-outline);
+            background-color: var(--color-outline);
             transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 34px;
         }
-
         .slider:before {
             position: absolute;
             content: "";
-            height: 20px;
-            width: 20px;
-            left: 2px;
-            bottom: 2px;
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
             background-color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
             transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-
         input:checked + .slider {
-            background: var(--color-primary-gradient);
-            border-color: transparent;
+            background-color: var(--color-primary);
         }
-
         input:checked + .slider:before {
             transform: translateX(20px);
         }
 
-        /* Financial Snapshot Overview Mini-Cards */
-        .stats-mini-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+        /* Sign Out Bottom Button */
+        .signout-container {
+            margin-top: 10px;
         }
-
-        .stat-mini-card {
-            background: var(--color-surface-card);
-            border: 1px solid var(--color-outline);
-            border-radius: 18px;
-            padding: 12px 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-        }
-
-        .stat-mini-card .stat-val {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--color-text-main);
-        }
-
-        .stat-mini-card .stat-desc {
-            font-size: 11px;
-            color: var(--color-text-muted);
-            font-weight: 500;
-        }
-
-        /* Connected Bank Cards Preview List */
-        .card-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--color-outline);
-        }
-
-        .card-row:last-child { border-bottom: none; }
-
-        .card-chip-tag {
-            width: 36px;
-            height: 24px;
-            border-radius: 6px;
-            background: linear-gradient(135deg, #1e293b, #334155);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .card-chip-gold {
-            background: linear-gradient(135deg, #d4af37, #f5e396);
-            color: #1a1a1a;
-        }
-
-        /* Logout and Danger Zone */
-        .logout-btn-card {
-            background: var(--color-surface-card);
-            border: 1px solid rgba(186, 26, 26, 0.2);
-            border-radius: var(--radius-card);
-            padding: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: var(--color-error);
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(186, 26, 26, 0.05);
-            transition: var(--transition-smooth);
-        }
-
-        .logout-btn-card:active {
-            transform: scale(0.98);
-            background: rgba(186, 26, 26, 0.06);
-        }
-
-        .app-version-meta {
-            text-align: center;
-            font-size: 11px;
-            color: var(--color-text-muted);
-            margin-top: 4px;
-            margin-bottom: 12px;
-            letter-spacing: 0.03em;
-        }
-
-        /* Interactive Modal Bottom Sheet for Edit Profile & Currency */
-        .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(4px);
-            z-index: 100;
-            display: none;
-            align-items: flex-end;
-            justify-content: center;
-            animation: fadeInOverlay 0.2s ease forwards;
-        }
-
-        .modal-sheet {
-            background: var(--color-surface-card);
+        .btn-signout {
             width: 100%;
-            max-width: 480px;
-            border-radius: 28px 28px 0 0;
-            padding: 24px var(--spacing-margin) calc(24px + env(safe-area-inset-bottom));
-            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            animation: slideUpSheet 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes slideUpSheet {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        @keyframes fadeInOverlay {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .sheet-handle {
-            width: 36px;
-            height: 4px;
-            background: var(--color-outline-variant);
-            border-radius: 2px;
-            align-self: center;
-            margin-bottom: 4px;
-        }
-
-        .sheet-input {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 14px;
-            border: 1px solid var(--color-outline);
+            height: 52px;
+            border-radius: var(--radius-pill);
             background: var(--color-surface-container-low);
-            color: var(--color-text-main);
-            font-size: 14px;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .sheet-input:focus {
-            border-color: var(--color-primary);
-        }
-
-        .btn-sheet-submit {
-            width: 100%;
-            padding: 14px;
-            border-radius: var(--radius-btn);
-            background: var(--color-primary-gradient);
-            color: #ffffff;
-            font-weight: 700;
+            border: 1.5px solid rgba(220, 38, 38, 0.35);
+            color: var(--color-error);
             font-size: 15px;
-            border: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             cursor: pointer;
-            box-shadow: 0 8px 24px rgba(123, 77, 255, 0.25);
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.2s ease;
+        }
+        .btn-signout:hover {
+            background: rgba(220, 38, 38, 0.05);
+            border-color: var(--color-error);
+        }
+        .btn-signout:active {
+            transform: scale(0.98);
+        }
+        .btn-signout .material-symbols-outlined {
+            font-size: 20px;
         }
 
-        /* Bottom Navigation Bar (Synchronized with App Baseline) */
-        nav.bottom-nav {
-            background-color: rgba(252, 249, 248, 0.88);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+        /* Persistent Bottom Navigation */
+        .bottom-nav {
             position: fixed;
             bottom: 0;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 100%;
-            height: 72px;
+            max-width: 430px;
+            height: 76px;
+            background: rgba(253, 248, 248, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 0 16px;
+            padding: 0 10px;
             padding-bottom: env(safe-area-inset-bottom);
-            border-top: 1px solid var(--color-outline);
             z-index: 50;
-            box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.04);
-            transition: background-color 0.3s ease;
+        }
+        body.dark-mode .bottom-nav {
+            background: rgba(18, 17, 24, 0.9);
+            border-top-color: rgba(255, 255, 255, 0.06);
         }
 
-        body.dark-theme nav.bottom-nav {
-            background-color: rgba(18, 17, 24, 0.9);
-            box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-item {
+        .nav-link {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--color-text-muted);
-            border: none;
             background: none;
+            border: none;
+            color: var(--color-on-surface-variant);
             cursor: pointer;
-            font-size: 11px;
-            font-weight: 500;
             gap: 4px;
-            transition: opacity 0.2s, transform 0.2s, color 0.2s;
+            transition: color 0.2s ease;
+            width: 60px;
         }
-
-        .nav-item.active {
+        .nav-link .nav-text {
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .nav-link.active {
             color: var(--color-primary);
-            font-weight: 700;
+        }
+        body.dark-mode .nav-link.active {
+            color: #b595ff;
         }
 
-        .nav-item:active {
-            transform: scale(0.92);
-        }
-
-        .fab-add {
+        /* Center Elevated FAB */
+        .fab-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-pill);
+            background: var(--gradient-primary);
+            border: none;
+            color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--color-primary-gradient);
-            color: #ffffff;
-            border-radius: 50%;
-            transform: translateY(-22px);
-            width: 54px;
-            height: 54px;
-            box-shadow: 0px 14px 28px rgba(123, 77, 255, 0.35);
-            border: none;
+            margin-top: -24px;
+            box-shadow: 0 12px 28px rgba(123, 77, 255, 0.35);
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .fab-btn:active {
+            transform: scale(0.9);
+        }
+        .fab-btn .material-symbols-outlined {
+            font-size: 26px;
         }
 
-        .fab-add:active {
-            transform: translateY(-22px) scale(0.9);
+        /* Confirmation Dialog Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        /* Toast Feedback */
-        .toast-msg {
+        .modal-sheet {
+            width: 100%;
+            max-width: 430px;
+            background: var(--color-surface-container-low);
+            border-radius: 28px 28px 0 0;
+            padding: 24px 24px 36px 24px;
+            box-shadow: var(--shadow-modal);
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .modal-overlay.active .modal-sheet {
+            transform: translateY(0);
+        }
+
+        .modal-drag-pill {
+            width: 44px;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--color-outline);
+            margin-bottom: 20px;
+        }
+
+        .modal-icon-badge {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-pill);
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--color-error);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .modal-icon-badge .material-symbols-outlined {
+            font-size: 30px;
+        }
+
+        .modal-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--color-on-surface);
+            margin-bottom: 8px;
+        }
+
+        .modal-message {
+            font-size: 14px;
+            line-height: 20px;
+            color: var(--color-on-surface-variant);
+            margin-bottom: 24px;
+            padding: 0 8px;
+        }
+
+        .modal-buttons-col {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .btn-confirm-signout {
+            width: 100%;
+            height: 50px;
+            border-radius: var(--radius-pill);
+            background: var(--color-error);
+            color: #ffffff;
+            border: none;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.25);
+            transition: transform 0.15s ease, opacity 0.2s ease;
+        }
+        .btn-confirm-signout:active {
+            transform: scale(0.97);
+        }
+
+        .btn-cancel-modal {
+            width: 100%;
+            height: 50px;
+            border-radius: var(--radius-pill);
+            background: var(--color-surface-container);
+            color: var(--color-on-surface);
+            border: 1px solid var(--color-outline-variant);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .btn-cancel-modal:active {
+            transform: scale(0.97);
+        }
+
+        /* Feedback Toast */
+        .toast-notification {
             position: fixed;
             top: 76px;
             left: 50%;
             transform: translateX(-50%) translateY(-20px);
             background: #1c1b1b;
             color: #ffffff;
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: var(--radius-pill);
             font-size: 13px;
-            font-weight: 600;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-            z-index: 150;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition-smooth);
+            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 8px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 110;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         }
-
-        .toast-msg.show {
+        .toast-notification.show {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
+        .toast-notification .material-symbols-outlined {
+            color: #4ade80;
+            font-size: 18px;
+        }
     </style>
 </head>
-<body class="">
-<!-- Header Navigation -->
-<header>
-<button class="header-btn" onclick="history.back()" title="Back">
+<body class="dark-mode">
+<div class="app-shell">
+<!-- Top App Header -->
+<header class="top-header">
+<button aria-label="Go Back" class="header-btn" id="btn-back" title="Back">
 <span class="material-symbols-outlined">arrow_back</span>
 </button>
 <h1 class="header-title">Profile &amp; Settings</h1>
-
-<button onclick="document.getElementById('logout-confirm-modal').style.display='flex'" title="Sign Out" style="background: transparent; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; outline: none; padding: 8px; border-radius: 8px; color: var(--color-error); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s, background-color 0.2s;" onmouseover="this.style.backgroundColor='rgba(186, 26, 26, 0.08)'" onmouseout="this.style.backgroundColor='transparent'" class=""><span class="material-symbols-outlined" style="font-size: 24px;">logout</span></button></header>
-<!-- Main Content Container (SPA Architecture) -->
-<main>
-<!-- Top Profile Summary Hero -->
-<section class="profile-hero-card">
-<div class="avatar-wrap">
-<img alt="Bhanu Teja" id="profile-avatar-img" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg" class="">
-<div class="avatar-badge" onclick="triggerAvatarChange()" title="Change Profile Picture">
-<span class="material-symbols-outlined" style="font-size: 16px;">photo_camera</span>
+<button aria-label="Sign Out" class="header-btn danger-icon" id="btn-header-signout" title="Sign Out">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="main-scroll">
+<!-- Hero Section -->
+<section class="profile-hero">
+<div class="avatar-box">
+<img alt="CM Bhanuteja" class="avatar-img" loading="lazy" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg">
+<button aria-label="Change photo" class="avatar-badge" id="btn-change-avatar" title="Change Avatar">
+<span class="material-symbols-outlined">photo_camera</span>
+</button>
 </div>
-</div>
-<h2 class="profile-name" id="user-display-name">CM Bhanuteja</h2>
-<p class="profile-email" id="user-display-email">bhanu.teja@smartfinance.in</p>
-<div class="status-pill">
-<span class="material-symbols-outlined" style="font-size: 15px; color: var(--color-primary);">verified</span>
+<h2 class="profile-name">CM Bhanuteja</h2>
+<p class="profile-email">bhanu.teja@smartfinance.in</p>
+<div class="elite-badge">
+<span class="material-symbols-outlined">verified</span>
 <span class="">Verified Elite Member</span>
 </div>
-<div class="profile-hero-actions">
-<button class="btn-edit-profile" onclick="openEditProfileModal()">
-<span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+<div class="profile-actions-row">
+<button class="btn-edit-profile" id="btn-edit-profile">
+<span class="material-symbols-outlined">edit</span>
 <span class="">Edit Profile</span>
 </button>
-<button class="btn-share-profile" onclick="var t=document.getElementById('dark-mode-toggle'); if(t){t.checked=!t.checked;} var isDark=document.body.classList.toggle('dark-theme'); document.getElementById('quick-theme-icon').textContent=isDark?'light_mode':'dark_mode';" title="Toggle Dark/Light Mode">
-<span class="material-symbols-outlined" id="quick-theme-icon">dark_mode</span>
-</button>
+
 </div>
 </section>
-<!-- Financial Summary Snapshot -->
-
-<!-- SPA Tab Switcher Controls -->
-<div class="spa-nav-tabs">
-<button class="spa-tab-btn" id="tab-btn-account" onclick="switchSpaTab('account')">
-<span class="material-symbols-outlined" style="font-size: 18px;">person</span>
+<!-- Segmented Tab Navigation -->
+<nav aria-label="Settings Categories" class="tabs-pill-nav">
+<button class="tab-btn" data-tab="account">
+<span class="material-symbols-outlined">person</span>
 <span class="">Account</span>
 </button>
-<button class="spa-tab-btn" id="tab-btn-pref" onclick="switchSpaTab('preferences')">
-<span class="material-symbols-outlined" style="font-size: 18px;">tune</span>
+<button class="tab-btn active" data-tab="preferences">
+<span class="material-symbols-outlined">tune</span>
 <span class="">Preferences</span>
 </button>
-<button class="spa-tab-btn active" id="tab-btn-sec" onclick="switchSpaTab('security')">
-<span class="material-symbols-outlined" style="font-size: 18px;">shield</span>
+<button class="tab-btn" data-tab="security">
+<span class="material-symbols-outlined">shield</span>
 <span class="">Security</span>
 </button>
+</nav>
+<!-- TAB 1: Account (Default) -->
+<section class="spa-tab-content" id="tab-account">
+<div class="panel-card">
+<div class="panel-header">
+<h3 class="panel-title">
+<span class="material-symbols-outlined">badge</span>
+<span class="">Personal Information</span>
+</h3>
 </div>
-<!-- TAB 1: ACCOUNT & FINANCE PANEL -->
-<div class="tab-panel" id="panel-account">
-<span class="section-label">Payment Cards &amp; Accounts</span>
-<div class="settings-card">
-<div class="card-row">
-<div class="settings-left">
-<div class="card-chip-tag card-chip-gold">GOLD</div>
-<div class="settings-text">
-<span class="settings-title">Smart Finance Premier Card</span>
-<span class="settings-subtitle">•••• 12,300 • Expires 09/26</span>
-</div>
-</div>
-<span class="material-symbols-outlined text-muted" style="font-size: 18px; color: var(--color-text-muted);">chevron_right</span>
-</div>
-
-</div>
-<span class="section-label">Personal Information</span>
-<div class="settings-card">
-<div class="settings-item" onclick="openEditProfileModal()">
-<div class="settings-left">
-<div class="settings-icon"><i class="fa-regular fa-user"></i></div>
-<div class="settings-text">
-<span class="settings-title">Full Name</span>
-<span class="settings-subtitle" id="item-sub-name">CM Bhanuteja</span>
+<div class="setting-row" onclick="showToast('Name editing modal opened')">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">account_circle</span></div>
+<div>
+<div class="setting-label">Full Name</div>
+<div class="setting-subtext">CM Bhanuteja</div>
 </div>
 </div>
-<div class="settings-right">
-<span class="material-symbols-outlined" style="color: var(--color-text-muted);">chevron_right</span>
+<div class="setting-right">
+<span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
-<div class="settings-item" onclick="showToast('Phone updated &amp; verified')">
-<div class="settings-left">
-<div class="settings-icon"><i class="fa-solid fa-phone"></i></div>
-<div class="settings-text">
-<span class="settings-title">Mobile Number</span>
-<span class="settings-subtitle">+91 98765 43210</span>
+<div class="setting-row" onclick="showToast('Phone updated')">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">call</span></div>
+<div>
+<div class="setting-label">Phone Number</div>
+<div class="setting-subtext">+91 98765 43210</div>
 </div>
 </div>
-<div class="settings-right">
-<span class="value-badge" style="color: var(--color-success); background: rgba(16, 185, 129, 0.1);">Verified</span>
+<div class="setting-right">
+<span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
-<div class="settings-item" onclick="openEditProfileModal()">
-<div class="settings-left">
-<div class="settings-icon"><i class="fa-regular fa-envelope"></i></div>
-<div class="settings-text">
-<span class="settings-title">Email Address</span>
-<span class="settings-subtitle" id="item-sub-email">bhanu.teja@smartfinance.in</span>
+<div class="setting-row" onclick="showToast('KYC Verification is Complete')">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">verified_user</span></div>
+<div>
+<div class="setting-label">KYC Verification</div>
+<div class="setting-subtext">Aadhaar &amp; PAN Linked</div>
 </div>
 </div>
-<div class="settings-right">
-<span class="material-symbols-outlined" style="color: var(--color-text-muted);">chevron_right</span>
+<div class="setting-right">
+<span style="color: var(--color-success); font-weight: 600; font-size: 12px;" class="">Active</span>
 </div>
 </div>
 </div>
-<span class="section-label">Data &amp; Backup</span>
-<div class="settings-card">
-<div class="settings-item" onclick="showToast('Exporting transaction statement to PDF...')">
-<div class="settings-left">
-<div class="settings-icon"><i class="fa-solid fa-file-arrow-down"></i></div>
-<div class="settings-text">
-<span class="settings-title">Export Transactions</span>
-<span class="settings-subtitle">Download CSV or encrypted PDF</span>
+<div class="panel-card">
+<div class="panel-header">
+<h3 class="panel-title">
+<span class="material-symbols-outlined">credit_card</span>
+<span class="">Linked Payment Methods</span>
+</h3>
+</div>
+<div class="setting-row" onclick="showToast('Smart Premier Card Selected')">
+<div class="setting-left">
+<div class="setting-icon-box" style="color:#eab308;"><span class="material-symbols-outlined">credit_card</span></div>
+<div>
+<div class="setting-label">Mastercard Gold •••• 12,300</div>
+<div class="setting-subtext">Expires 31/08/26</div>
 </div>
 </div>
-<div class="settings-right">
-<span class="material-symbols-outlined" style="color: var(--color-text-muted);">download</span>
+<div class="setting-right">
+<span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
-<div class="settings-item" onclick="showToast('Sync completed with Cloud Storage')">
-<div class="settings-left">
-<div class="settings-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-<div class="settings-text">
-<span class="settings-title">Cloud Backup &amp; Sync</span>
-<span class="settings-subtitle">Last synchronized today, 10:30 AM</span>
+<div class="setting-row" onclick="showToast('UPI ID copied')">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">account_balance</span></div>
+<div>
+<div class="setting-label">UPI ID</div>
+<div class="setting-subtext">bhanu@okhdfcbank</div>
 </div>
 </div>
-<div class="settings-right">
-<span class="value-badge">Auto</span>
+<div class="setting-right">
+<span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
 </div>
+<div class="panel-card">
+<div class="panel-header">
+<h3 class="panel-title">
+<span class="material-symbols-outlined">cloud_sync</span>
+<span class="">Data &amp; Backup</span>
+</h3>
 </div>
-<!-- TAB 2: PREFERENCES PANEL -->
-<div class="tab-panel" id="panel-preferences">
-<span class="section-label">Localization &amp; Display</span>
-<div class="settings-card">
-<div class="settings-item">
-<div class="settings-left">
-<div class="settings-icon"><i class="fa-solid fa-moon"></i></div>
-<div class="settings-text">
-<span class="settings-title">Dark Mode</span>
-<span class="settings-subtitle">Adjust UI for low-light environments</span>
-</div>
-</div>
-<div class="settings-right">
-<label class="switch" for="dark-mode-toggle" style="display: inline-block; position: relative; width: 46px; height: 26px; cursor: pointer;"><input id="dark-mode-toggle" onchange="handleThemeToggle(this)" type="checkbox" aria-label="Toggle dark mode" style="width: 0px; height: 0px; position: absolute;" onclick="if(this.checked){document.body.classList.add('dark-theme');document.getElementById('quick-theme-icon').textContent='light_mode';}else{document.body.classList.remove('dark-theme');document.getElementById('quick-theme-icon').textContent='dark_mode';}" data-stitch-orig-opacity="0" class=""><span class="slider"></span></label>
+<div class="setting-row" onclick="showToast('Exporting July &amp; August report...')">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">download</span></div>
+<div>
+<div class="setting-label">Export Statement</div>
+<div class="setting-subtext">Excel &amp; PDF financial sheets</div>
 </div>
 </div>
-<div class="settings-item" onclick="openCurrencyModal()">
-<div class="settings-left">
-<div class="settings-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
-<div class="settings-text">
-<span class="settings-title">Display Currency</span>
-<span class="settings-subtitle">Default symbol across charts</span>
+<div class="setting-right">
+<span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
-<div class="settings-right">
-<span class="value-badge" id="current-currency-tag">EUR (€)</span>
-<span class="material-symbols-outlined" style="color: var(--color-text-muted);">chevron_right</span>
+</div>
+</section>
+<!-- TAB 2: Preferences -->
+<section class="spa-tab-content active" id="tab-preferences">
+<div class="panel-card">
+<div class="panel-header">
+<h3 class="panel-title">
+<span class="material-symbols-outlined">palette</span>
+<span class="">App Experience</span>
+</h3>
+</div>
+<div class="setting-row">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">currency_rupee</span></div>
+<div>
+<div class="setting-label">Primary Currency</div>
+<div class="setting-subtext">INR (₹ Indian Rupee)</div>
 </div>
 </div>
-<div class="settings-item" style="cursor: default;"><div class="settings-left"><div class="settings-icon"><i class="fa-solid fa-language"></i></div><div class="settings-text"><span class="settings-title">App Language</span><span class="settings-subtitle">Fixed language for Smart Finance</span></div></div><div class="settings-right" style="gap: 6px;"><span class="value-badge">English (India)</span><span class="value-badge" style="background: var(--color-surface-container-low); color: var(--color-text-muted); font-size: 11px; display: inline-flex; align-items: center; gap: 3px;"><span class="material-symbols-outlined" style="font-size: 13px;">lock</span>Default</span></div></div>
-</div>
-<span class="section-label">Alerts &amp; Notifications</span>
-<div class="settings-card">
-<div class="settings-item">
-<div class="settings-left" onclick="openThresholdModal()">
-<div class="settings-icon"><i class="fa-solid fa-bell"></i></div>
-<div class="settings-text">
-<span class="settings-title">Daily Spend Threshold Alerts</span>
-<span class="settings-subtitle" id="threshold-alert-subtitle">Notify when day expenses cross ₹500</span>
+<div class="setting-right">
+<span style="font-weight: 600;" class="">₹ INR</span>
 </div>
 </div>
-<div class="settings-right">
-<label class="switch" style="cursor: pointer; display: inline-block; position: relative; width: 46px; height: 26px;">
-<input id="threshold-toggle-input" checked="" onchange="handleThresholdToggle(this)" type="checkbox">
+<div class="setting-row">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">notifications</span></div>
+<div>
+<div class="setting-label">Spending Alerts</div>
+<div class="setting-subtext">Push notifications on daily limit</div>
+</div>
+</div>
+<label class="switch">
+<input checked="" onchange="showToast('Notification preference updated')" type="checkbox">
+<span class="slider"></span>
+</label>
+</div>
+<div class="setting-row">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">visibility_off</span></div>
+<div>
+<div class="setting-label">Hide Balance on Launch</div>
+<div class="setting-subtext">Keep available funds blurred</div>
+</div>
+</div>
+<label class="switch">
+<input checked="" onchange="showToast('Balance privacy setting saved')" type="checkbox">
 <span class="slider"></span>
 </label>
 </div>
 </div>
-<div class="settings-item">
-<div class="settings-left">
-<div class="settings-icon"><i class="fa-solid fa-receipt"></i></div>
-<div class="settings-text">
-<span class="settings-title">Auto Bill-Scan Notifications</span>
-<span class="settings-subtitle">Prompt item review when receipt detected</span>
+<div class="panel-card">
+<div class="panel-header">
+<h3 class="panel-title">
+<span class="material-symbols-outlined">language</span>
+<span class="">Localization</span>
+</h3>
+</div>
+<div class="setting-row" onclick="showToast('Language: English (India)')">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">translate</span></div>
+<div>
+<div class="setting-label">Language</div>
+<div class="setting-subtext">English (India)</div>
 </div>
 </div>
-<div class="settings-right">
-<label class="switch" style="cursor: pointer; display: inline-block; position: relative; width: 46px; height: 26px;">
-<input checked="" onchange="showToast('Receipt scanner alerts active')" type="checkbox">
-<span class="slider"></span>
-</label>
+<div class="setting-right">
+<span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
 </div>
+</section>
+<!-- TAB 3: Security -->
+<section class="spa-tab-content" id="tab-security">
+<div class="panel-card">
+<div class="panel-header">
+<h3 class="panel-title">
+<span class="material-symbols-outlined">security</span>
+<span class="">Account Security</span>
+</h3>
 </div>
-<!-- TAB 3: SECURITY & PRIVACY PANEL -->
-<div class="tab-panel active" id="panel-security">
-<span class="section-label">Account Security</span>
-<div class="settings-card">
-<div class="settings-item">
-<div class="settings-left">
-<div class="settings-icon"><i class="fa-solid fa-fingerprint"></i></div>
-<div class="settings-text">
-<span class="settings-title">Biometric / Face ID Unlock</span>
-<span class="settings-subtitle">Require authentication to open app</span>
+<div class="setting-row">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">fingerprint</span></div>
+<div>
+<div class="setting-label">Biometric App Lock</div>
+<div class="setting-subtext">Face ID / Fingerprint required</div>
 </div>
 </div>
-<div class="settings-right">
 <label class="switch">
 <input checked="" onchange="showToast('Biometric lock enabled')" type="checkbox">
 <span class="slider"></span>
 </label>
 </div>
-</div>
-<div class="settings-item" onclick="showToast('Redirecting to 6-digit PIN reset...')">
-<div class="settings-left">
-<div class="settings-icon"><i class="fa-solid fa-key"></i></div>
-<div class="settings-text">
-<span class="settings-title">Change 6-Digit App PIN</span>
-<span class="settings-subtitle">Last modified 30 days ago</span>
-</div>
-</div>
-<div class="settings-right">
-<span class="material-symbols-outlined" style="color: var(--color-text-muted);">chevron_right</span>
+<div class="setting-row" onclick="showToast('PIN change prompt triggered')">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">pin</span></div>
+<div>
+<div class="setting-label">Change App PIN</div>
+<div class="setting-subtext">Last modified 2 months ago</div>
 </div>
 </div>
-<div class="settings-item" onclick="showToast('Two-Factor Authentication is active')">
-<div class="settings-left">
-<div class="settings-icon"><i class="fa-solid fa-shield-halved"></i></div>
-<div class="settings-text">
-<span class="settings-title">Two-Factor Authentication</span>
-<span class="settings-subtitle">SMS &amp; Authenticator verification</span>
+<div class="setting-right">
+<span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
-<div class="settings-right">
-<span class="value-badge" style="color: var(--color-success); background: rgba(16, 185, 129, 0.1);">Enabled</span>
+<div class="setting-row" onclick="showToast('Password updated')">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">key</span></div>
+<div>
+<div class="setting-label">Change Password</div>
+<div class="setting-subtext">Secured with 12 characters</div>
+</div>
+</div>
+<div class="setting-right">
+<span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
 </div>
-
-
+<div class="panel-card">
+<div class="panel-header">
+<h3 class="panel-title">
+<span class="material-symbols-outlined">devices</span>
+<span class="">Active Login Sessions</span>
+</h3>
 </div>
-<!-- Logout Action Button -->
-<div class="logout-btn-card" onclick="handleLogout()">
+<div class="setting-row">
+<div class="setting-left">
+<div class="setting-icon-box" style="color:var(--color-primary);"><span class="material-symbols-outlined">smartphone</span></div>
+<div>
+<div class="setting-label">iPhone 15 Pro (Current)</div>
+<div class="setting-subtext">Hyderabad, IN • Today, 15 Sep 2026</div>
+</div>
+</div>
+<span style="color: var(--color-success); font-weight: 700; font-size: 11px;" class="">Active</span>
+</div>
+<div class="setting-row">
+<div class="setting-left">
+<div class="setting-icon-box"><span class="material-symbols-outlined">laptop_mac</span></div>
+<div>
+<div class="setting-label">MacBook Pro M3</div>
+<div class="setting-subtext">Bengaluru, IN • 14 Sep 2026</div>
+</div>
+</div>
+<button onclick="showToast('Logged out of MacBook Pro')" style="background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; color: var(--color-error); font-size: 12px; font-weight: 600; cursor: pointer;" class="">Revoke</button>
+</div>
+</div>
+</section>
+<!-- Sign Out Primary Trigger -->
+<div class="signout-container">
+<button class="btn-signout" id="btn-signout-trigger">
 <span class="material-symbols-outlined">logout</span>
 <span class="">Sign Out of Smart Finance</span>
+</button>
 </div>
-<p class="app-version-meta">Smart Finance Tracker v2.6.4 (Build 2026.09.12) • Designed for India</p>
 </main>
-<!-- Bottom Navigation Bar (Synchronized) -->
+<!-- Persistent Bottom Navigation Bar -->
 <nav class="bottom-nav">
-<button class="nav-item" onclick="navigateTo('home')">
+<button class="nav-link" id="nav-home" onclick="showToast('Navigating to Home...')">
 <span class="material-symbols-outlined">home</span>
-<span class="">Home</span>
+<span class="nav-text">Home</span>
 </button>
-<button class="nav-item" onclick="navigateTo('budget')">
+<button class="nav-link" id="nav-budget" onclick="showToast('Navigating to Budget...')">
 <span class="material-symbols-outlined">account_balance_wallet</span>
-<span class="">Budget</span>
+<span class="nav-text">Budget</span>
 </button>
-<button class="fab-add" onclick="navigateTo('add')" title="Add New Expense">
-<span class="material-symbols-outlined" style="font-size: 28px;">add</span>
+<!-- Center Floating Action Button -->
+<button class="fab-btn" id="btn-add-expense" onclick="showToast('Opening Add Expense form...')" title="Add Expense">
+<span class="material-symbols-outlined">add</span>
 </button>
-<button class="nav-item" onclick="navigateTo('stats')">
+<button class="nav-link" id="nav-stats" onclick="showToast('Navigating to Stats &amp; Analytics...')">
 <span class="material-symbols-outlined">leaderboard</span>
-<span class="">Stats</span>
+<span class="nav-text">Stats</span>
 </button>
-<button class="nav-item active" onclick="navigateTo('profile')">
-<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">person</span>
-<span class="">Profile</span>
+<button class="nav-link active" id="nav-profile" onclick="showToast('You are on Profile &amp; Settings')">
+<span class="material-symbols-outlined">person</span>
+<span class="nav-text">Profile</span>
 </button>
 </nav>
-<!-- Interactive Edit Profile Bottom Sheet Modal -->
-<div class="modal-backdrop" id="edit-profile-modal" onclick="closeModalOnBackdrop(event, 'edit-profile-modal')" style="display: none;">
+</div>
+<!-- Modal Confirmation Dialog -->
+<div aria-labelledby="modal-heading" aria-modal="true" class="modal-overlay" id="signout-modal" role="dialog">
 <div class="modal-sheet">
-<div class="sheet-handle"></div>
-<div style="display:flex; justify-content:space-between; align-items:center;">
-<h3 style="font-size: 18px; font-weight: 700;" class="">Edit Profile Details</h3>
-<button class="header-btn" onclick="closeModal('edit-profile-modal')" style="width: 32px; height: 32px;">
-<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
-</button>
+<div class="modal-drag-pill"></div>
+<div class="modal-icon-badge">
+<span class="material-symbols-outlined">logout</span>
 </div>
-<div style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px;">
-<div>
-<label style="font-size: 12px; font-weight: 600; color: var(--color-text-muted); margin-bottom: 4px; display: block;" class="">Full Name</label>
-<input class="sheet-input" id="input-edit-name" type="text" value="CM Bhanuteja">
-</div>
-<div>
-<label style="font-size: 12px; font-weight: 600; color: var(--color-text-muted); margin-bottom: 4px; display: block;" class="">Email Address</label>
-<input class="sheet-input" id="input-edit-email" type="email" value="bhanu.teja@smartfinance.in">
-</div>
-</div>
-<button class="btn-sheet-submit" onclick="saveProfileChanges()">Save Profile Updates</button>
-</div>
-</div>
-<!-- Currency Selection Modal -->
-<div class="modal-backdrop" id="currency-modal" onclick="closeModalOnBackdrop(event, 'currency-modal')" style="display: none;">
-<div class="modal-sheet">
-<div class="sheet-handle"></div>
-<div style="display:flex; justify-content:space-between; align-items:center;">
-<h3 style="font-size: 18px; font-weight: 700;" class="">Select Currency</h3>
-<button class="header-btn" onclick="closeModal('currency-modal')" style="width: 32px; height: 32px;">
-<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
-</button>
-</div>
-<div class="settings-card" style="margin-top: 4px;"><div class="settings-item" onclick="setCurrency('INR (₹)')"><div class="settings-left"><span class="material-symbols-outlined" style="color: var(--color-primary);">currency_rupee</span><span class="settings-title">Indian Rupee (₹) - Default</span></div><span class="value-badge">Active</span></div><div class="settings-item" style="cursor: not-allowed; pointer-events: none;" data-stitch-orig-opacity="0.5"><div class="settings-left"><span class="material-symbols-outlined">attach_money</span><span class="settings-title">US Dollar ($)</span></div><span class="value-badge" style="background: rgba(0, 0, 0, 0.05); color: var(--color-text-muted);">Coming Soon</span></div></div>
-</div>
-</div><div class="modal-backdrop" id="threshold-modal" onclick="closeModalOnBackdrop(event, 'threshold-modal')" style="display: none;">
-<div class="modal-sheet">
-<div class="sheet-handle"></div>
-<div style="display: flex; justify-content: space-between; align-items: center;">
-<h3 style="font-size: 18px; font-weight: 700;" class="">Daily Spending Threshold</h3>
-<button class="header-btn" onclick="cancelThresholdModal()" style="width: 32px; height: 32px;">
-<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
-</button>
-</div>
-<p style="font-size: 13px; color: var(--color-text-muted); margin-top: -6px;" class="">Get immediate notifications once your total spending crosses this daily cap.</p>
-<div style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px;">
-<label style="font-size: 12px; font-weight: 600; color: var(--color-text-muted);" class="">Threshold Amount (₹)</label>
-<div style="position: relative; display: flex; align-items: center;">
-<span style="position: absolute; left: 14px; font-weight: 700; color: var(--color-primary); font-size: 18px;" class="">₹</span>
-<input class="sheet-input" id="input-threshold-amount" type="number" min="100" step="50" value="500" style="padding-left: 36px; font-size: 18px; font-weight: 700;">
-</div>
-</div>
-<div style="display: flex; gap: 8px; flex-wrap: wrap;">
-<button type="button" onclick="document.getElementById('input-threshold-amount').value = 500" style="flex: 1 1 0%; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--color-outline); background: var(--color-surface-container-low); font-size: 12px; font-weight: 600; color: var(--color-text-main); cursor: pointer;" class="">₹500</button>
-<button type="button" onclick="document.getElementById('input-threshold-amount').value = 1000" style="flex: 1 1 0%; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--color-outline); background: var(--color-surface-container-low); font-size: 12px; font-weight: 600; color: var(--color-text-main); cursor: pointer;" class="">₹1,000</button>
-<button type="button" onclick="document.getElementById('input-threshold-amount').value = 2500" style="flex: 1 1 0%; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--color-outline); background: var(--color-surface-container-low); font-size: 12px; font-weight: 600; color: var(--color-text-main); cursor: pointer;" class="">₹2,500</button>
-<button type="button" onclick="document.getElementById('input-threshold-amount').value = 5000" style="flex: 1 1 0%; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--color-outline); background: var(--color-surface-container-low); font-size: 12px; font-weight: 600; color: var(--color-text-main); cursor: pointer;" class="">₹5,000</button>
-</div>
-<div style="display: flex; gap: 10px; margin-top: 8px;">
-<button type="button" onclick="cancelThresholdModal()" style="flex: 1 1 0%; padding: 13px; border-radius: var(--radius-btn); border: 1px solid var(--color-outline); background: var(--color-surface-container-low); color: var(--color-text-main); font-weight: 600; font-size: 14px; cursor: pointer;" class="">Cancel</button>
-<button type="button" onclick="confirmThresholdAmount()" class="btn-sheet-submit" style="flex: 1.5 1 0%; padding: 13px;">Save Limit</button>
+<h3 class="modal-title" id="modal-heading">Sign Out</h3>
+<p class="modal-message">
+            Are you sure you want to sign out of Smart Finance? You'll need to log back in to access your financial data.
+        </p>
+<div class="modal-buttons-col">
+<button class="btn-confirm-signout" id="btn-confirm-signout">
+                Sign Out
+            </button>
+<button class="btn-cancel-modal" id="btn-cancel-signout">
+                Cancel
+            </button>
 </div>
 </div>
 </div>
-<!-- Toast Notification Indicator -->
-<div class="modal-backdrop" id="logout-confirm-modal" onclick="closeModalOnBackdrop(event, 'logout-confirm-modal')" style="display: none;"><div class="modal-sheet" style="max-width: 380px; margin: 0 auto; border-radius: 24px; text-align: center; align-items: center; gap: 14px;"><div class="sheet-handle"></div><div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(186, 26, 26, 0.1); color: var(--color-error); display: flex; align-items: center; justify-content: center; margin-top: 6px;"><span class="material-symbols-outlined" style="font-size: 28px;">logout</span></div><h3 style="font-size: 18px; font-weight: 700; color: var(--color-text-main);" class="">Sign Out</h3><p style="font-size: 14px; color: var(--color-text-muted); line-height: 1.4;" class="">Are you sure you want to sign out of Smart Finance?</p><div style="display: flex; gap: 12px; width: 100%; margin-top: 8px;"><button onclick="closeModal('logout-confirm-modal')" style="flex: 1 1 0%; padding: 12px; border-radius: var(--radius-btn); border: 1px solid var(--color-outline); background: var(--color-surface-container-low); color: var(--color-text-main); font-weight: 600; font-size: 14px; cursor: pointer;" class="">Cancel</button><button onclick="closeModal('logout-confirm-modal'); handleLogout();" style="flex: 1 1 0%; padding: 12px; border-radius: var(--radius-btn); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: var(--color-error); color: rgb(255, 255, 255); font-weight: 600; font-size: 14px; cursor: pointer; box-shadow: rgba(186, 26, 26, 0.3) 0px 4px 14px;" class="">Sign Out</button></div></div></div><div class="toast-msg" id="toast-message">
-<span class="material-symbols-outlined" style="font-size: 18px; color: var(--color-success);">check_circle</span>
-<span id="toast-text" class="">Logged out. Re-authenticate on Login page.</span>
+<!-- Toast UI -->
+<div class="toast-notification" id="toast">
+<span class="material-symbols-outlined">check_circle</span>
+<span id="toast-text" class="">Dark mode enabled</span>
 </div>
-<!-- Embedded Single Page Application (SPA) Logic -->
+<!-- Pure Vanilla ES6+ Script (No third party JS or frameworks) -->
 <script>
-        // SPA Tab Switching Logic
-        window.switchSpaTab = function(tabName) {
-            // Remove active state from all tabs and panels
-            document.querySelectorAll('.spa-tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+    (function () {
+        'use strict';
 
-            if (tabName === 'account') {
-                document.getElementById('tab-btn-account').classList.add('active');
-                document.getElementById('panel-account').classList.add('active');
-            } else if (tabName === 'preferences') {
-                document.getElementById('tab-btn-pref').classList.add('active');
-                document.getElementById('panel-preferences').classList.add('active');
-            } else if (tabName === 'security') {
-                document.getElementById('tab-btn-sec').classList.add('active');
-                document.getElementById('panel-security').classList.add('active');
-            }
-        };
+        // DOM Element Cache
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.spa-tab-content');
+        const themeToggleBtn = document.getElementById('btn-dark-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const modalOverlay = document.getElementById('signout-modal');
+        const triggerBtn = document.getElementById('btn-signout-trigger');
+        const headerSignoutBtn = document.getElementById('btn-header-signout');
+        const cancelModalBtn = document.getElementById('btn-cancel-signout');
+        const confirmSignoutBtn = document.getElementById('btn-confirm-signout');
+        const backBtn = document.getElementById('btn-back');
+        const toastEl = document.getElementById('toast');
+        const toastText = document.getElementById('toast-text');
 
-        // Theme Toggle (Light / Dark)
-        window.handleThemeToggle = function(checkbox) {
-            if (checkbox.checked) {
-                document.body.classList.add('dark-theme');
-                document.getElementById('quick-theme-icon').textContent = 'light_mode';
-                showToast('Dark mode activated');
-            } else {
-                document.body.classList.remove('dark-theme');
-                document.getElementById('quick-theme-icon').textContent = 'dark_mode';
-                showToast('Light mode activated');
-            }
-        };
-
-        window.toggleThemeManually = function() {
-            const toggle = document.getElementById('dark-mode-toggle');
-            toggle.checked = !toggle.checked;
-            handleThemeToggle(toggle);
-        };
-
-        // Edit Profile Bottom Sheet Modal Handlers
-        window.openEditProfileModal = function() {
-            document.getElementById('edit-profile-modal').style.display = 'flex';
-        };
-
-        window.openCurrencyModal = function() {
-            document.getElementById('currency-modal').style.display = 'flex';
-        };
-
-        window.closeModal = function(id) {
-            document.getElementById(id).style.display = 'none';
-        };
-
-        window.closeModalOnBackdrop = function(e, id) {
-            if (e.target.id === id) {
-                closeModal(id);
-            }
-        };
-
-        window.saveProfileChanges = function() {
-            const newName = document.getElementById('input-edit-name').value.trim();
-            const newEmail = document.getElementById('input-edit-email').value.trim();
-
-            if (newName) {
-                document.getElementById('user-display-name').textContent = newName;
-                document.getElementById('item-sub-name').textContent = newName;
-            }
-            if (newEmail) {
-                document.getElementById('user-display-email').textContent = newEmail;
-                document.getElementById('item-sub-email').textContent = newEmail;
-            }
-
-            closeModal('edit-profile-modal');
-            showToast('Profile updated successfully!');
-        };
-
-        window.setCurrency = function(curr) {
-            document.getElementById('current-currency-tag').textContent = curr;
-            closeModal('currency-modal');
-            showToast('Display currency set to ' + curr);
-        };
-
-        window.triggerAvatarChange = function() {
-            showToast('Photo uploaded & avatar refreshed!');
-        };
-
-        window.openShareModal = function() {
-            showToast('Profile QR Code ready for scan');
-        };
-
-        window.handleLogout = function() {
-            showToast('Signing out... See you soon!');
-            setTimeout(() => {
-                showToast('Logged out. Re-authenticate on Login page.');
-            }, 1200);
-        };
+        let toastTimeout = null;
 
         // Toast Helper
-        let toastTimer;
-        window.showToast = function(msg) {
-            const toast = document.getElementById('toast-message');
-            const text = document.getElementById('toast-text');
-            text.textContent = msg;
-            toast.classList.add('show');
-            clearTimeout(toastTimer);
-            toastTimer = setTimeout(() => {
-                toast.classList.remove('show');
+        window.showToast = function (msg) {
+            if (!toastEl || !toastText) return;
+            toastText.textContent = msg;
+            toastEl.classList.add('show');
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toastEl.classList.remove('show');
             }, 2400);
         };
 
-        // Bottom Nav Navigation Handler
-        window.navigateTo = function(target) {
-            if (target === 'profile') {
-                showToast('You are currently viewing Profile');
-            } else if (target === 'home') {
-                showToast('Navigating to Home Dashboard...');
-            } else if (target === 'budget') {
-                showToast('Navigating to Budget Planning...');
-            } else if (target === 'add') {
-                showToast('Opening Add Expense form...');
-            } else if (target === 'stats') {
-                showToast('Navigating to Stats & Analytics...');
+        // Tab Switching (SPA Logic)
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.getAttribute('data-tab');
+
+                // Update active tab buttons
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Switch visible panel
+                tabPanels.forEach(panel => {
+                    if (panel.id === `tab-${targetTab}`) {
+                        panel.classList.add('active');
+                    } else {
+                        panel.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Theme Toggle Logic
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                const isDark = document.body.classList.toggle('dark-mode');
+                if (themeIcon) {
+                    themeIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
+                }
+                showToast(isDark ? 'Dark mode enabled' : 'Light mode enabled');
+            });
+        }
+
+        // Sign Out Confirmation Modal Controls
+        function openSignoutModal() {
+            if (modalOverlay) {
+                modalOverlay.classList.add('active');
             }
-        };
-    </script>
+        }
+
+        function closeSignoutModal() {
+            if (modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        }
+
+        if (triggerBtn) {
+            triggerBtn.addEventListener('click', openSignoutModal);
+        }
+        if (headerSignoutBtn) {
+            headerSignoutBtn.addEventListener('click', openSignoutModal);
+        }
+        if (cancelModalBtn) {
+            cancelModalBtn.addEventListener('click', closeSignoutModal);
+        }
+
+        // Close on backdrop tap
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    closeSignoutModal();
+                }
+            });
+        }
+
+        // Sign Out Execution
+        if (confirmSignoutBtn) {
+            confirmSignoutBtn.addEventListener('click', () => {
+                closeSignoutModal();
+                showToast('Signed out safely. Redirecting to Login...');
+                setTimeout(() => {
+                    showToast('Logged out successfully.');
+                }, 1200);
+            });
+        }
+
+        // Back button action
+        if (backBtn) {
+            backBtn.addEventListener('click', () => {
+                showToast('Navigating back to Dashboard...');
+            });
+        }
+
+        // Avatar change
+        const avatarChangeBtn = document.getElementById('btn-change-avatar');
+        if (avatarChangeBtn) {
+            avatarChangeBtn.addEventListener('click', () => {
+                showToast('Upload photo dialog opened');
+            });
+        }
+
+        // Edit Profile
+        const editProfileBtn = document.getElementById('btn-edit-profile');
+        if (editProfileBtn) {
+            editProfileBtn.addEventListener('click', () => {
+                showToast('Opening Edit Profile screen...');
+            });
+        }
+    })();
+</script>
 
 
 
 
-<script>
-window.currentThresholdVal = 500;
-window.openThresholdModal = function() {
-    const input = document.getElementById('input-threshold-amount');
-    if (input) input.value = window.currentThresholdVal;
-    const modal = document.getElementById('threshold-modal');
-    if (modal) modal.style.display = 'flex';
-};
-window.handleThresholdToggle = function(checkbox) {
-    if (checkbox.checked) {
-        window.openThresholdModal();
-    } else {
-        showToast('Daily threshold alerts disabled');
-    }
-};
-window.cancelThresholdModal = function() {
-    const modal = document.getElementById('threshold-modal');
-    if (modal) modal.style.display = 'none';
-    const toggle = document.getElementById('threshold-toggle-input');
-    if (toggle) toggle.checked = false;
-    showToast('Threshold setup cancelled');
-};
-window.confirmThresholdAmount = function() {
-    const input = document.getElementById('input-threshold-amount');
-    const amt = input && input.value ? parseInt(input.value, 10) : 500;
-    window.currentThresholdVal = isNaN(amt) ? 500 : amt;
-    const sub = document.getElementById('threshold-alert-subtitle');
-    if (sub) {
-        sub.textContent = 'Notify when day expenses cross ₹' + window.currentThresholdVal.toLocaleString('en-IN');
-    }
-    const toggle = document.getElementById('threshold-toggle-input');
-    if (toggle) toggle.checked = true;
-    const modal = document.getElementById('threshold-modal');
-    if (modal) modal.style.display = 'none';
-    showToast('Threshold limit set to ₹' + window.currentThresholdVal.toLocaleString('en-IN'));
-};
-</script></body></html>
+</body></html>
