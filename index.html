@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
 <title>Smart Finance - Profile &amp; Settings</title>
 <!-- Google Fonts Inter & Material Symbols Outlined -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <style>
         :root {
             --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -769,12 +767,20 @@
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
-            max-height: 85vh;
+            max-height: 88vh;
             overflow-y: auto;
         }
 
         .sheet-overlay.active .sheet-modal {
             transform: translateY(0);
+        }
+
+        .sheet-header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 12px;
         }
 
         .sheet-drag-pill {
@@ -783,6 +789,37 @@
             border-radius: 2px;
             background: var(--border-card-highlight);
             margin: 0 auto 16px auto;
+        }
+
+        .sheet-drag-pill-contained {
+            width: 42px;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--border-card-highlight);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -4px;
+        }
+
+        .sheet-close-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-card-secondary);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-left: auto;
+        }
+
+        .sheet-close-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--border-card-highlight);
         }
 
         .sheet-icon-banner {
@@ -882,6 +919,130 @@
 
         .btn-submit-gradient:active {
             transform: scale(0.97);
+        }
+
+        /* Spending Limit Sheet Specific Styling */
+        .spending-amount-box {
+            position: relative;
+            background: var(--bg-card-secondary);
+            border: 1.5px solid var(--border-card-highlight);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 16px;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .spending-currency-symbol {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-accent);
+            line-height: 1;
+        }
+
+        .spending-amount-input {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 170px;
+            max-width: 100%;
+            font-family: inherit;
+            letter-spacing: -0.02em;
+            text-align: left;
+        }
+
+        .spending-presets-list {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .spending-chip {
+            padding: 8px 16px;
+            border-radius: var(--radius-pill);
+            background: var(--bg-card-secondary);
+            border: 1px solid var(--border-card);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .spending-chip:hover {
+            border-color: var(--border-card-highlight);
+            color: var(--text-primary);
+        }
+
+        .spending-chip.active {
+            background: rgba(123, 77, 255, 0.18);
+            border-color: var(--color-primary);
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+
+        .alert-preview-card {
+            background: var(--bg-card-secondary);
+            border: 1px solid var(--border-subtle);
+            border-left: 3.5px solid var(--color-secondary);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .alert-preview-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 107, 61, 0.15);
+            color: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .alert-preview-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .alert-preview-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .alert-preview-badge {
+            font-size: 10px;
+            text-transform: uppercase;
+            padding: 2px 6px;
+            border-radius: var(--radius-pill);
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--color-success);
+            font-weight: 700;
+        }
+
+        .alert-preview-body {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.35;
         }
 
         /* Form Inputs in Sheets */
@@ -1006,17 +1167,17 @@
         }
     </style>
 </head>
-<body>
+<body class="light-mode">
 <div class="app-shell">
 <div class="ambient-glow"></div>
-<input accept="image/*" id="avatar-picker" style="display: none;" type="file"/>
+<input accept="image/*" id="avatar-picker" style="display: none;" type="file">
 <!-- Top Header Navigation -->
 <header class="top-header">
 <button aria-label="Go Back" class="icon-btn" id="btn-header-back" title="Go Back">
 <span class="material-symbols-outlined">arrow_back</span>
 </button>
 <h1 class="header-title">Profile &amp; Settings</h1>
-<button aria-label="Sign Out" class="icon-btn danger-btn" id="btn-header-logout" title="Sign Out">
+<button aria-label="Sign Out" class="icon-btn danger-btn" id="btn-header-logout" style="background: transparent; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; box-shadow: none; width: auto; height: auto; padding: 6px;" title="Sign Out">
 <span class="material-symbols-outlined">logout</span>
 </button>
 </header>
@@ -1026,7 +1187,7 @@
 <section class="profile-hero-card">
 <div class="avatar-wrapper">
 <div class="avatar-ring">
-<img alt="CM Bhanuteja" class="avatar-image" id="avatar-img-view" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi_T0hd0FHKIZrvotYp9xVRa-kdF59TyK2IjqwANQG9GhkD_oUr439yGg0enB8vOuMRDNJCzbZPCytYN3_p-OoE6RxulicEOK8DNhb_IZL7DqZIq1m2AHvzG38rb3v075cZszZyTARvuMWhCj3Lmug5gmDxKu30bvWRtUNU3BAB3S4fjO8W5QjzKw_LN2INVGRQPCO7Qi25L7kEWTUQU_MBLhQL1_mCuOZqeDrCpMcVYisDyzZPuNS"/>
+<img alt="CM Bhanuteja" class="avatar-image" id="avatar-img-view" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi_T0hd0FHKIZrvotYp9xVRa-kdF59TyK2IjqwANQG9GhkD_oUr439yGg0enB8vOuMRDNJCzbZPCytYN3_p-OoE6RxulicEOK8DNhb_IZL7DqZIq1m2AHvzG38rb3v075cZszZyTARvuMWhCj3Lmug5gmDxKu30bvWRtUNU3BAB3S4fjO8W5QjzKw_LN2INVGRQPCO7Qi25L7kEWTUQU_MBLhQL1_mCuOZqeDrCpMcVYisDyzZPuNS">
 </div>
 <button aria-label="Change Profile Photo" class="avatar-camera-badge" id="btn-camera-trigger" title="Change Avatar">
 <span class="material-symbols-outlined">photo_camera</span>
@@ -1034,37 +1195,28 @@
 </div>
 <h2 class="profile-name" id="display-user-name">CM Bhanuteja</h2>
 <p class="profile-email" id="display-user-email">bhanu.teja@smartfinance.in</p>
-<div class="tier-badge">
-<span class="material-symbols-outlined">verified</span>
-<span>Verified Elite Member</span>
-</div>
-<div class="profile-actions-grid">
-<button class="btn-edit-hero" id="btn-open-edit-profile">
-<span class="material-symbols-outlined">edit</span>
-<span>Edit Profile</span>
-</button>
-<button aria-label="Toggle Theme Mode" class="btn-theme-quick" id="btn-quick-theme" title="Toggle Light/Dark Theme">
-<span class="material-symbols-outlined" id="theme-icon-quick">light_mode</span>
-</button>
+<div class="tier-badge" style="background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.35); color: rgb(22, 163, 74);">
+<span class="material-symbols-outlined" style="color: rgb(34, 197, 94);">verified</span>
+<span class="" style="color: rgb(22, 163, 74); font-weight: 600;">Verified Elite Member</span>
 </div>
 </section>
 <!-- Segmented Pill Tabs Navigation -->
 <nav aria-label="Settings Categories" class="tabs-segmented-wrapper">
 <button class="tab-button" data-target="tab-account">
 <span class="material-symbols-outlined">person</span>
-<span>Account</span>
+<span class="">Account</span>
 </button>
-<button class="tab-button active" data-target="tab-preferences">
+<button class="tab-button" data-target="tab-preferences">
 <span class="material-symbols-outlined">tune</span>
-<span>Preferences</span>
+<span class="">Preferences</span>
 </button>
-<button class="tab-button" data-target="tab-security">
+<button class="tab-button active" data-target="tab-security">
 <span class="material-symbols-outlined">shield</span>
-<span>Security</span>
+<span class="">Security</span>
 </button>
 </nav>
-<!-- TAB 1: Preferences (Default View) -->
-<section class="tab-pane active" id="tab-preferences">
+<!-- TAB 1: Preferences View -->
+<section class="tab-pane" id="tab-preferences">
 <!-- App Experience Card -->
 <div class="settings-card">
 <div class="card-header">
@@ -1077,15 +1229,15 @@
 <div class="setting-item" id="row-appearance">
 <div class="setting-info-left">
 <div class="setting-icon-box">
-<span class="material-symbols-outlined" id="theme-icon-row">dark_mode</span>
+<span class="material-symbols-outlined" id="theme-icon-row">light_mode</span>
 </div>
 <div class="setting-texts">
 <span class="setting-label">Appearance</span>
-<span class="setting-desc" id="theme-desc-row">Dark mode theme</span>
+<span class="setting-desc" id="theme-desc-row">Light mode theme</span>
 </div>
 </div>
 <label aria-label="Dark mode toggle" class="switch-toggle">
-<input checked="" id="theme-switch-checkbox" type="checkbox"/>
+<input checked="" id="theme-switch-checkbox" type="checkbox">
 <span class="slider-round"></span>
 </label>
 </div>
@@ -1101,23 +1253,23 @@
 </div>
 </div>
 <div class="setting-action-right">
-<span id="currency-tag-text" style="color: var(--color-accent);">₹ INR</span>
+<span class="" id="currency-tag-text" style="color: var(--color-accent);">₹ INR</span>
 <span class="material-symbols-outlined">chevron_right</span>
 </div>
 </div>
 <!-- Spending Alerts Switch -->
-<div class="setting-item">
+<div class="setting-item" id="row-spending-alert">
 <div class="setting-info-left">
 <div class="setting-icon-box">
 <span class="material-symbols-outlined">notifications_active</span>
 </div>
 <div class="setting-texts">
 <span class="setting-label">Spending Alerts</span>
-<span class="setting-desc">Push notifications on daily limit</span>
+<span class="setting-desc" id="spending-desc-label">Push notifications when spend exceeds ₹1,000</span>
 </div>
 </div>
 <label aria-label="Spending alerts toggle" class="switch-toggle">
-<input checked="" id="spending-switch" type="checkbox"/>
+<input checked="" id="spending-switch" type="checkbox">
 <span class="slider-round"></span>
 </label>
 </div>
@@ -1133,7 +1285,7 @@
 </div>
 </div>
 <label aria-label="Hide balance toggle" class="switch-toggle">
-<input checked="" id="hide-balance-switch" type="checkbox"/>
+<input checked="" id="hide-balance-switch" type="checkbox">
 <span class="slider-round"></span>
 </label>
 </div>
@@ -1171,7 +1323,7 @@
 <span class="material-symbols-outlined">badge</span>
 <h3 class="card-title">Personal Information</h3>
 </div>
-</div>
+<button aria-label="Edit Personal Information" class="icon-btn" onclick="document.getElementById('btn-open-edit-profile').click()" style="width: 32px; height: 32px;" title="Edit Personal Information"><span class="material-symbols-outlined" style="font-size: 18px;">edit</span></button></div>
 <div class="setting-item" id="row-acc-name">
 <div class="setting-info-left">
 <div class="setting-icon-box"><span class="material-symbols-outlined">person</span></div>
@@ -1233,8 +1385,8 @@
 <div class="setting-info-left">
 <div class="setting-icon-box"><span class="material-symbols-outlined">verified_user</span></div>
 <div class="setting-texts">
-<span class="setting-label">KYC Status</span>
-<span class="setting-desc">Verified (Full Access)</span>
+<span class="setting-label">Email Status</span>
+<span class="setting-desc">Gmail Account</span>
 </div>
 </div>
 <div class="setting-action-right">
@@ -1244,7 +1396,7 @@
 </div>
 </section>
 <!-- TAB 3: Security View -->
-<section class="tab-pane" id="tab-security">
+<section class="tab-pane active" id="tab-security">
 <div class="settings-card">
 <div class="card-header">
 <div class="card-title-group">
@@ -1253,21 +1405,7 @@
 </div>
 </div>
 <!-- Biometric Unlock -->
-<div class="setting-item">
-<div class="setting-info-left">
-<div class="setting-icon-box">
-<span class="material-symbols-outlined">fingerprint</span>
-</div>
-<div class="setting-texts">
-<span class="setting-label">Biometric Unlock</span>
-<span class="setting-desc">Face ID / Fingerprint verification</span>
-</div>
-</div>
-<label aria-label="Biometric unlock toggle" class="switch-toggle">
-<input checked="" id="biometric-toggle" type="checkbox"/>
-<span class="slider-round"></span>
-</label>
-</div>
+<div class="setting-item" onclick="showFeedback('Biometric Unlock will be available in an upcoming update!', 'fingerprint')" style="opacity: 0.6; cursor: not-allowed;"><div class="setting-info-left"><div class="setting-icon-box"><span class="material-symbols-outlined">fingerprint</span></div><div class="setting-texts"><span class="setting-label">Biometric Unlock</span><span class="setting-desc">Face ID / Fingerprint&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (Coming Soon)</span></div></div></div>
 <!-- 2FA Switch -->
 <div class="setting-item">
 <div class="setting-info-left">
@@ -1280,7 +1418,7 @@
 </div>
 </div>
 <label aria-label="Two factor authentication toggle" class="switch-toggle">
-<input checked="" id="twofactor-toggle" type="checkbox"/>
+<input checked="" id="twofactor-toggle" type="checkbox">
 <span class="slider-round"></span>
 </label>
 </div>
@@ -1326,7 +1464,7 @@
 <span class="setting-desc">Bengaluru, IN • 14 Sep 2026</span>
 </div>
 </div>
-<button id="btn-revoke-other" style="background:none; border:none; color:var(--color-error); font-size:12px; font-weight:700; cursor:pointer; padding:6px 10px;">
+<button class="" id="btn-revoke-other" style="background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; color: var(--color-error); font-size: 12px; font-weight: 700; cursor: pointer; padding: 6px 10px;">
                             Revoke
                         </button>
 </div>
@@ -1334,9 +1472,9 @@
 </section>
 <!-- Sign Out Trigger Action -->
 <div class="signout-section">
-<button class="btn-signout-main" id="btn-signout-banner">
+<button class="btn-signout-main" id="btn-signout-banner" style="background: rgb(255, 255, 255); color: rgb(220, 38, 38); border: 1px solid rgba(220, 38, 38, 0.2); box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 16px;">
 <span class="material-symbols-outlined">logout</span>
-<span>Sign Out of Smart Finance</span>
+<span class="">Sign Out of Smart Finance</span>
 </button>
 </div>
 </main>
@@ -1366,12 +1504,59 @@
 </nav>
 </div>
 <!-- ================= MODALS & BOTTOM SHEETS ================= -->
+<!-- 0. Spending Alert Threshold Bottom Drawer Sheet -->
+<div aria-labelledby="spending-alert-sheet-title" aria-modal="true" class="sheet-overlay" id="sheet-spending-alert" role="dialog">
+<div class="sheet-modal">
+<div class="sheet-header-bar">
+<div class="sheet-drag-pill-contained"></div>
+<button aria-label="Close" class="sheet-close-btn" id="btn-close-spending-x">
+<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+</button>
+</div>
+<div class="sheet-icon-banner purple" style="margin-top: 4px; margin-bottom: 12px; width: 52px; height: 52px;">
+<span class="material-symbols-outlined" style="font-size: 26px;">notifications_active</span>
+</div>
+<h3 class="sheet-title" id="spending-alert-sheet-title">Daily Spending Limit Threshold</h3>
+<p class="sheet-subtitle">Set your daily limit threshold. You will receive an instant notification when your spending crosses this amount.</p>
+<!-- Prominent Amount Display & Input -->
+<div class="spending-amount-box">
+<span class="spending-currency-symbol">₹</span>
+<input aria-label="Daily Spending Limit Amount" class="spending-amount-input" id="input-spending-limit" inputmode="numeric" type="text" value="1,000">
+</div>
+<!-- Quick Presets -->
+<div class="spending-presets-list" id="spending-presets-group">
+<button class="spending-chip" data-val="500" type="button">₹500</button>
+<button class="spending-chip active" data-val="1000" type="button">₹1,000</button>
+<button class="spending-chip" data-val="2000" type="button">₹2,000</button>
+<button class="spending-chip" data-val="5000" type="button">₹5,000</button>
+</div>
+<!-- Alert Preview Card -->
+<div class="alert-preview-card">
+<div class="alert-preview-icon">
+<span class="material-symbols-outlined" style="font-size: 20px;">crisis_alert</span>
+</div>
+<div class="alert-preview-content">
+<div class="alert-preview-title">
+<span class="">Alert Preview</span>
+<span class="alert-preview-badge">Active</span>
+</div>
+<p class="alert-preview-body">
+"⚠️ Smart Finance: Daily limit reached! You have spent over <strong id="preview-amount-text">₹1,000</strong> today."
+</p>
+</div>
+</div>
+<div class="sheet-btn-group">
+<button class="btn-submit-gradient" id="btn-save-spending-alert">Save &amp; Enable Alerts</button>
+<button class="btn-cancel-sheet" id="btn-cancel-spending-alert">Cancel</button>
+</div>
+</div>
+</div>
 <!-- 1. Sign Out Confirmation Sheet -->
 <div aria-labelledby="signout-title" aria-modal="true" class="sheet-overlay" id="sheet-signout" role="dialog">
 <div class="sheet-modal">
 <div class="sheet-drag-pill"></div>
 <div class="sheet-icon-banner danger">
-<span class="material-symbols-outlined" style="font-size:32px;">logout</span>
+<span class="material-symbols-outlined" style="font-size: 32px;">logout</span>
 </div>
 <h3 class="sheet-title" id="signout-title">Sign Out</h3>
 <p class="sheet-subtitle">
@@ -1391,15 +1576,15 @@
 <p class="sheet-subtitle" style="margin-bottom: 16px;">Update your personal profile details</p>
 <div class="input-group">
 <label class="input-label" for="input-profile-name">Full Name</label>
-<input class="text-input" id="input-profile-name" type="text" value="CM Bhanuteja"/>
+<input class="text-input" id="input-profile-name" type="text" value="CM Bhanuteja">
 </div>
 <div class="input-group">
 <label class="input-label" for="input-profile-email">Email Address</label>
-<input class="text-input" id="input-profile-email" type="email" value="bhanu.teja@smartfinance.in"/>
+<input class="text-input" id="input-profile-email" type="email" value="bhanu.teja@smartfinance.in">
 </div>
 <div class="input-group">
 <label class="input-label" for="input-profile-phone">Phone Number</label>
-<input class="text-input" id="input-profile-phone" type="tel" value="+91 98765 43210"/>
+<input class="text-input" id="input-profile-phone" type="tel" value="+91 98765 43210">
 </div>
 <div class="sheet-btn-group">
 <button class="btn-submit-gradient" id="btn-save-profile">Save Changes</button>
@@ -1413,36 +1598,7 @@
 <div class="sheet-drag-pill"></div>
 <h3 class="sheet-title" id="currency-sheet-title">Select Primary Currency</h3>
 <p class="sheet-subtitle" style="margin-bottom: 16px;">Choose default currency for transactions &amp; dashboards</p>
-<div class="sheet-option-list" id="currency-list">
-<div class="sheet-option-row selected" data-code="INR" data-icon="currency_rupee" data-name="INR (₹ Indian Rupee)" data-symbol="₹">
-<div class="sheet-option-left">
-<span class="material-symbols-outlined">currency_rupee</span>
-<span>INR - Indian Rupee (₹)</span>
-</div>
-<span class="material-symbols-outlined sheet-option-check">check_circle</span>
-</div>
-<div class="sheet-option-row" data-code="USD" data-icon="attach_money" data-name="USD ($ US Dollar)" data-symbol="$">
-<div class="sheet-option-left">
-<span class="material-symbols-outlined">attach_money</span>
-<span>USD - US Dollar ($)</span>
-</div>
-<span class="material-symbols-outlined sheet-option-check">check_circle</span>
-</div>
-<div class="sheet-option-row" data-code="EUR" data-icon="euro" data-name="EUR (€ Euro)" data-symbol="€">
-<div class="sheet-option-left">
-<span class="material-symbols-outlined">euro</span>
-<span>EUR - Euro (€)</span>
-</div>
-<span class="material-symbols-outlined sheet-option-check">check_circle</span>
-</div>
-<div class="sheet-option-row" data-code="GBP" data-icon="currency_pound" data-name="GBP (£ British Pound)" data-symbol="£">
-<div class="sheet-option-left">
-<span class="material-symbols-outlined">currency_pound</span>
-<span>GBP - British Pound (£)</span>
-</div>
-<span class="material-symbols-outlined sheet-option-check">check_circle</span>
-</div>
-</div>
+<div class="sheet-option-list" id="currency-list"><div class="sheet-option-row selected" data-code="INR" data-icon="currency_rupee" data-name="INR (₹ Indian Rupee)" data-symbol="₹"><div class="sheet-option-left"><span class="material-symbols-outlined">currency_rupee</span><span class="">INR - Indian Rupee (₹)</span></div><span class="material-symbols-outlined sheet-option-check" style="opacity: 1;">check_circle</span></div><div class="sheet-option-row" data-code="USD" data-icon="attach_money" data-name="USD ($ US Dollar)" data-symbol="$" style="opacity: 0.6; cursor: not-allowed; pointer-events: none;"><div class="sheet-option-left"><span class="material-symbols-outlined">attach_money</span><span class="">USD - US Dollar ($)</span></div><span class="" style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background: rgba(123, 77, 255, 0.12); color: var(--color-accent); border: 1px solid rgba(123, 77, 255, 0.25); margin-left: auto;">Coming Soon</span></div><div class="sheet-option-row" data-code="EUR" data-icon="euro" data-name="EUR (€ Euro)" data-symbol="€" style="opacity: 0.6; cursor: not-allowed; pointer-events: none;"><div class="sheet-option-left"><span class="material-symbols-outlined">euro</span><span class="">EUR - Euro (€)</span></div><span class="" style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background: rgba(123, 77, 255, 0.12); color: var(--color-accent); border: 1px solid rgba(123, 77, 255, 0.25); margin-left: auto;">Coming Soon</span></div><div class="sheet-option-row" data-code="GBP" data-icon="currency_pound" data-name="GBP (£ British Pound)" data-symbol="£" style="opacity: 0.6; cursor: not-allowed; pointer-events: none;"><div class="sheet-option-left"><span class="material-symbols-outlined">currency_pound</span><span class="">GBP - British Pound (£)</span></div><span class="" style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background: rgba(123, 77, 255, 0.12); color: var(--color-accent); border: 1px solid rgba(123, 77, 255, 0.25); margin-left: auto;">Coming Soon</span></div></div>
 <div class="sheet-btn-group">
 <button class="btn-cancel-sheet" id="btn-close-currency">Close</button>
 </div>
@@ -1454,36 +1610,34 @@
 <div class="sheet-drag-pill"></div>
 <h3 class="sheet-title" id="lang-sheet-title">Select Language</h3>
 <p class="sheet-subtitle" style="margin-bottom: 16px;">Select your preferred display language</p>
-<div class="sheet-option-list" id="language-list">
-<div class="sheet-option-row selected" data-lang="English (India)">
+<div class="sheet-option-list" id="language-list"><div class="sheet-option-row selected" data-lang="English (India)">
 <div class="sheet-option-left">
 <span class="material-symbols-outlined">translate</span>
-<span>English (India)</span>
+<span class="">English (India)</span>
 </div>
-<span class="material-symbols-outlined sheet-option-check">check_circle</span>
+<span class="material-symbols-outlined sheet-option-check" style="opacity: 1;">check_circle</span>
 </div>
-<div class="sheet-option-row" data-lang="हिंदी (Hindi)">
+<div class="sheet-option-row" data-lang="हिंदी (Hindi)" style="opacity: 0.6; cursor: not-allowed; pointer-events: none;">
 <div class="sheet-option-left">
 <span class="material-symbols-outlined">translate</span>
-<span>हिंदी (Hindi)</span>
+<span class="">हिंदी (Hindi)</span>
 </div>
-<span class="material-symbols-outlined sheet-option-check">check_circle</span>
+<span class="" style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background: rgba(123, 77, 255, 0.12); color: var(--color-accent); border: 1px solid rgba(123, 77, 255, 0.25); margin-left: auto;">Coming Soon</span>
 </div>
-<div class="sheet-option-row" data-lang="తెలుగు (Telugu)">
+<div class="sheet-option-row" data-lang="తెలుగు (Telugu)" style="opacity: 0.6; cursor: not-allowed; pointer-events: none;">
 <div class="sheet-option-left">
 <span class="material-symbols-outlined">translate</span>
-<span>తెలుగు (Telugu)</span>
+<span class="">తెలుగు (Telugu)</span>
 </div>
-<span class="material-symbols-outlined sheet-option-check">check_circle</span>
+<span class="" style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background: rgba(123, 77, 255, 0.12); color: var(--color-accent); border: 1px solid rgba(123, 77, 255, 0.25); margin-left: auto;">Coming Soon</span>
 </div>
-<div class="sheet-option-row" data-lang="தமிழ் (Tamil)">
+<div class="sheet-option-row" data-lang="தமிழ் (Tamil)" style="opacity: 0.6; cursor: not-allowed; pointer-events: none;">
 <div class="sheet-option-left">
 <span class="material-symbols-outlined">translate</span>
-<span>தமிழ் (Tamil)</span>
+<span class="">தமிழ் (Tamil)</span>
 </div>
-<span class="material-symbols-outlined sheet-option-check">check_circle</span>
-</div>
-</div>
+<span class="" style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background: rgba(123, 77, 255, 0.12); color: var(--color-accent); border: 1px solid rgba(123, 77, 255, 0.25); margin-left: auto;">Coming Soon</span>
+</div></div>
 <div class="sheet-btn-group">
 <button class="btn-cancel-sheet" id="btn-close-language">Close</button>
 </div>
@@ -1494,17 +1648,17 @@
 <div class="sheet-modal">
 <div class="sheet-drag-pill"></div>
 <div class="sheet-icon-banner purple">
-<span class="material-symbols-outlined" style="font-size:30px;">pin</span>
+<span class="material-symbols-outlined" style="font-size: 30px;">pin</span>
 </div>
 <h3 class="sheet-title" id="pin-sheet-title">Change Security PIN</h3>
 <p class="sheet-subtitle" style="margin-bottom: 16px;">Set a new 4-digit code to protect your account</p>
 <div class="input-group">
 <label class="input-label" for="input-old-pin">Current PIN</label>
-<input class="text-input" id="input-old-pin" maxlength="4" placeholder="••••" style="text-align: center; letter-spacing: 8px; font-size: 20px;" type="password"/>
+<input class="text-input" id="input-old-pin" maxlength="4" placeholder="••••" style="text-align: center; letter-spacing: 8px; font-size: 20px;" type="password">
 </div>
 <div class="input-group">
 <label class="input-label" for="input-new-pin">New 4-Digit PIN</label>
-<input class="text-input" id="input-new-pin" maxlength="4" placeholder="••••" style="text-align: center; letter-spacing: 8px; font-size: 20px;" type="password"/>
+<input class="text-input" id="input-new-pin" maxlength="4" placeholder="••••" style="text-align: center; letter-spacing: 8px; font-size: 20px;" type="password">
 </div>
 <div class="sheet-btn-group">
 <button class="btn-submit-gradient" id="btn-save-pin">Update PIN</button>
@@ -1514,8 +1668,8 @@
 </div>
 <!-- Toast Notification -->
 <div class="toast-bubble" id="toast-bubble">
-<span class="material-symbols-outlined" id="toast-icon">check_circle</span>
-<span id="toast-msg">Settings saved</span>
+<span class="material-symbols-outlined" id="toast-icon">fingerprint</span>
+<span class="" id="toast-msg">Biometric Unlock will be available in an upcoming update!</span>
 </div>
 <!-- ES6+ Interactive Logic -->
 <script>
@@ -1557,7 +1711,11 @@
             document.querySelectorAll('.sheet-overlay').forEach(sheet => {
                 sheet.addEventListener('click', (e) => {
                     if (e.target === sheet) {
-                        closeSheet(sheet);
+                        if (sheet.id === 'sheet-spending-alert') {
+                            dismissSpendingAlertSheet();
+                        } else {
+                            closeSheet(sheet);
+                        }
                     }
                 });
             });
@@ -1780,10 +1938,131 @@
                 });
             }
 
-            // Toggle micro-feedbacks
-            document.getElementById('spending-switch')?.addEventListener('change', (e) => {
-                showFeedback(e.target.checked ? 'Spending limits alert enabled' : 'Spending alerts disabled');
+            // 7. Spending Alerts Threshold Drawer & Setting Logic
+            const spendingSwitch = document.getElementById('spending-switch');
+            const rowSpendingAlert = document.getElementById('row-spending-alert');
+            const spendingDescLabel = document.getElementById('spending-desc-label');
+            const sheetSpendingAlert = document.getElementById('sheet-spending-alert');
+            const inputSpendingLimit = document.getElementById('input-spending-limit');
+            const previewAmountText = document.getElementById('preview-amount-text');
+            const btnCloseSpendingX = document.getElementById('btn-close-spending-x');
+            const btnCancelSpending = document.getElementById('btn-cancel-spending-alert');
+            const btnSaveSpendingAlert = document.getElementById('btn-save-spending-alert');
+            const spendingPresetChips = document.querySelectorAll('#spending-presets-group .spending-chip');
+
+            let currentDailyLimit = 1000;
+            let previousToggleState = true;
+            let openedFromToggle = false;
+
+            function formatINR(val) {
+                const num = parseInt(val, 10) || 0;
+                return num.toLocaleString('en-IN');
+            }
+
+            function updateLimitPreview(amount) {
+                const formatted = formatINR(amount);
+                if (previewAmountText) previewAmountText.textContent = `₹${formatted}`;
+            }
+
+            function openSpendingDrawer(fromToggle = false) {
+                openedFromToggle = fromToggle;
+                previousToggleState = spendingSwitch ? spendingSwitch.checked : true;
+                if (inputSpendingLimit) {
+                    inputSpendingLimit.value = formatINR(currentDailyLimit);
+                    updateLimitPreview(currentDailyLimit);
+                }
+                spendingPresetChips.forEach(chip => {
+                    chip.classList.toggle('active', parseInt(chip.getAttribute('data-val'), 10) === currentDailyLimit);
+                });
+                openSheet(sheetSpendingAlert);
+            }
+
+            function dismissSpendingAlertSheet() {
+                closeSheet(sheetSpendingAlert);
+                if (openedFromToggle && !previousToggleState) {
+                    if (spendingSwitch) spendingSwitch.checked = false;
+                }
+            }
+
+            if (spendingSwitch) {
+                spendingSwitch.addEventListener('click', (e) => {
+                    // Prevent label bubbling
+                    e.stopPropagation();
+                });
+                spendingSwitch.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        openSpendingDrawer(true);
+                    } else {
+                        if (spendingDescLabel) spendingDescLabel.textContent = 'Daily limit alerts turned off';
+                        showFeedback('Spending alerts disabled', 'notifications_off');
+                    }
+                });
+            }
+
+            if (rowSpendingAlert) {
+                rowSpendingAlert.addEventListener('click', (e) => {
+                    if (e.target.closest('.switch-toggle')) return;
+                    openSpendingDrawer(false);
+                });
+            }
+
+            if (btnCloseSpendingX) {
+                btnCloseSpendingX.addEventListener('click', dismissSpendingAlertSheet);
+            }
+            if (btnCancelSpending) {
+                btnCancelSpending.addEventListener('click', dismissSpendingAlertSheet);
+            }
+
+            // Preset chips selection
+            spendingPresetChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    spendingPresetChips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    const val = parseInt(chip.getAttribute('data-val'), 10);
+                    if (inputSpendingLimit) {
+                        inputSpendingLimit.value = formatINR(val);
+                    }
+                    updateLimitPreview(val);
+                });
             });
+
+            // Manual input editing
+            if (inputSpendingLimit) {
+                inputSpendingLimit.addEventListener('input', (e) => {
+                    const raw = e.target.value.replace(/[^0-9]/g, '');
+                    const val = parseInt(raw, 10) || 0;
+                    updateLimitPreview(val);
+                    // Match chip if exists
+                    spendingPresetChips.forEach(c => {
+                        c.classList.toggle('active', parseInt(c.getAttribute('data-val'), 10) === val);
+                    });
+                });
+
+                inputSpendingLimit.addEventListener('blur', (e) => {
+                    const raw = e.target.value.replace(/[^0-9]/g, '');
+                    const val = parseInt(raw, 10) || currentDailyLimit;
+                    e.target.value = formatINR(val);
+                });
+            }
+
+            if (btnSaveSpendingAlert) {
+                btnSaveSpendingAlert.addEventListener('click', () => {
+                    const rawVal = inputSpendingLimit.value.replace(/[^0-9]/g, '');
+                    const finalVal = parseInt(rawVal, 10) || 1000;
+                    currentDailyLimit = finalVal;
+                    const formatted = formatINR(finalVal);
+
+                    if (spendingSwitch) spendingSwitch.checked = true;
+                    if (spendingDescLabel) {
+                        spendingDescLabel.textContent = `Push notifications when spend exceeds ₹${formatted}`;
+                    }
+
+                    closeSheet(sheetSpendingAlert);
+                    showFeedback(`Daily limit alert set to ₹${formatted}`, 'notifications_active');
+                });
+            }
+
+            // Other toggle micro-feedbacks
             document.getElementById('hide-balance-switch')?.addEventListener('change', (e) => {
                 showFeedback(e.target.checked ? 'Balance masked on app start' : 'Balance displayed on launch');
             });
@@ -1794,7 +2073,7 @@
                 showFeedback(e.target.checked ? 'Two-Factor OTP protection enabled' : '2FA disabled (caution)');
             });
 
-            // 7. Sign Out Confirmation Flow
+            // 8. Sign Out Confirmation Flow
             const sheetSignout = document.getElementById('sheet-signout');
             const btnSignoutBanner = document.getElementById('btn-signout-banner');
             const btnHeaderLogout = document.getElementById('btn-header-logout');
@@ -1812,7 +2091,7 @@
                 });
             }
 
-            // 8. Navigation Micro-Interactions
+            // 9. Navigation Micro-Interactions
             document.querySelectorAll('.bottom-dock-nav .nav-item').forEach(nav => {
                 nav.addEventListener('click', () => {
                     document.querySelectorAll('.bottom-dock-nav .nav-item').forEach(n => n.classList.remove('active'));
@@ -1834,4 +2113,6 @@
 
         })();
     </script>
+
+
 </body></html>
