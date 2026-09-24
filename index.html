@@ -710,32 +710,30 @@
 <h2 class="section-title" style="margin-bottom: 0px; font-size: 15px; font-weight: 700;">Payment Mode</h2>
 <span style="font-size: 11px; font-weight: 600; color: var(--outline); letter-spacing: 0.02em;" class="">Select method</span>
 </div>
-<div class="payment-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 8px;">
-<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 12px; border: 1px solid rgba(202, 195, 216, 0.3);">
-<div style="width: 40px; height: 40px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28); flex-shrink: 0;">
-<span class="material-symbols-outlined" style="font-size: 20px;">credit_card</span>
+<div class="payment-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 8px;"><button type="button" class="payment-card active" onclick="selectPaymentMode(this)" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(123, 77, 255, 0.15) 0px 4px 14px; border: 1.5px solid var(--primary);">
+<div class="payment-icon-wrapper" style="width: 40px; height: 40px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: rgb(255, 255, 255); flex-shrink: 0; box-shadow: 0 4px 12px rgba(123, 77, 255, 0.32); transition: all 0.2s;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: #ffffff;">credit_card</span>
 </div>
-<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Credit Card</span>
+<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--primary); text-align: center; white-space: nowrap;">Credit Card</span>
 </button>
-<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 12px; border: 1px solid rgba(202, 195, 216, 0.3);">
-<div style="width: 40px; height: 40px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28); flex-shrink: 0;">
-<span class="material-symbols-outlined" style="font-size: 20px;">payments</span>
+<button type="button" class="payment-card payment-inactive" onclick="selectPaymentMode(this)" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 12px; border: 1px solid rgba(202, 195, 216, 0.3);">
+<div class="payment-icon-wrapper" style="width: 40px; height: 40px; border-radius: 12px; background: rgb(245, 243, 250); display: flex; align-items: center; justify-content: center; color: var(--on-surface-variant); flex-shrink: 0; box-shadow: none; transition: all 0.2s;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: var(--on-surface-variant);">payments</span>
 </div>
 <span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Cash</span>
 </button>
-<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 12px; border: 1px solid rgba(202, 195, 216, 0.3);">
-<div style="width: 40px; height: 40px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28); flex-shrink: 0;">
-<span class="material-symbols-outlined" style="font-size: 20px;">qr_code_scanner</span>
+<button type="button" class="payment-card payment-inactive" onclick="selectPaymentMode(this)" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 12px; border: 1px solid rgba(202, 195, 216, 0.3);">
+<div class="payment-icon-wrapper" style="width: 40px; height: 40px; border-radius: 12px; background: rgb(245, 243, 250); display: flex; align-items: center; justify-content: center; color: var(--on-surface-variant); flex-shrink: 0; box-shadow: none; transition: all 0.2s;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: var(--on-surface-variant);">qr_code_scanner</span>
 </div>
 <span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">UPI</span>
 </button>
-<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 12px; border: 1px solid rgba(202, 195, 216, 0.3);">
-<div style="width: 40px; height: 40px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28); flex-shrink: 0;">
-<span class="material-symbols-outlined" style="font-size: 20px;">more_horiz</span>
+<button type="button" class="payment-card payment-inactive" onclick="selectPaymentMode(this)" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 12px; border: 1px solid rgba(202, 195, 216, 0.3);">
+<div class="payment-icon-wrapper" style="width: 40px; height: 40px; border-radius: 12px; background: rgb(245, 243, 250); display: flex; align-items: center; justify-content: center; color: var(--on-surface-variant); flex-shrink: 0; box-shadow: none; transition: all 0.2s;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: var(--on-surface-variant);">more_horiz</span>
 </div>
 <span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Other</span>
-</button>
-</div>
+</button></div>
 </section>
 <!-- Live Total -->
 
@@ -945,4 +943,45 @@ Save Expense
 
 
 
-</body></html>
+
+
+<script>
+  function selectPaymentMode(clickedCard) {
+    const cards = document.querySelectorAll('.payment-grid .payment-card');
+    cards.forEach(card => {
+      const iconBox = card.querySelector('.payment-icon-wrapper') || card.querySelector('div');
+      const icon = card.querySelector('.material-symbols-outlined');
+      const label = card.querySelector('.payment-label');
+      
+      if (card === clickedCard) {
+        card.classList.add('active');
+        card.classList.remove('payment-inactive');
+        card.style.borderColor = 'var(--primary)';
+        card.style.borderWidth = '1.5px';
+        card.style.boxShadow = '0 4px 14px rgba(123, 77, 255, 0.15)';
+        if (label) label.style.color = 'var(--primary)';
+        if (iconBox) {
+          iconBox.style.background = 'linear-gradient(135deg, #7B4DFF, #FF6B3D)';
+          iconBox.style.boxShadow = '0 4px 12px rgba(123, 77, 255, 0.32)';
+        }
+        if (icon) {
+          icon.style.color = '#ffffff';
+        }
+      } else {
+        card.classList.remove('active');
+        card.classList.add('payment-inactive');
+        card.style.borderColor = 'rgba(202, 195, 216, 0.3)';
+        card.style.borderWidth = '1px';
+        card.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.04)';
+        if (label) label.style.color = 'var(--on-surface)';
+        if (iconBox) {
+          iconBox.style.background = 'rgb(245, 243, 250)';
+          iconBox.style.boxShadow = 'none';
+        }
+        if (icon) {
+          icon.style.color = 'var(--on-surface-variant)';
+        }
+      }
+    });
+  }
+</script></body></html>
