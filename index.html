@@ -1,2515 +1,948 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Luminous Finance - Smart Finance Dashboard</title>
-  
-  <!-- Google Fonts: Inter & Share Tech Mono (Authentic ATM Card Typography) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  
-  <!-- Google Material Symbols Outlined -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-
-  <style>
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Add New Expense - Smart Finance</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
     :root {
-      /* Brand Palette */
-      --primary: #622ce5;
-      --primary-container: #7b4dff;
-      --on-primary: #ffffff;
-      --secondary: #ae3203;
-      --secondary-container: #fd6a3c;
-      --tertiary: #732ad3;
-      --tertiary-container: #8d4aee;
-      --error: #ba1a1a;
-      
-      /* Neutral / Surface */
-      --surface-bg: #fcf9f8;
-      --surface-container-lowest: #ffffff;
-      --surface-container-low: #f7f2f2;
-      --surface-container: #f1edec;
-      --surface-container-high: #ece7e7;
-      --on-surface: #1c1b1b;
-      --on-surface-variant: #494456;
-      --outline: #7a7487;
-      --outline-variant: #cac3d8;
-      --outline-soft: rgba(202, 195, 216, 0.4);
-      --input-bg: #f8f9fa;
-      
-      /* Gradients */
-      --gradient-brand: linear-gradient(135deg, #7b4dff 0%, #ff6b3d 100%);
-      --gradient-card: linear-gradient(135deg, #24252a 0%, #0d0e12 35%, #2c2d35 60%, #0b0c0e 100%);
-      
-      /* Typography */
-      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-card: 'Share Tech Mono', 'OCR-A Extended', 'OCR A', 'Courier New', monospace;
-      
-      /* Elevation & Card Shadows */
-      --shadow-subtle: 0px 4px 16px rgba(0, 0, 0, 0.03);
-      --shadow-card: 0px 1px 2px 0px rgba(0, 0, 0, 0.05), 0px 10px 30px 0px rgba(0, 0, 0, 0.04);
-      --shadow-stat-card: 0px 10px 30px rgba(0, 0, 0, 0.04);
-      --shadow-primary-glow: 0px 14px 28px rgba(123, 77, 255, 0.35);
-      --shadow-nav: 0px -4px 20px rgba(0, 0, 0, 0.04);
-      --shadow-top-bar: 0px 10px 30px rgba(0, 0, 0, 0.04);
-      --shadow-modal: 0px 20px 50px rgba(0, 0, 0, 0.15);
-
-      /* Border Radii */
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-      --radius-full: 9999px;
+        --primary: #622ce5;
+        --primary-dim: #cdbdff;
+        --on-primary: #ffffff;
+        --primary-container: #e7deff;
+        --on-primary-container: #1f005f;
+        
+        --surface: #ffffff;
+        --on-surface: #1c1b1b;
+        --surface-variant: #f0eded;
+        --on-surface-variant: #494456;
+        --surface-container-low: #f6f3f2;
+        --surface-container-high: #ece7e7;
+        
+        --outline: #7a7487;
+        --outline-variant: #cac3d8;
+        
+        --gradient: linear-gradient(135deg, #7B4DFF, #FF6B3D);
+        --gradient-shadow: 0px 20px 40px rgba(123,77,255,0.15);
+        --card-shadow: 0px 10px 30px rgba(0,0,0,0.04);
+        
+        --radius-card: 24px;
+        --radius-btn: 18px;
+        
+        --font-inter: 'Inter', sans-serif;
     }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
     }
 
     body {
-      font-family: var(--font-main);
-      background-color: #f3eff2;
-      color: var(--on-surface);
-      font-size: 14px;
-      line-height: 1.4;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+        font-family: var(--font-inter);
+        background-color: var(--surface);
+        color: var(--on-surface);
+        font-size: 16px;
+        line-height: 1.5;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    button {
+        background: none;
+        border: none;
+        font-family: inherit;
+        cursor: pointer;
+        color: inherit;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Layout & Header */
+    .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 50;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        box-shadow: var(--card-shadow);
     }
-
-    /* App container wrapper to emulate mobile fidelity gracefully */
-    .app-viewport {
-      width: 100%;
-      max-width: 440px;
-      background-color: var(--surface-bg);
-      min-height: 100vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.08);
-      overflow-x: hidden;
-      padding-bottom: 96px;
-    }
-
-    .material-symbols-outlined {
-      font-family: 'Material Symbols Outlined';
-      font-weight: normal;
-      font-style: normal;
-      font-size: 20px;
-      line-height: 1;
-      display: inline-block;
-      user-select: none;
-      vertical-align: middle;
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
-
-    .material-symbols-outlined.fill {
-      font-variation-settings: 'FILL' 1;
-    }
-
-    .flex { display: flex; }
-    .flex-col { display: flex; flex-direction: column; }
-    .items-center { align-items: center; }
-    .justify-between { justify-content: space-between; }
-    .justify-center { justify-content: center; }
-    .gap-4 { gap: 4px; }
-    .gap-8 { gap: 8px; }
-    .gap-12 { gap: 12px; }
-    .gap-16 { gap: 16px; }
-
-    .top-app-bar {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      z-index: 60;
-      background-color: rgba(252, 249, 248, 0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(202, 195, 216, 0.2);
-      box-shadow: var(--shadow-top-bar);
-    }
-
-    .top-app-bar-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      height: 64px;
-    }
-
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .user-avatar-wrap {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid #ffffff;
-      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.04);
-      background-color: #eee;
-      flex-shrink: 0;
-    }
-
-    .user-avatar-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .user-greeting {
-      font-size: 12px;
-      color: var(--on-surface-variant);
-      font-weight: 500;
-      line-height: 1.2;
-    }
-
-    .user-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: 0.03em;
-    }
-
-    .btn-logout {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: transparent;
-      border: none;
-      color: #ef4444;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-logout:hover {
-      background-color: rgba(239, 68, 68, 0.08);
-      transform: scale(1.05);
-    }
-
-    .btn-logout:active {
-      transform: scale(0.92);
-    }
-
-    main.dashboard-content {
-      padding: 14px 18px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .card-perspective {
-      perspective: 1200px;
-      width: 100%;
-    }
-
-    .black-card {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1.586 / 1;
-      border-radius: 18px;
-      background: var(--gradient-card);
-      color: #ffffff;
-      padding: 20px 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.2);
-      transform-style: preserve-3d;
-      transform: rotateX(4deg) rotateY(-4deg);
-      transition: transform 0.15s ease-out, box-shadow 0.2s;
-      cursor: pointer;
-      overflow: hidden;
-      user-select: none;
-    }
-
-    .black-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(125deg, transparent 0%, rgba(255, 255, 255, 0.18) 28%, rgba(255, 255, 255, 0.35) 32%, rgba(255, 255, 255, 0.12) 36%, transparent 100%);
-      pointer-events: none;
-      mix-blend-mode: overlay;
-      transform: translateZ(1px);
-    }
-
-    .twinkle-container {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    @keyframes realistic-twinkle {
-      0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
-      30% { transform: translate(-50%, -50%) scale(1.1) rotate(45deg); opacity: 1; filter: blur(0px); }
-      50% { transform: translate(-50%, -50%) scale(1) rotate(90deg); opacity: 0.85; filter: blur(0.5px); }
-      100% { transform: translate(-50%, -50%) scale(0) rotate(180deg); opacity: 0; filter: blur(1.5px); }
-    }
-
-    .twinkle-particle {
-      position: absolute;
-      width: 22px;
-      height: 22px;
-      animation: realistic-twinkle 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-
-    .twinkle-particle::before, .twinkle-particle::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0) 80%);
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-    }
-
-    .twinkle-particle::before { width: 100%; height: 2px; }
-    .twinkle-particle::after { width: 2px; height: 100%; }
-
-    .twinkle-particle-core {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 5px;
-      height: 5px;
-      background: #ffffff;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.9);
-    }
-
-    .card-top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      z-index: 2;
-      transform: translateZ(24px);
-    }
-
-    .card-brand-title {
-      font-size: 10.5px;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.95);
-      font-family: var(--font-card);
-      text-shadow: -1px -1px 0px rgba(0,0,0,0.8), 1px 1px 1px rgba(255,255,255,0.3);
-    }
-
-    .card-growth-pill {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 3px 8px;
-      border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 10.5px;
-      font-weight: 600;
-      color: #ffffff;
-    }
-
-    .card-growth-pill .material-symbols-outlined {
-      font-size: 12px;
-      color: #4ade80;
-    }
-
-    .emv-chip {
-      width: 44px;
-      height: 32px;
-      background: linear-gradient(135deg, #e3ba4b 0%, #fff1a8 45%, #b58917 100%);
-      border-radius: 6px;
-      position: relative;
-      box-shadow: inset 0 0 5px rgba(0,0,0,0.4), 0 2px 5px rgba(0,0,0,0.3);
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      position: relative;
-      z-index: 2;
-      transform: translateZ(16px);
-      margin-top: 10px;
-    }
-
-    .emv-chip::before {
-      content: '';
-      position: absolute;
-      inset: 3px;
-      border: 1px solid rgba(0,0,0,0.25);
-      border-radius: 4px;
-    }
-
-    .emv-chip .chip-line-h {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: rgba(0,0,0,0.35);
-    }
-
-    .emv-chip .chip-line-v {
-      position: absolute;
-      left: 48%;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: rgba(0,0,0,0.35);
-    }
-
-    .card-balance-block {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      z-index: 2;
-      margin-top: auto;
-      transform: translateZ(32px);
-    }
-
-    .card-balance-label {
-      font-size: 8.5px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.7);
-      font-weight: 400;
-      margin-bottom: 3px;
-      font-family: var(--font-card);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
-    }
-
-    .card-balance-digits {
-      font-size: 21px;
-      letter-spacing: 3.5px;
-      font-family: var(--font-card);
-      font-weight: 400;
-      color: #f1f5f9;
-      /* Realistic ATM card embossed stamped foil shadow */
-      text-shadow: 
-        -1px -1px 1px rgba(0, 0, 0, 0.9), 
-        1px 1px 1px rgba(255, 255, 255, 0.45), 
-        1px 2px 3px rgba(0, 0, 0, 0.9);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .card-bottom-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      position: relative;
-      z-index: 2;
-      margin-top: 14px;
-      transform: translateZ(24px);
-    }
-
-    .card-meta-label {
-      font-size: 7.5px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.65);
-      font-family: var(--font-card);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
-    }
-
-    .card-meta-val {
-      font-size: 12.5px;
-      font-weight: 400;
-      letter-spacing: 0.16em;
-      color: #f1f5f9;
-      margin-top: 2px;
-      font-family: var(--font-card);
-      text-transform: uppercase;
-      /* Realistic ATM card embossed stamped foil shadow */
-      text-shadow: 
-        -1px -1px 1px rgba(0, 0, 0, 0.85), 
-        1px 1px 1px rgba(255, 255, 255, 0.35), 
-        1px 2px 2px rgba(0, 0, 0, 0.85);
-    }
-
-    .mastercard-logo {
-      display: flex;
-      position: relative;
-      width: 38px;
-      height: 24px;
-    }
-
-    .mc-circle {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      position: absolute;
-    }
-
-    .mc-circle.red {
-      left: 0;
-      background: #eb001b;
-      opacity: 0.95;
-    }
-
-    .mc-circle.orange {
-      right: 0;
-      background: #f79e1b;
-      opacity: 0.88;
-    }
-
-    .bento-card {
-      background-color: #ffffff;
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      border: 1px solid rgb(241, 245, 249);
-      box-shadow: var(--shadow-card);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      position: relative;
-    }
-
-    .bento-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .bento-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .bento-title-icon {
-      color: var(--primary);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .bento-title {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--on-surface);
-      letter-spacing: 0.01em;
-    }
-
-    .stats-horizontal-scroll {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .stat-pill-card {
-      background-color: #ffffff;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      border-radius: 22px;
-      padding: 10px 10px 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      box-shadow: var(--shadow-stat-card);
-      transition: transform 0.2s ease, box-shadow 0.2s;
-      cursor: pointer;
-    }
-
-    .stat-pill-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.08);
-    }
-
-    .bento-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .bento-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .bento-title-icon {
-      color: var(--primary);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .bento-title {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--on-surface);
-      letter-spacing: 0.01em;
-    }
-
-    .stats-horizontal-scroll {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .stat-pill-card {
-      background-color: #ffffff;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      border-radius: 22px;
-      padding: 10px 10px 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      box-shadow: var(--shadow-subtle);
-      transition: transform 0.2s ease, box-shadow 0.2s;
-      cursor: pointer;
-    }
-
-    .stat-pill-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    }
-
-    .stat-pill-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      margin-bottom: 2px;
-      font-size: 13px;
-    }
-
-    .stat-pill-label {
-      font-size: 11px;
-      color: var(--on-surface-variant);
-      font-weight: 500;
-    }
-
-    .stat-pill-amount {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--on-surface);
-      letter-spacing: -0.01em;
-    }
-
-    .calendar-nav-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      min-height: 34px;
-    }
-
-    .calendar-month-capsule {
-      display: flex;
-      align-items: center;
-      background: var(--surface-container-low);
-      padding: 3px 6px;
-      border-radius: var(--radius-full);
-      gap: 4px;
-    }
-
-    .btn-capsule-arrow {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: none;
-      background: transparent;
-      color: var(--on-surface-variant);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .btn-capsule-arrow:hover {
-      background: rgba(0, 0, 0, 0.05);
-      color: var(--on-surface);
-    }
-
-    .capsule-month-text {
-      font-size: 11px;
-      font-weight: 700;
-      color: #1c1b1b;
-      padding: 0 6px;
-      letter-spacing: 0.02em;
-    }
-
-    .calendar-weekdays-row {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 5px;
-      text-align: center;
-      margin-top: 4px;
-    }
-
-    .calendar-weekdays-row span {
-      font-size: 11px;
-      font-weight: 600;
-      color: #7a7487;
-    }
-
-    .calendar-grid-days {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 5px;
-    }
-
-    .cal-day-cell {
-      aspect-ratio: 1 / 1;
-      border-radius: 9px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s;
-      background-color: #fbfaff;
-      border: 1px solid rgba(123, 77, 255, 0.12);
-    }
-
-    .cal-day-cell:active {
-      transform: scale(0.92);
-    }
-
-    .cal-day-cell.empty {
-      background: transparent;
-      border: none;
-      cursor: default;
-      pointer-events: none;
-    }
-
-    .cal-day-num {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #111827;
-      line-height: 1;
-    }
-
-    .cal-day-spend {
-      font-size: 8px;
-      font-weight: 700;
-      margin-top: 2px;
-      color: #7b4dff;
-    }
-
-    /* Red highlight: High spend */
-    .cal-day-cell.high-spend {
-      background: linear-gradient(135deg, rgba(254, 226, 226, 0.85), rgba(254, 202, 202, 0.65));
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      box-shadow: 0 1px 3px rgba(239, 68, 68, 0.1);
-    }
-    .cal-day-cell.high-spend .cal-day-spend {
-      color: #b91c1c;
-    }
-
-    /* Green highlight: Zero spend */
-    .cal-day-cell.zero-spend {
-      background: rgba(16, 185, 129, 0.09);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-    }
-    .cal-day-cell.zero-spend .cal-day-spend {
-      color: #059669;
-    }
-
-    /* Total Spend Card Banner */
-    .total-monthly-banner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(135deg, rgba(123, 77, 255, 0.07), rgba(253, 106, 60, 0.05));
-      border: 1px solid rgba(123, 77, 255, 0.12);
-      border-radius: 14px;
-      padding: 10px 14px;
-      margin-top: 4px;
-    }
-
-    .total-monthly-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(123, 77, 255, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-    }
-
-    .total-monthly-label {
-      font-size: 11.5px;
-      font-weight: 500;
-      color: var(--on-surface-variant);
-    }
-
-    .total-monthly-val {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: -0.01em;
-    }
-
-    .segmented-control {
-      display: flex;
-      background-color: var(--surface-container-low);
-      border-radius: 10px;
-      padding: 2px;
-      gap: 2px;
-    }
-
-    .segmented-btn {
-      background: transparent;
-      border: none;
-      padding: 3px 12px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--on-surface-variant);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: inherit;
-    }
-
-    .segmented-btn.active {
-      background-color: #ffffff;
-      color: var(--primary);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    /* Chart Containers & SVG styles */
-    .chart-container-box {
-      width: 100%;
-      position: relative;
-    }
-
-    .chart-labels-row {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 6px;
-      color: var(--on-surface-variant);
-      font-size: 11px;
-      font-weight: 500;
-    }
-
-    /* Bar Views */
-    .bar-chart-view {
-      display: none;
-      flex-direction: column;
-      gap: 10px;
-      animation: fadeIn 0.25s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .bar-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .bar-item-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11.5px;
-    }
-
-    .bar-track {
-      height: 8px;
-      background-color: var(--surface-container);
-      border-radius: 4px;
-      overflow: hidden;
-      width: 100%;
-    }
-
-    .bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Donut chart and legend */
-    .donut-layout {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .donut-svg-wrap {
-      width: 130px;
-      height: 130px;
-      flex-shrink: 0;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .donut-center-text {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-    }
-
-    .donut-center-sub {
-      font-size: 9.5px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--on-surface-variant);
-    }
-
-    .donut-center-val {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--on-surface);
-      margin-top: 1px;
-    }
-
-    .donut-legend-col {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      flex: 1;
-    }
-
-    .legend-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 11px;
-    }
-
-    .legend-left {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--on-surface);
-      font-weight: 500;
-    }
-
-    .legend-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .legend-right {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .legend-amt {
-      font-weight: 700;
-      color: var(--on-surface);
-    }
-
-    .legend-pct-pill {
-      font-size: 9.5px;
-      font-weight: 600;
-      padding: 1px 6px;
-      border-radius: 6px;
-    }
-
-    /* Year Selection Dropdown */
-    .year-btn-dropdown {
-      background: var(--surface-container-low);
-      height: 30px;
-      padding: 0 10px;
-      border: none;
-      border-radius: var(--radius-full);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--on-surface-variant);
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .year-btn-dropdown:hover {
-      background: var(--surface-container);
-      color: var(--primary);
-    }
-
-    .year-menu-popup {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 36px;
-      z-index: 70;
-      background: #ffffff;
-      border-radius: 14px;
-      min-width: 120px;
-      padding: 6px;
-      box-shadow: var(--shadow-modal);
-      border: 1px solid var(--outline-soft);
-      animation: fadeIn 0.15s ease-out;
-    }
-
-    .year-menu-item {
-      width: 100%;
-      text-align: left;
-      padding: 6px 10px;
-      border-radius: 8px;
-      border: none;
-      background: transparent;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--on-surface);
-      cursor: pointer;
-      transition: background 0.12s;
-    }
-
-    .year-menu-item:hover {
-      background: var(--surface-container-low);
-    }
-
-    .year-menu-item.active {
-      background: rgba(123, 77, 255, 0.1);
-      color: var(--primary);
-      font-weight: 700;
-    }
-
-    .tx-group-header {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #000000;
-      margin-top: 4px;
-    }
-
-    .tx-item-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background-color: #ffffff;
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.03);
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-
-    .tx-item-card:hover {
-      background-color: #faf8ff;
-      border-color: rgba(123, 77, 255, 0.2);
-      transform: translateX(2px);
-      box-shadow: 0px 6px 20px rgba(123, 77, 255, 0.08);
-    }
-
-    .tx-icon-circle {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      flex-shrink: 0;
-    }
-
-    .tx-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      margin-left: 10px;
-    }
-
-    .tx-name {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--on-surface);
-    }
-
-    .tx-meta {
-      font-size: 11px;
-      color: var(--on-surface-variant);
-    }
-
-    .tx-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 3px;
-    }
-
-    .tx-amount {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--on-surface);
-    }
-
-    .status-badge {
-      font-size: 9.5px;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: var(--radius-full);
-      background-color: rgba(34, 197, 94, 0.14);
-      color: #16a34a;
-    }
-
-    .bottom-nav-bar {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      max-width: 440px;
-      height: 68px;
-      background-color: rgba(252, 249, 248, 0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 0 12px env(safe-area-inset-bottom);
-      border-top: 1px solid rgba(202, 195, 216, 0.25);
-      box-shadow: var(--shadow-nav);
-      z-index: 55;
-    }
-
-    .bottom-nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: var(--on-surface-variant);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 10px;
-      font-weight: 500;
-      gap: 2px;
-      transition: color 0.15s;
-      flex: 1;
-    }
-
-    .bottom-nav-item.active {
-      color: var(--primary);
-      font-weight: 700;
-    }
-
-    .bottom-nav-item.active .material-symbols-outlined {
-      font-variation-settings: 'FILL' 1;
-    }
-
-    .fab-center {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: var(--gradient-brand);
-      color: #ffffff;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: translateY(-16px);
-      box-shadow: 0px 14px 28px rgba(123, 77, 255, 0.35), 0px 20px 40px rgba(123, 77, 255, 0.15);
-      cursor: pointer;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
-      z-index: 60;
-    }
-
-    .fab-center:active {
-      transform: translateY(-14px) scale(0.92);
-      box-shadow: 0 6px 14px rgba(123, 77, 255, 0.3);
-    }
-
-    .fab-center .material-symbols-outlined {
-      font-size: 26px;
-    }
-
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-backdrop {
-      position: absolute;
-      inset: 0;
-      background-color: rgba(28, 27, 27, 0.45);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-
-    .modal-card {
-      position: relative;
-      z-index: 101;
-      width: 100%;
-      max-width: 330px;
-      background: #ffffff;
-      border-radius: 22px;
-      padding: 22px 20px 20px;
-      box-shadow: var(--shadow-modal);
-      border: 1px solid var(--outline-soft);
-      text-align: center;
-      transform: scale(0.92) translateY(10px);
-      opacity: 0;
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s;
-    }
-
-    .toast-pill {
-      position: fixed;
-      top: 76px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-20px);
-      background: rgba(28, 27, 27, 0.9);
-      color: #ffffff;
-      padding: 8px 16px;
-      border-radius: var(--radius-full);
-      font-size: 12px;
-      font-weight: 600;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 120;
-    }
-
-    .toast-pill.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Toast Notification element -->
-  <div id="toast-notification" class="toast-pill">
-    <span class="material-symbols-outlined" style="font-size: 16px; color: #4ade80;">check_circle</span>
-    <span id="toast-message">Notification</span>
-  </div>
-
-  <div class="app-viewport">
     
-    <header class="top-app-bar">
-      <div class="top-app-bar-content">
-        <div class="user-profile">
-          <div class="user-avatar-wrap">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80" alt="Bhanu Profile Photo" onerror="this.src='https://placehold.co/80x80/622ce5/ffffff?text=BH'">
-          </div>
-          <div>
-            <div class="user-greeting">Good Morning,</div>
-            <div class="user-name">BHANU</div>
-          </div>
-        </div>
-        <button class="btn-logout" aria-label="Log out" title="Log out" onclick="openLogoutModal()">
-          <span class="material-symbols-outlined">logout</span>
-        </button>
-      </div>
-    </header>
-
-    <main class="dashboard-content">
-
-      <!-- 1. Luxury Smart Card with 3D Tilt and Twinkles -->
-      <section class="card-perspective">
-        <div class="black-card" id="main-balance-card">
-          <!-- Twinkle sparkles layer -->
-          <div class="twinkle-container" id="twinkle-container"></div>
-          
-          <!-- Card Top Row -->
-          <div class="card-top-row">
-            <span class="card-brand-title">Smart Finance</span>
-            <div class="card-growth-pill">
-              <span class="material-symbols-outlined">trending_up</span>
-              <span>+2.4%</span>
-            </div>
-          </div>
-
-          <!-- EMV Chip -->
-          <div class="emv-chip">
-            <div class="chip-line-h"></div>
-            <div class="chip-line-v"></div>
-          </div>
-
-          <!-- Balance Area -->
-          <div class="card-balance-block">
-            <span class="card-balance-label">AVAILABLE BALANCE</span>
-            <div class="card-balance-digits">
-              <span>*** *** ***</span>
-              <span id="available-balance-val">12,300</span>
-            </div>
-          </div>
-
-          <!-- Card Bottom Row -->
-          <div class="card-bottom-row">
-            <div>
-              <div class="card-meta-label">Card Holder</div>
-              <div class="card-meta-val">CM BHANUTEJA</div>
-            </div>
-            <div style="text-align: center;">
-              <div class="card-meta-label">Expires</div>
-              <div class="card-meta-val">31/08/26</div>
-            </div>
-            <div class="mastercard-logo">
-              <div class="mc-circle red"></div>
-              <div class="mc-circle orange"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="bento-card">
-        <div class="bento-header">
-          <div class="bento-title-wrap">
-            <span class="material-symbols-outlined bento-title-icon">query_stats</span>
-            <h3 class="bento-title">Quick Statistics</h3>
-          </div>
-        </div>
-        <div class="stats-horizontal-scroll">
-          <!-- Income -->
-          <div class="stat-pill-card" onclick="showToast('Income: ₹21,000')">
-            <div class="stat-pill-icon" style="background-color: #9d4edd;">
-              <span class="material-symbols-outlined" style="font-size: 16px; color: #ffffff;">payments</span>
-            </div>
-            <span class="stat-pill-label">Income</span>
-            <span class="stat-pill-amount">₹21,000</span>
-          </div>
-
-          <!-- Expenses -->
-          <div class="stat-pill-card" onclick="showToast('Expenses: ₹8,700')">
-            <div class="stat-pill-icon" style="background-color: #c9184a;">
-              <span class="material-symbols-outlined" style="font-size: 16px; color: #ffffff;">monetization_on</span>
-            </div>
-            <span class="stat-pill-label">Expenses</span>
-            <span class="stat-pill-amount">₹8,700</span>
-          </div>
-
-          <!-- Left Amount -->
-          <div class="stat-pill-card" onclick="showToast('Left Amount: ₹12,300')">
-            <div class="stat-pill-icon" style="background-color: #388e59;">
-              <span class="material-symbols-outlined" style="font-size: 16px; color: #ffffff;">account_balance_wallet</span>
-            </div>
-            <span class="stat-pill-label">Left Amount</span>
-            <span class="stat-pill-amount">₹12,300</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="bento-card">
-        <div class="bento-header">
-          <div class="bento-title-wrap">
-            <span class="material-symbols-outlined bento-title-icon">pie_chart</span>
-            <h3 class="bento-title">Budget - Planning</h3>
-          </div>
-          <span class="material-symbols-outlined" style="color: var(--on-surface-variant); cursor: pointer;" onclick="showToast('Budget planning opened')">chevron_right</span>
-        </div>
-        <div class="stats-horizontal-scroll">
-          <!-- Budget -->
-          <div class="stat-pill-card" onclick="showToast('Total Budget: ₹13,350')">
-            <div class="stat-pill-icon" style="background-color: #fd6a3c;">
-              <span class="material-symbols-outlined" style="font-size: 15px; color: #fff;">pie_chart</span>
-            </div>
-            <span class="stat-pill-label">Budget</span>
-            <span class="stat-pill-amount">₹13,350</span>
-          </div>
-
-          <!-- Spent -->
-          <div class="stat-pill-card" onclick="showToast('Total Spent: ₹8,700')">
-            <div class="stat-pill-icon" style="background-color: #1a73e8;">
-              <span class="material-symbols-outlined" style="font-size: 15px; color: #fff;">account_balance_wallet</span>
-            </div>
-            <span class="stat-pill-label">Spent</span>
-            <span class="stat-pill-amount">₹8,700</span>
-          </div>
-
-          <!-- Left -->
-          <div class="stat-pill-card" onclick="showToast('Budget Remaining: ₹4,650')">
-            <div class="stat-pill-icon" style="background-color: var(--primary);">
-              <span class="material-symbols-outlined" style="font-size: 15px; color: #fff;">savings</span>
-            </div>
-            <span class="stat-pill-label">Left</span>
-            <span class="stat-pill-amount">₹4,650</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="bento-card">
-        <div class="calendar-nav-wrap">
-          <div style="position: absolute; left: 0;">
-            <span class="material-symbols-outlined bento-title-icon">calendar_month</span>
-          </div>
-          
-          <div class="calendar-month-capsule">
-            <button class="btn-capsule-arrow" aria-label="Previous Month" onclick="showToast('Viewing July 2026')">
-              <span class="material-symbols-outlined" style="font-size: 16px;">chevron_left</span>
-            </button>
-            <span class="capsule-month-text">August 2026</span>
-            <button class="btn-capsule-arrow" aria-label="Next Month" onclick="showToast('Viewing September 2026')">
-              <span class="material-symbols-outlined" style="font-size: 16px;">chevron_right</span>
-            </button>
-          </div>
-
-          <button class="btn-capsule-arrow" style="position: absolute; right: 0; background: var(--surface-container-low); width: 28px; height: 28px;" title="Filter Calendar" onclick="showToast('Threshold filters updated')">
-            <span class="material-symbols-outlined" style="font-size: 16px;">tune</span>
-          </button>
-        </div>
-
-        <!-- Weekdays header -->
-        <div class="calendar-weekdays-row">
-          <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
-        </div>
-
-        <!-- August 2026 Grid (Aug 1 is Saturday) -->
-        <div class="calendar-grid-days">
-          <!-- 6 Offset blanks for Sunday-Friday -->
-          <div class="cal-day-cell empty"></div>
-          <div class="cal-day-cell empty"></div>
-          <div class="cal-day-cell empty"></div>
-          <div class="cal-day-cell empty"></div>
-          <div class="cal-day-cell empty"></div>
-          <div class="cal-day-cell empty"></div>
-
-          <!-- Day 1 -->
-          <div class="cal-day-cell" onclick="handleDayClick(1, '₹150')">
-            <span class="cal-day-num">1</span>
-            <span class="cal-day-spend">₹150</span>
-          </div>
-
-          <!-- Day 2 -->
-          <div class="cal-day-cell" onclick="handleDayClick(2, '₹450')">
-            <span class="cal-day-num">2</span>
-            <span class="cal-day-spend">₹450</span>
-          </div>
-
-          <!-- Day 3 -->
-          <div class="cal-day-cell" onclick="handleDayClick(3, '₹120')">
-            <span class="cal-day-num">3</span>
-            <span class="cal-day-spend">₹120</span>
-          </div>
-
-          <!-- Day 4 (High Spend: ₹1,200) -->
-          <div class="cal-day-cell high-spend" onclick="handleDayClick(4, '₹1,200', true)">
-            <span class="cal-day-num">4</span>
-            <span class="cal-day-spend">₹1,200</span>
-          </div>
-
-          <!-- Day 5 -->
-          <div class="cal-day-cell" onclick="handleDayClick(5, '₹80')">
-            <span class="cal-day-num">5</span>
-            <span class="cal-day-spend">₹80</span>
-          </div>
-
-          <!-- Day 6 -->
-          <div class="cal-day-cell" onclick="handleDayClick(6, '₹200')">
-            <span class="cal-day-num">6</span>
-            <span class="cal-day-spend">₹200</span>
-          </div>
-
-          <!-- Day 7 (High Spend: ₹550) -->
-          <div class="cal-day-cell high-spend" onclick="handleDayClick(7, '₹550', true)">
-            <span class="cal-day-num">7</span>
-            <span class="cal-day-spend">₹550</span>
-          </div>
-
-          <!-- Day 8 -->
-          <div class="cal-day-cell" onclick="handleDayClick(8, '₹100')">
-            <span class="cal-day-num">8</span>
-            <span class="cal-day-spend">₹100</span>
-          </div>
-
-          <!-- Day 9 -->
-          <div class="cal-day-cell" onclick="handleDayClick(9, '₹300')">
-            <span class="cal-day-num">9</span>
-            <span class="cal-day-spend">₹300</span>
-          </div>
-
-          <!-- Day 10 (High Spend: ₹2,100) -->
-          <div class="cal-day-cell high-spend" onclick="handleDayClick(10, '₹2,100', true)">
-            <span class="cal-day-num">10</span>
-            <span class="cal-day-spend">₹2,100</span>
-          </div>
-
-          <!-- Day 11 (Zero Spend) -->
-          <div class="cal-day-cell zero-spend" onclick="handleDayClick(11, '₹0', false, true)">
-            <span class="cal-day-num">11</span>
-            <span class="cal-day-spend">₹0</span>
-          </div>
-
-          <!-- Day 12 -->
-          <div class="cal-day-cell" onclick="handleDayClick(12, '₹150')">
-            <span class="cal-day-num">12</span>
-            <span class="cal-day-spend">₹150</span>
-          </div>
-
-          <!-- Day 13 -->
-          <div class="cal-day-cell" onclick="handleDayClick(13, '₹400')">
-            <span class="cal-day-num">13</span>
-            <span class="cal-day-spend">₹400</span>
-          </div>
-
-          <!-- Day 14 -->
-          <div class="cal-day-cell" onclick="handleDayClick(14, '₹220')">
-            <span class="cal-day-num">14</span>
-            <span class="cal-day-spend">₹220</span>
-          </div>
-
-          <!-- Day 15 (High Spend: ₹850) -->
-          <div class="cal-day-cell high-spend" onclick="handleDayClick(15, '₹850', true)">
-            <span class="cal-day-num">15</span>
-            <span class="cal-day-spend">₹850</span>
-          </div>
-
-          <!-- Day 16 -->
-          <div class="cal-day-cell" onclick="handleDayClick(16, '₹110')">
-            <span class="cal-day-num">16</span>
-            <span class="cal-day-spend">₹110</span>
-          </div>
-
-          <!-- Day 17 -->
-          <div class="cal-day-cell" onclick="handleDayClick(17, '₹90')">
-            <span class="cal-day-num">17</span>
-            <span class="cal-day-spend">₹90</span>
-          </div>
-
-          <!-- Day 18 -->
-          <div class="cal-day-cell" onclick="handleDayClick(18, '₹310')">
-            <span class="cal-day-num">18</span>
-            <span class="cal-day-spend">₹310</span>
-          </div>
-
-          <!-- Day 19 -->
-          <div class="cal-day-cell" onclick="handleDayClick(19, '₹140')">
-            <span class="cal-day-num">19</span>
-            <span class="cal-day-spend">₹140</span>
-          </div>
-
-          <!-- Day 20 (High Spend: ₹3,400) -->
-          <div class="cal-day-cell high-spend" onclick="handleDayClick(20, '₹3,400', true)">
-            <span class="cal-day-num">20</span>
-            <span class="cal-day-spend">₹3,400</span>
-          </div>
-
-          <!-- Day 21 (Zero Spend) -->
-          <div class="cal-day-cell zero-spend" onclick="handleDayClick(21, '₹0', false, true)">
-            <span class="cal-day-num">21</span>
-            <span class="cal-day-spend">₹0</span>
-          </div>
-
-          <!-- Day 22 -->
-          <div class="cal-day-cell" onclick="handleDayClick(22, '₹180')">
-            <span class="cal-day-num">22</span>
-            <span class="cal-day-spend">₹180</span>
-          </div>
-
-          <!-- Day 23 -->
-          <div class="cal-day-cell" onclick="handleDayClick(23, '₹250')">
-            <span class="cal-day-num">23</span>
-            <span class="cal-day-spend">₹250</span>
-          </div>
-
-          <!-- Day 24 -->
-          <div class="cal-day-cell" onclick="handleDayClick(24, '₹100')">
-            <span class="cal-day-num">24</span>
-            <span class="cal-day-spend">₹100</span>
-          </div>
-
-          <!-- Day 25 -->
-          <div class="cal-day-cell" onclick="handleDayClick(25, '₹150')">
-            <span class="cal-day-num">25</span>
-            <span class="cal-day-spend">₹150</span>
-          </div>
-
-          <!-- Day 26 (Zero Spend) -->
-          <div class="cal-day-cell zero-spend" onclick="handleDayClick(26, '₹0', false, true)">
-            <span class="cal-day-num">26</span>
-            <span class="cal-day-spend">₹0</span>
-          </div>
-
-          <!-- Day 27 -->
-          <div class="cal-day-cell" onclick="handleDayClick(27, '₹450')">
-            <span class="cal-day-num">27</span>
-            <span class="cal-day-spend">₹450</span>
-          </div>
-
-          <!-- Day 28 -->
-          <div class="cal-day-cell" onclick="handleDayClick(28, '₹120')">
-            <span class="cal-day-num">28</span>
-            <span class="cal-day-spend">₹120</span>
-          </div>
-
-          <!-- Day 29 -->
-          <div class="cal-day-cell" onclick="handleDayClick(29, '₹130')">
-            <span class="cal-day-num">29</span>
-            <span class="cal-day-spend">₹130</span>
-          </div>
-
-          <!-- Day 30 -->
-          <div class="cal-day-cell" onclick="handleDayClick(30, '₹160')">
-            <span class="cal-day-num">30</span>
-            <span class="cal-day-spend">₹160</span>
-          </div>
-
-          <!-- Day 31 (Zero Spend) -->
-          <div class="cal-day-cell zero-spend" onclick="handleDayClick(31, '₹0', false, true)">
-            <span class="cal-day-num">31</span>
-            <span class="cal-day-spend">₹0</span>
-          </div>
-        </div>
-
-        <!-- Total Monthly Spend Banner -->
-        <div class="total-monthly-banner">
-          <div class="flex items-center gap-8">
-            <div class="total-monthly-icon">
-              <span class="material-symbols-outlined" style="font-size: 16px;">calendar_month</span>
-            </div>
-            <span class="total-monthly-label">Total Monthly Spend</span>
-          </div>
-          <span class="total-monthly-val">₹12,000</span>
-        </div>
-      </section>
-
-      <section class="bento-card">
-        <div class="bento-header">
-          <div class="bento-title-wrap">
-            <span class="material-symbols-outlined bento-title-icon">show_chart</span>
-            <h3 class="bento-title">Daily Spending Analysis</h3>
-          </div>
-          <div class="segmented-control">
-            <button class="segmented-btn active" id="btn-trend" onclick="switchTrendView('trend')">Trend</button>
-            <button class="segmented-btn" id="btn-bar-trend" onclick="switchTrendView('bar')">Bar</button>
-          </div>
-        </div>
-
-        <div class="chart-container-box">
-          <!-- Trend View (Spline curve) -->
-          <div id="view-aug-trend" style="display: block;">
-            <div style="height: 140px; width: 100%; margin-top: 4px;">
-              <svg width="100%" height="100%" viewBox="0 0 310 120" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="splineStrokeGrad" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#7B4DFF"/>
-                    <stop offset="100%" stop-color="#FF6B3D"/>
-                  </linearGradient>
-                  <linearGradient id="splineAreaGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#7B4DFF" stop-opacity="0.25"/>
-                    <stop offset="100%" stop-color="#7B4DFF" stop-opacity="0.0"/>
-                  </linearGradient>
-                </defs>
-                <!-- Subtle grid lines -->
-                <line x1="0" y1="100" x2="310" y2="100" stroke="#cac3d8" stroke-width="0.5" stroke-dasharray="4"/>
-                <line x1="0" y1="60" x2="310" y2="60" stroke="#cac3d8" stroke-width="0.5" stroke-dasharray="4"/>
-                <line x1="0" y1="20" x2="310" y2="20" stroke="#cac3d8" stroke-width="0.5" stroke-dasharray="4"/>
-
-                <!-- Area Fill -->
-                <path d="M 0 110 L 10 105 L 20 100 L 30 102 L 40 70 L 50 105 L 60 100 L 70 85 L 80 102 L 90 95 L 100 40 L 110 110 L 120 105 L 130 95 L 140 100 L 150 80 L 160 105 L 170 108 L 180 102 L 190 105 L 200 10 L 210 110 L 220 105 L 230 102 L 240 105 L 250 102 L 260 110 L 270 95 L 280 102 L 290 100 L 300 105 L 310 110 L 310 120 L 0 120 Z" fill="url(#splineAreaGrad)" />
-                
-                <!-- Main Trend Line with Peaks at Day 4, 10, 20 -->
-                <path d="M 0 110 C 15 110, 25 100, 30 100 C 35 100, 36 70, 40 70 C 44 70, 45 105, 50 105 C 55 105, 65 95, 70 85 C 75 75, 85 102, 90 95 C 95 88, 97 40, 100 40 C 103 40, 106 110, 110 110 C 115 110, 125 105, 130 95 C 135 85, 145 100, 150 80 C 155 60, 158 105, 165 105 C 175 105, 195 105, 200 10 C 205 10, 207 110, 212 110 C 220 110, 300 105, 310 110" fill="none" stroke="url(#splineStrokeGrad)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="chart-labels-row">
-              <span>1st</span>
-              <span>10th</span>
-              <span>20th</span>
-              <span>31st</span>
-            </div>
-          </div>
-
-          <!-- Bar View -->
-          <div id="view-aug-bar" style="display: none;">
-            <div style="height: 140px; width: 100%; margin-top: 4px;">
-              <svg width="100%" height="100%" viewBox="0 0 310 140" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="augBarGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#7B4DFF"/>
-                    <stop offset="100%" stop-color="#FF6B3D"/>
-                  </linearGradient>
-                </defs>
-                <rect x="2" y="132" width="6" height="8" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="12" y="120" width="6" height="20" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="22" y="134" width="6" height="6" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="32" y="80" width="6" height="60" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="42" y="136" width="6" height="4" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="52" y="130" width="6" height="10" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="62" y="112" width="6" height="28" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="72" y="135" width="6" height="5" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="82" y="125" width="6" height="15" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="92" y="45" width="6" height="95" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="102" y="140" width="6" height="0" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="112" y="132" width="6" height="8" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="122" y="120" width="6" height="20" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="132" y="129" width="6" height="11" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="142" y="98" width="6" height="42" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="152" y="134" width="6" height="6" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="162" y="135" width="6" height="5" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="172" y="124" width="6" height="16" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="182" y="133" width="6" height="7" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="192" y="5" width="6" height="135" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="202" y="140" width="6" height="0" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="212" y="131" width="6" height="9" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="222" y="127" width="6" height="13" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="232" y="135" width="6" height="5" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="242" y="132" width="6" height="8" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="252" y="140" width="6" height="0" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="262" y="118" width="6" height="22" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="272" y="134" width="6" height="6" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="282" y="133" width="6" height="7" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="292" y="132" width="6" height="8" rx="2" fill="url(#augBarGradient)"/>
-                <rect x="302" y="140" width="6" height="0" rx="2" fill="url(#augBarGradient)"/>
-              </svg>
-            </div>
-            <div class="chart-labels-row">
-              <span>1st</span>
-              <span>10th</span>
-              <span>20th</span>
-              <span>31st</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="bento-card">
-        <div class="bento-header">
-          <div class="bento-title-wrap">
-            <span class="material-symbols-outlined bento-title-icon">donut_small</span>
-            <h3 class="bento-title">Spending by Category</h3>
-          </div>
-          <div class="segmented-control">
-            <button class="segmented-btn active" id="btn-cat-ring" onclick="switchCategoryView('ring')">Ring</button>
-            <button class="segmented-btn" id="btn-cat-bar" onclick="switchCategoryView('bar')">Bar</button>
-          </div>
-        </div>
-
-        <!-- Ring View with Crisp White Dividers -->
-        <div class="donut-layout" id="view-cat-ring">
-          <div class="donut-svg-wrap">
-            <svg width="100%" height="100%" viewBox="0 0 160 160" style="transform: rotate(-90deg); overflow: visible;">
-              <!-- Perimeter of circle with r=58 is 2 * PI * 58 ≈ 364.42 -->
-              <!-- Groceries: 30% (dash 105.13, gap 4.2) -->
-              <circle cx="80" cy="80" r="58" fill="none" stroke="#7B4DFF" stroke-width="18" stroke-dasharray="105.13 259.29" stroke-dashoffset="-2.1" stroke-linecap="butt"/>
-              <!-- Vegetables: 15% (dash 50.46, gap 4.2) -->
-              <circle cx="80" cy="80" r="58" fill="none" stroke="#1DD3B0" stroke-width="18" stroke-dasharray="50.46 313.96" stroke-dashoffset="-111.43" stroke-linecap="butt"/>
-              <!-- Petrol: 15% (dash 50.46, gap 4.2) -->
-              <circle cx="80" cy="80" r="58" fill="none" stroke="#FF6B3D" stroke-width="18" stroke-dasharray="50.46 313.96" stroke-dashoffset="-166.09" stroke-linecap="butt"/>
-              <!-- Travelling: 10% (dash 32.24, gap 4.2) -->
-              <circle cx="80" cy="80" r="58" fill="none" stroke="#0EA5E9" stroke-width="18" stroke-dasharray="32.24 332.18" stroke-dashoffset="-220.75" stroke-linecap="butt"/>
-              <!-- Medical: 10% (dash 32.24, gap 4.2) -->
-              <circle cx="80" cy="80" r="58" fill="none" stroke="#F43F5E" stroke-width="18" stroke-dasharray="32.24 332.18" stroke-dashoffset="-257.19" stroke-linecap="butt"/>
-              <!-- Clothes: 10% (dash 32.24, gap 4.2) -->
-              <circle cx="80" cy="80" r="58" fill="none" stroke="#D946EF" stroke-width="18" stroke-dasharray="32.24 332.18" stroke-dashoffset="-293.63" stroke-linecap="butt"/>
-              <!-- Others: 10% (dash 32.24, gap 4.2) -->
-              <circle cx="80" cy="80" r="58" fill="none" stroke="#EDC547" stroke-width="18" stroke-dasharray="32.24 332.18" stroke-dashoffset="-330.07" stroke-linecap="butt"/>
-
-              <!-- Crisp White Radial Dividers between each category -->
-              <g stroke="#ffffff" stroke-width="3.5" stroke-linecap="butt">
-                <!-- Divider 1: at 0° (Others / Groceries) -->
-                <line x1="128" y1="80" x2="149" y2="80"/>
-                <!-- Divider 2: at 108° (Groceries / Vegetables) -->
-                <line x1="65.17" y1="125.65" x2="58.99" y2="144.67"/>
-                <!-- Divider 3: at 162° (Vegetables / Petrol) -->
-                <line x1="34.35" y1="94.83" x2="15.33" y2="101.01"/>
-                <!-- Divider 4: at 216° (Petrol / Travelling) -->
-                <line x1="41.17" y1="51.79" x2="24.99" y2="40.03"/>
-                <!-- Divider 5: at 252° (Travelling / Medical) -->
-                <line x1="65.17" y1="34.35" x2="58.99" y2="15.33"/>
-                <!-- Divider 6: at 288° (Medical / Clothes) -->
-                <line x1="94.83" y1="34.35" x2="101.01" y2="15.33"/>
-                <!-- Divider 7: at 324° (Clothes / Others) -->
-                <line x1="118.83" y1="51.79" x2="135.01" y2="40.03"/>
-              </g>
-            </svg>
-            <div class="donut-center-text">
-              <span class="donut-center-sub" style="font-size: 10px; font-weight: 600; color: #494456; letter-spacing: 0.08em;">TOTAL</span>
-              <span class="donut-center-val" style="font-size: 18px; font-weight: 800; color: #1c1b1b; margin-top: 1px; letter-spacing: -0.02em;">₹12,000</span>
-            </div>
-          </div>
-
-          <div class="donut-legend-col">
-            <!-- Groceries -->
-            <div class="legend-row">
-              <div class="legend-left">
-                <div class="legend-dot" style="background-color: #7B4DFF;"></div>
-                <span>Groceries</span>
-              </div>
-              <div class="legend-right">
-                <span class="legend-amt">₹3,600</span>
-                <span class="legend-pct-pill" style="background-color: rgba(123, 77, 255, 0.12); color: #7B4DFF;">30%</span>
-              </div>
-            </div>
-            <!-- Vegetables -->
-            <div class="legend-row">
-              <div class="legend-left">
-                <div class="legend-dot" style="background-color: #1DD3B0;"></div>
-                <span>Vegetables</span>
-              </div>
-              <div class="legend-right">
-                <span class="legend-amt">₹1,800</span>
-                <span class="legend-pct-pill" style="background-color: rgba(29, 211, 176, 0.14); color: #0f9f84;">15%</span>
-              </div>
-            </div>
-            <!-- Petrol -->
-            <div class="legend-row">
-              <div class="legend-left">
-                <div class="legend-dot" style="background-color: #FF6B3D;"></div>
-                <span>Petrol</span>
-              </div>
-              <div class="legend-right">
-                <span class="legend-amt">₹1,800</span>
-                <span class="legend-pct-pill" style="background-color: rgba(255, 107, 61, 0.12); color: #FF6B3D;">15%</span>
-              </div>
-            </div>
-            <!-- Travelling -->
-            <div class="legend-row">
-              <div class="legend-left">
-                <div class="legend-dot" style="background-color: #0EA5E9;"></div>
-                <span>Travelling</span>
-              </div>
-              <div class="legend-right">
-                <span class="legend-amt">₹1,200</span>
-                <span class="legend-pct-pill" style="background-color: rgba(14, 165, 233, 0.12); color: #0284c7;">10%</span>
-              </div>
-            </div>
-            <!-- Medical -->
-            <div class="legend-row">
-              <div class="legend-left">
-                <div class="legend-dot" style="background-color: #F43F5E;"></div>
-                <span>Medical</span>
-              </div>
-              <div class="legend-right">
-                <span class="legend-amt">₹1,200</span>
-                <span class="legend-pct-pill" style="background-color: rgba(244, 63, 94, 0.12); color: #e11d48;">10%</span>
-              </div>
-            </div>
-            <!-- Clothes -->
-            <div class="legend-row">
-              <div class="legend-left">
-                <div class="legend-dot" style="background-color: #D946EF;"></div>
-                <span>Clothes</span>
-              </div>
-              <div class="legend-right">
-                <span class="legend-amt">₹1,200</span>
-                <span class="legend-pct-pill" style="background-color: rgba(217, 70, 239, 0.12); color: #c026d3;">10%</span>
-              </div>
-            </div>
-            <!-- Others -->
-            <div class="legend-row">
-              <div class="legend-left">
-                <div class="legend-dot" style="background-color: #EDC547;"></div>
-                <span>Others</span>
-              </div>
-              <div class="legend-right">
-                <span class="legend-amt">₹1,200</span>
-                <span class="legend-pct-pill" style="background-color: rgba(237, 197, 71, 0.18); color: #b89218;">10%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bar View for Category -->
-        <div class="bar-chart-view" id="view-cat-bar">
-          <div class="bar-item">
-            <div class="bar-item-header">
-              <span class="flex items-center gap-4"><span class="legend-dot" style="background-color: #7B4DFF;"></span>Groceries</span>
-              <span><b>₹3,600</b> (30%)</span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width: 30%; background: #7B4DFF;"></div></div>
-          </div>
-          <div class="bar-item">
-            <div class="bar-item-header">
-              <span class="flex items-center gap-4"><span class="legend-dot" style="background-color: #1DD3B0;"></span>Vegetables</span>
-              <span><b>₹1,800</b> (15%)</span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width: 15%; background: #1DD3B0;"></div></div>
-          </div>
-          <div class="bar-item">
-            <div class="bar-item-header">
-              <span class="flex items-center gap-4"><span class="legend-dot" style="background-color: #FF6B3D;"></span>Petrol</span>
-              <span><b>₹1,800</b> (15%)</span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width: 15%; background: #FF6B3D;"></div></div>
-          </div>
-          <div class="bar-item">
-            <div class="bar-item-header">
-              <span class="flex items-center gap-4"><span class="legend-dot" style="background-color: #0EA5E9;"></span>Travelling</span>
-              <span><b>₹1,200</b> (10%)</span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width: 10%; background: #0EA5E9;"></div></div>
-          </div>
-          <div class="bar-item">
-            <div class="bar-item-header">
-              <span class="flex items-center gap-4"><span class="legend-dot" style="background-color: #F43F5E;"></span>Medical</span>
-              <span><b>₹1,200</b> (10%)</span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width: 10%; background: #F43F5E;"></div></div>
-          </div>
-          <div class="bar-item">
-            <div class="bar-item-header">
-              <span class="flex items-center gap-4"><span class="legend-dot" style="background-color: #D946EF;"></span>Clothes</span>
-              <span><b>₹1,200</b> (10%)</span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width: 10%; background: #D946EF;"></div></div>
-          </div>
-          <div class="bar-item">
-            <div class="bar-item-header">
-              <span class="flex items-center gap-4"><span class="legend-dot" style="background-color: #EDC547;"></span>Others</span>
-              <span><b>₹1,200</b> (10%)</span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width: 10%; background: #EDC547;"></div></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="bento-card">
-        <div class="bento-header">
-          <div class="bento-title-wrap">
-            <span class="material-symbols-outlined bento-title-icon">payments</span>
-            <h3 class="bento-title">Payment Mode Analysis</h3>
-          </div>
-          <div class="segmented-control">
-            <button class="segmented-btn active" id="btn-pay-donut" onclick="switchPaymentModeView('donut')">Donut</button>
-            <button class="segmented-btn" id="btn-pay-bar" onclick="switchPaymentModeView('bar')">Bar</button>
-          </div>
-        </div>
-
-        <!-- Payment Donut View -->
-        <div class="donut-layout" id="view-payment-donut">
-          <div class="donut-svg-wrap">
-            <svg width="100%" height="100%" viewBox="0 0 160 160" style="transform: rotate(-90deg); overflow: visible;">
-              <defs>
-                <linearGradient id="payUpiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#f1ba0a"/>
-                  <stop offset="100%" stop-color="#eab308"/>
-                </linearGradient>
-                <linearGradient id="payCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#9d4edd"/>
-                  <stop offset="100%" stop-color="#622ce5"/>
-                </linearGradient>
-                <linearGradient id="payCashGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#10e0ff"/>
-                  <stop offset="100%" stop-color="#00c4e0"/>
-                </linearGradient>
-              </defs>
-              <!-- 2 * PI * 62 ≈ 389.56 -->
-              <!-- UPI (55%): ~214 -->
-              <circle cx="80" cy="80" r="62" fill="none" stroke="url(#payUpiGrad)" stroke-width="16" stroke-dasharray="214 390" stroke-dashoffset="0" stroke-linecap="round"/>
-              <!-- Card (30%): ~117 -->
-              <circle cx="80" cy="80" r="62" fill="none" stroke="url(#payCardGrad)" stroke-width="16" stroke-dasharray="117 390" stroke-dashoffset="-220" stroke-linecap="round"/>
-              <!-- Cash (15%): ~58 -->
-              <circle cx="80" cy="80" r="62" fill="none" stroke="url(#payCashGrad)" stroke-width="16" stroke-dasharray="58 390" stroke-dashoffset="-342" stroke-linecap="round"/>
-            </svg>
-            <div class="donut-center-text">
-              <span class="donut-center-sub">TOTAL TXN</span>
-              <span class="donut-center-val" style="font-size: 15px;">48 No's</span>
-            </div>
-          </div>
-
-          <div class="donut-legend-col">
-            <!-- UPI -->
-            <div class="legend-row">
-              <div class="legend-left">
-                <div class="legend-dot" style="background-color: #f1ba0a;"></div>
-                <span>UPI (32)</span>
-              </div>
-              <div class="legend-right">
-                <span class="legend-amt">₹6,600</span>
-                <span class="legend-pct-pill" style="background-color: rgba(241, 186, 10, 0.15); color: #b88e00;">55%</span>
-              </div>
-            </div>
-            <!-- Credit Card -->
-            <div class="legend-row">
-              <div class="legend-left">
-                <div class="legend-dot" style="background-color: #7b4dff;"></div>
-                <span>Credit Card (11)</span>
-              </div>
-              <div class="legend-right">
-                <span class="legend-amt">₹3,600</span>
-                <span class="legend-pct-pill" style="background-color: rgba(123, 77, 255, 0.12); color: #7b4dff;">30%</span>
-              </div>
-            </div>
-            <!-- Cash -->
-            <div class="legend-row">
-              <div class="legend-left">
-                <div class="legend-dot" style="background-color: #10e0ff;"></div>
-                <span>Cash (5)</span>
-              </div>
-              <div class="legend-right">
-                <span class="legend-amt">₹1,800</span>
-                <span class="legend-pct-pill" style="background-color: rgba(16, 224, 255, 0.15); color: #009cb3;">15%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Payment Bar View -->
-        <div class="bar-chart-view" id="view-payment-bar">
-          <div class="bar-item">
-            <div class="bar-item-header">
-              <span class="flex items-center gap-4"><span class="legend-dot" style="background-color: #f1ba0a;"></span>UPI (32)</span>
-              <span><b>₹6,600</b> (55%)</span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width: 55%; background: #f1ba0a;"></div></div>
-          </div>
-          <div class="bar-item">
-            <div class="bar-item-header">
-              <span class="flex items-center gap-4"><span class="legend-dot" style="background-color: #7b4dff;"></span>Credit Card (11)</span>
-              <span><b>₹3,600</b> (30%)</span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width: 30%; background: linear-gradient(90deg, #9d4edd, #7b4dff);"></div></div>
-          </div>
-          <div class="bar-item">
-            <div class="bar-item-header">
-              <span class="flex items-center gap-4"><span class="legend-dot" style="background-color: #10e0ff;"></span>Cash (5)</span>
-              <span><b>₹1,800</b> (15%)</span>
-            </div>
-            <div class="bar-track"><div class="bar-fill" style="width: 15%; background: #10e0ff;"></div></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="bento-card" style="overflow: visible;">
-        <div class="bento-header">
-          <div class="bento-title-wrap">
-            <span class="material-symbols-outlined bento-title-icon" style="color: #7b4dff;">bar_chart</span>
-            <h3 class="bento-title" id="year-section-title">2026 Year Analysis (Monthly)</h3>
-          </div>
-          <div style="position: relative;">
-            <button class="year-btn-dropdown" id="year-dropdown-btn" onclick="toggleYearDropdown(event)">
-              <span class="material-symbols-outlined" style="font-size: 15px;">calendar_month</span>
-              <span id="selected-year-label">Select Year</span>
-            </button>
-            <div class="year-menu-popup" id="year-dropdown-menu">
-              <div style="padding: 4px 8px 6px; font-size: 10px; font-weight: 700; color: var(--outline); text-transform: uppercase;">Select Year</div>
-              <button class="year-menu-item" onclick="selectYear('2023')">2023</button>
-              <button class="year-menu-item" onclick="selectYear('2024')">2024</button>
-              <button class="year-menu-item" onclick="selectYear('2025')">2025</button>
-              <button class="year-menu-item active" onclick="selectYear('2026')">2026</button>
-              <button class="year-menu-item" onclick="selectYear('2027')">2027</button>
-              <button class="year-menu-item" onclick="selectYear('2028')">2028</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-4">
-          <span style="font-size: 11px; color: var(--on-surface-variant); font-weight: 500;">Average Monthly Spending</span>
-          <span style="font-size: 19px; font-weight: 700; color: var(--on-surface);">₹3,240.00</span>
-        </div>
-
-        <!-- 12-Month SVG Chart with vertical text in bars -->
-        <div style="width: 100%; height: 130px; margin-top: 4px;">
-          <svg width="100%" height="100%" viewBox="0 0 360 120" style="overflow: visible;">
-            <defs>
-              <linearGradient id="barGradJan" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4ade80"/><stop offset="100%" stop-color="#22c55e"/></linearGradient>
-              <linearGradient id="barGradFeb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#f97316"/></linearGradient>
-              <linearGradient id="barGradMar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#eab308"/></linearGradient>
-              <linearGradient id="barGradApr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#a855f7"/></linearGradient>
-              <linearGradient id="barGradMay" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#0284c7"/></linearGradient>
-              <linearGradient id="barGradJun" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4ade80"/><stop offset="100%" stop-color="#10b981"/></linearGradient>
-              <linearGradient id="barGradJul" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fb7185"/><stop offset="100%" stop-color="#e11d48"/></linearGradient>
-              <linearGradient id="barGradAug" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient>
-              <linearGradient id="barGradSep" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff6b3d"/><stop offset="100%" stop-color="#fd6a3c"/></linearGradient>
-              <linearGradient id="barGradOct" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#6366f1"/></linearGradient>
-              <linearGradient id="barGradNov" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f472b6"/><stop offset="100%" stop-color="#db2777"/></linearGradient>
-              <linearGradient id="barGradDec" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#6d28d9"/></linearGradient>
-            </defs>
-
-            <!-- Bars -->
-            <g style="cursor: pointer;" onclick="showToast('Jan: ₹11,800')"><rect x="5" y="38" width="20" height="82" rx="6" fill="url(#barGradJan)"/><text x="15" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 15 102)">11,800</text></g>
-            <g style="cursor: pointer;" onclick="showToast('Feb: ₹12,400')"><rect x="35" y="28" width="20" height="92" rx="6" fill="url(#barGradFeb)"/><text x="45" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 45 102)">12,400</text></g>
-            <g style="cursor: pointer;" onclick="showToast('Mar: ₹10,900')"><rect x="65" y="50" width="20" height="70" rx="6" fill="url(#barGradMar)"/><text x="75" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 75 102)">10,900</text></g>
-            <g style="cursor: pointer;" onclick="showToast('Apr: ₹12,850')"><rect x="95" y="20" width="20" height="100" rx="6" fill="url(#barGradApr)"/><text x="105" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 105 102)">12,850</text></g>
-            <g style="cursor: pointer;" onclick="showToast('May: ₹11,200')"><rect x="125" y="44" width="20" height="76" rx="6" fill="url(#barGradMay)"/><text x="135" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 135 102)">11,200</text></g>
-            <g style="cursor: pointer;" onclick="showToast('Jun: ₹12,600')"><rect x="155" y="24" width="20" height="96" rx="6" fill="url(#barGradJun)"/><text x="165" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 165 102)">12,600</text></g>
-            <g style="cursor: pointer;" onclick="showToast('Jul: ₹13,000')"><rect x="185" y="14" width="20" height="106" rx="6" fill="url(#barGradJul)"/><text x="195" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 195 102)">13,000</text></g>
-            <!-- Highlighted August Bar -->
-            <g style="cursor: pointer;" onclick="showToast('Aug: ₹11,400')"><rect x="215" y="42" width="20" height="78" rx="6" fill="url(#barGradAug)" stroke="#d8b4fe" stroke-width="1.6" style="filter: drop-shadow(0 0 4px #d8b4fe);"/><text x="225" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 225 102)">11,400</text></g>
-            <g style="cursor: pointer;" onclick="showToast('Sep: ₹10,600')"><rect x="245" y="54" width="20" height="66" rx="6" fill="url(#barGradSep)"/><text x="255" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 255 102)">10,600</text></g>
-            <g style="cursor: pointer;" onclick="showToast('Oct: ₹12,900')"><rect x="275" y="18" width="20" height="102" rx="6" fill="url(#barGradOct)"/><text x="285" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 285 102)">12,900</text></g>
-            <g style="cursor: pointer;" onclick="showToast('Nov: ₹11,750')"><rect x="305" y="38" width="20" height="82" rx="6" fill="url(#barGradNov)"/><text x="315" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 315 102)">11,750</text></g>
-            <g style="cursor: pointer;" onclick="showToast('Dec: ₹12,300')"><rect x="335" y="26" width="20" height="94" rx="6" fill="url(#barGradDec)"/><text x="345" y="102" fill="#ffffff" font-size="8" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90 345 102)">12,300</text></g>
-          </svg>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(12, 1fr); text-align: center; font-size: 11px; font-weight: 500; color: var(--on-surface-variant); margin-top: 6px;">
-          <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
-          <span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
-        </div>
-      </section>
-
-      <section class="bento-card">
-        <div class="bento-header">
-          <div class="bento-title-wrap">
-            <span class="material-symbols-outlined bento-title-icon">receipt_long</span>
-            <h3 class="bento-title">Recent Transactions</h3>
-          </div>
-          <button style="background: none; border: none; font-size: 12.5px; font-weight: 600; color: var(--primary); cursor: pointer;" onclick="showToast('Showing all transactions')">
-            View All
-          </button>
-        </div>
-
-        <!-- Today Group -->
-        <div class="flex flex-col gap-8">
-          <div class="tx-group-header">Today</div>
-          
-          <!-- Grocery Item -->
-          <div class="tx-item-card" onclick="showToast('Grocery txn details')">
-            <div class="flex items-center">
-              <div class="tx-icon-circle" style="background: linear-gradient(135deg, #7b4dff, #9d4edd); box-shadow: 0 4px 10px rgba(123, 77, 255, 0.25);">
-                <span class="material-symbols-outlined" style="font-size: 20px;">shopping_cart</span>
-              </div>
-              <div class="tx-info">
-                <span class="tx-name">Grocery</span>
-                <span class="tx-meta">UPI • 09:15 AM</span>
-              </div>
-            </div>
-            <div class="tx-right">
-              <span class="tx-amount">- ₹1,240</span>
-              <span class="status-badge">Completed</span>
-            </div>
-          </div>
-
-          <!-- Petrol Item -->
-          <div class="tx-item-card" onclick="showToast('Petrol txn details')">
-            <div class="flex items-center">
-              <div class="tx-icon-circle" style="background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.25);">
-                <span class="material-symbols-outlined" style="font-size: 20px;">local_gas_station</span>
-              </div>
-              <div class="tx-info">
-                <span class="tx-name">Petrol</span>
-                <span class="tx-meta">Card • 11:30 AM</span>
-              </div>
-            </div>
-            <div class="tx-right">
-              <span class="tx-amount">- ₹2,500</span>
-              <span class="status-badge">Completed</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Yesterday Group -->
-        <div class="flex flex-col gap-8" style="margin-top: 4px;">
-          <div class="tx-group-header">Yesterday</div>
-
-          <!-- Vegetables Item -->
-          <div class="tx-item-card" onclick="showToast('Vegetables txn details')">
-            <div class="flex items-center">
-              <div class="tx-icon-circle" style="background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);">
-                <span class="material-symbols-outlined" style="font-size: 20px;">eco</span>
-              </div>
-              <div class="tx-info">
-                <span class="tx-name">Vegetables</span>
-                <span class="tx-meta">UPI • 08:45 PM</span>
-              </div>
-            </div>
-            <div class="tx-right">
-              <span class="tx-amount">- ₹850</span>
-              <span class="status-badge">Completed</span>
-            </div>
-          </div>
-
-          <!-- Clothes Item -->
-          <div class="tx-item-card" onclick="showToast('Clothes txn details')">
-            <div class="flex items-center">
-              <div class="tx-icon-circle" style="background: linear-gradient(135deg, #ff6b3d, #ea580c); box-shadow: 0 4px 10px rgba(255, 107, 61, 0.25);">
-                <span class="material-symbols-outlined" style="font-size: 20px;">checkroom</span>
-              </div>
-              <div class="tx-info">
-                <span class="tx-name">Clothes</span>
-                <span class="tx-meta">Cash • 10:00 AM</span>
-              </div>
-            </div>
-            <div class="tx-right">
-              <span class="tx-amount">- ₹499</span>
-              <span class="status-badge">Completed</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <nav class="bottom-nav-bar">
-      <button class="bottom-nav-item active" onclick="setNavTab(this, 'Home')">
-        <span class="material-symbols-outlined">home</span>
-        <span>Home</span>
-      </button>
-
-      <button class="bottom-nav-item" onclick="setNavTab(this, 'Budget')">
-        <span class="material-symbols-outlined">account_balance_wallet</span>
-        <span>Budget</span>
-      </button>
-
-      <!-- Center FAB -->
-      <button class="fab-center" aria-label="Add Transaction" title="Add Transaction" onclick="openAddTransactionModal()">
-        <span class="material-symbols-outlined">add</span>
-      </button>
-
-      <button class="bottom-nav-item" onclick="setNavTab(this, 'History')">
-        <span class="material-symbols-outlined">history</span>
-        <span>History</span>
-      </button>
-
-      <button class="bottom-nav-item" onclick="setNavTab(this, 'Profile')">
-        <span class="material-symbols-outlined">person</span>
-        <span>Profile</span>
-      </button>
-    </nav>
-
-    <!-- Logout Modal -->
-    <div id="logout-modal" class="modal-overlay">
-      <div id="logout-backdrop" class="modal-backdrop" onclick="closeLogoutModal()"></div>
-      <div id="logout-card" class="modal-card">
-        <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(239, 68, 68, 0.12); color: #ef4444; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px;">
-          <span class="material-symbols-outlined" style="font-size: 26px;">logout</span>
-        </div>
-        <h3 style="font-size: 17px; font-weight: 700; color: var(--on-surface); margin-bottom: 6px;">Log Out</h3>
-        <p style="font-size: 13px; color: var(--on-surface-variant); margin-bottom: 22px;">Are you sure you want to log out of your account?</p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-          <button type="button" onclick="closeLogoutModal()" style="padding: 11px; border-radius: 12px; border: 1px solid rgba(122, 116, 135, 0.25); background: #f6f3f2; color: #494456; font-size: 13px; font-weight: 600; cursor: pointer;">Cancel</button>
-          <button type="button" onclick="confirmLogout()" style="padding: 11px; border-radius: 12px; border: none; background: var(--gradient-brand); color: #ffffff; font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(123, 77, 255, 0.3);">Log Out</button>
-        </div>
-      </div>
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 64px;
+        padding: 0 20px;
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+
+    .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: var(--surface-variant);
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .brand-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--primary);
+    }
+
+    .header-icons {
+        color: var(--on-surface-variant);
+    }
+
+    /* Main Container */
+    .main-content {
+        padding: 88px 20px 104px;
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .page-title {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+    }
+
+    @media (min-width: 768px) {
+        .page-title { font-size: 32px; }
+    }
+
+    /* Cards */
+    .card {
+        background: var(--surface);
+        border-radius: var(--radius-card);
+        box-shadow: var(--card-shadow);
+        border: 1px solid rgba(0,0,0,0.03);
+        padding: 16px;
+    }
+
+    .section-title {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--on-surface);
+    }
+
+    /* Calendar */
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        text-align: center;
+    }
+    .calendar-day-header {
+        font-size: 12px;
+        color: var(--outline);
+        font-weight: 500;
+        padding-bottom: 4px;
+    }
+    .calendar-date {
+        padding: 8px 0;
+        font-size: 14px;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        cursor: pointer;
+    }
+    .calendar-date.active {
+        background: var(--gradient);
+        color: white;
+        font-weight: 700;
+        box-shadow: 0 4px 10px rgba(123,77,255,0.3);
+    }
+    .calendar-date.muted {
+        color: var(--outline-variant);
+    }
+
+    /* Categories Horizontal Bar */
+    .category-list {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+    }
+    .category-btn {
+        height: 38px;
+        padding: 0 16px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+    .category-add {
+        border: 1px solid rgba(98, 44, 229, 0.3);
+        color: var(--primary);
+    }
+    .category-active {
+        background: var(--gradient) !important;
+        color: var(--on-primary) !important;
+        border-color: transparent !important;
+        box-shadow: 0 4px 12px rgba(123, 77, 255, 0.28);
+    }
+    .category-inactive {
+        background: #ffffff;
+        border: 1px solid var(--outline-variant);
+        color: var(--on-surface-variant);
+    }
+    .category-inactive:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    /* Table */
+    .table-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+    .add-row-btn {
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    .table-container {
+        overflow-x: auto;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 400px;
+        text-align: left;
+    }
+    th {
+        font-size: 12px;
+        color: var(--outline);
+        font-weight: 500;
+        padding: 8px;
+        border-bottom: 1px solid var(--outline-variant);
+        background: var(--surface-container-low);
+    }
+    td {
+        padding: 8px;
+        border-bottom: 1px solid var(--surface-variant);
+        font-size: 16px;
+    }
+    .td-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .td-right {
+        text-align: right;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .td-sno { color: var(--outline-variant); width: 48px; }
+
+    /* Total */
+    .total-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        padding: 0 8px;
+    }
+    .total-amount {
+        font-size: 48px;
+        font-weight: 700;
+        color: var(--primary);
+        letter-spacing: -0.04em;
+    }
+    .total-words {
+        font-size: 12px;
+        color: var(--outline-variant);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 4px;
+    }
+
+    /* Payment Mode */
+    .payment-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .payment-card {
+        border-radius: 12px;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .payment-active {
+        background: rgba(98, 44, 229, 0.1);
+        border: 2px solid var(--primary);
+        color: var(--primary);
+    }
+    .payment-inactive {
+        background: var(--surface);
+        border: 1px solid var(--surface-variant);
+        color: var(--on-surface-variant);
+    }
+    .payment-label {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    /* Bill Receipt */
+    .receipt-upload {
+        border: 2px dashed var(--outline-variant);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 24px;
+        background: var(--surface-container-low);
+        text-align: center;
+        cursor: pointer;
+    }
+    .receipt-icons {
+        display: flex;
+        gap: 16px;
+        color: var(--primary);
+    }
+    .receipt-icon-circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--primary-container);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .receipt-title {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--on-surface);
+    }
+    .receipt-subtitle {
+        font-size: 12px;
+        color: var(--outline);
+    }
+
+    /* Description */
+    .description-input {
+        width: 100%;
+        height: 128px;
+        background: #F8F9FA;
+        border: 1px solid var(--surface-variant);
+        border-radius: 12px;
+        padding: 16px;
+        font-family: inherit;
+        font-size: 16px;
+        resize: none;
+    }
+    .description-input:focus {
+        outline: none;
+        border-color: var(--primary);
+    }
+
+    /* Save Button */
+    .save-btn {
+        height: 48px;
+        border-radius: var(--radius-btn);
+        background: var(--gradient);
+        color: var(--on-primary);
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        width: 100%;
+        box-shadow: var(--gradient-shadow);
+        margin-top: 8px;
+        margin-bottom: 16px;
+        transition: transform 0.2s;
+    }
+    .save-btn:active {
+        transform: scale(0.98);
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 72px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 16px;
+        padding-bottom: env(safe-area-inset-bottom);
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        box-shadow: 0px -4px 20px rgba(0,0,0,0.04);
+        z-index: 50;
+    }
+    @media (min-width: 768px) {
+        .bottom-nav { display: none; }
+    }
+    .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--on-surface-variant);
+    }
+    .nav-item span:last-child {
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 4px;
+    }
+    .nav-fab {
+        background: var(--gradient);
+        color: var(--on-primary);
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(-24px);
+        box-shadow: var(--gradient-shadow);
+    }
+
+    /* Dropdown item styling */
+    .category-dropdown-item {
+        transition: all 0.15s ease;
+    }
+    .category-dropdown-item:hover {
+        background: rgba(98, 44, 229, 0.05);
+    }
+</style>
+<style>.item-icon-box, #selected-category-icon-bg { background: linear-gradient(135deg, #7b4dff, #ff6b3d) !important; color: #ffffff !important; box-shadow: 0 3px 8px rgba(123, 77, 255, 0.28) !important; border-radius: 10px; } .item-icon-box .material-symbols-outlined, #selected-category-icon-bg .material-symbols-outlined { color: #ffffff !important; }</style></head>
+<body>
+<!-- TopAppBar -->
+<header class="header">
+<div class="header-content">
+<div class="avatar">
+<img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwUn74rezF-Eii5Fa7qKbK81lRUpZlEF4Y_HK2nLlTpEIeZ7L4j0UtoO7gn6rOWEt8zzXPgp3AWR0PfxcmNQeO7ujNak99QrgQITzb4Pu7lFW7wGQlSK0qWYJwAtQNNUOn5PbEtyk756D1Q8jk0C7clSzVsu7MmGkemRh9yGFXNDCqDEvtPFDKjtg2ENeZJ_vb3SVSGqk31-tepRjYsFu_fnLsM88Qx3q-UcjEa68d_YWAwAqe1tAG" class="">
+</div>
+<div class="brand-title">Smart Finance</div>
+<div class="header-icons">
+<span class="material-symbols-outlined">notifications</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="main-content">
+<h1 class="page-title" style="background: linear-gradient(to right, rgb(123, 77, 255), rgb(255, 107, 61)) text; -webkit-text-fill-color: transparent;">Add New Expense</h1>
+<p style="font-size: 14px; color: var(--outline); margin-top: -8px;" class="">Please select the Expense Date &amp; Category</p>
+<!-- Date Picker / Calendar Card -->
+<section class="card">
+<div class="calendar-header" style="margin-bottom: 20px;">
+<span class="">September 2026</span>
+<div style="display: flex; gap: 8px; color: var(--outline);">
+<span class="material-symbols-outlined" style="font-size: 20px; cursor: pointer;">chevron_left</span>
+<span class="material-symbols-outlined" style="font-size: 20px; cursor: pointer;">chevron_right</span>
+</div>
+</div>
+<div class="calendar-grid"><div class="calendar-day-header">M</div>
+<div class="calendar-day-header">T</div>
+<div class="calendar-day-header">W</div>
+<div class="calendar-day-header">T</div>
+<div class="calendar-day-header">F</div>
+<div class="calendar-day-header">S</div>
+<div class="calendar-day-header">S</div>
+<!-- Week 1: Sep 1 is Tuesday, Sep 5 is Saturday -->
+<div class="calendar-date muted">31</div>
+<div class="calendar-date">1</div>
+<div class="calendar-date">2</div>
+<div class="calendar-date">3</div>
+<div class="calendar-date">4</div>
+<div class="calendar-date active">5</div>
+<div class="calendar-date">6</div>
+<!-- Week 2 -->
+<div class="calendar-date">7</div>
+<div class="calendar-date">8</div>
+<div class="calendar-date">9</div>
+<div class="calendar-date">10</div>
+<div class="calendar-date">11</div>
+<div class="calendar-date">12</div>
+<div class="calendar-date">13</div>
+<!-- Week 3 -->
+<div class="calendar-date">14</div>
+<div class="calendar-date">15</div>
+<div class="calendar-date">16</div>
+<div class="calendar-date">17</div>
+<div class="calendar-date">18</div>
+<div class="calendar-date">19</div>
+<div class="calendar-date">20</div>
+<!-- Week 4 -->
+<div class="calendar-date">21</div>
+<div class="calendar-date">22</div>
+<div class="calendar-date">23</div>
+<div class="calendar-date">24</div>
+<div class="calendar-date">25</div>
+<div class="calendar-date">26</div>
+<div class="calendar-date">27</div>
+<!-- Week 5 -->
+<div class="calendar-date">28</div>
+<div class="calendar-date">29</div>
+<div class="calendar-date">30</div>
+<div class="calendar-date muted">1</div>
+<div class="calendar-date muted">2</div>
+<div class="calendar-date muted">3</div>
+<div class="calendar-date muted">4</div></div>
+</section>
+<!-- Category Dropdown Section -->
+<section class="card" style="position: relative; z-index: 40; padding: 16px; overflow: visible;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+<h2 class="section-title" style="margin-bottom: 0px;">Select - Category</h2>
+
+</div>
+<div class="category-dropdown-container" id="category-dropdown-wrapper" style="position: relative; width: 100%;">
+<!-- Trigger Button -->
+<button aria-expanded="false" aria-haspopup="listbox" class="selected-category-card" id="category-dropdown-trigger" onclick="toggleCategoryDropdown(event)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; min-height: 56px; background: rgb(255, 255, 255); border-color: var(--outline-variant); border-radius: 16px; box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 14px; cursor: pointer; transition: 0.2s; outline: none;" type="button">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div id="selected-category-icon-bg" style="width: 42px; height: 42px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.25); transition: all 0.2s; flex-shrink: 0;">
+<span class="material-symbols-outlined" id="selected-category-icon" style="font-size: 22px;">eco</span>
+</div>
+<div style="text-align: left;">
+<div id="selected-category-title" style="font-size: 15px; font-weight: 700; color: var(--on-surface); line-height: 1.2;" class="">Vegetables</div>
+<div id="selected-category-subtitle" style="font-size: 12px; color: var(--outline); margin-top: 2px;" class="">Fresh vegetables &amp; greens</div>
+</div>
+</div>
+<span class="material-symbols-outlined" id="dropdown-chevron" style="color: var(--primary); font-size: 24px; transition: transform 0.25s; transform: rotate(0deg);">expand_more</span>
+</button>
+<!-- Dropdown Menu -->
+<div class="hide-scrollbar" id="category-dropdown-menu" role="listbox" style="display: none; position: absolute; top: calc(100% + 8px); left: 0px; width: 100%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); border: 1.5px solid var(--outline-variant); border-radius: 18px; box-shadow: rgba(123, 77, 255, 0.16) 0px 20px 45px, rgba(0, 0, 0, 0.08) 0px 4px 16px; z-index: 100; max-height: 310px; overflow-y: auto; padding: 8px; flex-direction: column; gap: 4px;"><!-- Quick Add Category Option inside Menu -->
+<button onclick="promptAddCategory(event)" style="display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border-radius: 12px; background: rgba(98, 44, 229, 0.05); border: 1px dashed rgba(98, 44, 229, 0.35); color: var(--primary); font-weight: 600; font-size: 13px; margin-bottom: 4px; cursor: pointer;" type="button" class="">
+<span class="material-symbols-outlined" style="font-size: 18px;">add_circle</span>
+<span class="">+ Add Custom Category</span>
+</button>
+<!-- Category Items with Brand Gradient Icon Containers -->
+<div class="category-dropdown-item" data-category="Grocery" data-icon="local_grocery_store" data-subtitle="Daily essentials &amp; food" onclick="selectCategory('Grocery', 'local_grocery_store', 'Daily essentials &amp; food', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; background: transparent; color: var(--on-surface); font-weight: 500; border: 1px solid transparent;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: white;">local_grocery_store</span>
+</div>
+<div style="display: flex; flex-direction: column; text-align: left;">
+<span style="font-size: 14px; font-weight: 600;" class="">Grocery</span>
+<span style="font-size: 11px; color: var(--outline);" class="">Daily essentials &amp; food</span>
+</div>
+</div>
+<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
+</div>
+<div class="category-dropdown-item" data-category="Vegetables" data-icon="eco" data-subtitle="Fresh vegetables &amp; greens" onclick="selectCategory('Vegetables', 'eco', 'Fresh vegetables &amp; greens', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--primary); font-weight: 600; border: 1px solid rgba(98, 44, 229, 0.2); background: rgba(98, 44, 229, 0.08);">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: white;">eco</span>
+</div>
+<div style="display: flex; flex-direction: column; text-align: left;">
+<span style="font-size: 14px;" class="">Vegetables</span>
+<span style="font-size: 11px; color: var(--outline);" class="">Fresh vegetables &amp; greens</span>
+</div>
+</div>
+<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: inline-block;">check</span>
+</div>
+<div class="category-dropdown-item" data-category="Clothes" data-icon="checkroom" data-subtitle="Apparel &amp; laundry" onclick="selectCategory('Clothes', 'checkroom', 'Apparel &amp; laundry', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: white;">checkroom</span>
+</div>
+<div style="display: flex; flex-direction: column; text-align: left;">
+<span style="font-size: 14px;" class="">Clothes</span>
+<span style="font-size: 11px; color: var(--outline);" class="">Apparel &amp; laundry</span>
+</div>
+</div>
+<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
+</div>
+<div class="category-dropdown-item" data-category="Petrol" data-icon="local_gas_station" data-subtitle="Fuel &amp; vehicle maintenance" onclick="selectCategory('Petrol', 'local_gas_station', 'Fuel &amp; vehicle maintenance', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: white;">local_gas_station</span>
+</div>
+<div style="display: flex; flex-direction: column; text-align: left;">
+<span style="font-size: 14px;" class="">Petrol</span>
+<span style="font-size: 11px; color: var(--outline);" class="">Fuel &amp; vehicle maintenance</span>
+</div>
+</div>
+<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
+</div>
+<div class="category-dropdown-item" data-category="Travelling" data-icon="flight" data-subtitle="Flights, transit &amp; trips" onclick="selectCategory('Travelling', 'flight', 'Flights, transit &amp; trips', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: white;">flight</span>
+</div>
+<div style="display: flex; flex-direction: column; text-align: left;">
+<span style="font-size: 14px;" class="">Travelling</span>
+<span style="font-size: 11px; color: var(--outline);" class="">Flights, transit &amp; trips</span>
+</div>
+</div>
+<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
+</div>
+<div class="category-dropdown-item" data-category="Doctor &amp; Medicines" data-icon="medical_services" data-subtitle="Healthcare &amp; pharmacy" onclick="selectCategory('Doctor &amp; Medicines', 'medical_services', 'Healthcare &amp; pharmacy', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: white;">medical_services</span>
+</div>
+<div style="display: flex; flex-direction: column; text-align: left;">
+<span style="font-size: 14px;" class="">Doctor &amp; Medicines</span>
+<span style="font-size: 11px; color: var(--outline);" class="">Healthcare &amp; pharmacy</span>
+</div>
+</div>
+<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
+</div>
+<div class="category-dropdown-item" data-category="Water" data-icon="water_drop" data-subtitle="Water utility &amp; supplies" onclick="selectCategory('Water', 'water_drop', 'Water utility &amp; supplies', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: white;">water_drop</span>
+</div>
+<div style="display: flex; flex-direction: column; text-align: left;">
+<span style="font-size: 14px;" class="">Water</span>
+<span style="font-size: 11px; color: var(--outline);" class="">Water utility &amp; supplies</span>
+</div>
+</div>
+<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
+</div>
+<div class="category-dropdown-item" data-category="Electricity" data-icon="electric_bolt" data-subtitle="Electricity power bills" onclick="selectCategory('Electricity', 'electric_bolt', 'Electricity power bills', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: white;">electric_bolt</span>
+</div>
+<div style="display: flex; flex-direction: column; text-align: left;">
+<span style="font-size: 14px;" class="">Electricity</span>
+<span style="font-size: 11px; color: var(--outline);" class="">Electricity power bills</span>
+</div>
+</div>
+<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
+</div>
+<div class="category-dropdown-item" data-category="Other" data-icon="more_horiz" data-subtitle="Miscellaneous expenses" onclick="selectCategory('Other', 'more_horiz', 'Miscellaneous expenses', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<span class="material-symbols-outlined" style="font-size: 20px; color: white;">more_horiz</span>
+</div>
+<div style="display: flex; flex-direction: column; text-align: left;">
+<span style="font-size: 14px;" class="">Other</span>
+<span style="font-size: 11px; color: var(--outline);" class="">Miscellaneous expenses</span>
+</div>
+</div>
+<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
+</div></div>
+</div>
+</section>
+<!-- Category Horizontal Selector -->
+
+<!-- Item Table Card -->
+<section class="" style="background: transparent; box-shadow: none; border: none; padding: 0;">
+<div class="table-header-row">
+<h2 class="section-title" id="items-table-title" style="margin-bottom: 0px;">Vegetables Items</h2>
+<button class="add-row-btn">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span> Add Row
+</button>
+</div>
+<div class="table-container" style="overflow-x: auto; width: 100%; margin: 0px; padding: 0px; border-radius: 16px; background: var(--surface); box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 20px -3px, rgba(0, 0, 0, 0.04) 0px 4px 6px -2px; border: 1px solid rgba(0, 0, 0, 0.04);">
+<table style="width: 100%; min-width: 100%; border-collapse: collapse; table-layout: fixed; margin: 0px; padding: 0px; border-radius: 0px;" class="">
+<thead><tr style="background: linear-gradient(90deg, rgb(155, 114, 207) 0%, rgb(244, 140, 113) 100%); color: white; border-radius: 0px;" class=""><th style="width: 14%; text-align: center; background: transparent; color: inherit; padding: 10px 4px; font-size: 11px; font-weight: 600; border-radius: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" class="">S.NO</th><th style="width: 36%; text-align: left; background: transparent; color: inherit; padding: 10px 8px; font-size: 11px; font-weight: 600; border-radius: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" class="">ITEMS</th><th style="width: 25%; text-align: left; background: transparent; color: inherit; padding: 10px 8px; font-size: 11px; font-weight: 600; border-radius: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" class="">QTY</th><th style="width: 25%; text-align: right; background: transparent; color: inherit; padding: 10px 12px 10px 4px; font-size: 11px; font-weight: 600; border-radius: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" class="">AMOUNT</th></tr></thead>
+<tbody>
+<tr style="border-bottom: 1px solid var(--surface-variant);">
+<td style="text-align: center; color: var(--outline-variant); padding: 10px 4px; font-size: 14px;" class="">1</td>
+<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">Poha</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
+<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;" class="">20 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
+<td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 10px 10px 4px; white-space: nowrap;">₹400.00</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--surface-variant);">
+<td style="text-align: center; color: var(--outline-variant); padding: 10px 4px; font-size: 14px;" class="">2</td>
+<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">Rava (Mota)</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
+<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;" class="">20 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
+<td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 10px 10px 4px; white-space: nowrap;">₹600.00</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--surface-variant);">
+<td style="text-align: center; color: var(--outline-variant); padding: 10px 4px; font-size: 14px;" class="">3</td>
+<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">Sugar</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
+<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;" class="">35 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
+<td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 10px 10px 4px; white-space: nowrap;">₹1400.00</td>
+</tr>
+</tbody>
+<tfoot style="background: linear-gradient(135deg, rgba(123, 77, 255, 0.12), rgba(255, 107, 61, 0.12)); font-weight: 700; border-top: 1px solid var(--outline-variant); border-bottom: 3px solid transparent; border-image: linear-gradient(90deg, rgb(123, 77, 255), rgb(255, 107, 61)) 1 / 1 / 0 stretch;" class=""><tr><td colspan="3" style="padding: 14px 10px; font-size: 13px; font-weight: 700; color: var(--on-surface); text-transform: uppercase; letter-spacing: 0.05em;" class=""><div style="display: flex; flex-direction: column; gap: 2px;"><div style="display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary); font-weight: 700;" class="">Total Amount</span></div><div style="font-size: 11px; font-weight: 500; color: var(--on-surface-variant); text-transform: none; letter-spacing: 0.01em; margin-left: 0px; text-align: left; white-space: nowrap;" class="">Two Thousand Four Hundred Rupees Only</div></div></td><td class="td-right" style="text-align: right; font-weight: 700; font-size: 16px; color: var(--primary); padding: 14px 10px 14px 4px; white-space: nowrap; vertical-align: middle;">₹2,400.00</td></tr></tfoot></table>
+</div>
+</section><!-- Payment Mode -->
+<section class="card" style="box-shadow: none; border: 1px solid rgba(202, 195, 216, 0.3); padding: 16px 16px 24px; margin-top: 20px; margin-bottom: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+<h2 class="section-title" style="margin-bottom: 0px; font-size: 15px; font-weight: 700;">Payment Mode</h2>
+<span style="font-size: 11px; font-weight: 600; color: var(--outline); letter-spacing: 0.02em;" class="">Select method</span>
+</div>
+<div class="payment-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 8px;">
+<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 12px; border: 1px solid rgba(202, 195, 216, 0.3);">
+<div style="width: 40px; height: 40px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28); flex-shrink: 0;">
+<span class="material-symbols-outlined" style="font-size: 20px;">credit_card</span>
+</div>
+<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Credit Card</span>
+</button>
+<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 12px; border: 1px solid rgba(202, 195, 216, 0.3);">
+<div style="width: 40px; height: 40px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28); flex-shrink: 0;">
+<span class="material-symbols-outlined" style="font-size: 20px;">payments</span>
+</div>
+<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Cash</span>
+</button>
+<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 12px; border: 1px solid rgba(202, 195, 216, 0.3);">
+<div style="width: 40px; height: 40px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28); flex-shrink: 0;">
+<span class="material-symbols-outlined" style="font-size: 20px;">qr_code_scanner</span>
+</div>
+<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">UPI</span>
+</button>
+<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 12px; border: 1px solid rgba(202, 195, 216, 0.3);">
+<div style="width: 40px; height: 40px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28); flex-shrink: 0;">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_horiz</span>
+</div>
+<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Other</span>
+</button>
+</div>
+</section>
+<!-- Live Total -->
+
+<!-- Payment Mode -->
+
+<!-- Bill Upload -->
+<section class="card" style="position: relative; z-index: 20; padding: 16px; background: var(--surface); border-radius: var(--radius-card); box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 25px -5px, rgba(0, 0, 0, 0.04) 0px 8px 10px -6px, rgba(123, 77, 255, 0.06) 0px 12px 30px; border: 1px solid rgba(0, 0, 0, 0.04); margin-top: 0px;">
+  <!-- Header with Title & Badge -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <h2 class="section-title" style="margin-bottom: 0px; font-size: 15px; font-weight: 700;">Bill Receipt</h2>
+      
     </div>
-
-    <!-- Add Transaction Modal (via FAB) -->
-    <div id="add-modal" class="modal-overlay">
-      <div id="add-backdrop" class="modal-backdrop" onclick="closeAddTransactionModal()"></div>
-      <div id="add-card" class="modal-card" style="text-align: left;">
-        <div class="flex justify-between items-center" style="margin-bottom: 14px;">
-          <h3 style="font-size: 16px; font-weight: 700; color: var(--on-surface);">Quick Add Expense</h3>
-          <span class="material-symbols-outlined" style="cursor: pointer; color: var(--on-surface-variant);" onclick="closeAddTransactionModal()">close</span>
-        </div>
-        <form onsubmit="handleQuickAdd(event)">
-          <div style="margin-bottom: 12px;">
-            <label style="font-size: 11px; font-weight: 600; color: var(--on-surface-variant);">Title</label>
-            <input id="new-tx-title" type="text" placeholder="e.g. Starbucks Coffee" required style="width: 100%; height: 42px; border-radius: 10px; border: 1px solid var(--outline-soft); background: var(--input-bg); padding: 0 12px; margin-top: 4px; font-size: 13px; font-family: inherit; outline: none;">
-          </div>
-          <div style="margin-bottom: 12px;">
-            <label style="font-size: 11px; font-weight: 600; color: var(--on-surface-variant);">Amount (₹)</label>
-            <input id="new-tx-amount" type="number" placeholder="250" required style="width: 100%; height: 42px; border-radius: 10px; border: 1px solid var(--outline-soft); background: var(--input-bg); padding: 0 12px; margin-top: 4px; font-size: 13px; font-family: inherit; outline: none;">
-          </div>
-          <div style="margin-bottom: 18px;">
-            <label style="font-size: 11px; font-weight: 600; color: var(--on-surface-variant);">Category</label>
-            <select id="new-tx-cat" style="width: 100%; height: 42px; border-radius: 10px; border: 1px solid var(--outline-soft); background: var(--input-bg); padding: 0 10px; margin-top: 4px; font-size: 13px; font-family: inherit; outline: none;">
-              <option value="Groceries">Groceries</option>
-              <option value="Food & Cafe">Food & Cafe</option>
-              <option value="Petrol">Petrol</option>
-              <option value="Travelling">Travelling</option>
-              <option value="Shopping">Shopping</option>
-            </select>
-          </div>
-          <button type="submit" style="width: 100%; padding: 12px; border-radius: 12px; border: none; background: var(--gradient-brand); color: #ffffff; font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(123, 77, 255, 0.3);">
-            Record Transaction
-          </button>
-        </form>
-      </div>
-    </div>
-
+    <span style="font-size: 11px; font-weight: 500; color: var(--outline);" class="">Max 5MB • JPG, PNG, PDF</span>
   </div>
 
-  <script>
-    // Toast alert utility
-    function showToast(message) {
-      const toast = document.getElementById('toast-notification');
-      const toastMsg = document.getElementById('toast-message');
-      if (!toast || !toastMsg) return;
-      toastMsg.textContent = message;
-      toast.classList.add('show');
-      clearTimeout(window.toastTimer);
-      window.toastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2200);
+  <!-- Fast Action Pills: Camera & Browse -->
+  
+
+  <!-- Drop Zone Area -->
+  <div style="border: 1.5px dashed var(--outline-variant); border-radius: 14px; background: rgb(252, 251, 254); padding: 18px 14px; text-align: center; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; align-items: center; gap: 6px;" class="">
+    <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, rgba(123, 77, 255, 0.12), rgba(255, 107, 61, 0.15)); display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 2px;">
+      <span class="material-symbols-outlined" style="font-size: 22px;">cloud_upload</span>
+    </div>
+    <div style="font-size: 13px; font-weight: 600; color: var(--on-surface);" class="">Drag &amp; drop receipt or tap to upload</div>
+    <div style="font-size: 11px; color: var(--outline);" class="">Receipt auto-scan extracts items &amp; totals</div>
+  </div>
+
+  <!-- Uploaded Receipt Preview Card -->
+  <div style="margin-top: 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;" class=""><span style="font-size: 12px; font-weight: 600; color: var(--on-surface-variant);" class="">Attached Bills (1 of 5)</span><div style="display: flex; gap: 4px; align-items: center;"><span style="width: 14px; height: 5px; border-radius: 99px; background: var(--primary); display: inline-block;"></span><span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant); display: inline-block;"></span><span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant); display: inline-block;"></span><span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant); display: inline-block;"></span><span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant); display: inline-block;"></span></div></div><div style="margin-top: 12px; padding: 10px 12px; background: rgb(250, 250, 255); border: 1px solid var(--outline-variant); border-radius: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;" class="">
+    <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+      <div style="width: 38px; height: 38px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0; box-shadow: 0 2px 6px rgba(123, 77, 255, 0.25);">
+        <span class="material-symbols-outlined" style="font-size: 20px;">receipt_long</span>
+      </div>
+      <div style="display: flex; flex-direction: column; min-width: 0; text-align: left;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span style="font-size: 13px; font-weight: 600; color: var(--on-surface); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">D-Mart_Receipt_Aug05.jpg</span>
+          <span style="font-size: 10px; font-weight: 600; color: rgb(22, 163, 74); background: rgba(22, 163, 74, 0.12); padding: 1px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 2px; flex-shrink: 0;" class="">
+            <span class="material-symbols-outlined" style="font-size: 11px;">check_circle</span> Attached
+          </span>
+        </div>
+        <span style="font-size: 11px; color: var(--outline); margin-top: 1px;" class="">1.4 MB • Scanned &amp; Verified</span>
+      </div>
+    </div>
+    <button type="button" title="Remove file" style="color: var(--outline); padding: 4px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: color 0.15s; flex-shrink: 0;" class="">
+      <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+    </button>
+  </div>
+</section>
+<!-- Description -->
+<section class="card" style="position: relative; z-index: 30; padding: 16px; overflow: visible; box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 14px; margin-top: 24px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;"><h2 class="section-title" style="margin-bottom: 0px; font-size: 15px; font-weight: 700;">Expense Description (Optional)</h2><span style="font-size: 11px; font-weight: 500; color: var(--outline);" class="">Notes &amp; tags</span></div>
+<textarea class="description-input" placeholder="Add notes about this expense..." style="height: 76px; min-height: 76px; padding: 12px 16px; background-color: rgb(255, 255, 255); border: 1px solid rgba(202, 195, 216, 0.4); box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px;" rows="2"></textarea>
+</section>
+<!-- Save Button -->
+<button class="save-btn">
+<span class="material-symbols-outlined" style="font-size: 20px;">check</span>
+Save Expense
+</button>
+</main>
+<!-- BottomNavBar -->
+<nav class="bottom-nav"><button class="nav-item"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">home</span><span class="">Home</span></button><button class="nav-item"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">account_balance_wallet</span><span class="">Budget</span></button><button class="nav-fab" aria-label="Add Expense"><span class="material-symbols-outlined" style="font-size: 28px; font-variation-settings: &quot;FILL&quot; 0;">add</span></button><button class="nav-item"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">history</span><span class="">History</span></button><button class="nav-item"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">person</span><span class="">Profile</span></button></nav>
+<script>
+  let isDropdownOpen = false;
+
+  function toggleCategoryDropdown(event) {
+    if (event) {
+      event.stopPropagation();
     }
+    const menu = document.getElementById('category-dropdown-menu');
+    const chevron = document.getElementById('dropdown-chevron');
+    const trigger = document.getElementById('category-dropdown-trigger');
 
-    // Bottom navigation selection
-    function setNavTab(btn, tabName) {
-      document.querySelectorAll('.bottom-nav-item').forEach(el => el.classList.remove('active'));
-      btn.classList.add('active');
-      showToast(tabName + ' View Selected');
+    isDropdownOpen = !isDropdownOpen;
+
+    if (isDropdownOpen) {
+      menu.style.display = 'flex';
+      chevron.style.transform = 'rotate(180deg)';
+      trigger.style.borderColor = 'var(--primary)';
+      trigger.setAttribute('aria-expanded', 'true');
+    } else {
+      closeCategoryDropdown();
     }
+  }
 
-    // Card 3D tilt
-    const card = document.getElementById('main-balance-card');
-    let isPressed = false;
+  function closeCategoryDropdown() {
+    const menu = document.getElementById('category-dropdown-menu');
+    const chevron = document.getElementById('dropdown-chevron');
+    const trigger = document.getElementById('category-dropdown-trigger');
 
-    function handleCardMove(e) {
-      if (!card) return;
-      let clientX, clientY;
-      if (e.type.startsWith('touch')) {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
-      } else {
-        clientX = e.clientX;
-        clientY = e.clientY;
-      }
-      const rect = card.getBoundingClientRect();
-      const x = (clientX - rect.left) / rect.width - 0.5;
-      const y = (clientY - rect.top) / rect.height - 0.5;
-      const rotateY = x * 22;
-      const rotateX = y * -22;
-      const scale = isPressed ? 0.96 : 1.02;
-      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+    if (menu) menu.style.display = 'none';
+    if (chevron) chevron.style.transform = 'rotate(0deg)';
+    if (trigger) {
+      trigger.style.borderColor = 'var(--outline-variant)';
+      trigger.setAttribute('aria-expanded', 'false');
     }
+    isDropdownOpen = false;
+  }
 
-    function resetCardTilt() {
-      if (!card) return;
-      isPressed = false;
-      card.style.transform = `rotateX(4deg) rotateY(-4deg) scale(1)`;
-    }
+  function selectCategory(name, icon, subtitle, itemEl) {
+    // 1. Update Display Card
+    const titleEl = document.getElementById('selected-category-title');
+    const subEl = document.getElementById('selected-category-subtitle');
+    const iconEl = document.getElementById('selected-category-icon');
+    const tableTitle = document.getElementById('items-table-title');
 
-    if (card) {
-      card.addEventListener('mousemove', handleCardMove);
-      card.addEventListener('mouseleave', resetCardTilt);
-      card.addEventListener('mousedown', (e) => { isPressed = true; handleCardMove(e); });
-      window.addEventListener('mouseup', resetCardTilt);
+    if (titleEl) titleEl.textContent = name;
+    if (subEl) subEl.textContent = subtitle || (name + ' category');
+    if (iconEl) iconEl.textContent = icon;
+    if (tableTitle) tableTitle.textContent = name + ' Items';
 
-      card.addEventListener('touchmove', (e) => {
-        handleCardMove(e);
-      }, { passive: true });
-      card.addEventListener('touchstart', (e) => { isPressed = true; handleCardMove(e); }, { passive: true });
-      card.addEventListener('touchend', resetCardTilt);
-    }
+    // 2. Update Dropdown Items Active State
+    const dropdownItems = document.querySelectorAll('.category-dropdown-item');
+    dropdownItems.forEach(el => {
+      const isMatch = el.getAttribute('data-category') === name;
+      const check = el.querySelector('.check-mark');
+      const iconBox = el.querySelector('.item-icon-box');
 
-    // Dynamic Twinkle Generator
-    document.addEventListener("DOMContentLoaded", () => {
-      const container = document.getElementById('twinkle-container');
-      if (!container) return;
-
-      const maxTwinkles = 7;
-      let activeTwinkles = 0;
-      const gridCols = 4;
-      const gridRows = 3;
-      const cooldowns = new Set();
-
-      function spawnTwinkle() {
-        if (activeTwinkles >= maxTwinkles) return;
-        const available = [];
-        for (let r = 0; r < gridRows; r++) {
-          for (let c = 0; c < gridCols; c++) {
-            const spotKey = `${r}-${c}`;
-            if (!cooldowns.has(spotKey)) available.push({ r, c, id: spotKey });
-          }
+      if (isMatch) {
+        el.style.background = 'rgba(98, 44, 229, 0.08)';
+        el.style.color = 'var(--primary)';
+        el.style.fontWeight = '600';
+        el.style.border = '1px solid rgba(98, 44, 229, 0.2)';
+        if (check) check.style.display = 'inline-block';
+        if (iconBox) {
+          iconBox.style.background = 'var(--gradient)';
+          iconBox.style.color = 'white';
+          iconBox.style.boxShadow = '0 3px 8px rgba(123, 77, 255, 0.28)';
         }
-        if (available.length === 0) return;
-
-        const spot = available[Math.floor(Math.random() * available.length)];
-        cooldowns.add(spot.id);
-        activeTwinkles++;
-
-        const twinkle = document.createElement('div');
-        twinkle.className = 'twinkle-particle';
-        const core = document.createElement('div');
-        core.className = 'twinkle-particle-core';
-        twinkle.appendChild(core);
-
-        const cellW = 100 / gridCols;
-        const cellH = 100 / gridRows;
-        const top = spot.r * cellH + (cellH * (Math.random() * 0.7 + 0.15));
-        const left = spot.c * cellW + (cellW * (Math.random() * 0.7 + 0.15));
-
-        twinkle.style.top = `${top}%`;
-        twinkle.style.left = `${left}%`;
-        const scale = Math.random() * 0.4 + 0.8;
-        twinkle.style.transform = `scale(${scale})`;
-
-        container.appendChild(twinkle);
-
-        setTimeout(() => {
-          twinkle.remove();
-          activeTwinkles--;
-          setTimeout(() => cooldowns.delete(spot.id), 6000);
-        }, 2200);
-      }
-
-      for (let i = 0; i < maxTwinkles; i++) {
-        setTimeout(spawnTwinkle, Math.random() * 2000);
-      }
-      setInterval(spawnTwinkle, 750);
-    });
-
-    function handleDayClick(day, amount, isHigh = false, isZero = false) {
-      if (isHigh) {
-        showToast(`Aug ${day}: High Spend of ${amount}`);
-      } else if (isZero) {
-        showToast(`Aug ${day}: Great! Zero spend day 🎉`);
       } else {
-        showToast(`Aug ${day}: Total spent ${amount}`);
-      }
-    }
-
-    // Daily Trend vs Bar
-    function switchTrendView(view) {
-      const trendView = document.getElementById('view-aug-trend');
-      const barView = document.getElementById('view-aug-bar');
-      const btnTrend = document.getElementById('btn-trend');
-      const btnBar = document.getElementById('btn-bar-trend');
-
-      if (view === 'trend') {
-        trendView.style.display = 'block';
-        barView.style.display = 'none';
-        btnTrend.classList.add('active');
-        btnBar.classList.remove('active');
-      } else {
-        trendView.style.display = 'none';
-        barView.style.display = 'block';
-        btnTrend.classList.remove('active');
-        btnBar.classList.add('active');
-      }
-    }
-
-    // Spending by Category Ring vs Bar
-    function switchCategoryView(view) {
-      const ringView = document.getElementById('view-cat-ring');
-      const barView = document.getElementById('view-cat-bar');
-      const btnRing = document.getElementById('btn-cat-ring');
-      const btnBar = document.getElementById('btn-cat-bar');
-
-      if (view === 'ring') {
-        ringView.style.display = 'flex';
-        barView.style.display = 'none';
-        btnRing.classList.add('active');
-        btnBar.classList.remove('active');
-      } else {
-        ringView.style.display = 'none';
-        barView.style.display = 'flex';
-        btnRing.classList.remove('active');
-        btnBar.classList.add('active');
-      }
-    }
-
-    // Payment Mode Analysis Donut vs Bar
-    function switchPaymentModeView(view) {
-      const donutView = document.getElementById('view-payment-donut');
-      const barView = document.getElementById('view-payment-bar');
-      const btnDonut = document.getElementById('btn-pay-donut');
-      const btnBar = document.getElementById('btn-pay-bar');
-
-      if (view === 'donut') {
-        donutView.style.display = 'flex';
-        barView.style.display = 'none';
-        btnDonut.classList.add('active');
-        btnBar.classList.remove('active');
-      } else {
-        donutView.style.display = 'none';
-        barView.style.display = 'flex';
-        btnDonut.classList.remove('active');
-        btnBar.classList.add('active');
-      }
-    }
-
-    function toggleYearDropdown(e) {
-      if (e) e.stopPropagation();
-      const menu = document.getElementById('year-dropdown-menu');
-      if (!menu) return;
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function selectYear(year) {
-      const label = document.getElementById('selected-year-label');
-      const title = document.getElementById('year-section-title');
-      if (label) label.textContent = year;
-      if (title) title.textContent = `${year} Year Analysis (Monthly)`;
-
-      document.querySelectorAll('.year-menu-item').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent.trim() === year);
-      });
-      const menu = document.getElementById('year-dropdown-menu');
-      if (menu) menu.style.display = 'none';
-      showToast(`Showing analysis for ${year}`);
-    }
-
-    document.addEventListener('click', (e) => {
-      const menu = document.getElementById('year-dropdown-menu');
-      const btn = document.getElementById('year-dropdown-btn');
-      if (!menu || !btn) return;
-      if (!btn.contains(e.target) && !menu.contains(e.target)) {
-        menu.style.display = 'none';
+        el.style.background = 'transparent';
+        el.style.color = 'var(--on-surface)';
+        el.style.fontWeight = '500';
+        el.style.border = '1px solid transparent';
+        if (check) check.style.display = 'none';
+        if (iconBox) {
+          iconBox.style.background = 'var(--surface-container-high)';
+          iconBox.style.color = 'var(--on-surface-variant)';
+          iconBox.style.boxShadow = 'none';
+        }
       }
     });
 
-    function openLogoutModal() {
-      const modal = document.getElementById('logout-modal');
-      const backdrop = document.getElementById('logout-backdrop');
-      const card = document.getElementById('logout-card');
-      if (!modal) return;
-      modal.style.display = 'flex';
-      requestAnimationFrame(() => {
-        backdrop.style.opacity = '1';
-        card.style.opacity = '1';
-        card.style.transform = 'scale(1) translateY(0)';
-      });
-    }
+    // 3. Update Horizontal List Chips
+    const chips = document.querySelectorAll('#horizontal-category-list .category-btn[data-cat-name]');
+    chips.forEach(chip => {
+      if (chip.getAttribute('data-cat-name') === name) {
+        chip.className = 'category-btn category-active';
+        chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      } else {
+        chip.className = 'category-btn category-inactive';
+      }
+    });
 
-    function closeLogoutModal() {
-      const modal = document.getElementById('logout-modal');
-      const backdrop = document.getElementById('logout-backdrop');
-      const card = document.getElementById('logout-card');
-      if (!modal) return;
-      backdrop.style.opacity = '0';
-      card.style.opacity = '0';
-      card.style.transform = 'scale(0.92) translateY(10px)';
-      setTimeout(() => { modal.style.display = 'none'; }, 250);
-    }
+    // 4. Close Dropdown
+    closeCategoryDropdown();
+  }
 
-    function confirmLogout() {
-      closeLogoutModal();
-      showToast('Logged out successfully');
-    }
+  function handleChipClick(name, icon, subtitle) {
+    selectCategory(name, icon, subtitle);
+  }
 
-    function openAddTransactionModal() {
-      const modal = document.getElementById('add-modal');
-      const backdrop = document.getElementById('add-backdrop');
-      const card = document.getElementById('add-card');
-      if (!modal) return;
-      modal.style.display = 'flex';
-      requestAnimationFrame(() => {
-        backdrop.style.opacity = '1';
-        card.style.opacity = '1';
-        card.style.transform = 'scale(1) translateY(0)';
-      });
+  function promptAddCategory(event) {
+    if (event) event.stopPropagation();
+    const newCat = prompt('Enter new category name:');
+    if (newCat && newCat.trim()) {
+      const trimmed = newCat.trim();
+      selectCategory(trimmed, 'category', 'Custom Category');
     }
+  }
 
-    function closeAddTransactionModal() {
-      const modal = document.getElementById('add-modal');
-      const backdrop = document.getElementById('add-backdrop');
-      const card = document.getElementById('add-card');
-      if (!modal) return;
-      backdrop.style.opacity = '0';
-      card.style.opacity = '0';
-      card.style.transform = 'scale(0.92) translateY(10px)';
-      setTimeout(() => { modal.style.display = 'none'; }, 250);
+  // Close dropdown on tap outside
+  document.addEventListener('click', function(e) {
+    const wrapper = document.getElementById('category-dropdown-wrapper');
+    if (wrapper && !wrapper.contains(e.target)) {
+      closeCategoryDropdown();
     }
+  });
+</script>
 
-    function handleQuickAdd(e) {
-      e.preventDefault();
-      const title = document.getElementById('new-tx-title').value;
-      const amount = document.getElementById('new-tx-amount').value;
-      closeAddTransactionModal();
-      showToast(`Added: ${title} (-₹${amount})`);
-      document.getElementById('new-tx-title').value = '';
-      document.getElementById('new-tx-amount').value = '';
-    }
-  </script>
-</body>
-</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
