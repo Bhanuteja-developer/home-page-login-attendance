@@ -476,7 +476,7 @@
 <h1 class="page-title" style="background: linear-gradient(to right, rgb(123, 77, 255), rgb(255, 107, 61)) text; -webkit-text-fill-color: transparent;">Add New Expense</h1>
 <p style="font-size: 14px; color: var(--outline); margin-top: -8px;" class="">Please select the Expense Date &amp; Category</p>
 <!-- Date Picker / Calendar Card -->
-<section class="card"><div class="calendar-header" style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
+<section class="card" style="box-shadow: none; border: 1px solid rgba(202, 195, 216, 0.3); padding: 16px 16px 24px; margin: 20px -8px 12px;"><div class="calendar-header" style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
   <span style="font-size: 15px; font-weight: 700; color: var(--on-surface);" class="">October 2026</span>
   <div style="display: flex; gap: 8px; color: var(--outline);">
     <span class="material-symbols-outlined" style="font-size: 20px; cursor: pointer;">chevron_left</span>
@@ -612,7 +612,7 @@
     <span style="font-size: 13px; font-weight: 500; color: rgb(202, 195, 216);" class="">1</span>
   </div></div></section>
 <!-- Category Dropdown Section -->
-<section class="card" style="position: relative; z-index: 40; padding: 16px; overflow: visible;">
+<section class="card" style="position: relative; z-index: 40; box-shadow: none; border: 1px solid rgba(202, 195, 216, 0.3); padding: 16px 16px 24px; margin: 20px -8px 12px; overflow: visible;">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
 <h2 class="section-title" style="margin-bottom: 0px;">Select - Category</h2>
 
@@ -622,11 +622,11 @@
 <button aria-expanded="false" aria-haspopup="listbox" class="selected-category-card" id="category-dropdown-trigger" onclick="toggleCategoryDropdown(event)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; min-height: 56px; background: rgb(255, 255, 255); border-color: var(--outline-variant); border-radius: 16px; box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 14px; cursor: pointer; transition: 0.2s; outline: none;" type="button">
 <div style="display: flex; align-items: center; gap: 12px;">
 <div id="selected-category-icon-bg" style="width: 42px; height: 42px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.25); transition: all 0.2s; flex-shrink: 0;">
-<span class="material-symbols-outlined" id="selected-category-icon" style="font-size: 22px;">eco</span>
+<span class="material-symbols-outlined" id="selected-category-icon" style="font-size: 22px;">local_grocery_store</span>
 </div>
 <div style="text-align: left;">
-<div id="selected-category-title" style="font-size: 15px; font-weight: 700; color: var(--on-surface); line-height: 1.2;" class="">Vegetables</div>
-<div id="selected-category-subtitle" style="font-size: 12px; color: var(--outline); margin-top: 2px;" class="">Fresh vegetables &amp; greens</div>
+<div id="selected-category-title" style="font-size: 15px; font-weight: 700; color: var(--on-surface); line-height: 1.2;" class="">Grocery</div>
+<div id="selected-category-subtitle" style="font-size: 12px; color: var(--outline); margin-top: 2px;" class="">Daily essentials &amp; food</div>
 </div>
 </div>
 <span class="material-symbols-outlined" id="dropdown-chevron" style="color: var(--primary); font-size: 24px; transition: transform 0.25s; transform: rotate(0deg);">expand_more</span>
@@ -638,9 +638,9 @@
 <span class="">+ Add Custom Category</span>
 </button>
 <!-- Category Items with Brand Gradient Icon Containers -->
-<div class="category-dropdown-item" data-category="Grocery" data-icon="local_grocery_store" data-subtitle="Daily essentials &amp; food" onclick="selectCategory('Grocery', 'local_grocery_store', 'Daily essentials &amp; food', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; background: transparent; color: var(--on-surface); font-weight: 500; border: 1px solid transparent;">
+<div class="category-dropdown-item" data-category="Grocery" data-icon="local_grocery_store" data-subtitle="Daily essentials &amp; food" onclick="selectCategory('Grocery', 'local_grocery_store', 'Daily essentials &amp; food', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; background: rgba(98, 44, 229, 0.08); color: var(--primary); font-weight: 600; border: 1px solid rgba(98, 44, 229, 0.2);">
 <div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: var(--gradient); color: white;">
 <span class="material-symbols-outlined" style="font-size: 20px; color: white;">local_grocery_store</span>
 </div>
 <div style="display: flex; flex-direction: column; text-align: left;">
@@ -648,11 +648,11 @@
 <span style="font-size: 11px; color: var(--outline);" class="">Daily essentials &amp; food</span>
 </div>
 </div>
-<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
+<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: inline-block;">check</span>
 </div>
-<div class="category-dropdown-item" data-category="Vegetables" data-icon="eco" data-subtitle="Fresh vegetables &amp; greens" onclick="selectCategory('Vegetables', 'eco', 'Fresh vegetables &amp; greens', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--primary); font-weight: 600; border: 1px solid rgba(98, 44, 229, 0.2); background: rgba(98, 44, 229, 0.08);">
+<div class="category-dropdown-item" data-category="Vegetables" data-icon="eco" data-subtitle="Fresh vegetables &amp; greens" onclick="selectCategory('Vegetables', 'eco', 'Fresh vegetables &amp; greens', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
 <div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
 <span class="material-symbols-outlined" style="font-size: 20px; color: white;">eco</span>
 </div>
 <div style="display: flex; flex-direction: column; text-align: left;">
@@ -660,11 +660,11 @@
 <span style="font-size: 11px; color: var(--outline);" class="">Fresh vegetables &amp; greens</span>
 </div>
 </div>
-<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: inline-block;">check</span>
+<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
 </div>
 <div class="category-dropdown-item" data-category="Clothes" data-icon="checkroom" data-subtitle="Apparel &amp; laundry" onclick="selectCategory('Clothes', 'checkroom', 'Apparel &amp; laundry', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
 <div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
 <span class="material-symbols-outlined" style="font-size: 20px; color: white;">checkroom</span>
 </div>
 <div style="display: flex; flex-direction: column; text-align: left;">
@@ -676,7 +676,7 @@
 </div>
 <div class="category-dropdown-item" data-category="Petrol" data-icon="local_gas_station" data-subtitle="Fuel &amp; vehicle maintenance" onclick="selectCategory('Petrol', 'local_gas_station', 'Fuel &amp; vehicle maintenance', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
 <div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
 <span class="material-symbols-outlined" style="font-size: 20px; color: white;">local_gas_station</span>
 </div>
 <div style="display: flex; flex-direction: column; text-align: left;">
@@ -688,7 +688,7 @@
 </div>
 <div class="category-dropdown-item" data-category="Travelling" data-icon="flight" data-subtitle="Flights, transit &amp; trips" onclick="selectCategory('Travelling', 'flight', 'Flights, transit &amp; trips', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
 <div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
 <span class="material-symbols-outlined" style="font-size: 20px; color: white;">flight</span>
 </div>
 <div style="display: flex; flex-direction: column; text-align: left;">
@@ -700,7 +700,7 @@
 </div>
 <div class="category-dropdown-item" data-category="Doctor &amp; Medicines" data-icon="medical_services" data-subtitle="Healthcare &amp; pharmacy" onclick="selectCategory('Doctor &amp; Medicines', 'medical_services', 'Healthcare &amp; pharmacy', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
 <div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
 <span class="material-symbols-outlined" style="font-size: 20px; color: white;">medical_services</span>
 </div>
 <div style="display: flex; flex-direction: column; text-align: left;">
@@ -712,7 +712,7 @@
 </div>
 <div class="category-dropdown-item" data-category="Water" data-icon="water_drop" data-subtitle="Water utility &amp; supplies" onclick="selectCategory('Water', 'water_drop', 'Water utility &amp; supplies', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
 <div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
 <span class="material-symbols-outlined" style="font-size: 20px; color: white;">water_drop</span>
 </div>
 <div style="display: flex; flex-direction: column; text-align: left;">
@@ -724,7 +724,7 @@
 </div>
 <div class="category-dropdown-item" data-category="Electricity" data-icon="electric_bolt" data-subtitle="Electricity power bills" onclick="selectCategory('Electricity', 'electric_bolt', 'Electricity power bills', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
 <div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
 <span class="material-symbols-outlined" style="font-size: 20px; color: white;">electric_bolt</span>
 </div>
 <div style="display: flex; flex-direction: column; text-align: left;">
@@ -736,7 +736,7 @@
 </div>
 <div class="category-dropdown-item" data-category="Other" data-icon="more_horiz" data-subtitle="Miscellaneous expenses" onclick="selectCategory('Other', 'more_horiz', 'Miscellaneous expenses', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
 <div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%) !important; color: rgb(255, 255, 255) !important;">
+<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
 <span class="material-symbols-outlined" style="font-size: 20px; color: white;">more_horiz</span>
 </div>
 <div style="display: flex; flex-direction: column; text-align: left;">
@@ -753,35 +753,13 @@
 <!-- Item Table Card -->
 <section class="" style="background: transparent; box-shadow: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; padding: 0px; margin: 0px -8px;">
 <div class="table-header-row">
-<h2 class="section-title" id="items-table-title" style="margin-bottom: 0px;">Vegetables Items</h2>
-<button class="add-row-btn">
+<h2 class="section-title" id="items-table-title" style="margin-bottom: 0px;">Grocery Items</h2>
+<button class="add-row-btn" onclick="addNewExpenseRow(event)">
 <span class="material-symbols-outlined" style="font-size: 18px;">add</span> Add Row
 </button>
 </div>
 <div class="table-container" style="overflow-x: auto; width: 100%; margin: 0px; padding: 0px; border-radius: 16px; background: var(--surface); box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 20px -3px, rgba(0, 0, 0, 0.04) 0px 4px 6px -2px; border: 1px solid rgba(0, 0, 0, 0.04);">
-<table style="width: 100%; min-width: 100%; border-collapse: collapse; table-layout: fixed; margin: 0px; padding: 0px; border-radius: 0px;" class="">
-<thead><tr style="background: rgb(89, 210, 254); color: white; border-radius: 0px;" class=""><th style="width: 14%; text-align: center; background: transparent; color: inherit; padding: 10px 4px; font-size: 11px; font-weight: 600; border-radius: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" class="">S.NO</th><th style="width: 36%; text-align: left; background: transparent; color: inherit; padding: 10px 8px; font-size: 11px; font-weight: 600; border-radius: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" class="">ITEMS</th><th style="width: 25%; text-align: left; background: transparent; color: inherit; padding: 10px 8px; font-size: 11px; font-weight: 600; border-radius: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" class="">QTY</th><th style="width: 25%; text-align: right; background: transparent; color: inherit; padding: 10px 12px 10px 4px; font-size: 11px; font-weight: 600; border-radius: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" class="">AMOUNT</th></tr></thead>
-<tbody>
-<tr style="border-bottom: 1px solid var(--surface-variant);">
-<td style="text-align: center; color: var(--outline-variant); padding: 10px 4px; font-size: 14px;" class="">1</td>
-<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">Poha</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
-<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;" class="">20 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
-<td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 10px 10px 4px; white-space: nowrap;">₹400</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--surface-variant);">
-<td style="text-align: center; color: var(--outline-variant); padding: 10px 4px; font-size: 14px;" class="">2</td>
-<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">Rava (Mota)</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
-<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;" class="">20 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
-<td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 10px 10px 4px; white-space: nowrap;">₹600</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--surface-variant);">
-<td style="text-align: center; color: var(--outline-variant); padding: 10px 4px; font-size: 14px;" class="">3</td>
-<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">Sugar</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
-<td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;" class="">35 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td>
-<td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 10px 10px 4px; white-space: nowrap;">₹1400</td>
-</tr>
-</tbody>
-<tfoot style="background: linear-gradient(135deg, rgba(123, 77, 255, 0.12), rgba(255, 107, 61, 0.12)); font-weight: 700; border-top: 1px solid var(--outline-variant); border-bottom: 3px solid transparent; border-image: linear-gradient(90deg, rgb(123, 77, 255), rgb(255, 107, 61)) 1 / 1 / 0 stretch;" class=""><tr><td colspan="3" style="padding: 14px 10px; font-size: 13px; font-weight: 700; color: var(--on-surface); text-transform: uppercase; letter-spacing: 0.05em;" class=""><div style="display: flex; flex-direction: column; gap: 2px;"><div style="display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary); font-weight: 700;" class="">Total Amount</span></div><div style="font-size: 11px; font-weight: 500; color: var(--on-surface-variant); text-transform: none; letter-spacing: 0.01em; margin-left: 0px; text-align: left; white-space: nowrap;" class="">Two Thousand Four Hundred Rupees Only</div></div></td><td class="td-right" style="text-align: right; font-weight: 700; font-size: 16px; color: var(--primary); padding: 14px 10px 14px 4px; white-space: nowrap; vertical-align: middle;">₹2,400</td></tr></tfoot></table>
+<table style="width: 100%; min-width: 100%; border-collapse: collapse; table-layout: fixed; margin: 0px; padding: 0px; border-radius: 0px;" class=""><thead><tr style="background: rgb(89, 210, 254); color: white; border-radius: 0px;" class=""><th style="width: 48%; text-align: left; background: transparent; color: inherit; padding: 10px 12px; font-size: 11px; font-weight: 600; border-radius: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" class="">ITEMS</th><th style="width: 26%; text-align: left; background: transparent; color: inherit; padding: 10px 8px; font-size: 11px; font-weight: 600; border-radius: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" class="">QTY</th><th style="width: 26%; text-align: right; background: transparent; color: inherit; padding: 10px 14px 10px 4px; font-size: 11px; font-weight: 600; border-radius: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" class="">AMOUNT</th></tr></thead><tbody><tr style="border-bottom: 1px solid var(--surface-variant);"><td style="padding: 10px 12px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">1. Poha</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;" class="">20 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;">400</td></tr><tr style="border-bottom: 1px solid var(--surface-variant);"><td style="padding: 10px 12px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">2. Rava (Mota)</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;" class="">20 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;">600</td></tr><tr style="border-bottom: 1px solid var(--surface-variant);"><td style="padding: 10px 12px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">3. Sugar</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;" class="">35 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;">1400</td></tr></tbody><tfoot style="background: linear-gradient(135deg, rgba(123, 77, 255, 0.12), rgba(255, 107, 61, 0.12)); font-weight: 700; border-top: 1px solid var(--outline-variant); border-bottom: 3px solid transparent; border-image: linear-gradient(90deg, rgb(123, 77, 255), rgb(255, 107, 61)) 1 / 1 / 0 stretch;" class=""><tr><td colspan="2" style="padding: 14px 12px; font-size: 13px; font-weight: 700; color: var(--on-surface); text-transform: uppercase; letter-spacing: 0.05em;" class=""><div style="display: flex; flex-direction: column; gap: 2px;"><div style="display: flex; align-items: center; gap: 6px;"><span style="color: var(--primary); font-weight: 700;" class="">Total Amount</span></div><div style="font-size: 11px; font-weight: 500; color: var(--on-surface-variant); text-transform: none; letter-spacing: 0.01em; margin-left: 0px; text-align: left; white-space: nowrap;" class="">Two Thousand Four Hundred Rupees Only</div></div></td><td class="td-right" style="text-align: right; font-weight: 700; font-size: 16px; color: var(--primary); padding: 14px 12px 14px 4px; white-space: nowrap; vertical-align: middle;">₹2,400</td></tr></tfoot></table>
 </div>
 </section><!-- Payment Mode -->
 <section class="card" style="box-shadow: none; border: 1px solid rgba(202, 195, 216, 0.3); padding: 16px 16px 24px; margin: 20px -8px 12px;">
@@ -789,24 +767,30 @@
 <h2 class="section-title" style="margin-bottom: 0px; font-size: 15px; font-weight: 700;">Payment Mode</h2>
 <span style="font-size: 11px; font-weight: 600; color: var(--outline); letter-spacing: 0.02em;" class="">Select method</span>
 </div>
-<div class="payment-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 8px;">
-<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 16px; padding: 14px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.08) -4px -4px 10px, rgba(0, 0, 0, 0.08) 4px 6px 14px;">
-<div style="width: 44px; height: 44px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);">
-<span class="material-symbols-outlined" style="font-size: 22px;">credit_card</span>
+<div class="payment-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 8px;">
+<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 14px; padding: 10px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.08) -3px -3px 8px, rgba(0, 0, 0, 0.08) 3px 5px 12px;">
+<div style="width: 38px; height: 38px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);">
+<span class="material-symbols-outlined" style="font-size: 20px;">credit_card</span>
 </div>
-<span class="payment-label" style="font-size: 13px; font-weight: 600; color: var(--on-surface);">Credit Card</span>
+<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Credit Card</span>
 </button>
-<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 16px; padding: 14px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.08) -4px -4px 10px, rgba(0, 0, 0, 0.08) 4px 6px 14px;">
-<div style="width: 44px; height: 44px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);">
-<span class="material-symbols-outlined" style="font-size: 22px;">payments</span>
+<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 14px; padding: 10px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.08) -3px -3px 8px, rgba(0, 0, 0, 0.08) 3px 5px 12px;">
+<div style="width: 38px; height: 38px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);">
+<span class="material-symbols-outlined" style="font-size: 20px;">payments</span>
 </div>
-<span class="payment-label" style="font-size: 13px; font-weight: 600; color: var(--on-surface);">Cash</span>
+<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Cash</span>
 </button>
-<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 16px; padding: 14px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.08) -4px -4px 10px, rgba(0, 0, 0, 0.08) 4px 6px 14px;">
-<div style="width: 44px; height: 44px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);">
-<span class="material-symbols-outlined" style="font-size: 22px;">qr_code_scanner</span>
+<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 14px; padding: 10px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.08) -3px -3px 8px, rgba(0, 0, 0, 0.08) 3px 5px 12px;">
+<div style="width: 38px; height: 38px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);">
+<span class="material-symbols-outlined" style="font-size: 20px;">qr_code_scanner</span>
 </div>
-<span class="payment-label" style="font-size: 13px; font-weight: 600; color: var(--on-surface);">UPI</span>
+<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">UPI</span>
+</button>
+<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 14px; padding: 10px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.08) -3px -3px 8px, rgba(0, 0, 0, 0.08) 3px 5px 12px;">
+<div style="width: 38px; height: 38px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_horiz</span>
+</div>
+<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Other</span>
 </button>
 </div>
 </section>
@@ -815,7 +799,7 @@
 <!-- Payment Mode -->
 
 <!-- Bill Upload -->
-<section class="card" style="position: relative; z-index: 20; padding: 16px; background: var(--surface); border-radius: var(--radius-card); box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 25px -5px, rgba(0, 0, 0, 0.04) 0px 8px 10px -6px, rgba(123, 77, 255, 0.06) 0px 12px 30px; border: 1px solid rgba(0, 0, 0, 0.04); margin-top: 0px;">
+<section class="card" style="position: relative; z-index: 20; padding: 16px 16px 24px; margin: 20px -8px 12px; background: var(--surface); border-radius: var(--radius-card); box-shadow: none; border: 1px solid rgba(202, 195, 216, 0.3);">
   <!-- Header with Title & Badge -->
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
     <div style="display: flex; align-items: center; gap: 8px;">
@@ -859,7 +843,7 @@
   </div>
 </section>
 <!-- Description -->
-<section class="card" style="position: relative; z-index: 30; padding: 16px; overflow: visible; box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 14px; margin-top: 24px;">
+<section class="card" style="position: relative; z-index: 30; box-shadow: none; border: 1px solid rgba(202, 195, 216, 0.3); padding: 16px 16px 24px; margin: 20px -8px 12px; overflow: visible;">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;"><h2 class="section-title" style="margin-bottom: 0px; font-size: 15px; font-weight: 700;">Expense Description (Optional)</h2><span style="font-size: 11px; font-weight: 500; color: var(--outline);" class="">Notes &amp; tags</span></div>
 <textarea class="description-input" placeholder="Add notes about this expense..." style="height: 76px; min-height: 76px; padding: 12px 16px; background-color: rgb(255, 255, 255); border: 1px solid rgba(202, 195, 216, 0.4); box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px;" rows="2"></textarea>
 </section>
@@ -1027,5 +1011,13 @@ Save Expense
 
 
 
+
+
+
+
+
+
+
+<script>function addNewExpenseRow(e){if(e)e.preventDefault();const tbody=document.querySelector('.table-container tbody');if(!tbody)return;const nextNum=tbody.querySelectorAll('tr').length+1;const tr=document.createElement('tr');tr.style.borderBottom='1px solid var(--surface-variant)';tr.innerHTML='<td style="padding: 10px 12px; font-size: 14px;"><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+nextNum+'. Item</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td style="padding: 10px 8px; font-size: 14px;"><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;">1 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;">₹0</td>';tbody.appendChild(tr);}</script>
 
 </body></html>
