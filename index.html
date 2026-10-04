@@ -460,7 +460,7 @@
 <style>.item-icon-box, #selected-category-icon-bg { background: linear-gradient(135deg, #7b4dff, #ff6b3d) !important; color: #ffffff !important; box-shadow: 0 3px 8px rgba(123, 77, 255, 0.28) !important; border-radius: 10px; } .item-icon-box .material-symbols-outlined, #selected-category-icon-bg .material-symbols-outlined { color: #ffffff !important; }</style></head>
 <body>
 <!-- TopAppBar -->
-<header class="header">
+<header class="header" style="position: relative; top: auto; width: 100%; z-index: 10; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); box-shadow: var(--card-shadow);">
 <div class="header-content">
 <div class="avatar">
 <img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwUn74rezF-Eii5Fa7qKbK81lRUpZlEF4Y_HK2nLlTpEIeZ7L4j0UtoO7gn6rOWEt8zzXPgp3AWR0PfxcmNQeO7ujNak99QrgQITzb4Pu7lFW7wGQlSK0qWYJwAtQNNUOn5PbEtyk756D1Q8jk0C7clSzVsu7MmGkemRh9yGFXNDCqDEvtPFDKjtg2ENeZJ_vb3SVSGqk31-tepRjYsFu_fnLsM88Qx3q-UcjEa68d_YWAwAqe1tAG" class="">
@@ -472,7 +472,7 @@
 </div>
 </header>
 <!-- Main Content -->
-<main class="main-content">
+<main class="main-content" style="padding: 16px 20px 104px;">
 <h1 class="page-title" style="font-size: 18px; line-height: 24px; background: linear-gradient(to right, rgb(123, 77, 255), rgb(255, 107, 61)) text; -webkit-text-fill-color: transparent;">Add New Expense</h1>
 <p style="font-size: 14px; color: var(--outline); margin-top: -8px;" class="">Please select the Expense Date &amp; Category</p>
 <!-- Date Picker / Calendar Card -->
@@ -1333,6 +1333,8 @@ Save Expense
 
 
 <script>function addNewExpenseRow(e){if(e)e.preventDefault();const tbody=document.querySelector('.table-container tbody');if(!tbody)return;const nextNum=tbody.querySelectorAll('tr').length+1;const tr=document.createElement('tr');tr.style.borderBottom='1px solid var(--surface-variant)';tr.innerHTML='<td style="padding: 10px 12px; font-size: 14px;"><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+nextNum+'. Item</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td style="padding: 10px 8px; font-size: 14px;"><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;">1 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;">₹0</td>';tbody.appendChild(tr);}</script>
+
+
 
 
 
