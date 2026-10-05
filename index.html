@@ -1,36 +1,40 @@
 <!DOCTYPE html><html lang="en" style=""><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Add New Expense - Smart Finance</title>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<title>Review Expense</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <style>
     :root {
-        --primary: #622ce5;
-        --primary-dim: #cdbdff;
-        --on-primary: #ffffff;
-        --primary-container: #e7deff;
-        --on-primary-container: #1f005f;
+        --color-primary: #622ce5;
+        --color-primary-container: #7b4dff;
+        --color-on-primary: #ffffff;
+        --color-secondary: #ae3203;
+        --color-secondary-container: #fd6a3c;
+        --color-surface: #fcf9f8;
+        --color-surface-dim: #dcd9d9;
+        --color-surface-container: #f0eded;
+        --color-surface-container-low: #f6f3f2;
+        --color-surface-container-lowest: #ffffff;
+        --color-surface-container-high: #eae7e7;
+        --color-surface-variant: #e5e2e1;
+        --color-on-surface: #1c1b1b;
+        --color-on-surface-variant: #494456;
+        --color-outline: #7a7487;
+        --color-outline-variant: #cac3d8;
         
-        --surface: #ffffff;
-        --on-surface: #1c1b1b;
-        --surface-variant: #f0eded;
-        --on-surface-variant: #494456;
-        --surface-container-low: #f6f3f2;
-        --surface-container-high: #ece7e7;
+        --radius-sm: 0.25rem;
+        --radius-md: 0.5rem;
+        --radius-lg: 0.75rem;
+        --radius-xl: 1.5rem;
+        --radius-full: 9999px;
+
+        --font-family: 'Inter', sans-serif;
         
-        --outline: #7a7487;
-        --outline-variant: #cac3d8;
-        
-        --gradient: linear-gradient(135deg, #7B4DFF, #FF6B3D);
-        --gradient-shadow: 0px 20px 40px rgba(123,77,255,0.15);
-        --card-shadow: 0px 10px 30px rgba(0,0,0,0.04);
-        
-        --radius-card: 24px;
-        --radius-btn: 18px;
-        
-        --font-inter: 'Inter', sans-serif;
+        --shadow-md: 0px 10px 30px rgba(0,0,0,0.04);
+        --shadow-lg: 0px 20px 40px rgba(123,77,255,0.15);
     }
 
     * {
@@ -40,1299 +44,633 @@
     }
 
     body {
-        font-family: var(--font-inter);
-        background-color: var(--surface);
-        color: var(--on-surface);
-        font-size: 16px;
-        line-height: 1.5;
-        min-height: 100vh;
+        font-family: var(--font-family);
+        background-color: var(--color-surface);
+        color: var(--color-on-surface);
         -webkit-font-smoothing: antialiased;
-    }
-
-    button {
-        background: none;
-        border: none;
-        font-family: inherit;
-        cursor: pointer;
-        color: inherit;
-    }
-
-    .hide-scrollbar::-webkit-scrollbar { display: none; }
-    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-    /* Layout & Header */
-    .header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 50;
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-        box-shadow: var(--card-shadow);
-    }
-    
-    .header-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 64px;
-        padding: 0 20px;
-        max-width: 1280px;
-        margin: 0 auto;
-    }
-
-    .avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        overflow: hidden;
-        background: var(--surface-variant);
-    }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; }
-
-    .brand-title {
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--primary);
-    }
-
-    .header-icons {
-        color: var(--on-surface-variant);
-    }
-
-    /* Main Container */
-    .main-content {
-        padding: 88px 20px 104px;
-        max-width: 1280px;
-        margin: 0 auto;
+        height: 100vh;
+        width: 100vw;
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        overflow: hidden;
+        font-size: 16px;
+        line-height: 24px;
     }
 
-    .page-title {
-        font-size: 24px;
-        font-weight: 700;
-        letter-spacing: -0.02em;
+    /* Modal / Bottom Sheet Style */
+    .app-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+        background: rgba(49, 48, 48, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        align-items: center;
+        justify-content: flex-end;
     }
 
     @media (min-width: 768px) {
-        .page-title { font-size: 32px; }
+        .app-container {
+            justify-content: center;
+            padding: 20px;
+        }
     }
 
-    /* Cards */
-    .card {
-        background: var(--surface);
-        border-radius: var(--radius-card);
-        box-shadow: var(--card-shadow);
-        border: 1px solid rgba(0,0,0,0.03);
-        padding: 16px;
+    .modal {
+        width: 100%;
+        max-width: 672px; /* 2xl */
+        background-color: var(--color-surface);
+        border-radius: 24px 24px 0 0;
+        display: flex;
+        flex-direction: column;
+        max-height: 90vh;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
     }
 
-    .section-title {
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: 8px;
-        color: var(--on-surface);
+    @media (min-width: 768px) {
+        .modal {
+            border-radius: 24px;
+        }
     }
 
-    /* Calendar */
-    .calendar-header {
+    .drag-handle-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 12px 0 4px;
+    }
+    
+    @media (min-width: 768px) {
+        .drag-handle-container {
+            display: none;
+        }
+    }
+
+    .drag-handle {
+        width: 48px;
+        height: 6px;
+        border-radius: var(--radius-full);
+        background-color: var(--color-surface-container-high);
+    }
+
+    .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 12px;
-        font-size: 14px;
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--color-surface-variant);
+    }
+
+    .header h2 {
+        font-size: 20px;
+        line-height: 28px;
         font-weight: 600;
+        color: var(--color-on-surface);
     }
-    .calendar-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 4px;
-        text-align: center;
-    }
-    .calendar-day-header {
-        font-size: 12px;
-        color: var(--outline);
-        font-weight: 500;
-        padding-bottom: 4px;
-    }
-    .calendar-date {
-        padding: 8px 0;
-        font-size: 14px;
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
+
+    .icon-btn {
+        width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto;
+        border-radius: var(--radius-full);
+        background-color: var(--color-surface-container);
+        border: none;
+        color: var(--color-on-surface-variant);
         cursor: pointer;
-    }
-    .calendar-date.active {
-        background: var(--gradient);
-        color: white;
-        font-weight: 700;
-        box-shadow: 0 4px 10px rgba(123,77,255,0.3);
-    }
-    .calendar-date.muted {
-        color: var(--outline-variant);
+        transition: background-color 0.2s, transform 0.1s;
     }
 
-    /* Categories Horizontal Bar */
-    .category-list {
-        display: flex;
-        gap: 12px;
-        overflow-x: auto;
-        padding-bottom: 4px;
+    .icon-btn:hover {
+        background-color: var(--color-surface-container-high);
     }
-    .category-btn {
-        height: 38px;
-        padding: 0 16px;
-        border-radius: 999px;
-        font-size: 14px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        white-space: nowrap;
-        transition: all 0.2s ease;
-        flex-shrink: 0;
-    }
-    .category-add {
-        border: 1px solid rgba(98, 44, 229, 0.3);
-        color: var(--primary);
-    }
-    .category-active {
-        background: var(--gradient) !important;
-        color: var(--on-primary) !important;
-        border-color: transparent !important;
-        box-shadow: 0 4px 12px rgba(123, 77, 255, 0.28);
-    }
-    .category-inactive {
-        background: #ffffff;
-        border: 1px solid var(--outline-variant);
-        color: var(--on-surface-variant);
-    }
-    .category-inactive:hover {
-        border-color: var(--primary);
-        color: var(--primary);
+    .icon-btn:active {
+        transform: scale(0.95);
     }
 
-    /* Table */
-    .table-header-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 16px;
-    }
-    .add-row-btn {
-        color: var(--primary);
-        font-size: 14px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-    }
-    .table-container {
-        overflow-x: auto;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        min-width: 400px;
-        text-align: left;
-    }
-    th {
-        font-size: 12px;
-        color: var(--outline);
-        font-weight: 500;
-        padding: 8px;
-        border-bottom: 1px solid var(--outline-variant);
-        background: var(--surface-container-low);
-    }
-    td {
-        padding: 8px;
-        border-bottom: 1px solid var(--surface-variant);
-        font-size: 16px;
-    }
-    .td-flex {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .td-right {
-        text-align: right;
-        font-weight: 500;
-        font-size: 14px;
-    }
-    .td-sno { color: var(--outline-variant); width: 48px; }
-
-    /* Total */
-    .total-section {
+    .content-scroll {
+        overflow-y: auto;
+        padding: 24px;
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
-        padding: 0 8px;
+        gap: 32px;
+        flex: 1;
     }
-    .total-amount {
+
+    /* Grand Total */
+    .grand-total {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .grand-total .amount {
         font-size: 48px;
+        line-height: 56px;
         font-weight: 700;
-        color: var(--primary);
         letter-spacing: -0.04em;
+        color: var(--color-primary);
     }
-    .total-words {
+
+    .grand-total .words {
         font-size: 12px;
-        color: var(--outline-variant);
+        line-height: 16px;
+        font-weight: 500;
+        color: var(--color-outline-variant);
         text-transform: uppercase;
         letter-spacing: 0.05em;
         margin-top: 4px;
     }
 
-    /* Payment Mode */
-    .payment-grid {
+    /* Details Grid */
+    .details-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr 1fr;
         gap: 16px;
-    }
-    .payment-card {
-        border-radius: 12px;
-        padding: 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        cursor: pointer;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-    .payment-active {
-        background: rgba(98, 44, 229, 0.1);
-        border: 2px solid var(--primary);
-        color: var(--primary);
-    }
-    .payment-inactive {
-        background: var(--surface);
-        border: 1px solid var(--surface-variant);
-        color: var(--on-surface-variant);
-    }
-    .payment-label {
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-    /* Bill Receipt */
-    .receipt-upload {
-        border: 2px dashed var(--outline-variant);
-        border-radius: 12px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        padding: 24px;
-        background: var(--surface-container-low);
-        text-align: center;
-        cursor: pointer;
-    }
-    .receipt-icons {
-        display: flex;
-        gap: 16px;
-        color: var(--primary);
-    }
-    .receipt-icon-circle {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: var(--primary-container);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .receipt-title {
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--on-surface);
-    }
-    .receipt-subtitle {
-        font-size: 12px;
-        color: var(--outline);
-    }
-
-    /* Description */
-    .description-input {
-        width: 100%;
-        height: 128px;
-        background: #F8F9FA;
-        border: 1px solid var(--surface-variant);
-        border-radius: 12px;
         padding: 16px;
-        font-family: inherit;
-        font-size: 16px;
-        resize: none;
-    }
-    .description-input:focus {
-        outline: none;
-        border-color: var(--primary);
+        border-radius: var(--radius-xl);
+        border: 1px solid rgba(229, 226, 225, 0.5); /* surface-variant/50 */
+        background-color: var(--color-surface-container-low);
+        box-shadow: var(--shadow-md);
     }
 
-    /* Save Button */
-    .save-btn {
-        height: 48px;
-        border-radius: var(--radius-btn);
-        background: var(--gradient);
-        color: var(--on-primary);
-        font-size: 14px;
-        font-weight: 600;
+    .detail-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .detail-label {
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 500;
+        color: var(--color-outline);
+    }
+
+    .detail-value {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 500;
+        color: var(--color-on-surface);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .category-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: var(--radius-full);
+        background-color: var(--color-surface-container-high);
+        color: var(--color-secondary-container);
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 4px;
-        width: 100%;
-        box-shadow: var(--gradient-shadow);
-        margin-top: 8px;
-        margin-bottom: 16px;
-        transition: transform 0.2s;
-    }
-    .save-btn:active {
-        transform: scale(0.98);
     }
 
-    /* Bottom Nav */
+    .category-icon span {
+        font-size: 14px;
+    }
+
+    .text-primary-icon {
+        color: var(--color-primary);
+        font-size: 18px;
+    }
+
+    .btn-text {
+        background: none;
+        border: none;
+        color: var(--color-primary);
+        font-family: inherit;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+        padding: 0;
+        margin-top: 4px;
+        transition: color 0.2s;
+    }
+
+    .btn-text:hover {
+        color: var(--color-primary-container);
+    }
+    
+    .btn-text span {
+        font-size: 16px;
+    }
+
+    /* Table */
+    .table-section {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .table-title {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        color: var(--color-on-surface-variant);
+        padding: 0 8px;
+    }
+
+    .data-table {
+        background-color: var(--color-surface);
+        border: 1px solid rgba(229, 226, 225, 0.5);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+    }
+
+    .table-row {
+        display: grid;
+        grid-template-columns: 40px 1fr 60px 80px;
+        gap: 8px;
+        padding: 12px 16px;
+        align-items: center;
+        border-bottom: 1px solid rgba(229, 226, 225, 0.3);
+    }
+
+    .table-row:last-child {
+        border-bottom: none;
+    }
+
+    .table-header {
+        background-color: var(--color-surface-container-high);
+        border-bottom: 1px solid rgba(229, 226, 225, 0.5);
+    }
+
+    .table-header .cell {
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 500;
+        color: var(--color-outline);
+    }
+
+    .table-row:not(.table-header):hover {
+        background-color: var(--color-surface-container-lowest);
+    }
+
+    .cell-sno {
+        color: var(--color-outline-variant);
+        font-weight: 500;
+    }
+
+    .cell-right {
+        text-align: right;
+    }
+
+    .cell-amount {
+        font-weight: 500;
+    }
+
+    /* Footer Actions */
+    .footer-actions {
+        padding: 16px 24px;
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
+        border-top: 1px solid rgba(229, 226, 225, 0.5);
+        background-color: var(--color-surface-container-lowest);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn {
+        width: 100%;
+        height: 48px;
+        border-radius: var(--radius-lg);
+        font-family: inherit;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn:active {
+        transform: scale(0.95);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #7B4DFF 0%, #FF6B3D 100%);
+        color: var(--color-on-primary);
+        border: none;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .btn-outline:hover {
+        background-color: rgba(98, 44, 229, 0.05);
+    }
+
+    /* Bottom Navigation */
     .bottom-nav {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 72px;
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        height: 64px;
+        background-color: rgba(252, 249, 248, 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-top: 1px solid var(--color-surface-variant);
         display: flex;
         justify-content: space-around;
         align-items: center;
-        padding: 0 16px;
         padding-bottom: env(safe-area-inset-bottom);
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-        box-shadow: 0px -4px 20px rgba(0,0,0,0.04);
         z-index: 50;
     }
-    @media (min-width: 768px) {
-        .bottom-nav { display: none; }
-    }
+
     .nav-item {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        color: var(--on-surface-variant);
+        gap: 4px;
+        color: var(--color-on-surface-variant);
+        text-decoration: none;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 8px;
+        font-family: inherit;
     }
-    .nav-item span:last-child {
-        font-size: 12px;
+
+    .nav-item .material-symbols-outlined {
+        font-size: 24px;
+    }
+
+    .nav-item span.label {
+        font-size: 10px;
         font-weight: 500;
-        margin-top: 4px;
     }
+
+    .nav-item.active {
+        color: var(--color-primary);
+    }
+    
     .nav-fab {
-        background: var(--gradient);
-        color: var(--on-primary);
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #7B4DFF 0%, #FF6B3D 100%);
+        color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        transform: translateY(-24px);
-        box-shadow: var(--gradient-shadow);
+        border: none;
+        cursor: pointer;
+        transform: translateY(-16px);
+        box-shadow: 0 8px 16px rgba(123,77,255,0.25);
+    }
+    
+    .nav-fab:active {
+        transform: translateY(-16px) scale(0.95);
     }
 
-    /* Dropdown item styling */
-    .category-dropdown-item {
-        transition: all 0.15s ease;
+    /* Hide modal stuff behind nav initially, or rather let's assume this is the main view with a modal open over it */
+    .screen-content {
+        display: none; /* we'll just show the modal for this view */
     }
-    .category-dropdown-item:hover {
-        background: rgba(98, 44, 229, 0.05);
-    }
+
 </style>
-<style>.item-icon-box, #selected-category-icon-bg { background: linear-gradient(135deg, #7b4dff, #ff6b3d) !important; color: #ffffff !important; box-shadow: 0 3px 8px rgba(123, 77, 255, 0.28) !important; border-radius: 10px; } .item-icon-box .material-symbols-outlined, #selected-category-icon-bg .material-symbols-outlined { color: #ffffff !important; }</style></head>
-<body>
-<!-- TopAppBar -->
-<header class="header" style="position: relative; top: auto; width: 100%; z-index: 10; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); box-shadow: var(--card-shadow);">
-<div class="header-content">
-<div class="avatar">
-<img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwUn74rezF-Eii5Fa7qKbK81lRUpZlEF4Y_HK2nLlTpEIeZ7L4j0UtoO7gn6rOWEt8zzXPgp3AWR0PfxcmNQeO7ujNak99QrgQITzb4Pu7lFW7wGQlSK0qWYJwAtQNNUOn5PbEtyk756D1Q8jk0C7clSzVsu7MmGkemRh9yGFXNDCqDEvtPFDKjtg2ENeZJ_vb3SVSGqk31-tepRjYsFu_fnLsM88Qx3q-UcjEa68d_YWAwAqe1tAG" class="">
+</head>
+<body style="background-color: rgb(255, 255, 255);">
+<!-- The App Container / Overlay -->
+<div class="app-container" style="background: rgb(255, 255, 255); backdrop-filter: none;">
+<!-- Modal -->
+<div class="modal">
+<!-- Drag Handle (Mobile) -->
+<div class="drag-handle-container">
+<div class="drag-handle"></div>
 </div>
-<div class="brand-title">Smart Finance</div>
-<div class="header-icons">
-<span class="material-symbols-outlined">notifications</span>
-</div>
-</div>
-</header>
-<!-- Main Content -->
-<main class="main-content" style="padding: 16px 20px 104px;">
-<h1 class="page-title" style="font-size: 18px; line-height: 24px; background: linear-gradient(to right, rgb(123, 77, 255), rgb(255, 107, 61)) text; -webkit-text-fill-color: transparent;">Add New Expense</h1>
-<p style="font-size: 14px; color: var(--outline); margin-top: -8px;" class="">Please select the Expense Date &amp; Category</p>
-<!-- Date Picker / Calendar Card -->
-<section class="card" style="box-shadow: none; border: 1px solid rgba(202, 195, 216, 0.3); padding: 16px 16px 24px; margin: 20px -8px 12px;"><div class="calendar-header" style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
-  <span style="font-size: 15px; font-weight: 700; color: var(--on-surface);" class="">October 2026</span>
-  <div style="display: flex; gap: 8px; color: var(--outline);">
-    <span class="material-symbols-outlined" style="font-size: 20px; cursor: pointer;">chevron_left</span>
-    <span class="material-symbols-outlined" style="font-size: 20px; cursor: pointer;">chevron_right</span>
-  </div>
-</div>
+<!-- Header -->
 
-<!-- Weekday Labels -->
-<div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; margin-bottom: 6px;">
-  <div style="font-size: 11px; font-weight: 600; color: rgb(122, 116, 135); padding: 2px 0px;" class="">M</div>
-  <div style="font-size: 11px; font-weight: 600; color: rgb(122, 116, 135); padding: 2px 0px;" class="">T</div>
-  <div style="font-size: 11px; font-weight: 600; color: rgb(122, 116, 135); padding: 2px 0px;" class="">W</div>
-  <div style="font-size: 11px; font-weight: 600; color: rgb(122, 116, 135); padding: 2px 0px;" class="">T</div>
-  <div style="font-size: 11px; font-weight: 600; color: rgb(122, 116, 135); padding: 2px 0px;" class="">F</div>
-  <div style="font-size: 11px; font-weight: 600; color: rgb(122, 116, 135); padding: 2px 0px;" class="">S</div>
-  <div style="font-size: 11px; font-weight: 600; color: rgb(122, 116, 135); padding: 2px 0px;" class="">S</div>
+<!-- Scrollable Content -->
+<div class="content-scroll"><div class="header" style="position: static; padding: 0px 0px 16px; border-bottom: 1px solid var(--color-surface-variant);"><h2 style="background: linear-gradient(to right, rgb(123, 77, 255), rgb(255, 107, 61)) text; color: transparent;" class="">Review Expense</h2><button class="icon-btn"><span class="material-symbols-outlined">close</span></button></div>
+<!-- Grand Total Section -->
+<div class="grand-total">
+<span class="amount" style="background-image: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%); background-clip: text; -webkit-text-fill-color: transparent;">₹2,400</span>
+<span class="words" style="color: rgb(0, 0, 0);">TWO THOUSAND FOUR HUNDRED RUPEES ONLY</span>
 </div>
-
-<!-- Days Grid -->
-<div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;"><!-- Row 1: 28, 29, 30, 1, 2, 3, 4 -->
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 500; color: rgb(202, 195, 216);" class="">28</span>
+<!-- Transaction Details Grid -->
+<div class="details-grid">
+<div class="detail-item">
+<span class="detail-label">Date</span>
+<span class="detail-value">01 Oct 2026</span>
+</div>
+<div class="detail-item">
+<span class="detail-label">Category</span>
+<div class="detail-value">
+<div class="category-icon">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+                        Grocery
+                    </div>
+</div>
+<div class="detail-item">
+<span class="detail-label">Payment Method</span>
+<div class="detail-value">
+<span class="material-symbols-outlined text-primary-icon">credit_card</span>
+                        Card
+                    </div>
+</div>
+<div class="detail-item" style="justify-content: center;">
+<span class="detail-label">Bill Records</span>
+<button class="btn-text">
+<span class="material-symbols-outlined">receipt_long</span>
+                        View Bill
+                    </button>
+</div>
+</div>
+<!-- Itemized Table -->
+<div class="table-section" style="margin-bottom: 24px;"><h3 class="table-title" style="background: linear-gradient(to right, rgb(123, 77, 255), rgb(255, 100, 54)) text; -webkit-text-fill-color: transparent; font-size: 20px; font-weight: 700; display: inline-block; margin-bottom: 6px;">Item Breakdown</h3>
+<div class="data-table" style="background: rgb(255, 255, 255); border-radius: 16px; overflow: hidden; box-shadow: rgba(0, 0, 0, 0.06) 0px 10px 25px -5px, rgba(0, 0, 0, 0.04) 0px 8px 10px -6px; border: 1px solid rgba(229, 226, 225, 0.6);"><!-- Header Row -->
+<div style="background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%); display: grid; grid-template-columns: 1.3fr auto 1fr auto 1fr; align-items: stretch; border-top-left-radius: 14px; border-top-right-radius: 14px;" class="">
+  <div style="padding: 12px 14px; display: flex; align-items: center;">
+    <span style="color: #ffffff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;" class="">ITEMS</span>
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 500; color: rgb(202, 195, 216);" class="">29</span>
+  <div style="width: 1px; background: rgba(255, 255, 255, 0.25);"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center;">
+    <span style="color: #ffffff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;" class="">QTY</span>
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 500; color: rgb(202, 195, 216);" class="">30</span>
+  <div style="width: 1px; background: rgba(255, 255, 255, 0.25);"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: flex-end;" class="">
+    <span style="color: #ffffff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;" class="">AMOUNT</span>
+    
   </div>
-  <!-- Day 1 Highlighted/Selected -->
-  <div style="position: relative; background: linear-gradient(135deg, rgb(123, 77, 255), rgb(255, 107, 61)); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: rgba(123, 77, 255, 0.35) 0px 4px 12px; -webkit-box-reflect: below 2px linear-gradient(transparent 40%, rgba(255, 255, 255, 0.35));"><span style="font-size: 13px; font-weight: 700; color: #ffffff;" class="">1</span></div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">2</span>
+</div>
+<!-- Row 1 -->
+<div style="display: grid; grid-template-columns: 1.3fr auto 1fr auto 1fr; align-items: stretch; border-bottom: 1px solid rgb(241, 237, 236); background: rgb(255, 255, 255);" class="">
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 14px; font-weight: 500; color: #1c1b1b;" class="">1. Poha</span>
+    
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">3</span>
+  <div style="width: 1px; background: #f0eded;"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 14px; font-weight: 500; color: #1c1b1b;" class="">20 kg</span>
+    
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">4</span>
+  <div style="width: 1px; background: #f0eded;"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: flex-end;">
+    <span style="font-size: 14px; font-weight: 700; color: #1c1b1b;" class="">400</span>
   </div>
-
-  <!-- Row 2: 5, 6, 7, 8, 9, 10, 11 -->
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">5</span>
+</div>
+<!-- Row 2 -->
+<div style="display: grid; grid-template-columns: 1.3fr auto 1fr auto 1fr; align-items: stretch; border-bottom: 1px solid rgb(241, 237, 236); background: rgb(255, 255, 255);" class="">
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 14px; font-weight: 500; color: #1c1b1b;" class="">2. Rava (Mota)</span>
+    
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">6</span>
+  <div style="width: 1px; background: #f0eded;"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 14px; font-weight: 500; color: #1c1b1b;" class="">20 kg</span>
+    
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">7</span>
+  <div style="width: 1px; background: #f0eded;"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: flex-end;">
+    <span style="font-size: 14px; font-weight: 700; color: #1c1b1b;" class="">600</span>
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">8</span>
+</div>
+<!-- Row 3 -->
+<div style="display: grid; grid-template-columns: 1.3fr auto 1fr auto 1fr; align-items: stretch; border-bottom: 1px solid rgb(241, 237, 236); background: rgb(255, 255, 255);" class="">
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 14px; font-weight: 500; color: #1c1b1b;" class="">3. Sugar</span>
+    
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">9</span>
+  <div style="width: 1px; background: #f0eded;"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 14px; font-weight: 500; color: #1c1b1b;" class="">35 kg</span>
+    
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">10</span>
+  <div style="width: 1px; background: #f0eded;"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: flex-end;">
+    <span style="font-size: 14px; font-weight: 700; color: #1c1b1b;" class="">1400</span>
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">11</span>
+</div>
+<!-- Row 4 -->
+<div style="display: grid; grid-template-columns: 1.3fr auto 1fr auto 1fr; align-items: stretch; border-bottom: 1px solid rgb(241, 237, 236); background: rgb(255, 255, 255);" class="">
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 14px; font-weight: 500; color: #1c1b1b;" class="">4. Item</span>
+    
   </div>
-
-  <!-- Row 3: 12, 13, 14, 15, 16, 17, 18 -->
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">12</span>
+  <div style="width: 1px; background: #f0eded;"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 14px; font-weight: 500; color: #1c1b1b;" class="">1 kg</span>
+    
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">13</span>
+  <div style="width: 1px; background: #f0eded;"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: flex-end;">
+    <span style="font-size: 14px; font-weight: 700; color: #1c1b1b;" class="">₹0</span>
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">14</span>
+</div>
+<!-- Row 5 -->
+<div style="display: grid; grid-template-columns: 1.3fr auto 1fr auto 1fr; align-items: stretch; background: rgb(255, 255, 255);" class="">
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 14px; font-weight: 500; color: #1c1b1b;" class="">5. Item</span>
+    
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">15</span>
+  <div style="width: 1px; background: #f0eded;"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 14px; font-weight: 500; color: #1c1b1b;" class="">1 kg</span>
+    
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">16</span>
+  <div style="width: 1px; background: #f0eded;"></div>
+  <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: flex-end;">
+    <span style="font-size: 14px; font-weight: 700; color: #1c1b1b;" class="">₹0</span>
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">17</span>
+</div>
+<!-- Total Footer -->
+<div style="background: linear-gradient(135deg, rgb(247, 242, 250) 0%, rgb(255, 245, 242) 100%); display: grid; grid-template-columns: 2fr auto 1fr; align-items: stretch; border-top: 1px solid rgb(241, 237, 236); border-bottom-left-radius: 14px; border-bottom-right-radius: 14px;" class="">
+  <div style="padding: 14px 18px;">
+    <div style="color: #7B4DFF; font-weight: 700; font-size: 12px; letter-spacing: 0.05em;" class="">TOTAL AMOUNT</div>
+    <div style="color: #7a7487; font-size: 11px; margin-top: 3px; font-weight: 500;" class="">Two Thousand Four Hundred Rupees Only</div>
   </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">18</span>
+  <div style="width: 1px; background: rgba(123, 77, 255, 0.12);"></div>
+  <div style="padding: 14px 18px; display: flex; align-items: center; justify-content: flex-end;">
+    <div style="color: #7B4DFF; font-size: 20px; font-weight: 700;" class="">₹2,400</div>
   </div>
-
-  <!-- Row 4: 19, 20, 21, 22, 23, 24, 25 -->
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">19</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">20</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">21</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">22</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">23</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">24</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">25</span>
-  </div>
-
-  <!-- Row 5: 26, 27, 28, 29, 30, 31, 1 -->
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">26</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">27</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">28</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">29</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">30</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 600; color: rgb(28, 27, 27);" class="">31</span>
-  </div>
-  <div style="background: rgb(248, 250, 252); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <span style="font-size: 13px; font-weight: 500; color: rgb(202, 195, 216);" class="">1</span>
-  </div></div></section>
-<!-- Category Dropdown Section -->
-<section class="card" style="position: relative; z-index: 40; box-shadow: none; border: 1px solid rgba(202, 195, 216, 0.3); padding: 16px 16px 24px; margin: 4px -8px 12px; overflow: visible;">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-<h2 class="section-title" style="margin-bottom: 0px;">Select - Category</h2>
-
+</div></div></div>
 </div>
-<div class="category-dropdown-container" id="category-dropdown-wrapper" style="position: relative; width: 100%;">
-<!-- Trigger Button -->
-<button aria-expanded="false" aria-haspopup="listbox" class="selected-category-card" id="category-dropdown-trigger" onclick="toggleCategoryDropdown(event)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; min-height: 56px; background: rgb(255, 255, 255); border-color: var(--outline-variant); border-radius: 16px; box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 14px; cursor: pointer; transition: 0.2s; outline: none;" type="button">
-<div style="display: flex; align-items: center; gap: 12px;">
-<div id="selected-category-icon-bg" style="width: 42px; height: 42px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.25); transition: all 0.2s; flex-shrink: 0;">
-<span class="material-symbols-outlined" id="selected-category-icon" style="font-size: 22px;">local_grocery_store</span>
-</div>
-<div style="text-align: left;">
-<div id="selected-category-title" style="font-size: 15px; font-weight: 700; color: var(--on-surface); line-height: 1.2;" class="">Grocery</div>
-<div id="selected-category-subtitle" style="font-size: 12px; color: var(--outline); margin-top: 2px;" class="">Daily essentials &amp; food</div>
-</div>
-</div>
-<span class="material-symbols-outlined" id="dropdown-chevron" style="color: var(--primary); font-size: 24px; transition: transform 0.25s; transform: rotate(0deg);">expand_more</span>
-</button>
-<!-- Dropdown Menu -->
-<div class="hide-scrollbar" id="category-dropdown-menu" role="listbox" style="display: none; position: absolute; top: calc(100% + 8px); left: 0px; width: 100%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); border: 1.5px solid var(--outline-variant); border-radius: 18px; box-shadow: rgba(123, 77, 255, 0.16) 0px 20px 45px, rgba(0, 0, 0, 0.08) 0px 4px 16px; z-index: 100; max-height: 310px; overflow-y: auto; padding: 8px; flex-direction: column; gap: 4px;"><!-- Quick Add Category Option inside Menu -->
-<button onclick="promptAddCategory(event)" style="display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border-radius: 12px; background: rgba(98, 44, 229, 0.05); border: 1px dashed rgba(98, 44, 229, 0.35); color: var(--primary); font-weight: 600; font-size: 13px; margin-bottom: 4px; cursor: pointer;" type="button" class="">
-<span class="material-symbols-outlined" style="font-size: 18px;">add_circle</span>
-<span class="">+ Add Custom Category</span>
-</button>
-<!-- Category Items with Brand Gradient Icon Containers -->
-<div class="category-dropdown-item" data-category="Grocery" data-icon="local_grocery_store" data-subtitle="Daily essentials &amp; food" onclick="selectCategory('Grocery', 'local_grocery_store', 'Daily essentials &amp; food', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; background: rgba(98, 44, 229, 0.08); color: var(--primary); font-weight: 600; border: 1px solid rgba(98, 44, 229, 0.2);">
-<div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: rgba(123, 77, 255, 0.28) 0px 3px 8px; background: var(--gradient); color: white;">
-<span class="material-symbols-outlined" style="font-size: 20px; color: white;">local_grocery_store</span>
-</div>
-<div style="display: flex; flex-direction: column; text-align: left;">
-<span style="font-size: 14px; font-weight: 600;" class="">Grocery</span>
-<span style="font-size: 11px; color: var(--outline);" class="">Daily essentials &amp; food</span>
-</div>
-</div>
-<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: inline-block;">check</span>
-</div>
-<div class="category-dropdown-item" data-category="Vegetables" data-icon="eco" data-subtitle="Fresh vegetables &amp; greens" onclick="selectCategory('Vegetables', 'eco', 'Fresh vegetables &amp; greens', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
-<div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
-<span class="material-symbols-outlined" style="font-size: 20px; color: white;">eco</span>
-</div>
-<div style="display: flex; flex-direction: column; text-align: left;">
-<span style="font-size: 14px;" class="">Vegetables</span>
-<span style="font-size: 11px; color: var(--outline);" class="">Fresh vegetables &amp; greens</span>
-</div>
-</div>
-<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
-</div>
-<div class="category-dropdown-item" data-category="Clothes" data-icon="checkroom" data-subtitle="Apparel &amp; laundry" onclick="selectCategory('Clothes', 'checkroom', 'Apparel &amp; laundry', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
-<div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
-<span class="material-symbols-outlined" style="font-size: 20px; color: white;">checkroom</span>
-</div>
-<div style="display: flex; flex-direction: column; text-align: left;">
-<span style="font-size: 14px;" class="">Clothes</span>
-<span style="font-size: 11px; color: var(--outline);" class="">Apparel &amp; laundry</span>
-</div>
-</div>
-<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
-</div>
-<div class="category-dropdown-item" data-category="Petrol" data-icon="local_gas_station" data-subtitle="Fuel &amp; vehicle maintenance" onclick="selectCategory('Petrol', 'local_gas_station', 'Fuel &amp; vehicle maintenance', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
-<div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
-<span class="material-symbols-outlined" style="font-size: 20px; color: white;">local_gas_station</span>
-</div>
-<div style="display: flex; flex-direction: column; text-align: left;">
-<span style="font-size: 14px;" class="">Petrol</span>
-<span style="font-size: 11px; color: var(--outline);" class="">Fuel &amp; vehicle maintenance</span>
-</div>
-</div>
-<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
-</div>
-<div class="category-dropdown-item" data-category="Travelling" data-icon="flight" data-subtitle="Flights, transit &amp; trips" onclick="selectCategory('Travelling', 'flight', 'Flights, transit &amp; trips', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
-<div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
-<span class="material-symbols-outlined" style="font-size: 20px; color: white;">flight</span>
-</div>
-<div style="display: flex; flex-direction: column; text-align: left;">
-<span style="font-size: 14px;" class="">Travelling</span>
-<span style="font-size: 11px; color: var(--outline);" class="">Flights, transit &amp; trips</span>
-</div>
-</div>
-<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
-</div>
-<div class="category-dropdown-item" data-category="Doctor &amp; Medicines" data-icon="medical_services" data-subtitle="Healthcare &amp; pharmacy" onclick="selectCategory('Doctor &amp; Medicines', 'medical_services', 'Healthcare &amp; pharmacy', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
-<div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
-<span class="material-symbols-outlined" style="font-size: 20px; color: white;">medical_services</span>
-</div>
-<div style="display: flex; flex-direction: column; text-align: left;">
-<span style="font-size: 14px;" class="">Doctor &amp; Medicines</span>
-<span style="font-size: 11px; color: var(--outline);" class="">Healthcare &amp; pharmacy</span>
-</div>
-</div>
-<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
-</div>
-<div class="category-dropdown-item" data-category="Water" data-icon="water_drop" data-subtitle="Water utility &amp; supplies" onclick="selectCategory('Water', 'water_drop', 'Water utility &amp; supplies', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
-<div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
-<span class="material-symbols-outlined" style="font-size: 20px; color: white;">water_drop</span>
-</div>
-<div style="display: flex; flex-direction: column; text-align: left;">
-<span style="font-size: 14px;" class="">Water</span>
-<span style="font-size: 11px; color: var(--outline);" class="">Water utility &amp; supplies</span>
-</div>
-</div>
-<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
-</div>
-<div class="category-dropdown-item" data-category="Electricity" data-icon="electric_bolt" data-subtitle="Electricity power bills" onclick="selectCategory('Electricity', 'electric_bolt', 'Electricity power bills', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
-<div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
-<span class="material-symbols-outlined" style="font-size: 20px; color: white;">electric_bolt</span>
-</div>
-<div style="display: flex; flex-direction: column; text-align: left;">
-<span style="font-size: 14px;" class="">Electricity</span>
-<span style="font-size: 11px; color: var(--outline);" class="">Electricity power bills</span>
-</div>
-</div>
-<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
-</div>
-<div class="category-dropdown-item" data-category="Other" data-icon="more_horiz" data-subtitle="Miscellaneous expenses" onclick="selectCategory('Other', 'more_horiz', 'Miscellaneous expenses', this)" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; min-height: 48px; border-radius: 12px; cursor: pointer; color: var(--on-surface); font-weight: 500; border: 1px solid transparent; background: transparent;">
-<div style="display: flex; align-items: center; gap: 12px;">
-<div class="item-icon-box" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: none; background: var(--surface-container-high); color: var(--on-surface-variant);">
-<span class="material-symbols-outlined" style="font-size: 20px; color: white;">more_horiz</span>
-</div>
-<div style="display: flex; flex-direction: column; text-align: left;">
-<span style="font-size: 14px;" class="">Other</span>
-<span style="font-size: 11px; color: var(--outline);" class="">Miscellaneous expenses</span>
-</div>
-</div>
-<span class="material-symbols-outlined check-mark" style="font-size: 20px; color: var(--primary); display: none;">check</span>
-</div></div>
-</div>
-</section>
-<!-- Category Horizontal Selector -->
-
-<!-- Item Table Card -->
-<section class="" style="background: transparent; box-shadow: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; padding: 0px; margin: 0px -8px;">
-<div class="table-header-row">
-<h2 class="section-title" id="items-table-title" style="margin-bottom: 0px;">Grocery Items</h2>
-<button class="add-row-btn" onclick="addNewExpenseRow(event)">
-<span class="material-symbols-outlined" style="font-size: 18px;">add</span> Add Row
-</button>
-</div>
-<div class="table-container" style="overflow: visible; width: 100%; margin: 0px; padding: 0px; border-radius: 16px; background: var(--surface); box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 20px -3px, rgba(0, 0, 0, 0.04) 0px 4px 6px -2px; border: 1px solid rgba(0, 0, 0, 0.04); position: relative;">
-  <!-- Edit Row Action Bar / Popup Panel -->
-  <div id="table-edit-bar" style="display: none; background: #faf8ff; border-bottom: 1.5px solid var(--outline-variant); padding: 10px 16px; align-items: center; justify-content: space-between; border-radius: 16px 16px 0 0; animation: fadeIn 0.2s ease;">
-    <div style="display: flex; align-items: center; gap: 12px;">
-      <div style="display: flex; align-items: center; gap: 6px;">
-        <span class="material-symbols-outlined" style="font-size: 18px; color: var(--primary);">tune</span>
-        <span style="font-size: 13px; font-weight: 700; color: var(--on-surface);" class="">Edit row</span>
-      </div>
-      <!-- Switch toggle -->
-      <label style="position: relative; display: inline-block; width: 38px; height: 22px; cursor: pointer; margin: 0;">
-        <input id="edit-mode-toggle" onchange="handleEditModeToggle(this.checked)" style="opacity: 0; width: 0; height: 0; position: absolute;" type="checkbox">
-        <span id="toggle-slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cac3d8; transition: 0.25s; border-radius: 34px;"></span>
-      </label>
-      <span id="toggle-status-text" style="font-size: 11px; font-weight: 600; color: var(--outline);" class="">Off</span>
-    </div>
-    <button onclick="finishEditMode()" style="display: inline-flex; align-items: center; gap: 4px; padding: 5px 14px; border-radius: 99px; background: linear-gradient(135deg, rgb(123, 77, 255), rgb(255, 107, 61)); color: #ffffff; font-size: 12px; font-weight: 700; cursor: pointer; box-shadow: 0 2px 6px rgba(123, 77, 255, 0.3); border: none;" type="button" class="">
-      <span class="material-symbols-outlined" style="font-size: 15px;">check</span> OK
-    </button>
-  </div>
-
-  <table id="expense-items-table" style="width: 100%; min-width: 100%; border-collapse: collapse; table-layout: fixed; margin: 0px; padding: 0px;">
-    <thead style="border-top-left-radius: 10px; border-top-right-radius: 10px; overflow: hidden;">
-      <tr style="background: linear-gradient(135deg, rgb(123, 77, 255), rgb(255, 107, 61)); color: rgb(255, 255, 255); border-top-left-radius: 10px; border-top-right-radius: 10px; overflow: hidden;">
-        <th class="item-col" style="width: 44%; text-align: left; background: transparent; color: inherit; padding: 10px 12px; font-size: 11px; font-weight: 600; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-top-left-radius: 10px;">ITEMS</th>
-        <th class="qty-col" style="width: 24%; text-align: left; background: transparent; color: inherit; padding: 10px 8px; font-size: 11px; font-weight: 600; border: none;">QTY</th>
-        <th class="amount-col" style="width: 32%; text-align: right; background: transparent; color: inherit; padding: 10px 10px 10px 4px; font-size: 11px; font-weight: 600; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-top-right-radius: 10px;">
-          <div style="display: inline-flex; align-items: center; justify-content: flex-end; gap: 6px; width: 100%;">
-            <span class="">AMOUNT</span>
-            <button aria-label="Edit options" id="table-kebab-btn" onclick="toggleEditBar(event)" style="display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 6px; background: rgba(255, 255, 255, 0.22); color: #ffffff; cursor: pointer; border: none; padding: 0; transition: background 0.15s; flex-shrink: 0;" title="Edit row options" type="button">
-              <span class="material-symbols-outlined" style="font-size: 18px;">more_vert</span>
+<!-- Footer / Actions -->
+<div class="footer-actions">
+<button class="btn btn-primary" id="btnSubmit">
+                Submit Expense
             </button>
-          </div>
-        </th>
-        <th class="delete-col-header" style="width: 36px; padding: 10px 8px 10px 0; text-align: center; display: none; background: transparent; color: inherit; font-size: 11px; font-weight: 600; border: none;"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr data-amount="400" style="border-bottom: 1px solid var(--surface-variant); transition: background 0.15s;">
-        <td style="padding: 10px 12px; font-size: 14px;" class="">
-          <div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;">
-            <span class="row-item-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">1. Poha</span>
-            <span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span>
-          </div>
-        </td>
-        <td style="padding: 10px 8px; font-size: 14px;" class="">
-          <div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;">
-            <span style="white-space: nowrap;" class="">20 kg</span>
-            <span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span>
-          </div>
-        </td>
-        <td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;">
-          <span class="row-amount-val">400</span>
-        </td>
-        <td class="delete-cell" style="display: none; padding: 6px 8px 6px 0; text-align: center; vertical-align: middle; width: 36px;">
-          <button aria-label="Delete row" class="row-delete-btn" onclick="promptDeleteRow(this, event)" style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; background: rgba(186, 26, 26, 0.08); color: #ba1a1a; cursor: pointer; border: none; transition: 0.15s;" title="Delete row" type="button">
-            <span class="material-symbols-outlined" style="font-size: 17px;">delete</span>
-          </button>
-        </td>
-      </tr>
-      <tr data-amount="600" style="border-bottom: 1px solid var(--surface-variant); transition: background 0.15s;">
-        <td style="padding: 10px 12px; font-size: 14px;" class="">
-          <div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;">
-            <span class="row-item-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">2. Rava (Mota)</span>
-            <span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span>
-          </div>
-        </td>
-        <td style="padding: 10px 8px; font-size: 14px;" class="">
-          <div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;">
-            <span style="white-space: nowrap;" class="">20 kg</span>
-            <span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span>
-          </div>
-        </td>
-        <td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;">
-          <span class="row-amount-val">600</span>
-        </td>
-        <td class="delete-cell" style="display: none; padding: 6px 8px 6px 0; text-align: center; vertical-align: middle; width: 36px;">
-          <button aria-label="Delete row" class="row-delete-btn" onclick="promptDeleteRow(this, event)" style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; background: rgba(186, 26, 26, 0.08); color: #ba1a1a; cursor: pointer; border: none; transition: 0.15s;" title="Delete row" type="button">
-            <span class="material-symbols-outlined" style="font-size: 17px;">delete</span>
-          </button>
-        </td>
-      </tr>
-      <tr data-amount="1400" style="border-bottom: 1px solid var(--surface-variant); transition: background 0.15s;">
-        <td style="padding: 10px 12px; font-size: 14px;" class="">
-          <div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;">
-            <span class="row-item-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">3. Sugar</span>
-            <span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span>
-          </div>
-        </td>
-        <td style="padding: 10px 8px; font-size: 14px;" class="">
-          <div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;">
-            <span style="white-space: nowrap;" class="">35 kg</span>
-            <span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span>
-          </div>
-        </td>
-        <td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;">
-          <span class="row-amount-val">1400</span>
-        </td>
-        <td class="delete-cell" style="display: none; padding: 6px 8px 6px 0; text-align: center; vertical-align: middle; width: 36px;">
-          <button aria-label="Delete row" class="row-delete-btn" onclick="promptDeleteRow(this, event)" style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; background: rgba(186, 26, 26, 0.08); color: #ba1a1a; cursor: pointer; border: none; transition: 0.15s;" title="Delete row" type="button">
-            <span class="material-symbols-outlined" style="font-size: 17px;">delete</span>
-          </button>
-        </td>
-      </tr>
-    <tr style="border-bottom: 1px solid var(--surface-variant);"><td style="padding: 10px 12px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">4. Item</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;" class="">1 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;">₹0</td></tr><tr style="border-bottom: 1px solid var(--surface-variant);"><td style="padding: 10px 12px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">5. Item</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td style="padding: 10px 8px; font-size: 14px;" class=""><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;" class="">1 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;">₹0</td></tr></tbody>
-    <tfoot style="background: linear-gradient(135deg, rgba(123, 77, 255, 0.12), rgba(255, 107, 61, 0.12)); font-weight: 700; border-top: 1px solid var(--outline-variant); border-bottom: 3px solid transparent; border-image: linear-gradient(90deg, rgb(123, 77, 255), rgb(255, 107, 61)) 1 / 1 / 0 stretch;">
-      <tr>
-        <td class="total-col-span" colspan="2" style="padding: 14px 12px; font-size: 13px; font-weight: 700; color: var(--on-surface); text-transform: uppercase; letter-spacing: 0.05em;">
-          <div style="display: flex; flex-direction: column; gap: 2px;">
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="color: var(--primary); font-weight: 700;" class="">Total Amount</span>
-            </div>
-            <div id="total-words-display" style="font-size: 11px; font-weight: 500; color: var(--on-surface-variant); text-transform: none; letter-spacing: 0.01em; margin-left: 0px; text-align: left; white-space: nowrap;" class="">Two Thousand Four Hundred Rupees Only</div>
-          </div>
-        </td>
-        <td class="td-right" style="text-align: right; font-weight: 700; font-size: 16px; color: var(--primary); padding: 14px 12px 14px 4px; white-space: nowrap; vertical-align: middle;">
-          <span id="total-numeric-display" class="">₹2,400</span>
-        </td>
-        <td class="total-delete-cell" style="display: none; width: 36px;"></td>
-      </tr>
-    </tfoot>
-  </table>
-
-  <!-- Confirmation Modal for Row Deletion -->
-  <div id="delete-confirm-modal" style="display: none; position: fixed; inset: 0px; z-index: 999; background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 20px;">
-    <div style="background: #ffffff; border-radius: 20px; max-width: 320px; width: 100%; padding: 22px 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.18); border: 1px solid rgba(202, 195, 216, 0.4); text-align: center; transform: scale(1); animation: modalIn 0.2s ease;">
-      <div style="width: 48px; height: 48px; border-radius: 50%; background: #fee2e2; color: #ba1a1a; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
-        <span class="material-symbols-outlined" style="font-size: 26px;">delete_forever</span>
-      </div>
-      <h3 style="font-size: 16px; font-weight: 700; color: var(--on-surface); margin-bottom: 6px;" class="">Delete this item?</h3>
-      <p id="delete-modal-msg" style="font-size: 13px; color: var(--outline); line-height: 1.4; margin-bottom: 20px;" class="">Are you sure you want to remove this row?</p>
-      <div style="display: flex; gap: 10px;">
-        <button onclick="closeDeleteModal()" style="flex: 1; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--outline-variant); background: #ffffff; color: var(--on-surface); font-size: 13px; font-weight: 600; cursor: pointer;" type="button" class="">Cancel</button>
-        <button onclick="confirmDeleteRow()" style="flex: 1; padding: 10px 14px; border-radius: 12px; border: none; background: #ba1a1a; color: #ffffff; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 10px rgba(186, 26, 26, 0.25);" type="button" class="">Delete</button>
-      </div>
-    </div>
-  </div>
-
-  <style>
-    #toggle-slider::before {
-      position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      transition: 0.25s;
-      border-radius: 50%;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
-    }
-    #edit-mode-toggle:checked + #toggle-slider {
-      background: linear-gradient(135deg, rgb(123, 77, 255), rgb(255, 107, 61));
-    }
-    #edit-mode-toggle:checked + #toggle-slider::before {
-      transform: translateX(16px);
-    }
-    @keyframes modalIn {
-      from { opacity: 0; transform: scale(0.92); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-
-  <script>
-    let pendingRowToDelete = null;
-
-    function toggleEditBar(e) {
-      if (e) e.stopPropagation();
-      const bar = document.getElementById('table-edit-bar');
-      if (!bar) return;
-      const isOpen = bar.style.display === 'flex';
-      if (isOpen) {
-        finishEditMode();
-      } else {
-        bar.style.display = 'flex';
-      }
-    }
-
-    function handleEditModeToggle(isChecked) {
-      const statusText = document.getElementById('toggle-status-text');
-      if (statusText) {
-        statusText.textContent = isChecked ? 'On' : 'Off';
-        statusText.style.color = isChecked ? 'var(--primary)' : 'var(--outline)';
-      }
-      setRowDeleteVisibility(isChecked);
-    }
-
-    function setRowDeleteVisibility(show) {
-      const headerCol = document.querySelector('.delete-col-header');
-      if (headerCol) headerCol.style.display = show ? 'table-cell' : 'none';
-
-      const footerCol = document.querySelector('.total-delete-cell');
-      if (footerCol) footerCol.style.display = show ? 'table-cell' : 'none';
-
-      const cells = document.querySelectorAll('.delete-cell');
-      cells.forEach(c => {
-        c.style.display = show ? 'table-cell' : 'none';
-      });
-    }
-
-    function finishEditMode() {
-      const bar = document.getElementById('table-edit-bar');
-      const toggle = document.getElementById('edit-mode-toggle');
-      if (toggle) toggle.checked = false;
-      handleEditModeToggle(false);
-      if (bar) bar.style.display = 'none';
-    }
-
-    function promptDeleteRow(btn, e) {
-      if (e) e.stopPropagation();
-      const tr = btn.closest('tr');
-      if (!tr) return;
-      pendingRowToDelete = tr;
-
-      const itemNameEl = tr.querySelector('.row-item-name');
-      const itemName = itemNameEl ? itemNameEl.textContent.trim() : 'item';
-      const msgEl = document.getElementById('delete-modal-msg');
-      if (msgEl) {
-        msgEl.textContent = 'Are you sure you want to remove "' + itemName + '"?';
-      }
-
-      const modal = document.getElementById('delete-confirm-modal');
-      if (modal) modal.style.display = 'flex';
-    }
-
-    function closeDeleteModal() {
-      const modal = document.getElementById('delete-confirm-modal');
-      if (modal) modal.style.display = 'none';
-      pendingRowToDelete = null;
-    }
-
-    function confirmDeleteRow() {
-      if (pendingRowToDelete && pendingRowToDelete.parentNode) {
-        pendingRowToDelete.parentNode.removeChild(pendingRowToDelete);
-        pendingRowToDelete = null;
-        renumberRows();
-        recalculateTotal();
-      }
-      closeDeleteModal();
-    }
-
-    function renumberRows() {
-      const rows = document.querySelectorAll('#expense-items-table tbody tr');
-      rows.forEach((r, idx) => {
-        const nameEl = r.querySelector('.row-item-name');
-        if (nameEl) {
-          const text = nameEl.textContent.replace(/^\d+\.\s*/, '');
-          nameEl.textContent = (idx + 1) + '. ' + text;
-        }
-      });
-    }
-
-    function numberToWordsINR(num) {
-      if (num === 0) return 'Zero Rupees Only';
-      const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
-        'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-      const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-      function convertBelowThousand(n) {
-        let str = '';
-        if (n >= 100) {
-          str += ones[Math.floor(n / 100)] + ' Hundred ';
-          n %= 100;
-        }
-        if (n >= 20) {
-          str += tens[Math.floor(n / 10)] + ' ';
-          n %= 10;
-        }
-        if (n > 0) {
-          str += ones[n] + ' ';
-        }
-        return str.trim();
-      }
-      let words = '';
-      const crore = Math.floor(num / 10000000);
-      num %= 10000000;
-      const lakh = Math.floor(num / 100000);
-      num %= 100000;
-      const thousand = Math.floor(num / 1000);
-      num %= 1000;
-      const remaining = num;
-
-      if (crore > 0) words += convertBelowThousand(crore) + ' Crore ';
-      if (lakh > 0) words += convertBelowThousand(lakh) + ' Lakh ';
-      if (thousand > 0) words += convertBelowThousand(thousand) + ' Thousand ';
-      if (remaining > 0) words += convertBelowThousand(remaining) + ' ';
-      return words.trim() + ' Rupees Only';
-    }
-
-    function recalculateTotal() {
-      const rows = document.querySelectorAll('#expense-items-table tbody tr');
-      let total = 0;
-      rows.forEach(r => {
-        const valEl = r.querySelector('.row-amount-val');
-        if (valEl) {
-          const parsed = parseFloat(valEl.textContent.replace(/[^0-9.]/g, '')) || 0;
-          total += parsed;
-        }
-      });
-      const totalDisplay = document.getElementById('total-numeric-display');
-      const wordsDisplay = document.getElementById('total-words-display');
-      if (totalDisplay) {
-        totalDisplay.textContent = '₹' + total.toLocaleString('en-IN');
-      }
-      if (wordsDisplay) {
-        wordsDisplay.textContent = numberToWordsINR(total);
-      }
-    }
-
-    // Override addNewExpenseRow to integrate with edit mode & dynamic recalculation
-    window.addNewExpenseRow = function(e) {
-      if (e) e.preventDefault();
-      const tbody = document.querySelector('#expense-items-table tbody');
-      if (!tbody) return;
-      const nextNum = tbody.querySelectorAll('tr').length + 1;
-      const tr = document.createElement('tr');
-      tr.style.borderBottom = '1px solid var(--surface-variant)';
-      tr.style.transition = 'background 0.15s';
-      const isEditActive = document.getElementById('edit-mode-toggle') ? document.getElementById('edit-mode-toggle').checked : false;
-      tr.innerHTML = '<td style="padding: 10px 12px; font-size: 14px;"><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span class="row-item-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' + nextNum + '. New Item</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td style="padding: 10px 8px; font-size: 14px;"><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;">1 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;"><span class="row-amount-val">0</span></td><td class="delete-cell" style="display: ' + (isEditActive ? 'table-cell' : 'none') + '; padding: 6px 8px 6px 0; text-align: center; vertical-align: middle; width: 36px;"><button type="button" onclick="promptDeleteRow(this, event)" class="row-delete-btn" title="Delete row" aria-label="Delete row" style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; background: rgba(186, 26, 26, 0.08); color: #ba1a1a; cursor: pointer; border: none; transition: 0.15s;"><span class="material-symbols-outlined" style="font-size: 17px;">delete</span></button></td>';
-      tbody.appendChild(tr);
-      recalculateTotal();
-    };
-  </script>
+<button class="btn btn-outline" id="btnEdit">
+                Edit Details
+            </button>
 </div>
-</section><!-- Payment Mode -->
-<section class="card" style="box-shadow: none; border: 1px solid rgba(202, 195, 216, 0.3); padding: 16px 16px 24px; margin: 20px -8px 12px;">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-<h2 class="section-title" style="margin-bottom: 0px; font-size: 15px; font-weight: 700;">Payment Mode</h2>
-<span style="font-size: 11px; font-weight: 600; color: var(--outline); letter-spacing: 0.02em;" class="">Select method</span>
 </div>
-<div class="payment-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 8px;">
-<button type="button" class="payment-card payment-inactive" style="position: relative; background: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 14px; padding: 10px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.08) -3px -3px 8px, rgba(0, 0, 0, 0.08) 3px 5px 12px; -webkit-box-reflect: below 4px linear-gradient(transparent 55%, rgba(255, 255, 255, 0.45) 100%);">
-<div style="width: 38px; height: 38px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(123, 77, 255, 0.28);">
-<span class="material-symbols-outlined" style="font-size: 20px;">credit_card</span>
 </div>
-<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Credit Card</span>
+<!-- Bottom Navigation -->
+<nav class="bottom-nav">
+<button class="nav-item">
+<span class="material-symbols-outlined">home</span>
+<span class="label">Home</span>
 </button>
-<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 14px; padding: 10px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.08) -3px -3px 8px, rgba(0, 0, 0, 0.08) 3px 5px 12px;">
-<div style="width: 38px; height: 38px; border-radius: 10px; background: rgb(240, 237, 237); display: flex; align-items: center; justify-content: center; color: rgb(28, 27, 27); box-shadow: none;" class=""><span class="material-symbols-outlined" style="font-size: 20px; color: #1c1b1b;">payments</span></div>
-<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Cash</span>
+<button class="nav-item">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="label">Budget</span>
 </button>
-<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 14px; padding: 10px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.08) -3px -3px 8px, rgba(0, 0, 0, 0.08) 3px 5px 12px;">
-<div style="width: 38px; height: 38px; border-radius: 10px; background: rgb(240, 237, 237); display: flex; align-items: center; justify-content: center; color: rgb(28, 27, 27); box-shadow: none;" class=""><span class="material-symbols-outlined" style="font-size: 20px; color: #1c1b1b;">qr_code_scanner</span></div>
-<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">UPI</span>
+<button class="nav-fab">
+<span class="material-symbols-outlined">add</span>
 </button>
-<button type="button" class="payment-card payment-inactive" style="background: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 14px; padding: 10px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: 0.2s; box-shadow: rgba(0, 0, 0, 0.08) -3px -3px 8px, rgba(0, 0, 0, 0.08) 3px 5px 12px;">
-<div style="width: 38px; height: 38px; border-radius: 10px; background: rgb(240, 237, 237); display: flex; align-items: center; justify-content: center; color: rgb(28, 27, 27); box-shadow: none;" class=""><span class="material-symbols-outlined" style="font-size: 20px; color: #1c1b1b;">more_horiz</span></div>
-<span class="payment-label" style="font-size: 12px; font-weight: 600; color: var(--on-surface); text-align: center; white-space: nowrap;">Other</span>
-</button>
-</div>
-</section>
-<!-- Live Total -->
-
-<!-- Payment Mode -->
-
-<!-- Bill Upload -->
-<section class="card" style="position: relative; z-index: 20; padding: 16px 16px 24px; margin: 20px -8px 12px; background: var(--surface); border-radius: var(--radius-card); box-shadow: none; border: 1px solid rgba(202, 195, 216, 0.3);">
-  <!-- Header with Title & Badge -->
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <h2 class="section-title" style="margin-bottom: 0px; font-size: 15px; font-weight: 700;">Bill Receipt</h2>
-      
-    </div>
-    <span style="font-size: 11px; font-weight: 500; color: var(--outline);" class="">Max 5MB • JPG, PNG, PDF</span>
-  </div>
-
-  <!-- Fast Action Pills: Camera & Browse -->
-  
-
-  <!-- Drop Zone Area -->
-  <div style="border: 1.5px dashed var(--outline-variant); border-radius: 14px; background: rgb(252, 251, 254); padding: 18px 14px; text-align: center; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; align-items: center; gap: 6px;" class="">
-    <div style="position: relative; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-bottom: 4px;"><div style="position: absolute; inset: -2px; border-radius: 50%; background: conic-gradient(from 0deg, #4285F4, #9B72CB, #D96570, #F9AB00, #137333, #4285F4); animation: spinGemini 3.5s linear infinite; filter: blur(2px); opacity: 0.85;"></div><div style="position: absolute; inset: 0px; border-radius: 50%; background: conic-gradient(from 0deg, #4285F4, #9B72CB, #D96570, #F9AB00, #137333, #4285F4); animation: spinGemini 3.5s linear infinite;"></div><div style="position: relative; width: 42px; height: 42px; border-radius: 50%; background: #ffffff; display: flex; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);"><span class="material-symbols-outlined" style="font-size: 22px; background: linear-gradient(135deg, #7B4DFF, #FF6B3D); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">cloud_upload</span></div><style>@keyframes spinGemini { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style></div>
-    <div style="font-size: 13px; font-weight: 600; color: var(--on-surface);" class="">Drag &amp; drop receipt or tap to upload</div>
-    <div style="font-size: 11px; color: var(--outline);" class="">Receipt auto-scan extracts items &amp; totals</div>
-  </div>
-
-  <!-- Uploaded Receipt Preview Card -->
-  <div style="margin-top: 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;" class=""><span style="font-size: 12px; font-weight: 600; color: var(--on-surface-variant);" class="">Attached Bills (1 of 5)</span><div style="display: flex; gap: 4px; align-items: center;"><span style="width: 14px; height: 5px; border-radius: 99px; background: var(--primary); display: inline-block;"></span><span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant); display: inline-block;"></span><span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant); display: inline-block;"></span><span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant); display: inline-block;"></span><span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant); display: inline-block;"></span></div></div><div style="margin-top: 12px; padding: 10px 12px; background: rgb(250, 250, 255); border: 1px solid var(--outline-variant); border-radius: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;" class="">
-    <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
-      <div style="width: 38px; height: 38px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0; box-shadow: 0 2px 6px rgba(123, 77, 255, 0.25);">
-        <span class="material-symbols-outlined" style="font-size: 20px;">receipt_long</span>
-      </div>
-      <div style="display: flex; flex-direction: column; min-width: 0; text-align: left;">
-        <div style="display: flex; align-items: center; gap: 6px;">
-          <span style="font-size: 13px; font-weight: 600; color: var(--on-surface); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="">D-Mart_Receipt_Aug05.jpg</span>
-          <span style="font-size: 10px; font-weight: 600; color: rgb(22, 163, 74); background: rgba(22, 163, 74, 0.12); padding: 1px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 2px; flex-shrink: 0;" class="">
-            <span class="material-symbols-outlined" style="font-size: 11px;">check_circle</span> Attached
-          </span>
-        </div>
-        <span style="font-size: 11px; color: var(--outline); margin-top: 1px;" class="">1.4 MB • Scanned &amp; Verified</span>
-      </div>
-    </div>
-    <button type="button" title="Remove file" style="color: var(--outline); padding: 4px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: color 0.15s; flex-shrink: 0;" class="">
-      <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
-    </button>
-  </div>
-</section>
-<!-- Description -->
-<section class="card" style="position: relative; z-index: 30; box-shadow: none; border: 1px solid rgba(202, 195, 216, 0.3); padding: 16px 16px 24px; margin: 20px -8px 12px; overflow: visible;">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;"><h2 class="section-title" style="margin-bottom: 0px; font-size: 15px; font-weight: 700;">Expense Description (Optional)</h2><span style="font-size: 11px; font-weight: 500; color: var(--outline);" class="">Notes &amp; tags</span></div>
-<textarea class="description-input" placeholder="Add notes about this expense..." style="height: 76px; min-height: 76px; padding: 12px 16px; background-color: rgb(255, 255, 255); border: 1px solid rgba(202, 195, 216, 0.4); box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px;" rows="2"></textarea>
-</section>
-<!-- Save Button -->
-<button class="save-btn">
-<span class="material-symbols-outlined" style="font-size: 20px;">check</span>
-Save Expense
-</button>
-</main>
-<!-- BottomNavBar -->
-<nav class="bottom-nav"><button class="nav-item"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">home</span><span class="">Home</span></button><button class="nav-item"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">account_balance_wallet</span><span class="">Budget</span></button><button class="nav-fab" aria-label="Add Expense"><span class="material-symbols-outlined" style="font-size: 28px; font-variation-settings: &quot;FILL&quot; 0;">add</span></button><button class="nav-item"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">history</span><span class="">History</span></button><button class="nav-item"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">person</span><span class="">Profile</span></button></nav>
+<button class="nav-item"><span class="material-symbols-outlined">history</span>
+<span class="label">History</span></button>
+<button class="nav-item"><span class="material-symbols-outlined">person</span>
+<span class="label">Profile</span></button>
+</nav>
 <script>
-  let isDropdownOpen = false;
+    document.addEventListener('DOMContentLoaded', () => {
+        // Simple interactivity setup
+        const btnSubmit = document.getElementById('btnSubmit');
+        const btnEdit = document.getElementById('btnEdit');
+        const closeBtn = document.querySelector('.icon-btn');
+        const navItems = document.querySelectorAll('.nav-item');
 
-  function toggleCategoryDropdown(event) {
-    if (event) {
-      event.stopPropagation();
-    }
-    const menu = document.getElementById('category-dropdown-menu');
-    const chevron = document.getElementById('dropdown-chevron');
-    const trigger = document.getElementById('category-dropdown-trigger');
+        btnSubmit.addEventListener('click', () => {
+            console.log('Expense Submitted');
+            // Logic to submit expense would go here
+        });
 
-    isDropdownOpen = !isDropdownOpen;
+        btnEdit.addEventListener('click', () => {
+            console.log('Edit details requested');
+            // Logic to transition to edit state
+        });
 
-    if (isDropdownOpen) {
-      menu.style.display = 'flex';
-      chevron.style.transform = 'rotate(180deg)';
-      trigger.style.borderColor = 'var(--primary)';
-      trigger.setAttribute('aria-expanded', 'true');
-    } else {
-      closeCategoryDropdown();
-    }
-  }
-
-  function closeCategoryDropdown() {
-    const menu = document.getElementById('category-dropdown-menu');
-    const chevron = document.getElementById('dropdown-chevron');
-    const trigger = document.getElementById('category-dropdown-trigger');
-
-    if (menu) menu.style.display = 'none';
-    if (chevron) chevron.style.transform = 'rotate(0deg)';
-    if (trigger) {
-      trigger.style.borderColor = 'var(--outline-variant)';
-      trigger.setAttribute('aria-expanded', 'false');
-    }
-    isDropdownOpen = false;
-  }
-
-  function selectCategory(name, icon, subtitle, itemEl) {
-    // 1. Update Display Card
-    const titleEl = document.getElementById('selected-category-title');
-    const subEl = document.getElementById('selected-category-subtitle');
-    const iconEl = document.getElementById('selected-category-icon');
-    const tableTitle = document.getElementById('items-table-title');
-
-    if (titleEl) titleEl.textContent = name;
-    if (subEl) subEl.textContent = subtitle || (name + ' category');
-    if (iconEl) iconEl.textContent = icon;
-    if (tableTitle) tableTitle.textContent = name + ' Items';
-
-    // 2. Update Dropdown Items Active State
-    const dropdownItems = document.querySelectorAll('.category-dropdown-item');
-    dropdownItems.forEach(el => {
-      const isMatch = el.getAttribute('data-category') === name;
-      const check = el.querySelector('.check-mark');
-      const iconBox = el.querySelector('.item-icon-box');
-
-      if (isMatch) {
-        el.style.background = 'rgba(98, 44, 229, 0.08)';
-        el.style.color = 'var(--primary)';
-        el.style.fontWeight = '600';
-        el.style.border = '1px solid rgba(98, 44, 229, 0.2)';
-        if (check) check.style.display = 'inline-block';
-        if (iconBox) {
-          iconBox.style.background = 'var(--gradient)';
-          iconBox.style.color = 'white';
-          iconBox.style.boxShadow = '0 3px 8px rgba(123, 77, 255, 0.28)';
-        }
-      } else {
-        el.style.background = 'transparent';
-        el.style.color = 'var(--on-surface)';
-        el.style.fontWeight = '500';
-        el.style.border = '1px solid transparent';
-        if (check) check.style.display = 'none';
-        if (iconBox) {
-          iconBox.style.background = 'var(--surface-container-high)';
-          iconBox.style.color = 'var(--on-surface-variant)';
-          iconBox.style.boxShadow = 'none';
-        }
-      }
+        closeBtn.addEventListener('click', () => {
+            console.log('Modal closed');
+            // Logic to close modal
+        });
+        
+        // Navigation state management
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                navItems.forEach(nav => nav.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+            });
+        });
     });
-
-    // 3. Update Horizontal List Chips
-    const chips = document.querySelectorAll('#horizontal-category-list .category-btn[data-cat-name]');
-    chips.forEach(chip => {
-      if (chip.getAttribute('data-cat-name') === name) {
-        chip.className = 'category-btn category-active';
-        chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      } else {
-        chip.className = 'category-btn category-inactive';
-      }
-    });
-
-    // 4. Close Dropdown
-    closeCategoryDropdown();
-  }
-
-  function handleChipClick(name, icon, subtitle) {
-    selectCategory(name, icon, subtitle);
-  }
-
-  function promptAddCategory(event) {
-    if (event) event.stopPropagation();
-    const newCat = prompt('Enter new category name:');
-    if (newCat && newCat.trim()) {
-      const trimmed = newCat.trim();
-      selectCategory(trimmed, 'category', 'Custom Category');
-    }
-  }
-
-  // Close dropdown on tap outside
-  document.addEventListener('click', function(e) {
-    const wrapper = document.getElementById('category-dropdown-wrapper');
-    if (wrapper && !wrapper.contains(e.target)) {
-      closeCategoryDropdown();
-    }
-  });
 </script>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>function addNewExpenseRow(e){if(e)e.preventDefault();const tbody=document.querySelector('.table-container tbody');if(!tbody)return;const nextNum=tbody.querySelectorAll('tr').length+1;const tr=document.createElement('tr');tr.style.borderBottom='1px solid var(--surface-variant)';tr.innerHTML='<td style="padding: 10px 12px; font-size: 14px;"><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+nextNum+'. Item</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td style="padding: 10px 8px; font-size: 14px;"><div class="td-flex" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;"><span style="white-space: nowrap;">1 kg</span><span class="material-symbols-outlined" style="font-size: 16px; color: var(--outline-variant); flex-shrink: 0;">mic</span></div></td><td class="td-right" style="text-align: right; font-weight: 600; font-size: 14px; padding: 10px 12px 10px 4px; white-space: nowrap;">₹0</td>';tbody.appendChild(tr);}</script>
 
 
 
