@@ -139,7 +139,7 @@
     }
   </style>
   </head>
-<body class="bg-background font-body-md text-on-background antialiased h-screen w-full relative overflow-hidden flex justify-center">
+<body class="bg-background font-body-md text-on-background antialiased h-screen w-full relative flex justify-center overflow-y-auto">
 <!-- Background Screen Context (Dimmed) -->
 <div class="absolute inset-0 z-0">
 <img alt="Background Screen" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNXYzu_uKMlvQdEqzoimqa60hmY_ioEIhh9wtKM34JxyWxo10e4dbHW_1pM64-VmBiqsv0RFb9MMDOdV6nIpF9x5WBuNjBBgUWv5rl8YW85Xo2rzDsNdp9A594QDKj0DgNMTpR7cTp_RXYpKNr6dh9CWlorso5Mmq2VeglUXWnhbiSIYAjNOlv7Qiq_vrrbkSsvjEuC8ku6Ju1jgwTSIQVI3eZ5_hZIW2o3Hc4kPz6CIDCyzXBcF3_">
@@ -147,7 +147,7 @@
 <!-- Overlay / Dimmer -->
 <div aria-hidden="true" class="absolute inset-0 bg-inverse-surface/40 backdrop-blur-sm z-10 animate-fade-in"></div>
 <!-- Bottom Sheet Container -->
-<div class="absolute bottom-0 w-full max-w-md bg-surface/90 dark:bg-surface-container-low/90 backdrop-blur-2xl rounded-t-[24px] shadow-[0px_-10px_40px_rgba(0,0,0,0.1)] z-20 flex flex-col animate-slide-up pb-safe" style="max-height: 85vh;">
+<div class="absolute bottom-0 w-full max-w-md bg-surface/90 dark:bg-surface-container-low/90 backdrop-blur-2xl rounded-t-[24px] shadow-[0px_-10px_40px_rgba(0,0,0,0.1)] z-20 flex flex-col animate-slide-up pb-safe" style="max-height: 92vh;">
 <!-- Drag Handle -->
 <div class="w-full flex justify-center pt-md pb-sm cursor-grab active:cursor-grabbing">
 <div class="w-12 h-1.5 bg-outline-variant/50 rounded-full"></div>
@@ -159,7 +159,7 @@
 <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface transition-colors">close</span>
 </button>
 </div>
-<div class="overflow-y-auto px-lg py-xl flex-1 flex flex-col gap-xl">
+<div class="overflow-y-auto px-lg py-xl flex-1 flex flex-col gap-xl" style="padding-bottom: 40px; overscroll-behavior: contain;">
 <!-- Category Context -->
 <div class="flex items-center gap-md">
 <div class="w-16 h-16 rounded-2xl bg-tertiary-container/20 flex items-center justify-center shadow-[0px_4px_12px_rgba(141,74,238,0.1)]">
@@ -208,4 +208,6 @@
 </button>
 </div>
 </div>
+
+
 </body></html>
