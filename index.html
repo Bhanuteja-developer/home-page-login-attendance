@@ -1,829 +1,211 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-    <title>New Budget Category - Smart Finance Tracker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* Colors */
-            --color-background: #fcf9f8;
-            --color-on-background: #1c1b1b;
-            --color-surface: #fcf9f8;
-            --color-on-surface: #1c1b1b;
-            --color-on-surface-variant: #494456;
-            --color-primary: #622ce5;
-            --color-on-primary: #ffffff;
-            --color-primary-container: #7b4dff;
-            --color-on-primary-container: #fcf6ff;
-            --color-primary-fixed: #e7deff;
-            --color-on-primary-fixed-variant: #4e00d1;
-            --color-surface-variant: #e5e2e1;
-            --color-surface-container: #f0eded;
-            --color-surface-container-low: #f6f3f2;
-            --color-surface-container-high: #eae7e7;
-            --color-outline: #7a7487;
-            --color-outline-variant: #cac3d8;
-
-            /* Spacing */
-            --spacing-xs: 4px;
-            --spacing-sm: 8px;
-            --spacing-md: 16px;
-            --spacing-lg: 24px;
-            --spacing-xl: 32px;
-            --spacing-container-margin: 20px;
-
-            /* Radii */
-            --radius-default: 0.25rem;
-            --radius-lg: 0.5rem;
-            --radius-xl: 0.75rem;
-            --radius-2xl: 1.5rem;
-            --radius-full: 9999px;
-
-            /* Typography */
-            --font-family: 'Inter', sans-serif;
-            
-            --font-display-data-size: 48px;
-            --font-display-data-line-height: 56px;
-            --font-display-data-weight: 700;
-            --font-display-data-letter-spacing: -0.04em;
-
-            --font-headline-lg-size: 32px;
-            --font-headline-lg-line-height: 40px;
-            --font-headline-lg-weight: 700;
-            --font-headline-lg-letter-spacing: -0.02em;
-
-            --font-headline-md-size: 20px;
-            --font-headline-md-line-height: 28px;
-            --font-headline-md-weight: 600;
-
-            --font-body-md-size: 16px;
-            --font-body-md-line-height: 24px;
-            --font-body-md-weight: 400;
-
-            --font-label-md-size: 14px;
-            --font-label-md-line-height: 20px;
-            --font-label-md-weight: 600;
-            --font-label-md-letter-spacing: 0.01em;
-
-            --font-label-sm-size: 12px;
-            --font-label-sm-line-height: 16px;
-            --font-label-sm-weight: 500;
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Edit Category Limit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-variant": "#e5e2e1",
+                        "primary-container": "#7b4dff",
+                        "surface-container-high": "#eae7e7",
+                        "on-primary-fixed": "#1f005f",
+                        "surface-container-low": "#f6f3f2",
+                        "outline": "#7a7487",
+                        "inverse-primary": "#cdbdff",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#ffdbd1",
+                        "inverse-surface": "#313030",
+                        "secondary-container": "#fd6a3c",
+                        "tertiary-fixed": "#ecdcff",
+                        "primary-fixed": "#e7deff",
+                        "on-background": "#1c1b1b",
+                        "background": "#fcf9f8",
+                        "on-secondary-container": "#5f1600",
+                        "secondary-fixed-dim": "#ffb59f",
+                        "on-surface": "#1c1b1b",
+                        "on-primary-fixed-variant": "#4e00d1",
+                        "secondary": "#ae3203",
+                        "tertiary-fixed-dim": "#d6baff",
+                        "on-secondary-fixed": "#3a0a00",
+                        "surface-container": "#f0eded",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#862300",
+                        "outline-variant": "#cac3d8",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#732ad3",
+                        "on-tertiary-fixed-variant": "#5f00c0",
+                        "surface-dim": "#dcd9d9",
+                        "on-surface-variant": "#494456",
+                        "on-tertiary-fixed": "#280057",
+                        "primary-fixed-dim": "#cdbdff",
+                        "tertiary-container": "#8d4aee",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface": "#fcf9f8",
+                        "primary": "#622ce5",
+                        "on-primary-container": "#fcf6ff",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#6733ea",
+                        "surface-bright": "#fcf9f8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#fdf6ff",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "container-margin": "20px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "unit": "4px"
+                    },
+                    fontFamily: {
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-data": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    fontSize: {
+                        "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
+                        "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }],
+                        "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "display-data": ["48px", { lineHeight: "56px", letterSpacing: "-0.04em", fontWeight: "700" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "32px", letterSpacing: "-0.02em", fontWeight: "700" }]
+                    }
+                }
+            }
         }
-
-        /* Reset & Base Styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-
-        body {
-            font-family: var(--font-family);
-            background-color: var(--color-background);
-            color: var(--color-on-background);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
         }
-
-        button {
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-family: inherit;
-            color: inherit;
-            padding: 0;
-            outline: none;
+        .gradient-text {
+            background: linear-gradient(135deg, #7B4DFF, #FF6B3D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        /* Typography Classes */
-        .text-headline-lg { font-size: var(--font-headline-lg-size); line-height: var(--font-headline-lg-line-height); font-weight: var(--font-headline-lg-weight); letter-spacing: var(--font-headline-lg-letter-spacing); }
-        .text-headline-md { font-size: var(--font-headline-md-size); line-height: var(--font-headline-md-line-height); font-weight: var(--font-headline-md-weight); }
-        .text-body-md { font-size: var(--font-body-md-size); line-height: var(--font-body-md-line-height); font-weight: var(--font-body-md-weight); }
-        .text-label-md { font-size: var(--font-label-md-size); line-height: var(--font-label-md-line-height); font-weight: var(--font-label-md-weight); letter-spacing: var(--font-label-md-letter-spacing); }
-        .text-label-sm { font-size: var(--font-label-sm-size); line-height: var(--font-label-sm-line-height); font-weight: var(--font-label-sm-weight); }
+        .gradient-bg {
+            background: linear-gradient(135deg, #7B4DFF, #FF6B3D);
+        }
         
-        .text-on-surface { color: var(--color-on-surface); }
-        .text-on-surface-variant { color: var(--color-on-surface-variant); }
-        .text-outline { color: var(--color-outline); }
-        .font-bold { font-weight: 700; }
-
-        /* Layout & Utilities */
-        .flex { display: flex; }
-        .flex-col { display: flex; flex-direction: column; }
-        .flex-row { display: flex; flex-direction: row; }
-        .items-center { align-items: center; }
-        .justify-center { justify-content: center; }
-        .justify-between { justify-content: space-between; }
-        .justify-end { justify-content: flex-end; }
-        .justify-start { justify-content: flex-start; }
-        .items-start { align-items: flex-start; }
-        .flex-1 { flex: 1; }
-        .w-full { width: 100%; }
-        .mx-auto { margin-left: auto; margin-right: auto; }
-        .max-w-1200 { max-width: 1200px; }
-        .gap-xs { gap: var(--spacing-xs); }
-        .gap-sm { gap: var(--spacing-sm); }
-        .gap-md { gap: var(--spacing-md); }
-        .rounded-full { border-radius: var(--radius-full); }
-        .rounded-xl { border-radius: var(--radius-xl); }
-        .pl-2 { padding-left: 0.5rem; }
-        .sm\:pl-4 { padding-left: 1rem; }
-
-        /* Components */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 var(--spacing-container-margin);
-            height: 56px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            position: fixed;
-            top: 0;
-            z-index: 50;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.04);
+        /* Animation for sliding up */
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
         }
-
-        .icon-button {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--radius-full);
-            transition: background-color 0.2s;
+        .animate-slide-up {
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .icon-button:hover { background-color: var(--color-surface-variant); }
-
-        .main-content {
-            flex: 1;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 80px; 
-            padding-bottom: 40px; /* Adjusted padding since button is no longer fixed */
-            padding-left: var(--spacing-container-margin);
-            padding-right: var(--spacing-container-margin);
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-xl);
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-
-        .section-header {
-            font-size: var(--font-headline-md-size);
-            line-height: var(--font-headline-md-line-height);
-            font-weight: var(--font-headline-md-weight);
-            color: var(--color-on-surface);
-            margin-bottom: var(--spacing-md);
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
         }
-
-        .frequency-toggle {
-            display: flex;
-            gap: var(--spacing-sm);
-            padding: 4px;
-            background-color: var(--color-surface-container-high);
-            border-radius: var(--radius-xl);
-        }
-
-        .frequency-option {
-            flex: 1;
-            text-align: center;
-            border-radius: var(--radius-lg);
-            padding: 6px 0;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-            color: var(--color-on-surface-variant);
-            font-size: var(--font-label-md-size);
-            font-weight: var(--font-label-md-weight);
-            line-height: var(--font-label-md-line-height);
-        }
-        .frequency-option.active {
-            background-color: #ffffff;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-            color: var(--color-primary);
-        }
-
-        .rule-list {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-sm);
-        }
-
-        .rule-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid var(--color-surface-variant);
-            border-radius: var(--radius-xl);
-            padding: 12px;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-
-        .category-icon-wrapper {
-            border-radius: var(--radius-full);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            width: 100%;
-            height: 48px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #7B4DFF 0%, #FF6B3D 100%);
-            color: var(--color-on-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--spacing-sm);
-            box-shadow: 0px 20px 40px rgba(123, 77, 255, 0.15);
-            transition: all 0.2s;
-            font-size: var(--font-label-md-size);
-            font-weight: var(--font-label-md-weight);
-            letter-spacing: var(--font-label-md-letter-spacing);
-        }
-
-        .hidden { display: none; }
-        .fixed { position: fixed; }
-        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
-        .z-\[100\] { z-index: 100; }
-        .absolute { position: absolute; }
-
-        /* Gauge Dashboard Specific Styles */
-        .dark-gauge-card {
-            background-color: #1a1a1c;
-            border-radius: var(--radius-2xl);
-            padding: 20px 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border: 1px solid #2e2e32;
-            color: #ffffff;
-            font-family: var(--font-family);
-            margin-left: -12px;
-            margin-right: -12px;
-        }
-        .gauge-wrapper {
-            flex: 1;
-            background: #222225;
-            border-radius: 16px;
-            padding: 16px 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border: 1px solid #333336;
-            min-width: 0; 
-        }
-        .gauge-svg-container {
-            position: relative;
-            width: 100%;
-            max-width: 145px;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-        }
-        .needle-anim { transition: transform 2.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .glow-track { transition: stroke-dashoffset 2.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            font-size: 10px;
-            margin-bottom: 6px;
-        }
-        .stat-label { color: #9ca3af; font-weight: 500; }
-        .stat-value { color: #ffffff; font-weight: 700; letter-spacing: -0.02em; }
-        .stat-highlight { color: #a5f3fc; font-weight: 600; }
     </style>
-</head>
-<body>
-<header class="header">
-    <button aria-label="Go Back" class="icon-button">
-        <span class="material-symbols-outlined">arrow_back</span>
-    </button>
-    <h1 class="text-headline-md">Create Budget</h1>
-    <div style="width: 40px; height: 40px;"></div>
-</header>
-
-<main class="main-content">
-    <section class="flex flex-col gap-xs">
-        <h2 class="text-headline-md font-bold" style="font-size: 24px; line-height: 32px; background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">Budget Planning</h2>
-        <p class="text-body-md text-on-surface-variant">Manage your rules and allocations.</p>
-    </section>
-
-    <!-- Double Gauge Dashboard Section -->
-    <section class="overview-section" style="margin-bottom: var(--spacing-md);">
-        
-        <div class="dark-gauge-card">
-            <!-- Header -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 4px;">
-                <div style="display: flex; flex-direction: column;">
-                    <span style="font-size: 11px; opacity: 0.7; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Budget Overview</span>
-                    <h2 style="font-size: 18px; font-weight: 700; color: #ffffff; margin: 0; letter-spacing: -0.02em;">October 2026</h2>
-                </div>
-                <div class="icon-button" style="background: rgba(255,255,255,0.1); width: 36px; height: 36px;">
-                    <span class="material-symbols-outlined" style="color: white; font-size: 18px;">calendar_today</span>
-                </div>
-            </div>
-
-            <!-- Two Gauges Container -->
-            <div style="display: flex; gap: 10px; width: 100%;">
-                
-                <!-- Gauge 1: Overview -->
-                <div id="gauge-overview" class="gauge-wrapper">
-                    <h3 style="font-size: 10px; color: #9ca3af; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; text-align: center;">Overview</h3>
-                    
-                    <div class="gauge-svg-container">
-                        <svg viewBox="0 0 200 170" style="width: 100%; height: auto; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));">
-                            <defs>
-                                <linearGradient id="gaugeGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
-                                    <stop offset="0%" stop-color="#893b96" />
-                                    <stop offset="50%" stop-color="#6965d1" />
-                                    <stop offset="100%" stop-color="#498df5" />
-                                </linearGradient>
-                            </defs>
-                            <path d="M 43.43 156.57 A 80 80 0 1 1 156.57 156.57" fill="none" stroke="#2a2a2c" stroke-width="12" stroke-linecap="butt"/>
-                            <g class="ticksGroup"></g>
-                            <path class="glow-track glowTrack" d="M 43.43 156.57 A 80 80 0 1 1 156.57 156.57" fill="none" stroke="url(#gaugeGrad1)" stroke-width="12" stroke-linecap="butt" stroke-dasharray="377" stroke-dashoffset="377" />
-                            <g class="needle-anim needle" style="transform-origin: 100px 100px; transform: rotate(135deg);">
-                                <path d="M 100 100 L 100 96 L 165 99 L 165 101 L 100 104 Z" fill="#ffffff" />
-                                <circle cx="100" cy="100" r="6" fill="#333333" stroke="#ffffff" stroke-width="2" />
-                            </g>
-                        </svg>
-                        <div style="position: absolute; bottom: -4px; width: 100%; text-align: center;">
-                            <div style="font-size: 18px; font-weight: 800; color: #ffffff; line-height: 1;"><span class="percentageVal">0</span><span style="font-size: 10px; color: #9ca3af; margin-left: 2px;">%</span></div>
-                        </div>
-                    </div>
-
-                    <div style="width: 100%; margin-top: 18px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px;">
-                        <div class="stat-row">
-                            <span class="stat-label">Income</span>
-                            <span class="stat-value val-income">₹0</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Expenses</span>
-                            <span class="stat-value val-expenses">₹0</span>
-                        </div>
-                        <div class="stat-row" style="margin-top: 6px; margin-bottom: 0;">
-                            <span class="stat-highlight">Left Amt</span>
-                            <span class="stat-highlight val-left" style="font-weight: 700; color: #498df5;">₹0</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gauge 2: Budget Plan -->
-                <div id="gauge-budget" class="gauge-wrapper">
-                    <h3 style="font-size: 10px; color: #9ca3af; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; text-align: center;">Budget Plan</h3>
-                    
-                    <div class="gauge-svg-container">
-                        <svg viewBox="0 0 200 170" style="width: 100%; height: auto; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));">
-                            <defs>
-                                <linearGradient id="gaugeGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
-                                    <stop offset="0%" stop-color="#893b96" />
-                                    <stop offset="50%" stop-color="#6965d1" />
-                                    <stop offset="100%" stop-color="#498df5" />
-                                </linearGradient>
-                            </defs>
-                            <path d="M 43.43 156.57 A 80 80 0 1 1 156.57 156.57" fill="none" stroke="#2a2a2c" stroke-width="12" stroke-linecap="butt"/>
-                            <g class="ticksGroup"></g>
-                            <path class="glow-track glowTrack" d="M 43.43 156.57 A 80 80 0 1 1 156.57 156.57" fill="none" stroke="url(#gaugeGrad2)" stroke-width="12" stroke-linecap="butt" stroke-dasharray="377" stroke-dashoffset="377" />
-                            <g class="needle-anim needle" style="transform-origin: 100px 100px; transform: rotate(135deg);">
-                                <path d="M 100 100 L 100 96 L 165 99 L 165 101 L 100 104 Z" fill="#ffffff" />
-                                <circle cx="100" cy="100" r="6" fill="#333333" stroke="#ffffff" stroke-width="2" />
-                            </g>
-                        </svg>
-                        <div style="position: absolute; bottom: -4px; width: 100%; text-align: center;">
-                            <div style="font-size: 18px; font-weight: 800; color: #ffffff; line-height: 1;"><span class="percentageVal">0</span><span style="font-size: 10px; color: #9ca3af; margin-left: 2px;">%</span></div>
-                        </div>
-                    </div>
-
-                    <div style="width: 100%; margin-top: 18px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px;">
-                        <div class="stat-row">
-                            <span class="stat-label">Budget</span>
-                            <span class="stat-value val-budget">₹0</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Spent</span>
-                            <span class="stat-value val-spent">₹0</span>
-                        </div>
-                        <div class="stat-row" style="margin-top: 6px; margin-bottom: 0;">
-                            <span class="stat-highlight">Left</span>
-                            <span class="stat-highlight val-left" style="font-weight: 700; color: #498df5;">₹0</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Category Selection Section -->
-    <section class="">
-        <h2 class="section-header">Frequency</h2>
-        <div class="frequency-toggle" id="frequencyToggle">
-            <div class="frequency-option" data-freq="daily">Daily</div>
-            <div class="frequency-option" data-freq="weekly">Weekly</div>
-            <div class="frequency-option active" data-freq="monthly" style="background: linear-gradient(135deg, rgb(123, 77, 255) 0%, rgb(255, 107, 61) 100%); color: rgb(255, 255, 255);">Monthly</div>
-        </div>
-    </section>
-    
-    <section>
-        <div class="flex justify-between items-center" style="margin-bottom: var(--spacing-md);">
-            <h2 class="text-headline-md text-on-surface">Limits &amp; Rules</h2>
-            <button class="add-rule-btn text-label-md flex items-center gap-xs" style="color: rgb(123, 77, 255);"><span class="material-symbols-outlined" style="font-size: 18px;">add</span> Add Rule</button>
-        </div>
-        <div class="rule-list">
-            <!-- Rule Item 1 -->
-            <div class="rule-item flex-row items-center" style="background-color: rgb(255, 255, 255); position: relative;">
-                <div class="flex-col w-full gap-sm">
-                    <div class="flex flex-row items-center justify-between w-full">
-                        <div class="flex flex-row items-center" style="width: 50%;">
-                            <div class="category-icon-wrapper" style="background: rgba(123, 77, 255, 0.1); margin-right: 12px;"><span class="material-symbols-outlined" style="color: rgb(123, 77, 255); font-size: 20px;">eco</span></div>
-                            <span class="text-body-md text-on-surface font-bold">Vegetables</span>
-                        </div>
-                        <div class="flex flex-row items-center justify-start pl-2 sm:pl-4" style="width: 50%;">
-                            <div class="flex flex-col items-start"><span class="text-label-md text-on-surface" style="white-space: nowrap;">₹2,000 / <span class="text-outline font-bold">₹2,500</span></span><span class="text-label-sm text-on-surface-variant" style="color: rgb(46, 125, 50); font-weight: 600;">₹500 left</span></div>
-                        </div>
-                    </div>
-                    <div class="flex flex-row items-center w-full gap-sm">
-                        <div class="w-full bg-surface-container-high rounded-full flex-1" style="height: 6px; overflow: hidden; background-color: rgb(229, 226, 225);"><div style="width: 80%; height: 100%; background: linear-gradient(90deg, #7B4DFF 0%, #FF6B3D 100%); border-radius: 9999px;"></div></div>
-                        <span class="text-label-sm text-on-surface-variant font-bold" style="min-width: 32px; text-align: right;">80%</span>
-                    </div>
-                </div>
-                <span class="material-symbols-outlined text-outline" style="position: absolute; top: 12px; right: 12px; cursor: pointer;">more_vert</span>
-            </div>
-            
-            <!-- Rule Item 2 -->
-            <div class="rule-item flex-row items-center" style="background-color: rgb(255, 255, 255); position: relative;">
-                <div class="flex-col w-full gap-sm">
-                    <div class="flex flex-row items-center justify-between w-full">
-                        <div class="flex flex-row items-center" style="width: 50%;">
-                            <div class="category-icon-wrapper" style="background: rgba(253, 106, 60, 0.1); margin-right: 12px;"><span class="material-symbols-outlined" style="color: rgb(253, 106, 60); font-size: 20px;">local_gas_station</span></div>
-                            <span class="text-body-md text-on-surface font-bold">Petrol</span>
-                        </div>
-                        <div class="flex flex-row items-center justify-start pl-2 sm:pl-4" style="width: 50%;">
-                            <div class="flex flex-col items-start"><span class="text-label-md text-on-surface" style="white-space: nowrap;">₹650 / <span class="text-outline font-bold">₹3,000</span></span><span class="text-label-sm text-on-surface-variant" style="color: rgb(46, 125, 50); font-weight: 600;">₹2,350 left</span></div>
-                        </div>
-                    </div>
-                    <div class="flex flex-row items-center w-full gap-sm">
-                        <div class="w-full bg-surface-container-high rounded-full flex-1" style="height: 6px; overflow: hidden; background-color: rgb(229, 226, 225);"><div style="width: 22%; height: 100%; background: linear-gradient(90deg, #7B4DFF 0%, #FF6B3D 100%); border-radius: 9999px;"></div></div>
-                        <span class="text-label-sm text-on-surface-variant font-bold" style="min-width: 32px; text-align: right;">22%</span>
-                    </div>
-                </div>
-                <span class="material-symbols-outlined text-outline" style="position: absolute; top: 12px; right: 12px;">more_vert</span>
-            </div>
-            
-            <!-- Rule Item 3 -->
-            <div class="rule-item flex-row items-center" style="background-color: rgb(255, 255, 255); position: relative;">
-                <div class="flex-col w-full gap-sm">
-                    <div class="flex flex-row items-center justify-between w-full">
-                        <div class="flex flex-row items-center" style="width: 50%;">
-                            <div class="category-icon-wrapper" style="background: rgba(123, 77, 255, 0.1); margin-right: 12px;"><span class="material-symbols-outlined" style="color: rgb(123, 77, 255); font-size: 20px;">shopping_basket</span></div>
-                            <span class="text-body-md text-on-surface font-bold">Grocery</span>
-                        </div>
-                        <div class="flex flex-row items-center justify-start pl-2 sm:pl-4" style="width: 50%;">
-                            <div class="flex flex-col items-start"><span class="text-label-md text-on-surface" style="white-space: nowrap;">₹5,500 / <span class="text-outline font-bold">₹6,000</span></span><span class="text-label-sm text-on-surface-variant" style="color: rgb(46, 125, 50); font-weight: 600;">₹500 left</span></div>
-                        </div>
-                    </div>
-                    <div class="flex flex-row items-center w-full gap-sm">
-                        <div class="w-full bg-surface-container-high rounded-full flex-1" style="height: 6px; overflow: hidden; background-color: rgb(229, 226, 225);"><div style="width: 92%; height: 100%; background: linear-gradient(90deg, #7B4DFF 0%, #FF6B3D 100%); border-radius: 9999px;"></div></div>
-                        <span class="text-label-sm text-on-surface-variant font-bold" style="min-width: 32px; text-align: right;">92%</span>
-                    </div>
-                </div>
-                <span class="material-symbols-outlined text-outline" style="position: absolute; top: 12px; right: 12px;">more_vert</span>
-            </div>
-            
-            <!-- Rule Item 4 -->
-            <div class="rule-item flex-row items-center" style="background-color: rgb(255, 255, 255); position: relative;">
-                <div class="flex-col w-full gap-sm">
-                    <div class="flex flex-row items-center justify-between w-full">
-                        <div class="flex flex-row items-center" style="width: 50%;">
-                            <div class="category-icon-wrapper" style="background: rgba(123, 77, 255, 0.1); margin-right: 12px;"><span class="material-symbols-outlined" style="color: rgb(123, 77, 255); font-size: 20px;">directions_car</span></div>
-                            <span class="text-body-md text-on-surface font-bold">Traveling</span>
-                        </div>
-                        <div class="flex flex-row items-center justify-start pl-2 sm:pl-4" style="width: 50%;">
-                            <div class="flex flex-col items-start"><span class="text-label-md text-on-surface" style="white-space: nowrap;">₹50 / <span class="text-outline font-bold">₹300</span></span><span class="text-label-sm text-on-surface-variant" style="color: rgb(46, 125, 50); font-weight: 600;">₹250 left</span></div>
-                        </div>
-                    </div>
-                    <div class="flex flex-row items-center w-full gap-sm">
-                        <div class="w-full bg-surface-container-high rounded-full flex-1" style="height: 6px; overflow: hidden; background-color: rgb(229, 226, 225);"><div style="width: 17%; height: 100%; background: linear-gradient(90deg, #7B4DFF 0%, #FF6B3D 100%); border-radius: 9999px;"></div></div>
-                        <span class="text-label-sm text-on-surface-variant font-bold" style="min-width: 32px; text-align: right;">17%</span>
-                    </div>
-                </div>
-                <span class="material-symbols-outlined text-outline" style="position: absolute; top: 12px; right: 12px;">more_vert</span>
-            </div>
-            
-            <!-- Rule Item 5 -->
-            <div class="rule-item flex-row items-center" style="background-color: rgb(255, 255, 255); position: relative;">
-                <div class="flex-col w-full gap-sm">
-                    <div class="flex flex-row items-center justify-between w-full">
-                        <div class="flex flex-row items-center" style="width: 50%;">
-                            <div class="category-icon-wrapper" style="background: rgba(123, 77, 255, 0.1); margin-right: 12px;"><span class="material-symbols-outlined" style="color: rgb(123, 77, 255); font-size: 20px;">medical_services</span></div>
-                            <span class="text-body-md text-on-surface font-bold">Medical</span>
-                        </div>
-                        <div class="flex flex-row items-center justify-start pl-2 sm:pl-4" style="width: 50%;">
-                            <div class="flex flex-col items-start"><span class="text-label-md text-on-surface" style="white-space: nowrap;">₹0 / <span class="text-outline font-bold">₹250</span></span><span class="text-label-sm text-on-surface-variant" style="color: rgb(46, 125, 50); font-weight: 600;">₹250 left</span></div>
-                        </div>
-                    </div>
-                    <div class="flex flex-row items-center w-full gap-sm">
-                        <div class="w-full bg-surface-container-high rounded-full flex-1" style="height: 6px; overflow: hidden; background-color: rgb(229, 226, 225);"><div style="width: 0%; height: 100%; background: linear-gradient(90deg, #7B4DFF 0%, #FF6B3D 100%); border-radius: 9999px;"></div></div>
-                        <span class="text-label-sm text-on-surface-variant font-bold" style="min-width: 32px; text-align: right;">0%</span>
-                    </div>
-                </div>
-                <span class="material-symbols-outlined text-outline" style="position: absolute; top: 12px; right: 12px;">more_vert</span>
-            </div>
-            
-            <!-- Rule Item 6 -->
-            <div class="rule-item flex-row items-center" style="background-color: rgb(255, 255, 255); position: relative;">
-                <div class="flex-col w-full gap-sm">
-                    <div class="flex flex-row items-center justify-between w-full">
-                        <div class="flex flex-row items-center" style="width: 50%;">
-                            <div class="category-icon-wrapper" style="background: rgba(123, 77, 255, 0.1); margin-right: 12px;"><span class="material-symbols-outlined" style="color: rgb(123, 77, 255); font-size: 20px;">checkroom</span></div>
-                            <span class="text-body-md text-on-surface font-bold">Clothes</span>
-                        </div>
-                        <div class="flex flex-row items-center justify-start pl-2 sm:pl-4" style="width: 50%;">
-                            <div class="flex flex-col items-start"><span class="text-label-md text-on-surface" style="white-space: nowrap;">₹100 / <span class="text-outline font-bold">₹800</span></span><span class="text-label-sm text-on-surface-variant" style="color: rgb(46, 125, 50); font-weight: 600;">₹700 left</span></div>
-                        </div>
-                    </div>
-                    <div class="flex flex-row items-center w-full gap-sm">
-                        <div class="w-full bg-surface-container-high rounded-full flex-1" style="height: 6px; overflow: hidden; background-color: rgb(229, 226, 225);"><div style="width: 13%; height: 100%; background: linear-gradient(90deg, #7B4DFF 0%, #FF6B3D 100%); border-radius: 9999px;"></div></div>
-                        <span class="text-label-sm text-on-surface-variant font-bold" style="min-width: 32px; text-align: right;">13%</span>
-                    </div>
-                </div>
-                <span class="material-symbols-outlined text-outline" style="position: absolute; top: 12px; right: 12px;">more_vert</span>
-            </div>
-            
-            <!-- Rule Item 7 -->
-            <div class="rule-item flex-row items-center" style="background-color: rgb(255, 255, 255); position: relative;">
-                <div class="flex-col w-full gap-sm">
-                    <div class="flex flex-row items-center justify-between w-full">
-                        <div class="flex flex-row items-center" style="width: 50%;">
-                            <div class="category-icon-wrapper" style="background: rgba(123, 77, 255, 0.1); margin-right: 12px;"><span class="material-symbols-outlined" style="color: rgb(123, 77, 255); font-size: 20px;">help_outline</span></div>
-                            <span class="text-body-md text-on-surface font-bold">Other</span>
-                        </div>
-                        <div class="flex flex-row items-center justify-start pl-2 sm:pl-4" style="width: 50%;">
-                            <div class="flex flex-col items-start"><span class="text-label-md text-on-surface" style="white-space: nowrap;">₹500 / <span class="text-outline font-bold">₹500</span></span><span class="text-label-sm text-on-surface-variant" style="color: rgb(46, 125, 50); font-weight: 600;">₹0 left</span></div>
-                        </div>
-                    </div>
-                    <div class="flex flex-row items-center w-full gap-sm">
-                        <div class="w-full bg-surface-container-high rounded-full flex-1" style="height: 6px; overflow: hidden; background-color: rgb(229, 226, 225);"><div style="width: 100%; height: 100%; background: linear-gradient(90deg, #7B4DFF 0%, #FF6B3D 100%); border-radius: 9999px;"></div></div>
-                        <span class="text-label-sm text-on-surface-variant font-bold" style="min-width: 32px; text-align: right;">100%</span>
-                    </div>
-                </div>
-                <span class="material-symbols-outlined text-outline" style="position: absolute; top: 12px; right: 12px;">more_vert</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Action Button Placed at Bottom of Content Flow -->
-    <section class="w-full pt-2 mt-2">
-        <button class="btn-primary w-full" id="saveBudgetBtn">
-            <span class="material-symbols-outlined">home</span> Go to Home
-        </button>
-    </section>
-</main>
-
-<script>
-    // Gauge Class Logic Encapsulated
-    (function() {
-        const formatCurrency = (value) => {
-            return new Intl.NumberFormat('en-IN', {
-                style: 'currency',
-                currency: 'INR',
-                maximumFractionDigits: 0
-            }).format(value);
-        };
-
-        const animateValue = (element, start, end, duration, isCurrency = true) => {
-            if (!element) return;
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const easeOut = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-                const currentValue = Math.floor(easeOut * (end - start) + start);
-                element.textContent = isCurrency ? formatCurrency(currentValue) : currentValue;
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                } else {
-                    element.textContent = isCurrency ? formatCurrency(end) : end;
-                }
-            };
-            window.requestAnimationFrame(step);
-        };
-
-        class SpeedometerGauge {
-            constructor(containerId, percentage, statsValues) {
-                this.container = document.getElementById(containerId);
-                if (!this.container) return;
-                this.percentage = Math.min(Math.max(percentage, 0), 100);
-                this.statsValues = statsValues;
-                this.ticksGroup = this.container.querySelector('.ticksGroup');
-                this.needle = this.container.querySelector('.needle');
-                this.glowTrack = this.container.querySelector('.glowTrack');
-                this.elPercentage = this.container.querySelector('.percentageVal');
-                this.init();
-            }
-
-            init() {
-                this.drawTicks();
-                this.animateStats();
-                setTimeout(() => this.animateGauge(), 300);
-            }
-
-            drawTicks() {
-                const cx = 100, cy = 100;
-                const startAngleDeg = 135, sweepAngleDeg = 270;
-                const majorTickInnerR = 64, majorTickOuterR = 70;
-                const minorTickInnerR = 66, minorTickOuterR = 70;
-                const textR = 52; 
-                
-                for (let i = 0; i <= 100; i += 2) {
-                    const isLabelTick = i % 20 === 0;
-                    const isMajorTick = i % 10 === 0;
-                    const angleDeg = startAngleDeg + (i / 100) * sweepAngleDeg;
-                    const angleRad = angleDeg * (Math.PI / 180);
-                    const cosA = Math.cos(angleRad), sinA = Math.sin(angleRad);
-                    
-                    if (i % 5 === 0) { 
-                        const r1 = isMajorTick ? majorTickInnerR : minorTickInnerR;
-                        const r2 = isMajorTick ? majorTickOuterR : minorTickOuterR;
-                        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        line.setAttribute("x1", cx + r1 * cosA);
-                        line.setAttribute("y1", cy + r1 * sinA);
-                        line.setAttribute("x2", cx + r2 * cosA);
-                        line.setAttribute("y2", cy + r2 * sinA);
-                        line.setAttribute("stroke", "#6b7280"); 
-                        line.setAttribute("stroke-width", isMajorTick ? "1.5" : "1");
-                        line.setAttribute("stroke-linecap", "round");
-                        this.ticksGroup.appendChild(line);
-                    }
-
-                    if (isLabelTick) {
-                        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        text.setAttribute("x", cx + textR * cosA);
-                        text.setAttribute("y", cy + textR * sinA);
-                        text.setAttribute("dy", "3"); 
-                        text.setAttribute("text-anchor", "middle");
-                        text.setAttribute("fill", "#9ca3af");
-                        text.setAttribute("font-size", "8");
-                        text.setAttribute("font-family", "sans-serif");
-                        text.textContent = i;
-                        this.ticksGroup.appendChild(text);
-                    }
-                }
-            }
-
-            animateGauge() {
-                const targetAngle = 135 + (270 * (this.percentage / 100));
-                this.needle.style.transform = `rotate(${targetAngle}deg)`;
-                const totalTrackLength = 377;
-                const offset = totalTrackLength - (totalTrackLength * (this.percentage / 100));
-                this.glowTrack.style.strokeDashoffset = offset;
-                animateValue(this.elPercentage, 0, this.percentage, 2000, false);
-            }
-
-            animateStats() {
-                for (const [selector, value] of Object.entries(this.statsValues)) {
-                    const el = this.container.querySelector(selector);
-                    if (el) animateValue(el, 0, value, 1800);
-                }
-            }
-        }
-
-        function initDashboard() {
-            // Gauge 1: Overview
-            const overviewExpPct = Math.round((8700 / 21000) * 100);
-            new SpeedometerGauge('gauge-overview', overviewExpPct, {
-                '.val-income': 21000,
-                '.val-expenses': 8700,
-                '.val-left': 12300
-            });
-
-            // Gauge 2: Budget Planning
-            const budgetSpentPct = Math.round((8700 / 13350) * 100);
-            new SpeedometerGauge('gauge-budget', budgetSpentPct, {
-                '.val-budget': 13350,
-                '.val-spent': 8700,
-                '.val-left': 4650
-            });
-        }
-
-        if(document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initDashboard);
-        } else {
-            initDashboard();
-        }
-    })();
-</script>
-
-<script>
-    // General Interaction Logic
-    document.addEventListener('DOMContentLoaded', () => {
-        // Frequency Selection Logic
-        const frequencyToggle = document.getElementById('frequencyToggle');
-        if(frequencyToggle) {
-            const frequencyOptions = frequencyToggle.querySelectorAll('.frequency-option');
-            frequencyOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    frequencyOptions.forEach(opt => opt.classList.remove('active'));
-                    option.classList.add('active');
-                });
-            });
-        }
-
-        // Add Rule Button Logic
-        const addRuleBtn = document.querySelector('.add-rule-btn');
-        if(addRuleBtn) {
-            addRuleBtn.addEventListener('click', () => {
-                console.log('Add Rule clicked');
-                alert('Add Rule functionality placeholder');
-            });
-        }
-
-        // Save Budget Logic
-        const saveBudgetBtn = document.getElementById('saveBudgetBtn');
-        if(saveBudgetBtn) {
-            saveBudgetBtn.addEventListener('click', () => {
-                console.log('Go to home Triggered');
-            });
-        }
-    });
-</script>
-
-<div class="fixed inset-0 z-[100] hidden" id="edit-limit-overlay">
-    <!-- Backdrop -->
-    <div class="absolute inset-0 bg-[#313030]/60 backdrop-blur-md opacity-0 transition-opacity duration-300" id="edit-limit-backdrop"></div>
-    <!-- Bottom Sheet Container -->
-    <div class="absolute bottom-0 w-full max-w-md left-1/2 -translate-x-1/2 bg-[#fcf9f8]/90 backdrop-blur-2xl rounded-t-[24px] shadow-[0px_-10px_40px_rgba(0,0,0,0.1)] flex flex-col translate-y-full transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]" id="edit-limit-sheet" style="max-height: 85vh;">
-        <!-- Drag Handle -->
-        <div class="w-full flex justify-center pt-md pb-sm cursor-grab" style="padding-top: 16px; padding-bottom: 8px;">
-            <div class="w-12 h-1.5 bg-[#cac3d8]/50 rounded-full" style="width: 48px; height: 6px;"></div>
-        </div>
-        <!-- Header -->
-        <div class="flex justify-between items-center px-lg pb-md border-b border-outline-variant/20" style="padding: 0 24px 16px; border-bottom: 1px solid rgba(202, 195, 216, 0.2);">
-            <h2 class="text-headline-md text-on-surface">Edit Category Limit</h2>
-            <button aria-label="Close" class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container hover:bg-surface-variant transition-colors" id="close-limit-sheet" style="background-color: #f1edec;">
-                <span class="material-symbols-outlined text-on-surface-variant">close</span>
-            </button>
-        </div>
-        <!-- Action Area -->
-        <div class="p-lg border-t border-outline-variant/20 bg-surface/50 backdrop-blur-md" style="padding: 24px;">
-            <button class="btn-primary w-full">
-                Update Limit
-                <span class="material-symbols-outlined">check_circle</span>
-            </button>
-        </div>
-    </div>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background antialiased h-screen w-full relative overflow-hidden flex justify-center">
+<!-- Background Screen Context (Dimmed) -->
+<div class="absolute inset-0 z-0">
+<img alt="Background Screen" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNXYzu_uKMlvQdEqzoimqa60hmY_ioEIhh9wtKM34JxyWxo10e4dbHW_1pM64-VmBiqsv0RFb9MMDOdV6nIpF9x5WBuNjBBgUWv5rl8YW85Xo2rzDsNdp9A594QDKj0DgNMTpR7cTp_RXYpKNr6dh9CWlorso5Mmq2VeglUXWnhbiSIYAjNOlv7Qiq_vrrbkSsvjEuC8ku6Ju1jgwTSIQVI3eZ5_hZIW2o3Hc4kPz6CIDCyzXBcF3_">
 </div>
-
-<script>
-(function() {
-  const menuIcon = document.querySelector('main.main-content > section:nth-child(4) .rule-item:nth-child(1) > span.material-symbols-outlined');
-  const overlay = document.getElementById('edit-limit-overlay');
-  const backdrop = document.getElementById('edit-limit-backdrop');
-  const sheet = document.getElementById('edit-limit-sheet');
-  const closeBtn = document.getElementById('close-limit-sheet');
-
-  function openSheet() {
-    overlay.classList.remove('hidden');
-    // Force reflow
-    overlay.offsetHeight;
-    backdrop.classList.replace('opacity-0', 'opacity-100');
-    sheet.classList.replace('translate-y-full', 'translate-y-0');
-  }
-
-  function closeSheet() {
-    backdrop.classList.replace('opacity-100', 'opacity-0');
-    sheet.classList.replace('translate-y-0', 'translate-y-full');
-    setTimeout(() => {
-      overlay.classList.add('hidden');
-    }, 400);
-  }
-
-  if (menuIcon) {
-    menuIcon.style.cursor = 'pointer';
-    menuIcon.addEventListener('click', openSheet);
-  }
-  
-  if (closeBtn) closeBtn.addEventListener('click', closeSheet);
-  if (backdrop) backdrop.addEventListener('click', closeSheet);
-})();
-</script>
-</body>
-</html>
+<!-- Overlay / Dimmer -->
+<div aria-hidden="true" class="absolute inset-0 bg-inverse-surface/40 backdrop-blur-sm z-10 animate-fade-in"></div>
+<!-- Bottom Sheet Container -->
+<div class="absolute bottom-0 w-full max-w-md bg-surface/90 dark:bg-surface-container-low/90 backdrop-blur-2xl rounded-t-[24px] shadow-[0px_-10px_40px_rgba(0,0,0,0.1)] z-20 flex flex-col animate-slide-up pb-safe" style="max-height: 85vh;">
+<!-- Drag Handle -->
+<div class="w-full flex justify-center pt-md pb-sm cursor-grab active:cursor-grabbing">
+<div class="w-12 h-1.5 bg-outline-variant/50 rounded-full"></div>
+</div>
+<!-- Header -->
+<div class="flex justify-between items-center px-lg pb-md border-b border-outline-variant/20">
+<h2 class="font-headline-md text-headline-md text-on-surface">Edit Category Limit</h2>
+<button aria-label="Close" class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container hover:bg-surface-variant transition-colors group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface transition-colors">close</span>
+</button>
+</div>
+<div class="overflow-y-auto px-lg py-xl flex-1 flex flex-col gap-xl">
+<!-- Category Context -->
+<div class="flex items-center gap-md">
+<div class="w-16 h-16 rounded-2xl bg-tertiary-container/20 flex items-center justify-center shadow-[0px_4px_12px_rgba(141,74,238,0.1)]">
+<span class="material-symbols-outlined text-tertiary text-3xl fill" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Vegetables</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">Monthly Cycle</p>
+</div>
+</div>
+<!-- Current Limit & Progress -->
+<div class="bg-surface-container-low rounded-2xl p-lg shadow-[0px_10px_30px_rgba(0,0,0,0.04)] border border-white/50 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#7B4DFF]/10 to-[#FF6B3D]/10"></div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Current Limit</p>
+<div class="font-display-data text-display-data text-on-surface">₹2,500</div>
+<div class="mt-lg">
+<div class="flex justify-between font-label-sm text-label-sm mb-sm">
+<span class="text-on-surface-variant">Spent <span class="text-on-surface font-semibold">₹2,000</span></span>
+<span class="text-on-surface-variant">Remaining <span class="text-secondary font-semibold">₹500</span></span>
+</div>
+<!-- Progress Bar Track -->
+<div class="w-full h-3 bg-surface-variant rounded-full overflow-hidden relative shadow-inner">
+<!-- Progress Fill -->
+<div class="h-full gradient-bg rounded-full absolute left-0 top-0 shadow-[0px_0px_10px_rgba(123,77,255,0.4)] transition-all duration-1000 ease-out" style="width: 80%;"></div>
+</div>
+<div class="text-right mt-xs">
+<span class="font-label-sm text-label-sm text-outline font-semibold">80% Used</span>
+</div>
+</div>
+</div>
+<!-- Edit Input Section -->
+<div class="flex flex-col gap-sm">
+<label class="font-label-md text-label-md text-on-surface" for="new-limit">New Monthly Limit</label>
+<div class="relative flex items-center">
+<span class="absolute left-lg font-headline-md text-headline-md text-on-surface-variant pointer-events-none">₹</span>
+<input class="w-full h-[56px] pl-[48px] pr-lg bg-[#F8F9FA] rounded-[18px] border border-outline-variant/30 font-headline-md text-headline-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-sm" id="new-limit" inputmode="numeric" type="number" value="2500">
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">Recommended: ₹2,800 based on past 3 months average.</p>
+</div>
+</div>
+<!-- Action Area -->
+<div class="p-lg border-t border-outline-variant/20 bg-surface/50 backdrop-blur-md">
+<button class="w-full h-[48px] rounded-[18px] gradient-bg text-on-primary font-label-md text-label-md shadow-[0px_20px_40px_rgba(123,77,255,0.15)] hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-sm">
+                Update Limit
+                <span class="material-symbols-outlined text-[20px]">check_circle</span>
+</button>
+</div>
+</div>
+</body></html>
