@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Smart Finance Tracker - Edit Category Limit</title>
 <!-- Material Symbols Outlined -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <!-- Inter Google Font -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -225,11 +223,11 @@
 <div class="flex justify-between items-baseline text-sm">
 <div class="flex items-center gap-1.5 font-medium text-on-surface-variant">
 <span class="w-2 h-2 rounded-full bg-secondary-container"></span>
-<span>Spent: <strong class="text-on-surface font-semibold">₹2,000</strong></span>
+<span class="">Spent: <strong class="text-on-surface font-semibold">₹2,000</strong></span>
 </div>
 <div class="flex items-center gap-1.5 font-medium text-on-surface-variant">
 <span class="w-2 h-2 rounded-full bg-primary-container"></span>
-<span>Remaining: <strong class="text-primary font-semibold">₹500</strong></span>
+<span class="">Remaining: <strong class="text-primary font-semibold">₹500</strong></span>
 </div>
 </div>
 <!-- Signature Purple-to-Orange Gradient Progress Bar (80%) -->
@@ -250,29 +248,18 @@
           </label>
 <div class="relative flex items-center rounded-xl bg-surface-container-lowest border-2 border-primary/30 focus-within:border-primary shadow-sm transition-all overflow-hidden px-4 py-1.5">
 <span class="text-2xl font-bold text-on-surface-variant mr-1">₹</span>
-<input autocomplete="off" class="w-full text-2xl font-bold text-on-surface bg-transparent border-0 focus:ring-0 p-0 tracking-tight placeholder-outline" id="newLimitInput" inputmode="numeric" pattern="[0-9]*" placeholder="0" type="number" value="2500"/>
+<input autocomplete="off" class="w-full text-2xl font-bold text-on-surface bg-transparent border-0 focus:ring-0 p-0 tracking-tight placeholder-outline" id="newLimitInput" inputmode="numeric" pattern="[0-9]*" placeholder="0" type="number" value="2500">
 <button class="p-1 rounded-full text-outline hover:text-on-surface transition-colors" onclick="document.getElementById('newLimitInput').value='';" title="Clear amount" type="button">
 <span class="material-symbols-outlined text-[20px]">cancel</span>
 </button>
 </div>
 <!-- Smart Suggestion Chips -->
-<div class="flex items-center gap-2 pt-1 overflow-x-auto no-scrollbar">
-<span class="text-xs text-on-surface-variant font-medium shrink-0">Quick add:</span>
-<button class="text-xs font-semibold px-3 py-1.5 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface transition-colors border border-outline-variant/30 shrink-0" onclick="adjustLimit(500)" type="button">
-              + ₹500
-            </button>
-<button class="text-xs font-semibold px-3 py-1.5 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface transition-colors border border-outline-variant/30 shrink-0" onclick="adjustLimit(1000)" type="button">
-              + ₹1,000
-            </button>
-<button class="text-xs font-semibold px-3 py-1.5 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface transition-colors border border-outline-variant/30 shrink-0" onclick="setLimit(3000)" type="button">
-              ₹3,000
-            </button>
-</div>
+
 </div>
 <!-- Bottom Section: Update Limit CTA Button -->
 <div class="pt-2">
 <button class="w-full py-4 px-6 rounded-2xl font-bold text-base text-on-primary shadow-lg bg-gradient-to-r from-primary via-tertiary-container to-secondary-container hover:opacity-95 active:scale-[0.99] transition-all flex items-center justify-center gap-2 group" id="updateLimitBtn" type="button">
-<span>Update Limit</span>
+<span class="">Update Limit</span>
 <span class="material-symbols-outlined text-xl transition-transform group-hover:translate-x-1">arrow_forward</span>
 </button>
 <p class="text-center text-xs text-on-surface-variant mt-2.5">
@@ -328,4 +315,6 @@
       }
     });
   </script>
+
+
 </body></html>
