@@ -322,7 +322,7 @@
         /* Added vertical dividers matching the design */
         .table-head-row th:nth-child(1) { width: 45%; border-right: 1px solid rgba(255,255,255,0.25); }
         .table-head-row th:nth-child(2) { width: 25%; border-right: 1px solid rgba(255,255,255,0.25); }
-        .table-head-row th:nth-child(3) { text-align: right; }
+        .table-head-row th:nth-child(3) { text-align: left; }
 
         .table-main td {
             padding: 12px 14px; font-size: 14px;
@@ -334,7 +334,33 @@
         .item-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; }
         .mic-icon { font-size: 16px; color: var(--outline-variant); flex-shrink: 0; }
         
-        .amt-text { font-weight: 600; text-align: right; display: block; }
+        .cell-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            color: inherit;
+            padding: 0;
+            margin: 0;
+            min-width: 0;
+        }
+        .cell-input::placeholder {
+            color: var(--outline-variant);
+            font-weight: 400;
+        }
+        .cell-input[type="number"]::-webkit-inner-spin-button, 
+        .cell-input[type="number"]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        .cell-input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .amt-text { font-weight: 600; text-align: left; display: block; }
         
         .del-cell { display: none; width: 40px; text-align: right; padding-right: 12px; }
         .del-btn {
@@ -445,6 +471,49 @@
             border-radius: 12px; padding: 0 16px; margin: 16px 0; font-size: 14px;
         }
 
+        /* Review & Success Overlays */
+        .full-overlay {
+            display: none; position: fixed; inset: 0; z-index: 1000;
+            background: rgba(49, 48, 48, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .full-overlay.solid { background: var(--surface-bg); z-index: 1100; }
+        
+        .rev-modal {
+            width: 100%; max-width: 600px; background: var(--surface-container-lowest);
+            border-radius: var(--radius-xl); display: flex; flex-direction: column;
+            max-height: 90vh; box-shadow: var(--shadow-l2); overflow: hidden;
+            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .rev-content { overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 24px; flex: 1; }
+        @keyframes modalPop { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        
+        .success-card {
+            width: 100%; max-width: 448px; background: var(--surface-container-lowest);
+            border-radius: var(--radius-xl); box-shadow: var(--shadow-l1); padding: 32px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            position: relative; overflow: hidden; border: 1px solid rgba(202, 195, 216, 0.25);
+            animation: modalPop 0.4s ease-out;
+        }
+        .success-glow {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 256px; height: 256px; background-color: rgba(34, 197, 94, 0.1);
+            filter: blur(48px); border-radius: 50%; z-index: 0; pointer-events: none;
+        }
+        .success-icon-box {
+            width: 96px; height: 96px; border-radius: 50%; background: rgba(34, 197, 94, 0.1);
+            display: flex; align-items: center; justify-content: center; margin-bottom: 24px;
+            position: relative; z-index: 1; animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0; transform: scale(0.5);
+        }
+        .success-pulse {
+            position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(34, 197, 94, 0.3);
+            animation: pingPulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes popIn { to { opacity: 1; transform: scale(1); } }
+        @keyframes pingPulse { 75%, 100% { transform: scale(1.5); opacity: 0; } }
+        @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+
     </style>
 </head>
 <body>
@@ -500,12 +569,12 @@
                 <div style="position: relative;" id="category-wrapper">
                     <button class="dropdown-trigger" id="cat-trigger">
                         <div style="display: flex; align-items: center; gap: 12px;">
-                            <div class="icon-box gradient" id="cat-icon-box">
-                                <span class="material-symbols-outlined" id="cat-icon">local_grocery_store</span>
+                            <div class="icon-box neutral" id="cat-icon-box">
+                                <span class="material-symbols-outlined" id="cat-icon">category</span>
                             </div>
                             <div style="text-align: left;">
-                                <div style="font-size: 15px; font-weight: 700; color: var(--on-surface);" id="cat-title">Grocery</div>
-                                <div style="font-size: 12px; color: var(--outline);" id="cat-sub">Daily essentials & food</div>
+                                <div style="font-size: 15px; font-weight: 700; color: var(--on-surface);" id="cat-title">Select Category</div>
+                                <div style="font-size: 12px; color: var(--outline);" id="cat-sub">Choose an expense type</div>
                             </div>
                         </div>
                         <span class="material-symbols-outlined" id="cat-chevron" style="color: var(--primary); transition: 0.25s;">expand_more</span>
@@ -526,7 +595,7 @@
 
             <section>
                 <div class="section-header" style="padding: 0 4px;">
-                    <h2 class="section-title" id="table-title">Grocery Items</h2>
+                    <h2 class="section-title" id="table-title">Expense Items</h2>
                     <button style="color: var(--primary); font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;" id="btn-add-row">
                         <span class="material-symbols-outlined" style="font-size: 18px;">add</span> Add Row
                     </button>
@@ -546,9 +615,11 @@
                             </label>
                             <span id="edit-status" style="font-size: 11px; font-weight: 600; color: var(--outline);">Off</span>
                         </div>
-                        <button id="btn-edit-done" style="background: var(--brand-gradient); color: #fff; padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 6px rgba(123, 77, 255, 0.3);">
-                            <span class="material-symbols-outlined" style="font-size: 14px;">check</span> OK
-                        </button>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <button id="btn-bulk-delete" style="display: none; background: #fee2e2; color: var(--error); padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 700; align-items: center; gap: 4px; box-shadow: 0 2px 6px rgba(186, 26, 26, 0.2); border: 1px solid rgba(186, 26, 26, 0.1);">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">delete</span> Delete (<span id="del-count">0</span>)
+                            </button>
+                        </div>
                     </div>
 
                     <table class="table-main">
@@ -557,14 +628,13 @@
                                 <th>ITEMS</th>
                                 <th>QTY</th>
                                 <th>
-                                    <div style="display: flex; justify-content: flex-end; align-items: center; gap: 6px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 6px;">
                                         AMOUNT
                                         <button id="btn-kebab" style="width: 24px; height: 24px; border-radius: 6px; background: rgba(255,255,255,0.22); color: #fff; display: flex; align-items: center; justify-content: center; transition: 0.15s;">
                                             <span class="material-symbols-outlined" style="font-size: 16px;">more_vert</span>
                                         </button>
                                     </div>
                                 </th>
-                                <th class="del-cell" style="width: 40px; padding: 0;"></th>
                             </tr>
                         </thead>
                         <tbody id="table-body">
@@ -578,10 +648,9 @@
                                         <span id="total-words" style="font-size: 11px; color: var(--on-surface-variant); font-weight: 500; margin-top: 2px;">Zero Rupees Only</span>
                                     </div>
                                 </td>
-                                <td style="text-align: right; font-weight: 700; font-size: 18px; color: var(--primary); vertical-align: middle;">
+                                <td style="text-align: left; font-weight: 700; font-size: 18px; color: var(--primary); vertical-align: middle;">
                                     <span id="total-numeric">₹0</span>
                                 </td>
-                                <td class="del-cell"></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -602,10 +671,10 @@
             <section class="card">
                 <div class="section-header" style="margin-bottom: 12px;">
                     <h2 class="section-title">Bill Receipt</h2>
-                    <span style="font-size: 11px; color: var(--outline); font-weight: 500;">Max 5MB • JPG, PNG, PDF</span>
+                    <span style="font-size: 11px; color: var(--outline); font-weight: 500;">Max 10MB • JPG, PNG, PDF</span>
                 </div>
 
-                <div class="upload-zone">
+                <div class="upload-zone" id="upload-zone" style="cursor: pointer; transition: 0.2s;">
                     <div class="upload-spinner">
                         <div class="inner">
                             <span class="material-symbols-outlined text-gradient" style="font-size: 22px;">cloud_upload</span>
@@ -613,34 +682,13 @@
                     </div>
                     <div style="font-size: 13px; font-weight: 600; color: var(--on-surface); margin-top: 4px;">Drag & drop receipt or tap to upload</div>
                     <div style="font-size: 11px; color: var(--outline);">Receipt auto-scan extracts items & totals</div>
-                </div>
-
-                <div style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 12px; color: var(--on-surface-variant); font-weight: 600;">Attached Bills (1 of 5)</span>
-                    <div style="display: flex; gap: 4px;">
-                        <span style="width: 14px; height: 5px; border-radius: 99px; background: var(--primary);"></span>
-                        <span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant);"></span>
-                        <span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant);"></span>
-                        <span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant);"></span>
-                    </div>
+                    <div id="upload-error" style="font-size: 11px; color: var(--error); font-weight: 600; margin-top: 4px; display: none;"></div>
                 </div>
                 
-                <div class="file-card">
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <div class="icon-box gradient" style="width: 38px; height: 38px; box-shadow: 0 2px 6px rgba(123,77,255,0.2);">
-                            <span class="material-symbols-outlined" style="font-size: 18px;">receipt_long</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column;">
-                            <div style="display: flex; align-items: center; gap: 6px;">
-                                <span style="font-size: 13px; font-weight: 600; color: var(--on-surface);">D-Mart_Receipt.jpg</span>
-                                <span style="font-size: 10px; color: #16a34a; background: rgba(22, 163, 74, 0.12); padding: 2px 6px; border-radius: 4px; display: flex; align-items: center; gap: 2px; font-weight: 600;">
-                                    <span class="material-symbols-outlined" style="font-size: 11px;">check_circle</span> Attached
-                                </span>
-                            </div>
-                            <span style="font-size: 11px; color: var(--outline); margin-top: 2px;">1.4 MB • Scanned & Verified</span>
-                        </div>
-                    </div>
-                    <button style="color: var(--outline); padding: 4px;"><span class="material-symbols-outlined" style="font-size: 18px;">close</span></button>
+                <input type="file" id="file-input" multiple accept=".jpg,.jpeg,.png,.pdf" style="display: none;">
+                
+                <div id="bills-container">
+                    <!-- Dynamic bills list will be rendered securely via JS -->
                 </div>
             </section>
 
@@ -691,6 +739,99 @@
                 </div>
             </div>
         </div>
+
+        <!-- Review Overlay -->
+        <div class="full-overlay" id="review-overlay">
+            <div class="rev-modal">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--surface-variant);">
+                    <h2 class="text-gradient" style="font-size: 20px; font-weight: 700; text-align: center; flex: 1; margin-left: 40px;">Review Expense</h2>
+                    <button id="rev-close" style="width: 40px; height: 40px; border-radius: 50%; background: var(--surface-container-high); color: var(--on-surface-variant); display: flex; align-items: center; justify-content: center; transition: 0.2s; cursor: pointer; border: none;">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="rev-content hide-scrollbar">
+                    <div style="text-align: center;">
+                        <span id="rev-grand-total" style="font-size: 48px; font-weight: 700; letter-spacing: -0.04em; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">₹0</span>
+                        <div id="rev-grand-words" style="font-size: 12px; font-weight: 500; color: var(--on-surface); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px;">ZERO RUPEES ONLY</div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px; border-radius: 24px; background: var(--surface-container-low); border: 1px solid rgba(202, 195, 216, 0.3);">
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <span style="font-size: 12px; font-weight: 500; color: var(--outline);">Date</span>
+                            <span id="rev-date" style="font-size: 16px; font-weight: 500; color: var(--on-surface);">--</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <span style="font-size: 12px; font-weight: 500; color: var(--outline);">Category</span>
+                            <div style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 500; color: var(--on-surface);">
+                                <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--surface-container-high); color: var(--secondary-container); display: flex; align-items: center; justify-content: center;">
+                                    <span id="rev-cat-icon" class="material-symbols-outlined" style="font-size: 14px;">category</span>
+                                </div>
+                                <span id="rev-cat-name">--</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <span style="font-size: 12px; font-weight: 500; color: var(--outline);">Payment Method</span>
+                            <div style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 500; color: var(--on-surface);">
+                                <span id="rev-pay-icon" class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">payments</span>
+                                <span id="rev-pay-name">--</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 4px; justify-content: center;">
+                            <span style="font-size: 12px; font-weight: 500; color: var(--outline);">Bill Records</span>
+                            <button style="display: flex; align-items: center; gap: 4px; color: var(--primary); font-size: 14px; font-weight: 600; padding: 0; background: none; border: none; width: max-content;">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">receipt_long</span> View Bill
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-gradient" style="font-size: 20px; font-weight: 700; margin-bottom: 8px; display: inline-block;">Item Breakdown</h3>
+                        <div style="background: #fff; border-radius: 16px; border: 1px solid rgba(202, 195, 216, 0.4); overflow: hidden; box-shadow: var(--shadow-sm);">
+                            <div style="background: var(--brand-gradient); display: grid; grid-template-columns: 1.3fr auto 1fr auto 1fr; align-items: stretch;">
+                                <div style="padding: 12px 14px;"><span style="color: #fff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;">ITEMS</span></div>
+                                <div style="width: 1px; background: rgba(255,255,255,0.25);"></div>
+                                <div style="padding: 12px 14px;"><span style="color: #fff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;">QTY</span></div>
+                                <div style="width: 1px; background: rgba(255,255,255,0.25);"></div>
+                                <div style="padding: 12px 14px; text-align: right;"><span style="color: #fff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;">AMOUNT</span></div>
+                            </div>
+                            <div id="rev-items-body"></div>
+                            <div style="background: var(--brand-gradient-light); display: grid; grid-template-columns: 2fr auto 1fr; align-items: stretch; border-top: 1px solid var(--surface-variant);">
+                                <div style="padding: 14px 18px;">
+                                    <div style="color: var(--primary); font-weight: 700; font-size: 12px; letter-spacing: 0.05em;">TOTAL AMOUNT</div>
+                                    <div id="rev-total-words" style="color: var(--outline); font-size: 11px; margin-top: 3px; font-weight: 500;">Zero Rupees Only</div>
+                                </div>
+                                <div style="width: 1px; background: rgba(123, 77, 255, 0.12);"></div>
+                                <div style="padding: 14px 18px; display: flex; align-items: center; justify-content: flex-end;">
+                                    <div id="rev-total-num" style="color: var(--primary); font-size: 20px; font-weight: 700;">₹0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">
+                        <button id="rev-btn-edit" style="width: 100%; height: 48px; border-radius: 12px; border: 1.5px solid var(--primary); background: #fff; color: var(--primary); font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer;">Edit Details</button>
+                        <button id="rev-btn-submit" style="width: 100%; height: 48px; border-radius: 12px; background: var(--brand-gradient); color: #fff; font-weight: 600; font-size: 14px; box-shadow: var(--shadow-l2); display: flex; align-items: center; justify-content: center; cursor: pointer;">Submit Expense</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Overlay -->
+        <div class="full-overlay solid" id="success-overlay">
+            <div class="success-card">
+                <div class="success-glow"></div>
+                <div class="success-icon-box" id="success-icon-anim">
+                    <div class="success-pulse"></div>
+                    <svg style="width: 48px; height: 48px; color: #22c55e;" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24">
+                        <path class="check-path" style="stroke-dasharray: 100; stroke-dashoffset: 100;" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h1 class="text-gradient" style="font-size: 24px; font-weight: 700; margin-bottom: 8px; z-index: 1;">Expense Saved Successfully!</h1>
+                <p style="font-size: 16px; color: var(--outline); margin-bottom: 32px; z-index: 1;">Your transaction has been recorded and your budget updated.</p>
+                <button id="success-btn-done" style="width: 100%; height: 48px; border-radius: var(--radius-btn); background: var(--brand-gradient); color: #fff; font-weight: 600; font-size: 14px; box-shadow: var(--shadow-l2); z-index: 1; border: none; cursor: pointer;">Done</button>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -717,15 +858,14 @@
             ];
 
             let state = {
-                activeCategory: categories[0].name,
-                activePayment: 'cc',
+                activeCategory: null,
+                activePayment: null,
+                selectedDate: new Date(),
+                bills: [],
                 isEditMode: false,
+                selectedRows: new Set(),
                 items: [
-                    { name: 'Poha', qty: '20 kg', amt: 400 },
-                    { name: 'Rava (Mota)', qty: '20 kg', amt: 600 },
-                    { name: 'Sugar', qty: '35 kg', amt: 1400 },
-                    { name: 'Item', qty: '1 kg', amt: 0 },
-                    { name: 'Item', qty: '1 kg', amt: 0 }
+                    { name: '', qty: '', amt: 0 }
                 ]
             };
 
@@ -760,13 +900,11 @@
                 const today = new Date();
                 for (let i = 1; i <= daysInMonth; i++) {
                     let isActive = false;
-                    // Highlight today's date if viewing the current month, else highlight the 1st
-                    if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
+                    // Match EXACT selected date state, strictly ignoring fallback behavior
+                    if (state.selectedDate && year === state.selectedDate.getFullYear() && month === state.selectedDate.getMonth() && i === state.selectedDate.getDate()) {
                         isActive = true; 
-                    } else if (i === 1 && (year !== today.getFullYear() || month !== today.getMonth())) {
-                        isActive = true;
                     }
-                    days.push({ d: i, active: isActive });
+                    days.push({ d: i, active: isActive, date: new Date(year, month, i) });
                 }
                 
                 // Next month days to complete 35 slots (or 42 if needed)
@@ -785,6 +923,7 @@
                         div.addEventListener('click', () => {
                             document.querySelectorAll('.cal-date').forEach(el => el.classList.remove('active'));
                             div.classList.add('active');
+                            state.selectedDate = dateObj.date; // Preserve selection
                         });
                     }
                     calDaysContainer.appendChild(div);
@@ -852,6 +991,10 @@
                         document.getElementById('cat-title').textContent = cat.name;
                         document.getElementById('cat-sub').textContent = cat.sub;
                         document.getElementById('cat-icon').textContent = cat.icon;
+                        
+                        const iconBox = document.getElementById('cat-icon-box');
+                        iconBox.className = 'icon-box gradient';
+                        
                         document.getElementById('table-title').textContent = `${cat.name} Items`;
                         renderCategoryList();
                         toggleDropdown(true);
@@ -885,6 +1028,10 @@
                     document.getElementById('cat-title').textContent = val;
                     document.getElementById('cat-sub').textContent = 'Custom user category';
                     document.getElementById('cat-icon').textContent = 'category';
+                    
+                    const iconBox = document.getElementById('cat-icon-box');
+                    iconBox.className = 'icon-box gradient';
+                    
                     document.getElementById('table-title').textContent = `${val} Items`;
                     renderCategoryList();
                 }
@@ -923,8 +1070,9 @@
             const totalNumeric = document.getElementById('total-numeric');
             const totalWords = document.getElementById('total-words');
             
-            let itemToDeleteIndex = null;
             const delModal = document.getElementById('delete-modal');
+            const btnBulkDelete = document.getElementById('btn-bulk-delete');
+            const delCount = document.getElementById('del-count');
 
             function renderTable() {
                 tableBody.innerHTML = '';
@@ -937,10 +1085,20 @@
                     
                     // Item Col
                     const tdItem = document.createElement('td');
+                    let checkboxHTML = '';
+                    if (state.isEditMode) {
+                        const isChecked = state.selectedRows.has(index) ? 'checked' : '';
+                        checkboxHTML = `<input type="checkbox" class="row-checkbox" data-index="${index}" ${isChecked} style="margin-right: 10px; width: 16px; height: 16px; accent-color: var(--primary); flex-shrink: 0; cursor: pointer;">`;
+                    }
+
                     tdItem.innerHTML = `
-                        <div class="td-inner">
-                            <span class="item-text">${index + 1}. ${escapeHTML(item.name)}</span>
-                            <span class="material-symbols-outlined mic-icon">mic</span>
+                        <div class="td-inner" style="justify-content: flex-start;">
+                            ${checkboxHTML}
+                            <div style="display: flex; align-items: center; width: 100%; overflow: hidden;">
+                                <span style="font-weight: 500; margin-right: 4px; flex-shrink: 0;">${index + 1}.</span>
+                                <input type="text" class="cell-input" data-field="name" data-index="${index}" value="${item.name ? escapeHTML(item.name) : ''}" placeholder="Item name">
+                            </div>
+                            <span class="material-symbols-outlined mic-icon" style="margin-left: auto;">mic</span>
                         </div>
                     `;
                     tr.appendChild(tdItem);
@@ -949,7 +1107,7 @@
                     const tdQty = document.createElement('td');
                     tdQty.innerHTML = `
                         <div class="td-inner">
-                            <span style="white-space: nowrap;">${escapeHTML(item.qty)}</span>
+                            <input type="text" class="cell-input" data-field="qty" data-index="${index}" value="${item.qty ? escapeHTML(item.qty) : ''}" placeholder="Qty">
                             <span class="material-symbols-outlined mic-icon">mic</span>
                         </div>
                     `;
@@ -957,31 +1115,65 @@
 
                     // Amt Col
                     const tdAmt = document.createElement('td');
-                    tdAmt.innerHTML = `<span class="amt-text">${item.amt === 0 ? '₹0' : item.amt}</span>`;
+                    tdAmt.innerHTML = `
+                        <div style="display: flex; align-items: center;">
+                            <span style="font-weight: 600; color: inherit;">₹</span>
+                            <input type="number" class="cell-input amt-input" data-field="amt" data-index="${index}" value="${item.amt === 0 ? '' : item.amt}" placeholder="0" style="font-weight: 600; text-align: left; padding-left: 2px;">
+                        </div>
+                    `;
                     tr.appendChild(tdAmt);
 
-                    // Del Col
-                    const tdDel = document.createElement('td');
-                    tdDel.className = 'del-cell';
-                    tdDel.style.display = state.isEditMode ? 'table-cell' : 'none';
-                    const delBtn = document.createElement('button');
-                    delBtn.className = 'del-btn';
-                    delBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 17px;">delete</span>`;
-                    delBtn.addEventListener('click', () => promptDelete(index, item.name));
-                    tdDel.appendChild(delBtn);
-                    tr.appendChild(tdDel);
-
                     tableBody.appendChild(tr);
+                });
+
+                // Checkbox Listeners
+                if (state.isEditMode) {
+                    document.querySelectorAll('.row-checkbox').forEach(cb => {
+                        cb.addEventListener('change', (e) => {
+                            const idx = parseInt(e.target.dataset.index);
+                            if (e.target.checked) {
+                                state.selectedRows.add(idx);
+                            } else {
+                                state.selectedRows.delete(idx);
+                            }
+                            updateBulkDeleteUI();
+                        });
+                    });
+                }
+
+                document.querySelectorAll('.cell-input').forEach(input => {
+                    input.addEventListener('input', (e) => {
+                        const idx = parseInt(e.target.dataset.index);
+                        const field = e.target.dataset.field;
+                        
+                        if (field === 'amt') {
+                            const val = parseFloat(e.target.value) || 0;
+                            state.items[idx].amt = val;
+                            
+                            // Dynamically recalculate total on every keystroke
+                            let newTotal = 0;
+                            state.items.forEach(item => newTotal += item.amt);
+                            totalNumeric.textContent = '₹' + newTotal.toLocaleString('en-IN');
+                            totalWords.textContent = numberToWordsINR(newTotal);
+                        } else {
+                            state.items[idx][field] = e.target.value;
+                        }
+                    });
                 });
 
                 // Update Totals
                 totalNumeric.textContent = '₹' + total.toLocaleString('en-IN');
                 totalWords.textContent = numberToWordsINR(total);
-                
-                // Toggle Column headers/footers for Delete
-                document.querySelectorAll('.del-cell').forEach(el => {
-                    el.style.display = state.isEditMode ? 'table-cell' : 'none';
-                });
+            }
+
+            function updateBulkDeleteUI() {
+                const count = state.selectedRows.size;
+                if (count > 0) {
+                    btnBulkDelete.style.display = 'flex';
+                    delCount.textContent = count;
+                } else {
+                    btnBulkDelete.style.display = 'none';
+                }
             }
 
             // Security Helper
@@ -991,28 +1183,39 @@
                 }[tag]));
             }
 
-            function promptDelete(index, name) {
-                itemToDeleteIndex = index;
-                document.getElementById('delete-msg').textContent = `Are you sure you want to remove "${name}"?`;
+            btnBulkDelete.addEventListener('click', () => {
+                const count = state.selectedRows.size;
+                document.getElementById('delete-msg').textContent = `Are you sure you want to remove ${count} selected item(s)?`;
                 delModal.style.display = 'flex';
-            }
+            });
 
             document.getElementById('del-cancel').addEventListener('click', () => {
                 delModal.style.display = 'none';
-                itemToDeleteIndex = null;
             });
 
             document.getElementById('del-confirm').addEventListener('click', () => {
-                if (itemToDeleteIndex !== null) {
-                    state.items.splice(itemToDeleteIndex, 1);
-                    renderTable();
-                }
+                // Delete selected rows (sort descending to safely splice)
+                const indicesToDelete = Array.from(state.selectedRows).sort((a, b) => b - a);
+                indicesToDelete.forEach(idx => {
+                    state.items.splice(idx, 1);
+                });
+                
+                state.selectedRows.clear();
+                
+                // Exit edit mode and return to main table
+                state.isEditMode = false;
+                document.getElementById('edit-toggle').checked = false;
+                document.getElementById('edit-bar').style.display = 'none';
+                
+                updateToggleUI();
+                updateBulkDeleteUI();
+                renderTable();
+                
                 delModal.style.display = 'none';
-                itemToDeleteIndex = null;
             });
 
             document.getElementById('btn-add-row').addEventListener('click', () => {
-                state.items.push({ name: 'New Item', qty: '1 kg', amt: 0 });
+                state.items.push({ name: '', qty: '', amt: 0 });
                 renderTable();
             });
 
@@ -1022,26 +1225,34 @@
             const editStatus = document.getElementById('edit-status');
 
             document.getElementById('btn-kebab').addEventListener('click', () => {
-                editBar.style.display = editBar.style.display === 'flex' ? 'none' : 'flex';
-            });
-
-            document.getElementById('btn-edit-done').addEventListener('click', () => {
-                editBar.style.display = 'none';
-                state.isEditMode = false;
-                editToggle.checked = false;
-                updateToggleUI();
-                renderTable();
+                const isOpening = editBar.style.display !== 'flex';
+                editBar.style.display = isOpening ? 'flex' : 'none';
+                
+                // Automatically turn off edit mode if hiding the bar
+                if (!isOpening && state.isEditMode) {
+                    state.isEditMode = false;
+                    editToggle.checked = false;
+                    state.selectedRows.clear();
+                    updateToggleUI();
+                    updateBulkDeleteUI();
+                    renderTable();
+                }
             });
 
             editToggle.addEventListener('change', (e) => {
                 state.isEditMode = e.target.checked;
+                if (!state.isEditMode) state.selectedRows.clear();
                 updateToggleUI();
+                updateBulkDeleteUI();
                 renderTable();
             });
 
             function updateToggleUI() {
                 editStatus.textContent = state.isEditMode ? 'On' : 'Off';
                 editStatus.style.color = state.isEditMode ? 'var(--primary)' : 'var(--outline)';
+                
+                // Hide "+ Add Row" button when in edit mode
+                document.getElementById('btn-add-row').style.display = state.isEditMode ? 'none' : 'inline-flex';
             }
 
             // Number to Words INR algorithm
@@ -1061,25 +1272,226 @@
                 return str.trim() + ' Rupees Only';
             }
 
+            // --- 6. File Upload Logic ---
+            const fileInput = document.getElementById('file-input');
+            const uploadZone = document.getElementById('upload-zone');
+            const billsContainer = document.getElementById('bills-container');
+            const uploadError = document.getElementById('upload-error');
+            const MAX_FILES = 5;
+            const MAX_SIZE_MB = 10;
+            const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
+
+            uploadZone.addEventListener('click', () => fileInput.click());
+
+            uploadZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadZone.style.borderColor = 'var(--primary)';
+                uploadZone.style.background = 'var(--surface-container-low)';
+            });
+
+            uploadZone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                uploadZone.style.borderColor = 'var(--outline-variant)';
+                uploadZone.style.background = 'var(--input-bg)';
+            });
+
+            uploadZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadZone.style.borderColor = 'var(--outline-variant)';
+                uploadZone.style.background = 'var(--input-bg)';
+                handleFiles(e.dataTransfer.files);
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+                fileInput.value = ''; // reset for same file re-selection
+            });
+
+            function handleFiles(files) {
+                const newFiles = Array.from(files);
+                let validFiles = [];
+                let currentTotalSize = state.bills.reduce((sum, f) => sum + f.size, 0);
+                uploadError.style.display = 'none';
+
+                if (state.bills.length + newFiles.length > MAX_FILES) {
+                    showUploadError(`You can only upload up to ${MAX_FILES} bills.`);
+                    return;
+                }
+
+                for (let f of newFiles) {
+                    if (currentTotalSize + f.size > MAX_SIZE_BYTES) {
+                        showUploadError(`Total size exceeds ${MAX_SIZE_MB}MB limit.`);
+                        break;
+                    }
+                    currentTotalSize += f.size;
+                    validFiles.push(f);
+                }
+
+                state.bills = [...state.bills, ...validFiles];
+                renderBills();
+            }
+
+            function showUploadError(msg) {
+                uploadError.textContent = msg;
+                uploadError.style.display = 'block';
+                setTimeout(() => { uploadError.style.display = 'none'; }, 4000);
+            }
+
+            function renderBills() {
+                billsContainer.innerHTML = '';
+                if (state.bills.length === 0) return;
+
+                let dotsHTML = '';
+                for (let i = 1; i <= MAX_FILES; i++) {
+                    if (i <= state.bills.length) {
+                         dotsHTML += `<span style="width: 14px; height: 5px; border-radius: 99px; background: var(--primary); flex-shrink: 0;"></span>`;
+                    } else {
+                         dotsHTML += `<span style="width: 5px; height: 5px; border-radius: 99px; background: var(--outline-variant); flex-shrink: 0;"></span>`;
+                    }
+                }
+
+                billsContainer.innerHTML = `
+                    <div style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 12px; color: var(--on-surface-variant); font-weight: 600;">Attached Bills (${state.bills.length} of ${MAX_FILES})</span>
+                        <div style="display: flex; gap: 4px; align-items: center;">
+                            ${dotsHTML}
+                        </div>
+                    </div>
+                `;
+
+                state.bills.forEach((file, index) => {
+                    const mbSize = (file.size / (1024 * 1024)).toFixed(2);
+                    const fileCard = document.createElement('div');
+                    fileCard.className = 'file-card';
+                    fileCard.innerHTML = `
+                        <div style="display: flex; gap: 10px; align-items: center; overflow: hidden; max-width: calc(100% - 30px);">
+                            <div class="icon-box gradient" style="width: 38px; height: 38px; box-shadow: 0 2px 6px rgba(123,77,255,0.2); flex-shrink: 0;">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">receipt_long</span>
+                            </div>
+                            <div style="display: flex; flex-direction: column; overflow: hidden; width: 100%;">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span style="font-size: 13px; font-weight: 600; color: var(--on-surface); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; max-width: 100%;">${escapeHTML(file.name)}</span>
+                                    <span style="font-size: 10px; color: #16a34a; background: rgba(22, 163, 74, 0.12); padding: 2px 6px; border-radius: 4px; display: flex; align-items: center; gap: 2px; font-weight: 600; flex-shrink: 0;">
+                                        <span class="material-symbols-outlined" style="font-size: 11px;">check_circle</span> Attached
+                                    </span>
+                                </div>
+                                <span style="font-size: 11px; color: var(--outline); margin-top: 2px;">${mbSize} MB • Ready for upload</span>
+                            </div>
+                        </div>
+                        <button class="del-bill-btn" style="color: var(--outline); padding: 4px; border-radius: 8px; transition: 0.15s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: none; border: none; cursor: pointer;">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+                        </button>
+                    `;
+                    
+                    fileCard.querySelector('.del-bill-btn').addEventListener('click', () => {
+                        state.bills.splice(index, 1);
+                        renderBills();
+                    });
+                    
+                    billsContainer.appendChild(fileCard);
+                });
+            }
+
             // Initial Render
             renderTable();
+            renderBills(); // Initial safe trigger
 
-            // Form Submit Mock
+            // SPA Flow: Save -> Review -> Success -> Done
+            const reviewOverlay = document.getElementById('review-overlay');
+            const successOverlay = document.getElementById('success-overlay');
+
             document.getElementById('save-btn').addEventListener('click', () => {
-                const btn = document.getElementById('save-btn');
-                const origHtml = btn.innerHTML;
-                btn.innerHTML = '<span class="material-symbols-outlined" style="animation: spin 1s linear infinite;">autorenew</span> Saving...';
+                // Populate Review Data
+                const opts = { day: '2-digit', month: 'short', year: 'numeric' };
+                document.getElementById('rev-date').textContent = state.selectedDate.toLocaleDateString('en-GB', opts);
                 
-                // Simulate App Script POST
-                setTimeout(() => {
-                    btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Saved Successfully';
-                    btn.style.background = '#16a34a';
-                    setTimeout(() => {
-                        btn.innerHTML = origHtml;
-                        btn.style.background = 'var(--brand-gradient)';
-                    }, 2000);
-                }, 1000);
+                const cat = categories.find(c => c.name === state.activeCategory) || categories[0];
+                document.getElementById('rev-cat-name').textContent = state.activeCategory || 'Not Selected';
+                document.getElementById('rev-cat-icon').textContent = state.activeCategory ? cat.icon : 'category';
+                
+                const pay = paymentMethods.find(p => p.id === state.activePayment);
+                document.getElementById('rev-pay-name').textContent = pay ? pay.label : 'Not Selected';
+                document.getElementById('rev-pay-icon').textContent = pay ? pay.icon : 'payments';
+
+                const tbody = document.getElementById('rev-items-body');
+                tbody.innerHTML = '';
+                let total = 0;
+                
+                state.items.forEach((item, idx) => {
+                    if (!item.name && item.amt === 0) return; // Skip completely empty rows
+                    total += item.amt;
+                    tbody.innerHTML += `
+                        <div style="display: grid; grid-template-columns: 1.3fr auto 1fr auto 1fr; align-items: stretch; border-bottom: 1px solid var(--surface-variant); background: #fff;">
+                            <div style="padding: 12px 14px; display: flex; align-items: center;"><span style="font-size: 14px; font-weight: 500; color: var(--on-surface);">${idx + 1}. ${escapeHTML(item.name || 'Item')}</span></div>
+                            <div style="width: 1px; background: var(--surface-variant);"></div>
+                            <div style="padding: 12px 14px; display: flex; align-items: center;"><span style="font-size: 14px; font-weight: 500; color: var(--on-surface);">${escapeHTML(item.qty || '-')}</span></div>
+                            <div style="width: 1px; background: var(--surface-variant);"></div>
+                            <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: flex-end;"><span style="font-size: 14px; font-weight: 700; color: var(--on-surface);">${item.amt}</span></div>
+                        </div>
+                    `;
+                });
+
+                document.getElementById('rev-total-num').textContent = '₹' + total.toLocaleString('en-IN');
+                document.getElementById('rev-total-words').textContent = numberToWordsINR(total);
+                document.getElementById('rev-grand-total').textContent = '₹' + total.toLocaleString('en-IN');
+                document.getElementById('rev-grand-words').textContent = numberToWordsINR(total).toUpperCase();
+
+                // Open Modal
+                reviewOverlay.style.display = 'flex';
             });
+
+            document.getElementById('rev-close').addEventListener('click', () => { reviewOverlay.style.display = 'none'; });
+            document.getElementById('rev-btn-edit').addEventListener('click', () => { reviewOverlay.style.display = 'none'; });
+
+            document.getElementById('rev-btn-submit').addEventListener('click', () => {
+                const btn = document.getElementById('rev-btn-submit');
+                const origHtml = btn.innerHTML;
+                btn.innerHTML = '<span class="material-symbols-outlined" style="animation: spin 1s linear infinite;">autorenew</span> Submitting...';
+                
+                // Simulate App Script POST / Save Delay
+                setTimeout(() => {
+                    btn.innerHTML = origHtml;
+                    reviewOverlay.style.display = 'none';
+                    successOverlay.style.display = 'flex';
+                    
+                    // Re-trigger CSS animation for the success checkmark
+                    const checkPath = document.querySelector('.check-path');
+                    checkPath.style.animation = 'none';
+                    checkPath.offsetHeight; /* trigger reflow */
+                    checkPath.style.animation = 'drawCheck 0.4s ease-out 0.4s forwards';
+                }, 800);
+            });
+
+            document.getElementById('success-btn-done').addEventListener('click', () => {
+                successOverlay.style.display = 'none';
+                
+                // Reset State entirely
+                state = {
+                    activeCategory: null,
+                    activePayment: null,
+                    selectedDate: new Date(),
+                    bills: [],
+                    isEditMode: false,
+                    selectedRows: new Set(),
+                    items: [{ name: '', qty: '', amt: 0 }]
+                };
+                
+                // Reset category UI specifically
+                document.getElementById('cat-title').textContent = 'Select Category';
+                document.getElementById('cat-sub').textContent = 'Choose an expense type';
+                document.getElementById('cat-icon').textContent = 'category';
+                document.getElementById('cat-icon-box').className = 'icon-box neutral';
+                document.querySelector('.description-input').value = '';
+                
+                // Re-render everything
+                renderCalendar();
+                renderCategoryList();
+                renderPayments();
+                renderTable();
+                renderBills();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
         });
     </script>
 </body>
