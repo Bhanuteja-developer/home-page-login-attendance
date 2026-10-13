@@ -480,7 +480,7 @@
         .full-overlay.solid { background: var(--surface-bg); z-index: 1100; }
         
         .rev-modal {
-            width: 100%; max-width: 600px; background: var(--surface-container-lowest);
+            width: calc(100% - 24px); max-width: 576px; background: var(--surface-container-lowest);
             border-radius: var(--radius-xl); display: flex; flex-direction: column;
             max-height: 90vh; box-shadow: var(--shadow-l2); overflow: hidden;
             animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -489,7 +489,7 @@
         @keyframes modalPop { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         
         .success-card {
-            width: 100%; max-width: 448px; background: var(--surface-container-lowest);
+            width: calc(100% - 24px); max-width: 576px; background: var(--surface-container-lowest);
             border-radius: var(--radius-xl); box-shadow: var(--shadow-l1); padding: 32px;
             display: flex; flex-direction: column; align-items: center; text-align: center;
             position: relative; overflow: hidden; border: 1px solid rgba(202, 195, 216, 0.25);
@@ -778,7 +778,7 @@
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 4px; justify-content: center;">
                             <span style="font-size: 12px; font-weight: 500; color: var(--outline);">Bill Records</span>
-                            <button style="display: flex; align-items: center; gap: 4px; color: var(--primary); font-size: 14px; font-weight: 600; padding: 0; background: none; border: none; width: max-content;">
+                            <button id="rev-btn-view-bill" style="display: flex; align-items: center; gap: 4px; color: var(--primary); font-size: 14px; font-weight: 600; padding: 0; background: none; border: none; width: max-content; cursor: pointer;">
                                 <span class="material-symbols-outlined" style="font-size: 18px;">receipt_long</span> View Bill
                             </button>
                         </div>
@@ -792,7 +792,7 @@
                                 <div style="width: 1px; background: rgba(255,255,255,0.25);"></div>
                                 <div style="padding: 12px 14px;"><span style="color: #fff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;">QTY</span></div>
                                 <div style="width: 1px; background: rgba(255,255,255,0.25);"></div>
-                                <div style="padding: 12px 14px; text-align: right;"><span style="color: #fff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;">AMOUNT</span></div>
+                                <div style="padding: 12px 14px; text-align: left;"><span style="color: #fff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;">AMOUNT</span></div>
                             </div>
                             <div id="rev-items-body"></div>
                             <div style="background: var(--brand-gradient-light); display: grid; grid-template-columns: 2fr auto 1fr; align-items: stretch; border-top: 1px solid var(--surface-variant);">
@@ -829,6 +829,21 @@
                 <h1 class="text-gradient" style="font-size: 24px; font-weight: 700; margin-bottom: 8px; z-index: 1;">Expense Saved Successfully!</h1>
                 <p style="font-size: 16px; color: var(--outline); margin-bottom: 32px; z-index: 1;">Your transaction has been recorded and your budget updated.</p>
                 <button id="success-btn-done" style="width: 100%; height: 48px; border-radius: var(--radius-btn); background: var(--brand-gradient); color: #fff; font-weight: 600; font-size: 14px; box-shadow: var(--shadow-l2); z-index: 1; border: none; cursor: pointer;">Done</button>
+            </div>
+        </div>
+
+        <!-- Bill Preview Overlay -->
+        <div class="full-overlay" id="bill-preview-overlay" style="z-index: 1050;">
+            <div class="rev-modal" style="background: var(--surface-bg); height: 85vh;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--surface-variant);">
+                    <h2 class="text-gradient" style="font-size: 20px; font-weight: 700;">Bill Preview</h2>
+                    <button id="bill-preview-close" style="width: 40px; height: 40px; border-radius: 50%; background: var(--surface-container-high); color: var(--on-surface-variant); display: flex; align-items: center; justify-content: center; transition: 0.2s; cursor: pointer; border: none;">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div id="bill-preview-images" class="hide-scrollbar" style="overflow-y: auto; padding: 24px; display: flex; flex-direction: column; flex: 1;">
+                    <!-- Images dynamically added here -->
+                </div>
             </div>
         </div>
 
@@ -1426,7 +1441,7 @@
                             <div style="width: 1px; background: var(--surface-variant);"></div>
                             <div style="padding: 12px 14px; display: flex; align-items: center;"><span style="font-size: 14px; font-weight: 500; color: var(--on-surface);">${escapeHTML(item.qty || '-')}</span></div>
                             <div style="width: 1px; background: var(--surface-variant);"></div>
-                            <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: flex-end;"><span style="font-size: 14px; font-weight: 700; color: var(--on-surface);">${item.amt}</span></div>
+                            <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: flex-start;"><span style="font-size: 14px; font-weight: 700; color: var(--on-surface);">${item.amt}</span></div>
                         </div>
                     `;
                 });
@@ -1442,6 +1457,61 @@
 
             document.getElementById('rev-close').addEventListener('click', () => { reviewOverlay.style.display = 'none'; });
             document.getElementById('rev-btn-edit').addEventListener('click', () => { reviewOverlay.style.display = 'none'; });
+
+            // Bill Preview Logic
+            const billPreviewOverlay = document.getElementById('bill-preview-overlay');
+            
+            document.getElementById('rev-btn-view-bill').addEventListener('click', () => {
+                const previewContainer = document.getElementById('bill-preview-images');
+                previewContainer.innerHTML = '';
+                
+                if (state.bills.length === 0) {
+                    previewContainer.innerHTML = '<div style="text-align:center; color: var(--outline); padding: 40px 20px; font-weight: 500;">No bills attached to this expense.</div>';
+                } else {
+                    state.bills.forEach(file => {
+                        const fileUrl = URL.createObjectURL(file);
+                        const fileWrapper = document.createElement('div');
+                        fileWrapper.style.marginBottom = '20px';
+                        
+                        const title = document.createElement('div');
+                        title.textContent = file.name;
+                        title.style.fontSize = '12px';
+                        title.style.fontWeight = '600';
+                        title.style.color = 'var(--outline)';
+                        title.style.marginBottom = '8px';
+                        fileWrapper.appendChild(title);
+                        
+                        if (file.type === 'application/pdf') {
+                            const iframe = document.createElement('iframe');
+                            iframe.src = fileUrl;
+                            iframe.style.width = '100%';
+                            iframe.style.height = '400px';
+                            iframe.style.border = '1px solid var(--outline-variant)';
+                            iframe.style.borderRadius = '12px';
+                            fileWrapper.appendChild(iframe);
+                        } else {
+                            const img = document.createElement('img');
+                            img.src = fileUrl;
+                            img.style.width = '100%';
+                            img.style.height = 'auto';
+                            img.style.borderRadius = '12px';
+                            img.style.boxShadow = 'var(--shadow-sm)';
+                            img.style.border = '1px solid var(--outline-variant)';
+                            fileWrapper.appendChild(img);
+                        }
+                        previewContainer.appendChild(fileWrapper);
+                    });
+                }
+                billPreviewOverlay.style.display = 'flex';
+            });
+
+            document.getElementById('bill-preview-close').addEventListener('click', () => {
+                billPreviewOverlay.style.display = 'none';
+                // Revoke object URLs to free memory
+                const previewContainer = document.getElementById('bill-preview-images');
+                const mediaElements = previewContainer.querySelectorAll('img, iframe');
+                mediaElements.forEach(el => URL.revokeObjectURL(el.src));
+            });
 
             document.getElementById('rev-btn-submit').addEventListener('click', () => {
                 const btn = document.getElementById('rev-btn-submit');
