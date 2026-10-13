@@ -694,8 +694,8 @@
 
             <section class="card">
                 <div class="section-header" style="margin-bottom: 12px;">
-                    <h2 class="section-title">Expense Description (Optional)</h2>
-                    <span style="font-size: 11px; color: var(--outline); font-weight: 500;">Notes & tags</span>
+                    <h2 class="section-title">Expense Description</h2>
+                    <span style="font-size: 11px; color: var(--error); font-weight: 600;">* Mandatory field</span>
                 </div>
                 <textarea class="description-input" placeholder="Add notes about this expense..."></textarea>
             </section>
@@ -712,6 +712,18 @@
             <button class="nav-item"><span class="material-symbols-outlined">history</span>History</button>
             <button class="nav-item"><span class="material-symbols-outlined">person</span>Profile</button>
         </nav>
+
+        <!-- Error Modal -->
+        <div class="modal-overlay" id="error-modal" style="z-index: 1200;">
+            <div class="modal-content">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: #fee2e2; color: var(--error); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                    <span class="material-symbols-outlined" style="font-size: 26px;">error</span>
+                </div>
+                <h3 style="font-size: 16px; font-weight: 700; color: var(--on-surface); margin-bottom: 6px;">Missing Details</h3>
+                <p id="error-msg" style="font-size: 13px; color: var(--outline); margin-bottom: 20px;">Please fill the required fields.</p>
+                <button id="error-ok" style="width: 100%; padding: 10px; border-radius: 12px; background: var(--brand-gradient); color: #fff; font-weight: 600; font-size: 13px; box-shadow: var(--shadow-l2); border: none; cursor: pointer;">OK</button>
+            </div>
+        </div>
 
         <!-- Delete Modal -->
         <div class="modal-overlay" id="delete-modal">
@@ -737,6 +749,18 @@
                     <button id="cat-cancel" style="flex: 1; padding: 10px; border-radius: 12px; border: 1px solid var(--outline-variant); background: #fff; font-weight: 600; font-size: 13px;">Cancel</button>
                     <button id="cat-add" style="flex: 1; padding: 10px; border-radius: 12px; background: var(--brand-gradient); color: #fff; font-weight: 600; font-size: 13px; box-shadow: var(--shadow-l2);">Add</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Validation Modal -->
+        <div class="modal-overlay" id="validation-modal">
+            <div class="modal-content">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: #fee2e2; color: var(--error); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                    <span class="material-symbols-outlined" style="font-size: 26px;">error</span>
+                </div>
+                <h3 style="font-size: 16px; font-weight: 700; color: var(--on-surface); margin-bottom: 6px;">Missing Details</h3>
+                <div id="validation-msg" style="font-size: 13px; color: var(--outline); margin-bottom: 20px; text-align: left; line-height: 1.6;"></div>
+                <button id="val-close" style="width: 100%; padding: 10px; border-radius: 12px; background: var(--brand-gradient); color: #fff; font-weight: 600; font-size: 13px; box-shadow: var(--shadow-l2); border: none; cursor: pointer;">Got it</button>
             </div>
         </div>
 
@@ -787,21 +811,21 @@
                     <div>
                         <h3 class="text-gradient" style="font-size: 20px; font-weight: 700; margin-bottom: 8px; display: inline-block;">Item Breakdown</h3>
                         <div style="background: #fff; border-radius: 16px; border: 1px solid rgba(202, 195, 216, 0.4); overflow: hidden; box-shadow: var(--shadow-sm);">
-                            <div style="background: var(--brand-gradient); display: grid; grid-template-columns: 1.3fr auto 1fr auto 1fr; align-items: stretch;">
+                            <div style="background: var(--brand-gradient); display: grid; grid-template-columns: 1.3fr 1px 1fr 1px 1fr; align-items: stretch;">
                                 <div style="padding: 12px 14px;"><span style="color: #fff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;">ITEMS</span></div>
-                                <div style="width: 1px; background: rgba(255,255,255,0.25);"></div>
+                                <div style="background: rgba(255,255,255,0.25);"></div>
                                 <div style="padding: 12px 14px;"><span style="color: #fff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;">QTY</span></div>
-                                <div style="width: 1px; background: rgba(255,255,255,0.25);"></div>
+                                <div style="background: rgba(255,255,255,0.25);"></div>
                                 <div style="padding: 12px 14px; text-align: left;"><span style="color: #fff; font-weight: 700; font-size: 11px; letter-spacing: 0.06em;">AMOUNT</span></div>
                             </div>
                             <div id="rev-items-body"></div>
-                            <div style="background: var(--brand-gradient-light); display: grid; grid-template-columns: 2fr auto 1fr; align-items: stretch; border-top: 1px solid var(--surface-variant);">
-                                <div style="padding: 14px 18px;">
+                            <div style="background: var(--brand-gradient-light); display: grid; grid-template-columns: 1.3fr 1px 1fr 1px 1fr; align-items: stretch; border-top: 1px solid var(--surface-variant);">
+                                <div style="grid-column: 1 / 4; padding: 14px 18px;">
                                     <div style="color: var(--primary); font-weight: 700; font-size: 12px; letter-spacing: 0.05em;">TOTAL AMOUNT</div>
                                     <div id="rev-total-words" style="color: var(--outline); font-size: 11px; margin-top: 3px; font-weight: 500;">Zero Rupees Only</div>
                                 </div>
-                                <div style="width: 1px; background: rgba(123, 77, 255, 0.12);"></div>
-                                <div style="padding: 14px 18px; display: flex; align-items: center; justify-content: flex-end;">
+                                <div style="background: rgba(123, 77, 255, 0.12);"></div>
+                                <div style="padding: 14px 14px; display: flex; align-items: center; justify-content: flex-start;">
                                     <div id="rev-total-num" style="color: var(--primary); font-size: 20px; font-weight: 700;">₹0</div>
                                 </div>
                             </div>
@@ -1133,7 +1157,7 @@
                     tdAmt.innerHTML = `
                         <div style="display: flex; align-items: center;">
                             <span style="font-weight: 600; color: inherit;">₹</span>
-                            <input type="number" class="cell-input amt-input" data-field="amt" data-index="${index}" value="${item.amt === 0 ? '' : item.amt}" placeholder="0" style="font-weight: 600; text-align: left; padding-left: 2px;">
+                            <input type="text" inputmode="decimal" class="cell-input amt-input" data-field="amt" data-index="${index}" value="${item.amt === 0 ? '' : item.amt.toLocaleString('en-IN')}" placeholder="0" style="font-weight: 600; text-align: left; padding-left: 2px;">
                         </div>
                     `;
                     tr.appendChild(tdAmt);
@@ -1162,8 +1186,37 @@
                         const field = e.target.dataset.field;
                         
                         if (field === 'amt') {
-                            const val = parseFloat(e.target.value) || 0;
+                            // Strip existing commas and any non-numeric/decimal characters
+                            let rawStr = e.target.value.replace(/,/g, '').replace(/[^0-9.]/g, '');
+                            
+                            // Prevent multiple decimals
+                            const parts = rawStr.split('.');
+                            if (parts.length > 2) {
+                                parts.pop();
+                                rawStr = parts.join('.');
+                            }
+
+                            const val = parseFloat(rawStr) || 0;
                             state.items[idx].amt = val;
+
+                            // Reformat string with commas while typing
+                            if (rawStr !== '') {
+                                // Save cursor position to prevent jumping
+                                let cursorPosition = e.target.selectionStart;
+                                let oldLength = e.target.value.length;
+                                
+                                let integerPart = parts[0] ? parseInt(parts[0], 10).toLocaleString('en-IN') : '0';
+                                let formattedStr = parts.length > 1 ? integerPart + '.' + parts[1] : integerPart;
+                                
+                                e.target.value = formattedStr;
+                                
+                                // Restore and adjust cursor position 
+                                let newLength = e.target.value.length;
+                                cursorPosition += (newLength - oldLength);
+                                e.target.setSelectionRange(cursorPosition, cursorPosition);
+                            } else {
+                                e.target.value = '';
+                            }
                             
                             // Dynamically recalculate total on every keystroke
                             let newTotal = 0;
@@ -1414,8 +1467,50 @@
             // SPA Flow: Save -> Review -> Success -> Done
             const reviewOverlay = document.getElementById('review-overlay');
             const successOverlay = document.getElementById('success-overlay');
+            
+            document.getElementById('val-close').addEventListener('click', () => {
+                document.getElementById('validation-modal').style.display = 'none';
+            });
 
             document.getElementById('save-btn').addEventListener('click', () => {
+                let errors = [];
+
+                // Validations
+                if (!state.activeCategory) errors.push("Select a Category");
+                
+                let validRows = 0;
+                let incompleteRows = [];
+                state.items.forEach((item, idx) => {
+                    const hasName = (item.name || '').trim() !== '';
+                    const hasQty = (item.qty || '').trim() !== '';
+                    const hasAmt = item.amt > 0;
+                    
+                    if (hasName && hasQty && hasAmt) {
+                        validRows++;
+                    } else if (hasName || hasQty || hasAmt) {
+                        incompleteRows.push(`Row ${idx + 1} is incomplete (requires Item, Qty, and Amount)`);
+                    }
+                });
+                
+                if (validRows === 0 && incompleteRows.length === 0) {
+                    errors.push("Add at least one expense item");
+                } else if (incompleteRows.length > 0) {
+                    errors = errors.concat(incompleteRows);
+                }
+
+                if (!state.activePayment) errors.push("Select a Payment Mode");
+                
+                const desc = document.querySelector('.description-input').value.trim();
+                if (!desc) errors.push("Add an Expense Description (Notes & tags)");
+
+                // Show numbered error list if validation fails
+                if (errors.length > 0) {
+                    const errorHTML = errors.map((err, i) => `${i + 1}. ${err}`).join('<br>');
+                    document.getElementById('validation-msg').innerHTML = errorHTML;
+                    document.getElementById('validation-modal').style.display = 'flex';
+                    return;
+                }
+
                 // Populate Review Data
                 const opts = { day: '2-digit', month: 'short', year: 'numeric' };
                 document.getElementById('rev-date').textContent = state.selectedDate.toLocaleDateString('en-GB', opts);
@@ -1428,6 +1523,18 @@
                 document.getElementById('rev-pay-name').textContent = pay ? pay.label : 'Not Selected';
                 document.getElementById('rev-pay-icon').textContent = pay ? pay.icon : 'payments';
 
+                // Update Bill View Button state based on attachments
+                const btnViewBill = document.getElementById('rev-btn-view-bill');
+                if (state.bills.length === 0) {
+                    btnViewBill.innerHTML = '<span class="material-symbols-outlined" style="font-size: 18px;">receipt_off</span> No Bill';
+                    btnViewBill.style.color = 'var(--outline)';
+                    btnViewBill.style.cursor = 'default';
+                } else {
+                    btnViewBill.innerHTML = '<span class="material-symbols-outlined" style="font-size: 18px;">receipt_long</span> View Bill';
+                    btnViewBill.style.color = 'var(--primary)';
+                    btnViewBill.style.cursor = 'pointer';
+                }
+
                 const tbody = document.getElementById('rev-items-body');
                 tbody.innerHTML = '';
                 let total = 0;
@@ -1436,12 +1543,12 @@
                     if (!item.name && item.amt === 0) return; // Skip completely empty rows
                     total += item.amt;
                     tbody.innerHTML += `
-                        <div style="display: grid; grid-template-columns: 1.3fr auto 1fr auto 1fr; align-items: stretch; border-bottom: 1px solid var(--surface-variant); background: #fff;">
+                        <div style="display: grid; grid-template-columns: 1.3fr 1px 1fr 1px 1fr; align-items: stretch; border-bottom: 1px solid var(--surface-variant); background: #fff;">
                             <div style="padding: 12px 14px; display: flex; align-items: center;"><span style="font-size: 14px; font-weight: 500; color: var(--on-surface);">${idx + 1}. ${escapeHTML(item.name || 'Item')}</span></div>
-                            <div style="width: 1px; background: var(--surface-variant);"></div>
+                            <div style="background: var(--surface-variant);"></div>
                             <div style="padding: 12px 14px; display: flex; align-items: center;"><span style="font-size: 14px; font-weight: 500; color: var(--on-surface);">${escapeHTML(item.qty || '-')}</span></div>
-                            <div style="width: 1px; background: var(--surface-variant);"></div>
-                            <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: flex-start;"><span style="font-size: 14px; font-weight: 700; color: var(--on-surface);">${item.amt}</span></div>
+                            <div style="background: var(--surface-variant);"></div>
+                            <div style="padding: 12px 14px; display: flex; align-items: center; justify-content: flex-start;"><span style="font-size: 14px; font-weight: 700; color: var(--on-surface);">${item.amt.toLocaleString('en-IN')}</span></div>
                         </div>
                     `;
                 });
@@ -1462,6 +1569,8 @@
             const billPreviewOverlay = document.getElementById('bill-preview-overlay');
             
             document.getElementById('rev-btn-view-bill').addEventListener('click', () => {
+                if (state.bills.length === 0) return; // Guard clause if no bills
+
                 const previewContainer = document.getElementById('bill-preview-images');
                 previewContainer.innerHTML = '';
                 
