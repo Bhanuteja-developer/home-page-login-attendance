@@ -789,6 +789,95 @@
             margin-top: 4px;
         }
 
+        .daily-chart-container {
+            height: 195px;
+            width: 100%;
+            margin-top: 6px;
+            position: relative;
+        }
+
+        .daily-header-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-fullscreen-toggle {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: var(--color-on-surface-variant);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+            padding: 0;
+        }
+
+        .btn-fullscreen-toggle:hover {
+            background-color: rgba(123, 77, 255, 0.08);
+            color: var(--color-primary);
+        }
+
+        .btn-fullscreen-toggle:active {
+            transform: scale(0.92);
+        }
+
+        .chart-section.is-fullscreen-landscape {
+            position: fixed !important;
+            z-index: 9999 !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            background: #ffffff !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            border: none !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            padding: 18px 28px 20px !important;
+            overflow: hidden !important;
+        }
+
+        @media (orientation: portrait) {
+            .chart-section.is-fullscreen-landscape {
+                top: 50% !important;
+                left: 50% !important;
+                width: 100vh !important;
+                height: 100vw !important;
+                transform: translate(-50%, -50%) rotate(90deg) !important;
+            }
+        }
+
+        @media (orientation: landscape) {
+            .chart-section.is-fullscreen-landscape {
+                inset: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                transform: none !important;
+            }
+        }
+
+        .chart-section.is-fullscreen-landscape . chart-container,
+        .chart-section.is-fullscreen-landscape #view-aug-trend,
+        .chart-section.is-fullscreen-landscape #view-aug-bar {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+        }
+
+        .chart-section.is-fullscreen-landscape .daily-chart-container {
+            flex: 1 1 auto;
+            height: calc(100% - 10px) !important;
+            min-height: 200px;
+        }
+
         .chart-labels {
             display: flex;
             justify-content: space-between;
@@ -1377,7 +1466,7 @@
             </div>
         </section>
 
-        <section class="chart-section">
+        <section class="chart-section" id="daily-spending-section">
             <div class="flex justify-between items-center">
                 <div class="section-title-group">
                     <div class="section-icon-wrap">
@@ -1385,94 +1474,38 @@
                     </div>
                     <h3 class="text-on-surface text-label-md font-semibold">Daily Spending Analysis</h3>
                 </div>
-                <div class="segmented-control">
-                    <button class="segmented-btn active" id="btn-trend" data-trend-view="trend" type="button">Trend</button>
-                    <button class="segmented-btn" id="btn-bar-trend" data-trend-view="bar" type="button">Bar</button>
+                <div class="daily-header-controls">
+                    <button aria-label="Toggle Fullscreen Landscape" class="btn-fullscreen-toggle" id="btn-daily-fullscreen" title="Full Screen Landscape" type="button">
+                        <svg id="fullscreen-enter-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3"></path>
+                            <path d="M21 8V5a2 2 0 0 0-2-2h-3"></path>
+                            <path d="M3 16v3a2 2 0 0 0 2 2h3"></path>
+                            <path d="M16 21h3a2 2 0 0 0 2-2v-3"></path>
+                        </svg>
+                        <svg id="fullscreen-exit-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                            <path d="M8 3v3a2 2 0 0 1-2 2H3"></path>
+                            <path d="M21 8h-3a2 2 0 0 1-2-2V3"></path>
+                            <path d="M3 16h3a2 2 0 0 1 2 2v3"></path>
+                            <path d="M16 21v-3a2 2 0 0 1 2-2h3"></path>
+                        </svg>
+                    </button>
+                    <div class="segmented-control">
+                        <button class="segmented-btn active" id="btn-trend" data-trend-view="trend" type="button">Trend</button>
+                        <button class="segmented-btn" id="btn-bar-trend" data-trend-view="bar" type="button">Bar</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="chart-container">
+            <div class="chart-container" style="flex: 1;">
                 <div id="view-aug-trend" style="display: block;">
-                    <div class="line-chart-container">
-                        <svg height="100%" preserveAspectRatio="none" viewBox="0 0 300 120" width="100%">
-                            <defs>
-                                <linearGradient id="augTrendGrad" x1="0" x2="1" y1="0" y2="0">
-                                    <stop offset="0%" stop-color="#7B4DFF"></stop>
-                                    <stop offset="50%" stop-color="#9d4edd"></stop>
-                                    <stop offset="100%" stop-color="#FF6B3D"></stop>
-                                </linearGradient>
-                                <linearGradient id="augFillGrad" x1="0" x2="0" y1="0" y2="1">
-                                    <stop offset="0%" stop-color="#7B4DFF" stop-opacity="0.28"></stop>
-                                    <stop offset="100%" stop-color="#7B4DFF" stop-opacity="0"></stop>
-                                </linearGradient>
-                            </defs>
-                            <line stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="300" y1="108" y2="108"></line>
-                            <line stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="300" y1="70" y2="70"></line>
-                            <line stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="300" y1="32" y2="32"></line>
-                            <path d="M 0 108 L 10 101 L 20 87 L 30 102 L 40 54 L 50 104 L 60 99 L 70 82 L 80 103 L 90 94 L 100 15 L 110 108 L 120 101 L 130 89 L 140 98 L 150 69 L 160 103 L 170 108 L 178 108 L 178 108 L 300 108 L 300 118 L 0 118 Z" fill="url(#augFillGrad)"></path>
-                            <path d="M 0 108 C 5 108, 6 101, 10 101 C 14 101, 16 87, 20 87 C 24 87, 26 102, 30 102 C 34 102, 36 54, 40 54 C 44 54, 46 104, 50 104 C 54 104, 56 99, 60 99 C 64 99, 66 82, 70 82 C 74 82, 76 103, 80 103 C 84 103, 86 94, 90 94 C 94 94, 96 15, 100 15 C 104 15, 106 108, 110 108 C 114 108, 116 101, 120 101 C 124 101, 126 89, 130 89 C 134 89, 136 98, 140 98 C 144 98, 146 69, 150 69 C 154 69, 156 103, 160 103 C 164 103, 166 108, 170 108 C 173 108, 175 108, 178 108 L 300 108" fill="none" stroke="url(#augTrendGrad)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8"></path>
-                            <circle cx="40" cy="54" fill="#FF6B3D" r="3.5" stroke="#ffffff" stroke-width="1.5"></circle>
-                            <circle cx="100" cy="15" fill="#ba1a1a" r="4" stroke="#ffffff" stroke-width="1.8"></circle>
-                            <circle cx="150" cy="69" fill="#ae3203" r="3.5" stroke="#ffffff" stroke-width="1.5"></circle>
-                            <circle cx="178" cy="108" fill="#622ce5" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
-                            <line stroke="#622ce5" stroke-dasharray="2 2" stroke-width="1.2" x1="178" x2="178" y1="10" y2="108"></line>
-                            <rect fill="#622ce5" height="14" rx="4" width="18" x="169" y="8"></rect>
-                            <text fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="178" y="19">18</text>
-                        </svg>
-                    </div>
-                    <div class="chart-labels text-label-sm">
-                        <span>1st</span><span>10th</span><span>18th (Today)</span><span>30th</span>
+                    <div class="daily-chart-container">
+                        <svg id="daily-trend-svg" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 496 225" width="100%"></svg>
                     </div>
                 </div>
 
                 <div id="view-aug-bar" style="display: none;">
-                    <div class="line-chart-container">
-                        <svg height="100%" preserveAspectRatio="none" viewBox="0 0 300 160" width="100%">
-                            <defs>
-                                <linearGradient id="augBarGrad" x1="0" x2="0" y1="0" y2="1">
-                                    <stop offset="0%" stop-color="#7B4DFF"></stop>
-                                    <stop offset="100%" stop-color="#FF6B3D"></stop>
-                                </linearGradient>
-                                <linearGradient id="augPeakGrad" x1="0" x2="0" y1="0" y2="1">
-                                    <stop offset="0%" stop-color="#ef4444"></stop>
-                                    <stop offset="100%" stop-color="#b91c1c"></stop>
-                                </linearGradient>
-                            </defs>
-                            <rect fill="url(#augBarGrad)" height="10" rx="2" width="6" x="3" y="146"></rect>
-                            <rect fill="url(#augBarGrad)" height="29" rx="2" width="6" x="13" y="127"></rect>
-                            <rect fill="url(#augBarGrad)" height="8" rx="2" width="6" x="23" y="148"></rect>
-                            <rect fill="url(#augPeakGrad)" height="80" rx="2" width="6" x="33" y="76"></rect>
-                            <rect fill="url(#augBarGrad)" height="6" rx="2" width="6" x="43" y="150"></rect>
-                            <rect fill="url(#augBarGrad)" height="13" rx="2" width="6" x="53" y="143"></rect>
-                            <rect fill="url(#augBarGrad)" height="36" rx="2" width="6" x="63" y="120"></rect>
-                            <rect fill="url(#augBarGrad)" height="7" rx="2" width="6" x="73" y="149"></rect>
-                            <rect fill="url(#augBarGrad)" height="20" rx="2" width="6" x="83" y="136"></rect>
-                            <rect fill="url(#augPeakGrad)" height="140" rx="2" width="6" x="93" y="16"></rect>
-                            <rect fill="#10b981" height="3" rx="1" width="6" x="103" y="153"></rect>
-                            <rect fill="url(#augBarGrad)" height="10" rx="2" width="6" x="113" y="146"></rect>
-                            <rect fill="url(#augBarGrad)" height="26" rx="2" width="6" x="123" y="130"></rect>
-                            <rect fill="url(#augBarGrad)" height="15" rx="2" width="6" x="133" y="141"></rect>
-                            <rect fill="url(#augPeakGrad)" height="56" rx="2" width="6" x="143" y="100"></rect>
-                            <rect fill="url(#augBarGrad)" height="8" rx="2" width="6" x="153" y="148"></rect>
-                            <rect fill="#10b981" height="3" rx="1" width="6" x="163" y="153"></rect>
-                            <rect fill="#622ce5" height="24" rx="2" stroke="#7B4DFF" stroke-dasharray="2 2" stroke-width="1" width="6" x="173" y="132"></rect>
-                            <text fill="#622ce5" font-family="Inter, sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="176" y="126">?</text>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="183" y="154"></rect>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="193" y="154"></rect>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="203" y="154"></rect>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="213" y="154"></rect>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="223" y="154"></rect>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="233" y="154"></rect>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="243" y="154"></rect>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="253" y="154"></rect>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="263" y="154"></rect>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="273" y="154"></rect>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="283" y="154"></rect>
-                            <rect fill="#e5e2e1" height="2" rx="1" width="6" x="291" y="154"></rect>
-                        </svg>
-                    </div>
-                    <div class="chart-labels text-label-sm">
-                        <span>1st</span><span>10th</span><span>18th (Today)</span><span>30th</span>
+                    <div class="daily-chart-container">
+                        <svg id="daily-bar-svg" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 496 225" width="100%"></svg>
                     </div>
                 </div>
             </div>
@@ -2009,6 +2042,184 @@
             document.getElementById('btn-cal-tune')?.addEventListener('click', toggleCalendarMode);
         };
 
+        const initDailySpendingCharts = () => {
+            const barSvg = document.getElementById('daily-bar-svg');
+            const trendSvg = document.getElementById('daily-trend-svg');
+            if (!barSvg || !trendSvg) return;
+
+            const getOrdinalLabel = (n) => {
+                const s = ['th', 'st', 'nd', 'rd'];
+                const v = n % 100;
+                return n + (s[(v - 20) % 10] || s[v] || s[0]);
+            };
+
+            // Extract the 31 days of October 2026 from calendarDaysData
+            const octDays = calendarDaysData.filter(d => d.type !== 'muted' && d.type !== 'muted-end');
+            const maxVal = 1150; // Peak in October 2026 is ₹1,150 on 10th
+            const baselineY = 182;
+            const maxBarHeight = 132;
+            const startX = 14;
+            const stepX = 15.6;
+            const barWidth = 8.5;
+
+            // 1. Build Bar Graph SVG (matching reference bargraph.png)
+            let barMarkup = `
+                <defs>
+                    <linearGradient id="octBarGrad" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="#7B4DFF"></stop>
+                        <stop offset="55%" stop-color="#9d4edd"></stop>
+                        <stop offset="100%" stop-color="#FF6B3D"></stop>
+                    </linearGradient>
+                </defs>
+            `;
+
+            octDays.forEach((item, idx) => {
+                const cx = +(startX + idx * stepX).toFixed(2);
+                const rawNumeric = item.amount ? Number(String(item.amount).replace(/[^0-9]/g, '')) : 0;
+                const val = Number.isFinite(rawNumeric) ? rawNumeric : 0;
+                const dateLabel = getOrdinalLabel(item.day);
+
+                if (val > 0) {
+                    const h = Math.max(8, Math.round((val / maxVal) * maxBarHeight));
+                    const y = baselineY - h;
+                    const formattedVal = val.toLocaleString('en-IN');
+                    const labelY = y - 5;
+
+                    barMarkup += `
+                        <g>
+                            <rect x="${(cx - barWidth / 2).toFixed(2)}" y="${y}" width="${barWidth}" height="${h}" rx="4.2" fill="url(#octBarGrad)"></rect>
+                            <text x="${cx}" y="${labelY}" fill="#1e293b" font-family="Inter, sans-serif" font-size="9.5" font-weight="600" text-anchor="start" dominant-baseline="central" transform="rotate(-90 ${cx} ${labelY})">${formattedVal}</text>
+                        </g>
+                    `;
+                }
+
+                // X-axis date label (1st .. 31st) rotated vertically
+                const axisLabelY = 192;
+                const labelColor = item.type === 'today' ? '#622ce5' : '#64748b';
+                const labelWeight = item.type === 'today' ? '700' : '600';
+                barMarkup += `
+                    <text x="${cx}" y="${axisLabelY}" fill="${labelColor}" font-family="Inter, sans-serif" font-size="9" font-weight="${labelWeight}" text-anchor="end" dominant-baseline="central" transform="rotate(-90 ${cx} ${axisLabelY})">${dateLabel}</text>
+                `;
+            });
+
+            barSvg.innerHTML = barMarkup;
+
+            // 2. Build Trend Graph SVG with matching 1st-31st X-axis dates
+            let trendMarkup = `
+                <defs>
+                    <linearGradient id="augTrendGrad" x1="0" x2="1" y1="0" y2="0">
+                        <stop offset="0%" stop-color="#7B4DFF"></stop>
+                        <stop offset="50%" stop-color="#9d4edd"></stop>
+                        <stop offset="100%" stop-color="#FF6B3D"></stop>
+                    </linearGradient>
+                    <linearGradient id="augFillGrad" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="#7B4DFF" stop-opacity="0.28"></stop>
+                        <stop offset="100%" stop-color="#7B4DFF" stop-opacity="0"></stop>
+                    </linearGradient>
+                </defs>
+                <line stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.6" x1="8" x2="488" y1="${baselineY}" y2="${baselineY}"></line>
+                <line stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.6" x1="8" x2="488" y1="${Math.round(baselineY - maxBarHeight * 0.5)}" y2="${Math.round(baselineY - maxBarHeight * 0.5)}"></line>
+                <line stroke="#cac3d8" stroke-dasharray="4" stroke-width="0.6" x1="8" x2="488" y1="${baselineY - maxBarHeight}" y2="${baselineY - maxBarHeight}"></line>
+            `;
+
+            const points = octDays.map((item, idx) => {
+                const cx = +(startX + idx * stepX).toFixed(2);
+                const rawNumeric = item.amount ? Number(String(item.amount).replace(/[^0-9]/g, '')) : 0;
+                const val = Number.isFinite(rawNumeric) ? rawNumeric : 0;
+                const cy = val > 0 ? Math.round(baselineY - (val / maxVal) * maxBarHeight) : baselineY;
+                return { cx, cy, val, day: item.day, type: item.type };
+            });
+
+            // Smooth cubic bezier path
+            let linePath = `M ${points[0].cx} ${points[0].cy}`;
+            for (let i = 0; i < points.length - 1; i++) {
+                const p0 = points[i];
+                const p1 = points[i + 1];
+                const midX = +((p0.cx + p1.cx) / 2).toFixed(2);
+                linePath += ` C ${midX} ${p0.cy}, ${midX} ${p1.cy}, ${p1.cx} ${p1.cy}`;
+            }
+
+            const areaPath = `${linePath} L ${points[points.length - 1].cx} ${baselineY} L ${points[0].cx} ${baselineY} Z`;
+            trendMarkup += `<path d="${areaPath}" fill="url(#augFillGrad)"></path>`;
+            trendMarkup += `<path d="${linePath}" fill="none" stroke="url(#augTrendGrad)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8"></path>`;
+
+            // Highlight peak points & Today marker + X-axis labels
+            points.forEach((pt) => {
+                const dateLabel = getOrdinalLabel(pt.day);
+                const axisLabelY = 192;
+                const labelColor = pt.type === 'today' ? '#622ce5' : '#64748b';
+                const labelWeight = pt.type === 'today' ? '700' : '600';
+
+                if (pt.val >= 690) {
+                    const dotColor = pt.val >= 1000 ? '#ba1a1a' : '#FF6B3D';
+                    trendMarkup += `<circle cx="${pt.cx}" cy="${pt.cy}" fill="${dotColor}" r="3.8" stroke="#ffffff" stroke-width="1.6"></circle>`;
+                }
+
+                if (pt.type === 'today') {
+                    trendMarkup += `
+                        <line stroke="#622ce5" stroke-dasharray="2.5 2.5" stroke-width="1.3" x1="${pt.cx}" x2="${pt.cx}" y1="24" y2="${baselineY}"></line>
+                        <circle cx="${pt.cx}" cy="${pt.cy}" fill="#622ce5" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+                        <rect fill="#622ce5" height="15" rx="4" width="22" x="${(pt.cx - 11).toFixed(2)}" y="12"></rect>
+                        <text fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="${pt.cx}" y="23">${pt.day}</text>
+                    `;
+                }
+
+                trendMarkup += `
+                    <text x="${pt.cx}" y="${axisLabelY}" fill="${labelColor}" font-family="Inter, sans-serif" font-size="9" font-weight="${labelWeight}" text-anchor="end" dominant-baseline="central" transform="rotate(-90 ${pt.cx} ${axisLabelY})">${dateLabel}</text>
+                `;
+            });
+
+            trendSvg.innerHTML = trendMarkup;
+
+            // Fullscreen Landscape Toggle Logic
+            const sectionEl = document.getElementById('daily-spending-section');
+            const fsBtn = document.getElementById('btn-daily-fullscreen');
+            const enterSvg = document.getElementById('fullscreen-enter-svg');
+            const exitSvg = document.getElementById('fullscreen-exit-svg');
+
+            const setFullscreenState = (active) => {
+                if (!sectionEl) return;
+                sectionEl.classList.toggle('is-fullscreen-landscape', active);
+                if (enterSvg) enterSvg.style.display = active ? 'none' : 'block';
+                if (exitSvg) exitSvg.style.display = active ? 'block' : 'none';
+                document.body.style.overflow = active ? 'hidden' : '';
+            };
+
+            fsBtn?.addEventListener('click', async () => {
+                const isCurrentlyFs = sectionEl?.classList.contains('is-fullscreen-landscape');
+                const nextState = !isCurrentlyFs;
+                setFullscreenState(nextState);
+
+                // Attempt native Fullscreen + Landscape lock if supported by browser/device
+                try {
+                    if (nextState) {
+                        if (sectionEl.requestFullscreen) {
+                            await sectionEl.requestFullscreen();
+                        }
+                        if (screen.orientation && screen.orientation.lock) {
+                            await screen.orientation.lock('landscape').catch(() => {});
+                        }
+                    } else if (document.fullscreenElement && document.exitFullscreen) {
+                        await document.exitFullscreen().catch(() => {});
+                    }
+                } catch (_) {
+                    // CSS landscape fullscreen fallback is already active
+                }
+            });
+
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement && sectionEl?.classList.contains('is-fullscreen-landscape')) {
+                    setFullscreenState(false);
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && sectionEl?.classList.contains('is-fullscreen-landscape')) {
+                    setFullscreenState(false);
+                }
+            });
+        };
+
         const initSegmentedSwitchers = () => {
             // Daily Spending Analysis (Trend vs Bar)
             const trendBtns = document.querySelectorAll('[data-trend-view]');
@@ -2301,6 +2512,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             initCalendar();
+            initDailySpendingCharts();
             initSegmentedSwitchers();
             initBalanceCard();
             initYearDropdown();
