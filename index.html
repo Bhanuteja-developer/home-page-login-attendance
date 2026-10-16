@@ -796,6 +796,14 @@
             position: relative;
         }
 
+        .daily-chart-container svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-height: 100%;
+            overflow: visible;
+        }
+
         .daily-header-controls {
             display: flex;
             align-items: center;
@@ -826,6 +834,7 @@
             transform: scale(0.92);
         }
 
+        /* Fullscreen Landscape Mode Fixes so X-Axis Dates never clip */
         .chart-section.is-fullscreen-landscape {
             position: fixed !important;
             z-index: 9999 !important;
@@ -838,9 +847,11 @@
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
             display: flex !important;
             flex-direction: column !important;
-            justify-content: space-between !important;
-            padding: 18px 28px 20px !important;
+            justify-content: flex-start !important;
+            gap: 6px !important;
+            padding: 14px 24px 18px !important;
             overflow: hidden !important;
+            box-sizing: border-box !important;
         }
 
         @media (orientation: portrait) {
@@ -849,6 +860,8 @@
                 left: 50% !important;
                 width: 100vh !important;
                 height: 100vw !important;
+                width: 100dvh !important;
+                height: 100dvw !important;
                 transform: translate(-50%, -50%) rotate(90deg) !important;
             }
         }
@@ -858,24 +871,50 @@
                 inset: 0 !important;
                 width: 100vw !important;
                 height: 100vh !important;
+                width: 100dvw !important;
+                height: 100dvh !important;
                 transform: none !important;
             }
         }
 
-        .chart-section.is-fullscreen-landscape . chart-container,
+        .chart-section.is-fullscreen-landscape > div:first-child {
+            flex: 0 0 auto !important;
+        }
+
+        .chart-section.is-fullscreen-landscape .chart-container {
+            flex: 1 1 0% !important;
+            min-height: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            overflow: hidden !important;
+        }
+
         .chart-section.is-fullscreen-landscape #view-aug-trend,
         .chart-section.is-fullscreen-landscape #view-aug-bar {
-            flex: 1 1 auto;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
+            flex: 1 1 0% !important;
+            min-height: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
         }
 
         .chart-section.is-fullscreen-landscape .daily-chart-container {
-            flex: 1 1 auto;
-            height: calc(100% - 10px) !important;
-            min-height: 200px;
+            height: 100% !important;
+            max-height: 100% !important;
+            min-height: 0 !important;
+            margin-top: 0 !important;
+            padding-bottom: 4px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .chart-section.is-fullscreen-landscape .daily-chart-container svg {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
         }
 
         .chart-labels {
@@ -1499,13 +1538,13 @@
             <div class="chart-container" style="flex: 1;">
                 <div id="view-aug-trend" style="display: block;">
                     <div class="daily-chart-container">
-                        <svg id="daily-trend-svg" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 496 225" width="100%"></svg>
+                        <svg id="daily-trend-svg" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 496 232" width="100%"></svg>
                     </div>
                 </div>
 
                 <div id="view-aug-bar" style="display: none;">
                     <div class="daily-chart-container">
-                        <svg id="daily-bar-svg" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 496 225" width="100%"></svg>
+                        <svg id="daily-bar-svg" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 496 232" width="100%"></svg>
                     </div>
                 </div>
             </div>
@@ -2056,13 +2095,14 @@
             // Extract the 31 days of October 2026 from calendarDaysData
             const octDays = calendarDaysData.filter(d => d.type !== 'muted' && d.type !== 'muted-end');
             const maxVal = 1150; // Peak in October 2026 is ₹1,150 on 10th
-            const baselineY = 182;
-            const maxBarHeight = 132;
+            const baselineY = 176;
+            const maxBarHeight = 124;
+            const axisLabelY = 186;
             const startX = 14;
             const stepX = 15.6;
             const barWidth = 8.5;
 
-            // 1. Build Bar Graph SVG (matching reference bargraph.png)
+            // 1. Build Bar Graph SVG
             let barMarkup = `
                 <defs>
                     <linearGradient id="octBarGrad" x1="0" x2="0" y1="0" y2="1">
@@ -2093,8 +2133,7 @@
                     `;
                 }
 
-                // X-axis date label (1st .. 31st) rotated vertically
-                const axisLabelY = 192;
+                // X-axis date label (1st .. 31st) rotated vertically with generous bottom headroom
                 const labelColor = item.type === 'today' ? '#622ce5' : '#64748b';
                 const labelWeight = item.type === 'today' ? '700' : '600';
                 barMarkup += `
@@ -2146,7 +2185,6 @@
             // Highlight peak points & Today marker + X-axis labels
             points.forEach((pt) => {
                 const dateLabel = getOrdinalLabel(pt.day);
-                const axisLabelY = 192;
                 const labelColor = pt.type === 'today' ? '#622ce5' : '#64748b';
                 const labelWeight = pt.type === 'today' ? '700' : '600';
 
