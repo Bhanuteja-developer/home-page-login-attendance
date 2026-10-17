@@ -943,6 +943,7 @@
             width: 100% !important;
             height: 100% !important;
             max-height: 100% !important;
+            display: block !important;
         }
 
         .chart-section.is-fullscreen-landscape .chart-labels {
@@ -2369,8 +2370,8 @@
             </div>
 
             <div class="chart-container">
-                <div class="line-chart-container">
-                    <svg height="100%" style="overflow: visible;" viewBox="0 0 360 120" width="100%">
+                <div class="line-chart-container" id="fy-line-chart-container">
+                    <svg id="fy-monthly-svg" height="100%" style="overflow: visible; display: block;" viewBox="0 0 360 120" width="100%">
                         <defs>
                             <linearGradient id="barGradJan" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#4ade80"></stop><stop offset="100%" stop-color="#22c55e"></stop></linearGradient>
                             <linearGradient id="barGradFeb" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#fbbf24"></stop><stop offset="100%" stop-color="#f97316"></stop></linearGradient>
@@ -2952,6 +2953,48 @@
         const initDailySpendingCharts = () => {
             renderDailySpendingSVGs();
 
+            // Dynamically keep the 12 FY Monthly bars centered above the 12 X-axis month labels across any aspect ratio
+            const syncFyChartAlignment = () => {
+                const container = document.getElementById('fy-line-chart-container');
+                const svg = document.getElementById('fy-monthly-svg');
+                if (!container || !svg) return;
+
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                if (!width || !height) return;
+
+                const vbHeight = 120;
+                const vbWidth = +(vbHeight * (width / height)).toFixed(2);
+                svg.setAttribute('viewBox', `0 0 ${vbWidth} ${vbHeight}`);
+
+                const barGroups = svg.querySelectorAll('g');
+                const barWidth = 20;
+                barGroups.forEach((group, index) => {
+                    const cx = +(((index + 0.5) / 12) * vbWidth).toFixed(2);
+                    const rect = group.querySelector('rect');
+                    const text = group.querySelector('text');
+                    if (rect) {
+                        rect.setAttribute('x', (cx - barWidth / 2).toFixed(2));
+                    }
+                    if (text) {
+                        text.setAttribute('x', cx);
+                        const transformAttr = text.getAttribute('transform');
+                        if (transformAttr && transformAttr.startsWith('rotate')) {
+                            text.setAttribute('transform', `rotate(-90 ${cx} 102)`);
+                        }
+                    }
+                });
+            };
+
+            syncFyChartAlignment();
+            window.addEventListener('resize', syncFyChartAlignment);
+            if (typeof ResizeObserver !== 'undefined') {
+                const fyContainer = document.getElementById('fy-line-chart-container');
+                if (fyContainer) {
+                    new ResizeObserver(() => syncFyChartAlignment()).observe(fyContainer);
+                }
+            }
+
             const bindFullscreenToggle = ({ sectionId, btnId, enterIconId, exitIconId, mode }) => {
                 const sectionEl = document.getElementById(sectionId);
                 const fsBtn = document.getElementById(btnId);
@@ -2967,6 +3010,8 @@
                     if (exitSvg) exitSvg.style.display = active ? 'block' : 'none';
                     const anyActive = document.querySelector('.is-fullscreen-landscape, .is-fullscreen-portrait');
                     document.body.style.overflow = anyActive ? 'hidden' : '';
+                    requestAnimationFrame(syncFyChartAlignment);
+                    setTimeout(syncFyChartAlignment, 120);
                 };
 
                 fsBtn?.addEventListener('click', async () => {
