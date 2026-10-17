@@ -917,6 +917,125 @@
             max-height: 100% !important;
         }
 
+        .chart-section.is-fullscreen-landscape .fy-summary-block {
+            flex: 0 0 auto !important;
+            flex-direction: row !important;
+            align-items: baseline !important;
+            justify-content: space-between !important;
+            background: #f8fafc !important;
+            border: 1px solid rgba(123, 77, 255, 0.14) !important;
+            border-radius: 12px !important;
+            padding: 6px 14px !important;
+        }
+
+        .chart-section.is-fullscreen-landscape .line-chart-container {
+            flex: 1 1 0% !important;
+            min-height: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+            margin-top: 2px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .chart-section.is-fullscreen-landscape .line-chart-container svg {
+            width: 100% !important;
+            height: 100% !important;
+            max-height: 100% !important;
+        }
+
+        .chart-section.is-fullscreen-landscape .chart-labels {
+            flex: 0 0 auto !important;
+            margin-top: 6px !important;
+            padding-top: 6px !important;
+            border-top: 1px dashed rgba(122, 116, 135, 0.2) !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
+        }
+
+        /* Fullscreen Portrait Mode for Spending by Category */
+        .chart-section.is-fullscreen-portrait {
+            position: fixed !important;
+            inset: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            width: 100dvw !important;
+            height: 100dvh !important;
+            z-index: 9999 !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            border: none !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+            gap: 14px !important;
+            padding: 18px 20px 24px !important;
+            overflow: hidden !important;
+            box-sizing: border-box !important;
+        }
+
+        .chart-section.is-fullscreen-portrait > div:first-child {
+            flex: 0 0 auto !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(202, 195, 216, 0.4) !important;
+        }
+
+        .chart-section.is-fullscreen-portrait #view-ring {
+            flex: 1 1 0% !important;
+            min-height: 0 !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 16px !important;
+            margin-top: 2px !important;
+            overflow: hidden !important;
+        }
+
+        .chart-section.is-fullscreen-portrait #view-ring .donut-container {
+            width: 188px !important;
+            height: 188px !important;
+            flex-shrink: 0 !important;
+            filter: drop-shadow(0 10px 25px rgba(98, 44, 229, 0.14));
+        }
+
+        .chart-section.is-fullscreen-portrait #view-ring .legend-list {
+            flex: 1 1 0% !important;
+            min-height: 0 !important;
+            width: 100% !important;
+            overflow-y: auto !important;
+            gap: 8px !important;
+            padding: 2px 4px 12px 2px !important;
+        }
+
+        .chart-section.is-fullscreen-portrait #view-ring .legend-item {
+            background: #ffffff !important;
+            border: 1px solid rgba(202, 195, 216, 0.45) !important;
+            border-radius: 12px !important;
+            padding: 9px 12px !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+        }
+
+        .chart-section.is-fullscreen-portrait #view-bar {
+            flex: 1 1 0% !important;
+            min-height: 0 !important;
+            width: 100% !important;
+            overflow-y: auto !important;
+            gap: 10px !important;
+            padding: 4px 4px 16px 2px !important;
+        }
+
+        .chart-section.is-fullscreen-portrait #view-bar .bar-item {
+            background: #ffffff !important;
+            border: 1px solid rgba(202, 195, 216, 0.45) !important;
+            border-radius: 12px !important;
+            padding: 10px 12px !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+        }
+
         .chart-labels {
             display: flex;
             justify-content: space-between;
@@ -1558,9 +1677,25 @@
                     </div>
                     <h3 class="text-label-md text-on-surface font-semibold section-heading">Spending by Category</h3>
                 </div>
-                <div class="segmented-control">
-                    <button class="segmented-btn active" id="btn-ring" data-cat-view="ring" type="button">Ring</button>
-                    <button class="segmented-btn" id="btn-bar" data-cat-view="bar" type="button">Bar</button>
+                <div class="daily-header-controls">
+                    <button aria-label="Toggle Fullscreen Portrait" class="btn-fullscreen-toggle" id="btn-category-fullscreen" title="Full Screen Portrait" type="button">
+                        <svg id="cat-fullscreen-enter-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3"></path>
+                            <path d="M21 8V5a2 2 0 0 0-2-2h-3"></path>
+                            <path d="M3 16v3a2 2 0 0 0 2 2h3"></path>
+                            <path d="M16 21h3a2 2 0 0 0 2-2v-3"></path>
+                        </svg>
+                        <svg id="cat-fullscreen-exit-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                            <path d="M8 3v3a2 2 0 0 1-2 2H3"></path>
+                            <path d="M21 8h-3a2 2 0 0 1-2-2V3"></path>
+                            <path d="M3 16h3a2 2 0 0 1 2 2v3"></path>
+                            <path d="M16 21v-3a2 2 0 0 1 2-2h3"></path>
+                        </svg>
+                    </button>
+                    <div class="segmented-control">
+                        <button class="segmented-btn active" id="btn-ring" data-cat-view="ring" type="button">Ring</button>
+                        <button class="segmented-btn" id="btn-bar" data-cat-view="bar" type="button">Bar</button>
+                    </div>
                 </div>
             </div>
 
@@ -1731,27 +1866,11 @@
                     <div class="legend-item">
                         <div class="legend-label"><div class="legend-dot" style="background-color: rgb(123, 77, 255); width: 7px; height: 7px;"></div><span class="font-medium" style="font-size: 11px; color: var(--color-on-surface);">Credit Card (11)</span></div>
                         <div class="flex items-center gap-xs"><span class="font-bold text-on-surface" style="font-size: 11px;">₹2,050</span><span class="font-medium" style="font-size: 9.5px; padding: 1px 5px; background-color: rgba(123, 77, 255, 0.12); border-radius: 4px; color: rgb(123, 77, 255);">29%</span></div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-label"><div class="legend-dot" style="background-color: #10e0ff; width: 7px; height: 7px;"></div><span class="font-medium" style="font-size: 11px; color: var(--color-on-surface);">Cash (5)</span></div>
-                        <div class="flex items-center gap-xs"><span class="font-bold text-on-surface" style="font-size: 11px;">₹990</span><span class="font-medium" style="font-size: 9.5px; padding: 1px 5px; background-color: rgba(16, 224, 255, 0.15); border-radius: 4px; color: rgb(0, 156, 179);">14%</span></div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-label"><div class="legend-dot" style="background-color: #94A3B8; width: 7px; height: 7px;"></div><span class="font-medium" style="font-size: 11px; color: var(--color-on-surface);">Other (1)</span></div>
-                        <div class="flex items-center gap-xs"><span class="font-bold text-on-surface" style="font-size: 11px;">₹280</span><span class="font-medium" style="font-size: 9.5px; padding: 1px 5px; background-color: rgba(148, 163, 184, 0.2); border-radius: 4px; color: rgb(71, 85, 105);">4%</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bar-chart-view" id="view-payment-bar">
-                <div class="bar-item"><div class="bar-item-header"><span class="bar-label"><div class="legend-dot" style="background-color: rgb(241, 186, 10);"></div><span class="font-medium text-on-surface">UPI (32)</span></span><div class="flex items-center gap-xs"><span class="font-bold text-on-surface">₹3,750</span><span class="text-on-surface-variant">(53%)</span></div></div><div class="bar-track"><div class="bar-fill" style="width: 53%; background: rgb(241, 186, 10);"></div></div></div>
-                <div class="bar-item"><div class="bar-item-header"><span class="bar-label"><div class="legend-dot" style="background-color: rgb(123, 77, 255);"></div><span class="font-medium text-on-surface">Credit Card (11)</span></span><div class="flex items-center gap-xs"><span class="font-bold text-on-surface">₹2,050</span><span class="text-on-surface-variant">(29%)</span></div></div><div class="bar-track"><div class="bar-fill" style="width: 29%; background: linear-gradient(90deg, rgb(157, 78, 221), rgb(123, 77, 255));"></div></div></div>
-                <div class="bar-item"><div class="bar-item-header"><span class="bar-label"><div class="legend-dot" style="background-color: #10e0ff;"></div><span class="font-medium text-on-surface">Cash (5)</span></span><div class="flex items-center gap-xs"><span class="font-bold text-on-surface">₹990</span><span class="text-on-surface-variant">(14%)</span></div></div><div class="bar-track"><div class="bar-fill" style="width: 14%; background: linear-gradient(90deg, #66eeff, #10e0ff);"></div></div></div>
-                <div class="bar-item"><div class="bar-item-header"><span class="bar-label"><div class="legend-dot" style="background-color: #94A3B8;"></div><span class="font-medium text-on-surface">Other (1)</span></span><div class="flex items-center gap-xs"><span class="font-bold text-on-surface">₹280</span><span class="text-on-surface-variant">(4%)</span></div></div><div class="bar-track"><div class="bar-fill" style="width: 4%; background: linear-gradient(90deg, #94A3B8, #64748B);"></div></div></div>
+                <div class="bar-item"><div class="bar-item-header"><span class="bar-label"><div class="legend-dot" style="background-color: #991B1B;"></div><span class="font-medium text-on-surface">Other (1)</span></span><div class="flex items-center gap-xs"><span class="font-bold text-on-surface">₹280</span><span class="text-on-surface-variant">(4%)</span></div></div><div class="bar-track"><div class="bar-fill" style="width: 4%; background: linear-gradient(90deg, #94A3B8, #64748B);"></div></div></div>
             </div>
         </section>
 
-        <section class="chart-section overflow-visible">
+        <section class="chart-section overflow-visible" id="fy-analysis-section">
             <div class="flex justify-between items-center">
                 <div class="section-title-group">
                     <div class="section-icon-wrap">
@@ -1760,26 +1879,42 @@
                     <h3 class="text-label-md text-on-surface font-semibold" id="fy-heading-title" style="font-size: 11px; line-height: 16px; letter-spacing: 0.01em;">FY - 2026 (Monthly)&nbsp;<span style="letter-spacing: 0.01em;">Analysis</span></h3>
                 </div>
 
-                <div style="position: relative;">
-                    <button aria-label="Select Year" class="year-selector-btn" id="year-dropdown-btn" title="Select Year" type="button">
-                        <span class="material-symbols-outlined" style="font-size: 16px;">calendar_month</span>
-                        <span class="text-label-sm font-semibold" id="selected-year-text" style="font-size: 11px; line-height: 1;">Select Year</span>
+                <div class="daily-header-controls">
+                    <button aria-label="Toggle Fullscreen Landscape" class="btn-fullscreen-toggle" id="btn-fy-fullscreen" title="Full Screen Landscape" type="button">
+                        <svg id="fy-fullscreen-enter-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3"></path>
+                            <path d="M21 8V5a2 2 0 0 0-2-2h-3"></path>
+                            <path d="M3 16v3a2 2 0 0 0 2 2h3"></path>
+                            <path d="M16 21h3a2 2 0 0 0 2-2v-3"></path>
+                        </svg>
+                        <svg id="fy-fullscreen-exit-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                            <path d="M8 3v3a2 2 0 0 1-2 2H3"></path>
+                            <path d="M21 8h-3a2 2 0 0 1-2-2V3"></path>
+                            <path d="M3 16h3a2 2 0 0 1 2 2v3"></path>
+                            <path d="M16 21v-3a2 2 0 0 1 2-2h3"></path>
+                        </svg>
                     </button>
-                    <div class="year-dropdown-menu" id="year-dropdown-menu">
-                        <div class="year-dropdown-header">Select Year</div>
-                        <div class="flex flex-col" style="gap: 2px;">
-                            <button class="year-option" data-year="2023" type="button">2023</button>
-                            <button class="year-option selected" data-year="2024" type="button">2024</button>
-                            <button class="year-option" data-year="2025" type="button">2025</button>
-                            <button class="year-option" data-year="2026" type="button">2026</button>
-                            <button class="year-option" data-year="2027" type="button">2027</button>
-                            <button class="year-option" data-year="2028" type="button">2028</button>
+                    <div style="position: relative;">
+                        <button aria-label="Select Year" class="year-selector-btn" id="year-dropdown-btn" title="Select Year" type="button">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">calendar_month</span>
+                            <span class="text-label-sm font-semibold" id="selected-year-text" style="font-size: 11px; line-height: 1;">Select Year</span>
+                        </button>
+                        <div class="year-dropdown-menu" id="year-dropdown-menu">
+                            <div class="year-dropdown-header">Select Year</div>
+                            <div class="flex flex-col" style="gap: 2px;">
+                                <button class="year-option" data-year="2023" type="button">2023</button>
+                                <button class="year-option selected" data-year="2024" type="button">2024</button>
+                                <button class="year-option" data-year="2025" type="button">2025</button>
+                                <button class="year-option" data-year="2026" type="button">2026</button>
+                                <button class="year-option" data-year="2027" type="button">2027</button>
+                                <button class="year-option" data-year="2028" type="button">2028</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="flex flex-col gap-xs">
+            <div class="flex flex-col gap-xs fy-summary-block">
                 <span class="text-label-sm text-on-surface-variant">Average Monthly Spending</span>
                 <span class="text-headline-md text-on-surface font-bold">₹3,240.00</span>
             </div>
@@ -2257,52 +2392,82 @@
 
             trendSvg.innerHTML = trendMarkup;
 
-            // Fullscreen Landscape Toggle Logic
-            const sectionEl = document.getElementById('daily-spending-section');
-            const fsBtn = document.getElementById('btn-daily-fullscreen');
-            const enterSvg = document.getElementById('fullscreen-enter-svg');
-            const exitSvg = document.getElementById('fullscreen-exit-svg');
+            const bindFullscreenToggle = ({ sectionId, btnId, enterIconId, exitIconId, mode }) => {
+                const sectionEl = document.getElementById(sectionId);
+                const fsBtn = document.getElementById(btnId);
+                const enterSvg = document.getElementById(enterIconId);
+                const exitSvg = document.getElementById(exitIconId);
+                const cssClass = mode === 'portrait' ? 'is-fullscreen-portrait' : 'is-fullscreen-landscape';
+                const lockMode = mode === 'portrait' ? 'portrait' : 'landscape';
 
-            const setFullscreenState = (active) => {
-                if (!sectionEl) return;
-                sectionEl.classList.toggle('is-fullscreen-landscape', active);
-                if (enterSvg) enterSvg.style.display = active ? 'none' : 'block';
-                if (exitSvg) exitSvg.style.display = active ? 'block' : 'none';
-                document.body.style.overflow = active ? 'hidden' : '';
+                const setFullscreenState = (active) => {
+                    if (!sectionEl) return;
+                    sectionEl.classList.toggle(cssClass, active);
+                    if (enterSvg) enterSvg.style.display = active ? 'none' : 'block';
+                    if (exitSvg) exitSvg.style.display = active ? 'block' : 'none';
+                    const anyActive = document.querySelector('.is-fullscreen-landscape, .is-fullscreen-portrait');
+                    document.body.style.overflow = anyActive ? 'hidden' : '';
+                };
+
+                fsBtn?.addEventListener('click', async () => {
+                    const isCurrentlyFs = sectionEl?.classList.contains(cssClass);
+                    const nextState = !isCurrentlyFs;
+                    setFullscreenState(nextState);
+
+                    try {
+                        if (nextState) {
+                            if (sectionEl.requestFullscreen) {
+                                await sectionEl.requestFullscreen();
+                            }
+                            if (screen.orientation && screen.orientation.lock) {
+                                await screen.orientation.lock(lockMode).catch(() => {});
+                            }
+                        } else if (document.fullscreenElement && document.exitFullscreen) {
+                            await document.exitFullscreen().catch(() => {});
+                        }
+                    } catch (_) {
+                        // CSS fullscreen fallback is already active
+                    }
+                });
+
+                document.addEventListener('fullscreenchange', () => {
+                    if (!document.fullscreenElement && sectionEl?.classList.contains(cssClass)) {
+                        setFullscreenState(false);
+                    }
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && sectionEl?.classList.contains(cssClass)) {
+                        setFullscreenState(false);
+                    }
+                });
             };
 
-            fsBtn?.addEventListener('click', async () => {
-                const isCurrentlyFs = sectionEl?.classList.contains('is-fullscreen-landscape');
-                const nextState = !isCurrentlyFs;
-                setFullscreenState(nextState);
-
-                // Attempt native Fullscreen + Landscape lock if supported by browser/device
-                try {
-                    if (nextState) {
-                        if (sectionEl.requestFullscreen) {
-                            await sectionEl.requestFullscreen();
-                        }
-                        if (screen.orientation && screen.orientation.lock) {
-                            await screen.orientation.lock('landscape').catch(() => {});
-                        }
-                    } else if (document.fullscreenElement && document.exitFullscreen) {
-                        await document.exitFullscreen().catch(() => {});
-                    }
-                } catch (_) {
-                    // CSS landscape fullscreen fallback is already active
-                }
+            // 1. Daily Spending Analysis -> Fullscreen Landscape
+            bindFullscreenToggle({
+                sectionId: 'daily-spending-section',
+                btnId: 'btn-daily-fullscreen',
+                enterIconId: 'fullscreen-enter-svg',
+                exitIconId: 'fullscreen-exit-svg',
+                mode: 'landscape'
             });
 
-            document.addEventListener('fullscreenchange', () => {
-                if (!document.fullscreenElement && sectionEl?.classList.contains('is-fullscreen-landscape')) {
-                    setFullscreenState(false);
-                }
+            // 2. Spending by Category -> Fullscreen Portrait
+            bindFullscreenToggle({
+                sectionId: 'category-section',
+                btnId: 'btn-category-fullscreen',
+                enterIconId: 'cat-fullscreen-enter-svg',
+                exitIconId: 'cat-fullscreen-exit-svg',
+                mode: 'portrait'
             });
 
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && sectionEl?.classList.contains('is-fullscreen-landscape')) {
-                    setFullscreenState(false);
-                }
+            // 3. FY - Monthly Analysis -> Fullscreen Landscape
+            bindFullscreenToggle({
+                sectionId: 'fy-analysis-section',
+                btnId: 'btn-fy-fullscreen',
+                enterIconId: 'fy-fullscreen-enter-svg',
+                exitIconId: 'fy-fullscreen-exit-svg',
+                mode: 'landscape'
             });
         };
 
