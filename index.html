@@ -1770,6 +1770,38 @@
             background: linear-gradient(180deg, rgba(252, 249, 248, 0) 0%, rgba(252, 249, 248, 0.95) 40%);
             padding-top: 16px;
             z-index: 40;
+            display: flex;
+            gap: 12px;
+        }
+
+        .threshold-page-view .reset-btn {
+            background-color: var(--surface-container-lowest);
+            border: 1.5px solid var(--outline-variant);
+            height: 56px;
+            padding: 0 22px;
+            border-radius: var(--radius-btn);
+            color: var(--on-surface-variant);
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: var(--shadow-card);
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+            flex-shrink: 0;
+        }
+
+        .threshold-page-view .reset-btn:hover {
+            background-color: var(--error-container);
+            color: var(--on-error-container);
+            border-color: rgba(186, 26, 26, 0.25);
+        }
+
+        .threshold-page-view .reset-btn:active {
+            transform: scale(0.98);
         }
 
         .threshold-page-view .gradient-btn {
@@ -2735,6 +2767,10 @@
 
         <!-- Primary Action Trigger -->
         <div class="action-container">
+            <button type="button" id="reset-threshold-btn" class="reset-btn" title="Reset Threshold" aria-label="Reset Threshold">
+                <span class="material-symbols-outlined" id="reset-btn-icon">restart_alt</span>
+                <span>Reset</span>
+            </button>
             <button type="button" id="save-btn" class="gradient-btn">
                 <span id="btn-text">Save Threshold</span>
                 <div class="spinner" id="btn-spinner" aria-hidden="true"></div>
@@ -2823,7 +2859,7 @@
             calendarDaysData.forEach((item) => {
                 const numericSpend = parseAmountValue(item.amount);
                 const isSpendDay = item.type === 'active' || item.type === 'high';
-                const isExceeded = isSpendDay && (customThresholdSaved ? numericSpend > currentThreshold : item.type === 'high');
+                const isExceeded = isSpendDay && customThresholdSaved && numericSpend > currentThreshold;
 
                 const cell = document.createElement('div');
                 cell.className = 'cal-cell';
@@ -2832,7 +2868,7 @@
                 }
                 if (item.type === 'today') {
                     cell.classList.add('today-active');
-                } else if (isExceeded && customThresholdSaved) {
+                } else if (isExceeded) {
                     cell.classList.add('exceeded-threshold');
                 }
 
@@ -3024,7 +3060,7 @@
                 const labelColor = pt.type === 'today' ? '#622ce5' : '#64748b';
                 const labelWeight = pt.type === 'today' ? '700' : '600';
 
-                if (pt.val > alertLimit) {
+                if (customThresholdSaved && pt.val > alertLimit) {
                     const dotColor = pt.val >= 1000 ? '#ba1a1a' : '#FF6B3D';
                     trendMarkup += `<circle cx="${pt.cx}" cy="${pt.cy}" fill="${dotColor}" r="3.8" stroke="#ffffff" stroke-width="1.6"></circle>`;
                 }
@@ -3475,6 +3511,7 @@
             const previewCalDate = document.getElementById('preview-cal-date');
             const previewCalCell = document.getElementById('preview-calendar-cell');
             const saveBtn = document.getElementById('save-btn');
+            const resetBtn = document.getElementById('reset-threshold-btn');
             const btnText = document.getElementById('btn-text');
             const btnSpinner = document.getElementById('btn-spinner');
             const btnIcon = document.getElementById('btn-icon');
@@ -3621,6 +3658,21 @@
                 renderCalendarGrid();
                 renderDailySpendingSVGs();
             };
+
+            const resetThresholdEffect = () => {
+                localStorage.removeItem('luminous_finance_threshold');
+                currentThreshold = 0;
+                thresholdInput.value = '';
+                presetChips.forEach(c => c.classList.remove('active'));
+                if (previewAmount) previewAmount.textContent = '₹0';
+                if (previewSubText) previewSubText.textContent = 'Calendar view • Threshold effect off';
+                renderCalendarGrid();
+                renderDailySpendingSVGs();
+                showToast('Threshold effect removed!', 'success');
+                setTimeout(() => closeThresholdPage(), 600);
+            };
+
+            resetBtn?.addEventListener('click', resetThresholdEffect);
 
             saveBtn.addEventListener('click', async () => {
                 const thresholdValue = parseInt(thresholdInput.value, 10);
