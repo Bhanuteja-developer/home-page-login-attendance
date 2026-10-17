@@ -234,6 +234,7 @@
             margin-left: -8px;
             margin-right: -8px;
             aspect-ratio: 1.586 / 1;
+            min-height: 210px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -241,7 +242,10 @@
             cursor: pointer;
             transform: rotateX(5deg) rotateY(-5deg) scale(1);
             transition: transform 0.15s ease-out;
-            transform-style: preserve-3d;
+            transform-style: flat;
+            -webkit-transform-style: flat;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
             color: var(--color-on-primary);
             user-select: none;
         }
@@ -252,7 +256,7 @@
             background: linear-gradient(125deg, transparent 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0.35) 30%, rgba(255, 255, 255, 0.12) 35%, transparent 100%);
             pointer-events: none;
             mix-blend-mode: overlay;
-            transform: translateZ(1px);
+            z-index: 1;
         }
 
         .twinkle-container {
@@ -315,7 +319,6 @@
         .card-top-row {
             position: relative;
             z-index: 2;
-            transform: translateZ(20px);
         }
 
         .card-brand-title {
@@ -343,7 +346,6 @@
             position: relative;
             z-index: 2;
             margin-top: 12px;
-            transform: translateZ(10px);
         }
 
         .emv-chip {
@@ -384,7 +386,6 @@
             position: relative;
             z-index: 2;
             margin-top: auto;
-            transform: translateZ(30px);
         }
 
         .card-balance-label {
@@ -409,7 +410,6 @@
             position: relative;
             z-index: 2;
             margin-top: 16px;
-            transform: translateZ(20px);
             font-family: var(--font-family);
         }
 
