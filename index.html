@@ -1098,10 +1098,9 @@
         @media (orientation: landscape) {
             .chart-section.is-fullscreen-landscape {
                 inset: 0 !important;
-                width: 100vw !important;
-                height: 100vh !important;
-                width: 100dvw !important;
-                height: 100dvh !important;
+                width: 100% !important;
+                height: 100% !important;
+                max-height: 100dvh !important;
                 transform: none !important;
             }
         }
@@ -1113,7 +1112,7 @@
         .chart-section.is-fullscreen-landscape .chart-container {
             flex: 1 1 0% !important;
             min-height: 0 !important;
-            height: 100% !important;
+            height: auto !important;
             width: 100% !important;
             display: flex !important;
             flex-direction: column !important;
@@ -1158,20 +1157,22 @@
         }
 
         .chart-section.is-fullscreen-landscape .line-chart-container {
+            position: relative !important;
             flex: 1 1 0% !important;
             min-height: 0 !important;
-            height: 100% !important;
+            height: auto !important;
             width: 100% !important;
             margin-top: 2px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
+            display: block !important;
         }
 
         .chart-section.is-fullscreen-landscape .line-chart-container svg {
+            position: absolute !important;
+            inset: 0 !important;
             width: 100% !important;
             height: 100% !important;
             max-height: 100% !important;
+            min-height: 0 !important;
             display: block !important;
         }
 
@@ -1179,9 +1180,11 @@
             flex: 0 0 auto !important;
             margin-top: 6px !important;
             padding-top: 6px !important;
+            padding-bottom: 2px !important;
             border-top: 1px dashed rgba(122, 116, 135, 0.2) !important;
             font-size: 12px !important;
             font-weight: 600 !important;
+            z-index: 2 !important;
         }
 
         .chart-section.is-fullscreen-portrait {
@@ -7170,6 +7173,9 @@ function doPost(e) {
                         }
                     } catch (_) {
                         // CSS landscape rotation fallback is active
+                    } finally {
+                        requestAnimationFrame(syncFyChartAlignment);
+                        setTimeout(syncFyChartAlignment, 250);
                     }
                 });
 
