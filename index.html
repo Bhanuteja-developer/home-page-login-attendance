@@ -1080,9 +1080,34 @@
             padding: 14px 24px 18px !important;
             overflow: hidden !important;
             box-sizing: border-box !important;
-            inset: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
+        }
+
+        @media (orientation: portrait) {
+            .chart-section.is-fullscreen-landscape {
+                inset: auto !important;
+                top: 50% !important;
+                left: 50% !important;
+                width: 100vh !important;
+                height: 100vw !important;
+                width: 100dvh !important;
+                height: 100dvw !important;
+                transform: translate(-50%, -50%) rotate(90deg) !important;
+            }
+        }
+
+        @media (orientation: landscape) {
+            .chart-section.is-fullscreen-landscape {
+                inset: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                width: 100dvw !important;
+                height: 100dvh !important;
+                transform: none !important;
+            }
+        }
+
+        .chart-section.is-fullscreen-landscape > div:first-child {
+            flex: 0 0 auto !important;
         }
 
         .chart-section.is-fullscreen-landscape .chart-container {
@@ -1103,15 +1128,60 @@
             width: 100% !important;
         }
 
-        .chart-section.is-fullscreen-landscape .daily-chart-container,
-        .chart-section.is-fullscreen-landscape .line-chart-container {
+        .chart-section.is-fullscreen-landscape .daily-chart-container {
             height: 100% !important;
             max-height: 100% !important;
             min-height: 0 !important;
             margin-top: 0 !important;
+            padding-bottom: 4px !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
+        }
+
+        .chart-section.is-fullscreen-landscape .daily-chart-container svg {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+        }
+
+        .chart-section.is-fullscreen-landscape .fy-summary-block {
+            flex: 0 0 auto !important;
+            flex-direction: row !important;
+            align-items: baseline !important;
+            justify-content: space-between !important;
+            background: #f8fafc !important;
+            border: 1px solid rgba(123, 77, 255, 0.14) !important;
+            border-radius: 12px !important;
+            padding: 6px 14px !important;
+        }
+
+        .chart-section.is-fullscreen-landscape .line-chart-container {
+            flex: 1 1 0% !important;
+            min-height: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+            margin-top: 2px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .chart-section.is-fullscreen-landscape .line-chart-container svg {
+            width: 100% !important;
+            height: 100% !important;
+            max-height: 100% !important;
+            display: block !important;
+        }
+
+        .chart-section.is-fullscreen-landscape .chart-labels {
+            flex: 0 0 auto !important;
+            margin-top: 6px !important;
+            padding-top: 6px !important;
+            border-top: 1px dashed rgba(122, 116, 135, 0.2) !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
         }
 
         .chart-section.is-fullscreen-portrait {
@@ -7056,6 +7126,12 @@ function doPost(e) {
             };
 
             window.addEventListener('resize', syncFyChartAlignment);
+            if (typeof ResizeObserver !== 'undefined') {
+                const fyContainer = document.getElementById('fy-line-chart-container');
+                if (fyContainer) {
+                    new ResizeObserver(() => syncFyChartAlignment()).observe(fyContainer);
+                }
+            }
 
             const bindFullscreenToggle = ({ sectionId, btnId, enterIconId, exitIconId, mode }) => {
                 const sectionEl = document.getElementById(sectionId);
@@ -7063,6 +7139,7 @@ function doPost(e) {
                 const enterSvg = document.getElementById(enterIconId);
                 const exitSvg = document.getElementById(exitIconId);
                 const cssClass = mode === 'portrait' ? 'is-fullscreen-portrait' : 'is-fullscreen-landscape';
+                const lockMode = mode === 'portrait' ? 'portrait' : 'landscape';
 
                 const setFullscreenState = (active) => {
                     if (!sectionEl) return;
@@ -7072,11 +7149,40 @@ function doPost(e) {
                     const anyActive = document.querySelector('.is-fullscreen-landscape, .is-fullscreen-portrait');
                     document.body.style.overflow = anyActive ? 'hidden' : '';
                     requestAnimationFrame(syncFyChartAlignment);
+                    setTimeout(syncFyChartAlignment, 120);
                 };
 
-                fsBtn?.addEventListener('click', () => {
+                fsBtn?.addEventListener('click', async () => {
                     const isCurrentlyFs = sectionEl?.classList.contains(cssClass);
-                    setFullscreenState(!isCurrentlyFs);
+                    const nextState = !isCurrentlyFs;
+                    setFullscreenState(nextState);
+
+                    try {
+                        if (nextState) {
+                            if (document.documentElement.requestFullscreen) {
+                                await document.documentElement.requestFullscreen().catch(() => {});
+                            }
+                            if (screen.orientation && screen.orientation.lock) {
+                                await screen.orientation.lock(lockMode).catch(() => {});
+                            }
+                        } else if (document.fullscreenElement && document.exitFullscreen) {
+                            await document.exitFullscreen().catch(() => {});
+                        }
+                    } catch (_) {
+                        // CSS landscape rotation fallback is active
+                    }
+                });
+
+                document.addEventListener('fullscreenchange', () => {
+                    if (!document.fullscreenElement && sectionEl?.classList.contains(cssClass)) {
+                        setFullscreenState(false);
+                    }
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && sectionEl?.classList.contains(cssClass)) {
+                        setFullscreenState(false);
+                    }
                 });
             };
 
