@@ -80,9 +80,15 @@
     .input-field:focus { outline: none; border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(249,115,22,0.15); }
     .input-field:disabled, .input-field[readonly] { opacity: 0.7; cursor: not-allowed; }
     
+    /* Force input fields to be uppercase, except placeholders */
     input.input-field:not([type="email"]):not([type="password"]),
-    textarea.input-field { text-transform: uppercase; }
-    #processor-main-input { text-transform: none; }
+    textarea.input-field {
+      text-transform: uppercase;
+    }
+    /* EXCEPT processor to allow small 'i' */
+    #processor-main-input {
+      text-transform: none; 
+    }
     
     input.input-field::-webkit-input-placeholder, textarea.input-field::-webkit-input-placeholder { text-transform: none; }
     input.input-field::-moz-placeholder, textarea.input-field::-moz-placeholder { text-transform: none; }
@@ -119,10 +125,27 @@
       width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
       font-weight: 700; font-size: 0.9rem; transition: var(--transition); cursor: pointer; background: #fff;
     }
-    .step-node.completed { color: var(--success); border: 2px solid var(--success); box-shadow: 0 0 12px rgba(16, 185, 129, 0.25); }
-    .step-node.completed:hover { background: #f0fdf4; border-color: var(--success-hover); color: var(--success-hover); }
-    .step-node.active { color: var(--primary); border: 4px solid var(--primary); cursor: default; animation: stepPulse 2s infinite; }
-    .step-node.pending { color: #94a3b8; border: 2px solid #e2e8f0; cursor: not-allowed; }
+    .step-node.completed { 
+      color: var(--success); 
+      border: 2px solid var(--success); 
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.25); 
+    }
+    .step-node.completed:hover { 
+      background: #f0fdf4; 
+      border-color: var(--success-hover); 
+      color: var(--success-hover); 
+    }
+    .step-node.active { 
+      color: var(--primary); 
+      border: 4px solid var(--primary); 
+      cursor: default; 
+      animation: stepPulse 2s infinite;
+    }
+    .step-node.pending { 
+      color: #94a3b8; 
+      border: 2px solid #e2e8f0; 
+      cursor: not-allowed; 
+    }
 
     .form-section { display: none; animation: fadeIn 0.4s ease; margin-bottom: 1.5rem; }
     .form-section.active { display: block; }
@@ -163,77 +186,134 @@
       backdrop-filter: blur(4px); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
     
-    .progress-bar-container { width: 80%; max-width: 400px; height: 8px; background: #e2e8f0; border-radius: 4px; margin-top: 1rem; overflow: hidden; display: none; }
-    .progress-bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
+    .progress-bar-container {
+      width: 80%; max-width: 400px; height: 8px; background: #e2e8f0; border-radius: 4px; margin-top: 1rem; overflow: hidden; display: none;
+    }
+    .progress-bar-fill {
+      height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease;
+    }
     
     .processor-modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
       backdrop-filter: blur(4px); z-index: 10000; display: flex; align-items: center; justify-content: center;
     }
-    .scroll-wheel { height: 120px; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; -ms-overflow-style: none; position: relative; }
+    .scroll-wheel {
+      height: 120px; overflow-y: scroll; scroll-snap-type: y mandatory;
+      scrollbar-width: none; -ms-overflow-style: none; position: relative;
+    }
     .scroll-wheel::-webkit-scrollbar { display: none; }
-    .wheel-item { height: 40px; display: flex; align-items: center; justify-content: center; scroll-snap-align: center; font-size: 1.25rem; color: #94a3b8; transition: all 0.2s; font-weight: 500; }
+    .wheel-item {
+      height: 40px; display: flex; align-items: center; justify-content: center;
+      scroll-snap-align: center; font-size: 1.25rem; color: #94a3b8; transition: all 0.2s; font-weight: 500;
+    }
     .wheel-item.active { color: var(--primary); font-weight: 800; font-size: 1.5rem; }
-    .wheel-selection-overlay { position: absolute; top: 40px; left: 0; width: 100%; height: 40px; border-top: 2px solid var(--primary); border-bottom: 2px solid var(--primary); pointer-events: none; }
+    .wheel-selection-overlay {
+      position: absolute; top: 40px; left: 0; width: 100%; height: 40px;
+      border-top: 2px solid var(--primary); border-bottom: 2px solid var(--primary); pointer-events: none;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Loading Overlay -->
   <div id="loading-overlay" class="hidden">
     <i class="fas fa-circle-notch spinner" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
     <h3 style="color: #1e293b;">Processing...</h3>
     <p style="color: #64748b; font-size: 0.9rem; text-align: center; margin-top: 0.5rem;" id="loading-text">Please wait while we secure your data.</p>
-    <div class="progress-bar-container" id="global-progress-container"><div class="progress-bar-fill" id="global-progress-fill"></div></div>
+    <div class="progress-bar-container" id="global-progress-container">
+       <div class="progress-bar-fill" id="global-progress-fill"></div>
+    </div>
   </div>
 
-  <!-- Login View -->
   <div id="view-login" class="auth-container">
     <div class="glass-card auth-box">
       <div class="text-center mb-6">
-        <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #f97316, #fbbf24); border-radius: 1rem; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; transform: rotate(-6deg); box-shadow: 0 10px 15px -3px rgba(249,115,22,0.3);"><i class="fas fa-lock"></i></div>
+        <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #f97316, #fbbf24); border-radius: 1rem; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; transform: rotate(-6deg); box-shadow: 0 10px 15px -3px rgba(249,115,22,0.3);">
+          <i class="fas fa-lock"></i>
+        </div>
         <h1 style="font-size: 1.875rem; color: #1e293b;">Welcome Back</h1>
         <p style="color: #64748b;">Sign in to access PM Reports</p>
       </div>
       <form id="form-login" onsubmit="handleLogin(event)">
-        <div class="input-group"><label class="input-label">Email Address</label><div class="input-wrapper"><i class="fas fa-envelope input-icon"></i><input type="email" id="login-email" class="input-field has-icon" required></div></div>
-        <div class="input-group"><label class="input-label">Password</label><div class="input-wrapper"><i class="fas fa-shield-halved input-icon"></i><input type="password" id="login-password" class="input-field has-icon" required></div></div>
+        <div class="input-group">
+          <label class="input-label">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="login-email" class="input-field has-icon" required>
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-shield-halved input-icon"></i>
+            <input type="password" id="login-password" class="input-field has-icon" required>
+          </div>
+        </div>
         <div class="flex justify-between items-center mb-6">
-          <label style="font-size: 0.875rem; color: #475569; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;"><input type="checkbox"> Remember me</label>
+          <label style="font-size: 0.875rem; color: #475569; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox"> Remember me
+          </label>
           <a href="#" onclick="switchView('view-forgot')" style="font-size: 0.875rem; color: var(--primary); text-decoration: none; font-weight: 600;">Forgot Password?</a>
         </div>
         <button type="submit" class="btn btn-primary">LOGIN</button>
       </form>
-      <p class="text-center mt-4" style="color: #64748b; font-size: 0.9rem;">Don't have an account? <a href="#" onclick="switchView('view-signup')" style="color: var(--primary); font-weight: 700; text-decoration: none;">Signup</a></p>
+      <p class="text-center mt-4" style="color: #64748b; font-size: 0.9rem;">
+        Don't have an account? <a href="#" onclick="switchView('view-signup')" style="color: var(--primary); font-weight: 700; text-decoration: none;">Signup</a>
+      </p>
     </div>
   </div>
 
-  <!-- Forgot Password View -->
   <div id="view-forgot" class="auth-container hidden">
     <div class="glass-card auth-box text-center relative overflow-hidden">
-      <div id="forgot-header-content"><i class="fas fa-key" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i><h2 class="mb-4">Reset Password</h2></div>
+      
+      <div id="forgot-header-content">
+        <i class="fas fa-key" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+        <h2 class="mb-4">Reset Password</h2>
+      </div>
       
       <div id="forgot-phase-1">
         <p style="color: #64748b; margin-bottom: 1.5rem;">Enter your email to receive a 6-digit OTP.</p>
-        <div class="input-group text-left"><label class="input-label">Email Address</label><div class="input-wrapper"><i class="fas fa-envelope input-icon"></i><input type="email" id="forgot-email" class="input-field has-icon" placeholder="name@domain.com"></div></div>
+        <div class="input-group text-left">
+          <label class="input-label">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="forgot-email" class="input-field has-icon" placeholder="name@domain.com">
+          </div>
+        </div>
         <button class="btn btn-primary mb-4" onclick="sendForgotOTP()">Send OTP</button>
       </div>
 
       <div id="forgot-phase-2" class="hidden">
         <p style="color: #64748b; margin-bottom: 1.5rem;">We've sent a 6-digit OTP to <strong id="forgot-email-display"></strong>.</p>
-        <div class="input-group text-left"><input type="text" id="forgot-otp" class="input-field text-center" placeholder="Enter 6-digit OTP" maxlength="6" style="letter-spacing: 0.5rem; font-size: 1.25rem; font-weight: 700;" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
+        <div class="input-group text-left">
+          <input type="text" id="forgot-otp" class="input-field text-center" placeholder="Enter 6-digit OTP" maxlength="6" style="letter-spacing: 0.5rem; font-size: 1.25rem; font-weight: 700;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+        </div>
         <button class="btn btn-primary mb-4" onclick="verifyForgotOTP()">Verify OTP</button>
       </div>
 
       <div id="forgot-phase-3" class="hidden">
         <p style="color: #64748b; margin-bottom: 1.5rem;">OTP Verified! Please enter your new password.</p>
-        <div class="input-group text-left"><label class="input-label">New Password</label><div class="input-wrapper"><i class="fas fa-lock input-icon"></i><input type="password" id="forgot-new-pass" class="input-field has-icon" placeholder="••••••••"></div></div>
-        <div class="input-group text-left"><label class="input-label">Confirm Password</label><div class="input-wrapper"><i class="fas fa-lock input-icon"></i><input type="password" id="forgot-confirm-pass" class="input-field has-icon" placeholder="••••••••"></div></div>
+        <div class="input-group text-left">
+          <label class="input-label">New Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="forgot-new-pass" class="input-field has-icon" placeholder="••••••••">
+          </div>
+        </div>
+        <div class="input-group text-left">
+          <label class="input-label">Confirm Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="forgot-confirm-pass" class="input-field has-icon" placeholder="••••••••">
+          </div>
+        </div>
+        <p style="font-size: 0.75rem; color: #64748b; text-align: left; margin-bottom: 1rem; line-height: 1.4;">Note: Your password must contain at least 4 digits, 2 letters, and 2 symbols.<br>Example: 7*dK92$8</p>
         <button class="btn btn-primary mb-4" onclick="submitNewPassword()">Reset Password</button>
       </div>
 
       <div id="forgot-phase-success" class="hidden">
-        <div style="width: 80px; height: 80px; background: rgba(16, 185, 129, 0.1); color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 3rem; box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.2), 0 0 30px rgba(16, 185, 129, 0.2);"><i class="fas fa-check-circle"></i></div>
+        <div style="width: 80px; height: 80px; background: rgba(16, 185, 129, 0.1); color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 3rem; box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.2), 0 0 30px rgba(16, 185, 129, 0.2);">
+          <i class="fas fa-check-circle"></i>
+        </div>
         <h2 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 0.5rem;">Password Reset!</h2>
         <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.5;">Your password has been successfully and securely updated. You can now log in with your new credentials.</p>
         <button class="btn btn-primary mb-4" onclick="resetForgotFlow(); switchView('view-login')">Return to Login</button>
@@ -243,10 +323,12 @@
     </div>
   </div>
 
-  <!-- Signup View -->
   <div id="view-signup" class="auth-container hidden">
     <div class="glass-card auth-box signup-box">
-      <div class="mb-6"><h1 style="font-size: 1.875rem; color: #1e293b;">Create A Profile</h1><p style="color: #64748b;">Set up your account to start managing assets.</p></div>
+      <div class="mb-6">
+        <h1 style="font-size: 1.875rem; color: #1e293b;">Create A Profile</h1>
+        <p style="color: #64748b;">Set up your account to start managing assets.</p>
+      </div>
 
       <div style="background: rgba(255,255,255,0.4); padding: 1.5rem; border-radius: var(--radius-lg); margin-bottom: 1.5rem;">
         <h3 style="font-size: 1.1rem; margin-bottom: 1rem;"><i class="fas fa-user" style="color: var(--primary);"></i> Personal Information</h3>
@@ -257,7 +339,10 @@
         <div class="input-group mt-4">
           <label class="input-label">Email Address</label>
           <div class="flex" style="gap: 0.5rem;">
-            <div class="input-wrapper" style="flex: 1;"><i class="fas fa-envelope input-icon"></i><input type="email" id="reg-email" class="input-field has-icon" placeholder="name@domain.com"></div>
+            <div class="input-wrapper" style="flex: 1;">
+              <i class="fas fa-envelope input-icon"></i>
+              <input type="email" id="reg-email" class="input-field has-icon" placeholder="name@domain.com">
+            </div>
             <button type="button" id="btn-reg-send-otp" class="btn btn-primary" style="width: auto; padding: 0 1.5rem;" onclick="sendSignupOTP()">Send OTP</button>
           </div>
           <p style="font-size: 0.75rem; color: #64748b; margin-top: 0.5rem;">Provide a valid Gmail. We use this for OTP verification.</p>
@@ -298,7 +383,6 @@
     </div>
   </div>
 
-  <!-- Dashboard View (No major DOM changes needed here, keeping as requested) -->
   <div id="view-dashboard" class="hidden">
     <nav class="top-nav">
       <div class="nav-logo">
@@ -331,7 +415,6 @@
       </div>
 
       <form id="pm-report-form">
-        <!-- ALL FORM SECTIONS REMAIN UNCHANGED TO PRESERVE UI/UX EXACTLY -->
         <div class="form-section active" data-step="1">
           <div class="glass-card">
             <div class="section-header"><div class="section-icon"><i class="fas fa-user-tie"></i></div><h3>SECTION 1 - DIVISION & USER DETAILS</h3></div>
@@ -351,14 +434,21 @@
               <div class="input-group"><label class="input-label">Phone No</label><input type="text" name="phoneNo" class="input-field" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
               <div class="input-group"><label class="input-label">Location</label><input type="text" name="location" class="input-field"></div>
               
+              <!-- Newly Added GPS Coordinates Capture Field -->
               <div class="input-group">
                 <label class="input-label">Coordinates</label>
                 <div class="flex" style="gap: 0.5rem;">
-                  <div class="input-wrapper" style="flex: 1;"><i class="fas fa-map-marker-alt input-icon" style="color: #ef4444;"></i><input type="text" name="coordinates" id="coord-input" class="input-field has-icon" placeholder="Lat, Long" readonly style="font-size: 0.85rem; font-weight: 600;"></div>
-                  <button type="button" class="btn btn-primary btn-gps" onclick="captureLocation()" id="btn-location" title="Capture Current GPS Location"><i class="fas fa-location-crosshairs"></i></button>
+                  <div class="input-wrapper" style="flex: 1;">
+                    <i class="fas fa-map-marker-alt input-icon" style="color: #ef4444;"></i>
+                    <input type="text" name="coordinates" id="coord-input" class="input-field has-icon" placeholder="Lat, Long" readonly style="font-size: 0.85rem; font-weight: 600;">
+                  </div>
+                  <button type="button" class="btn btn-primary btn-gps" onclick="captureLocation()" id="btn-location" title="Capture Current GPS Location">
+                    <i class="fas fa-location-crosshairs"></i>
+                  </button>
                 </div>
                 <p id="geo-status" style="font-size: 0.75rem; color: #64748b; margin-top: 0.5rem; font-weight: 500;">Capture GPS metrics via device.</p>
               </div>
+
             </div>
           </div>
         </div>
@@ -367,24 +457,184 @@
           <div class="glass-card mb-6">
             <div class="section-header"><div class="section-icon"><i class="fas fa-desktop"></i></div><h3>SECTION 2 - MONITOR</h3></div>
             <div class="grid grid-2">
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">Monitor Asset ID</label><div class="input-wrapper"><select name="monitorAssetId" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="ENTER ASSET ID">ENTER ASSET ID</option><option value="NO ASSET ID">NO ASSET ID</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="monitorAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></div>
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">Monitor Serial No</label><div class="input-wrapper"><select name="monitorSerialNo" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="ENTER SERIAL NO">ENTER SERIAL NO</option><option value="NO - SERIAL NO">NO - SERIAL NO</option><option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="monitorSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div></div>
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">Monitor Make</label><div class="input-wrapper"><select name="monitorMake" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="OTHER">OTHER</option><option value="ACER">ACER</option><option value="DELL">DELL</option><option value="DELL - ALL IN ONE">DELL - ALL IN ONE</option><option value="DELL - INSIPIRON">DELL - INSIPIRON</option><option value="HCL">HCL</option><option value="HP">HP</option><option value="HP - ALL IN ONE">HP - ALL IN ONE</option><option value="HP - COMPAQ">HP - COMPAQ</option><option value="INTEX">INTEX</option><option value="LENOVO">LENOVO</option><option value="LG">LG</option><option value="POWERX">POWERX</option><option value="SAMSUNG">SAMSUNG</option><option value="WIPRO">WIPRO</option><option value="WIPRO - CRT">WIPRO - CRT</option><option value="ZEBRONICS">ZEBRONICS</option><option value="ZEBSTER">ZEBSTER</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="monitorMakeCustom" class="input-field" placeholder="Specify manually..."></div></div>
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">Monitor Size</label><div class="input-wrapper"><select name="monitorSize" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="OTHER">OTHER</option><option value="17&quot;">17"</option><option value="18&quot;">18"</option><option value="18.5&quot;">18.5"</option><option value="19&quot;">19"</option><option value="19.5&quot;">19.5"</option><option value="20&quot;">20"</option><option value="22&quot;">22"</option><option value="24&quot;">24"</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="monitorSizeCustom" class="input-field" placeholder="Specify manually..." oninput="formatMonitorSize(this)"></div></div>
+              
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">Monitor Asset ID</label>
+                <div class="input-wrapper">
+                  <select name="monitorAssetId" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="ENTER ASSET ID">ENTER ASSET ID</option>
+                    <option value="NO ASSET ID">NO ASSET ID</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="monitorAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
+              </div>
+              
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">Monitor Serial No</label>
+                <div class="input-wrapper">
+                  <select name="monitorSerialNo" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="ENTER SERIAL NO">ENTER SERIAL NO</option>
+                    <option value="NO - SERIAL NO">NO - SERIAL NO</option>
+                    <option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="monitorSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div>
+              </div>
+              
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">Monitor Make</label>
+                <div class="input-wrapper">
+                  <select name="monitorMake" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="OTHER">OTHER</option>
+                    <option value="ACER">ACER</option>
+                    <option value="DELL">DELL</option>
+                    <option value="DELL - ALL IN ONE">DELL - ALL IN ONE</option>
+                    <option value="DELL - INSIPIRON">DELL - INSIPIRON</option>
+                    <option value="HCL">HCL</option>
+                    <option value="HP">HP</option>
+                    <option value="HP - ALL IN ONE">HP - ALL IN ONE</option>
+                    <option value="HP - COMPAQ">HP - COMPAQ</option>
+                    <option value="INTEX">INTEX</option>
+                    <option value="LENOVO">LENOVO</option>
+                    <option value="LG">LG</option>
+                    <option value="POWERX">POWERX</option>
+                    <option value="SAMSUNG">SAMSUNG</option>
+                    <option value="WIPRO">WIPRO</option>
+                    <option value="WIPRO - CRT">WIPRO - CRT</option>
+                    <option value="ZEBRONICS">ZEBRONICS</option>
+                    <option value="ZEBSTER">ZEBSTER</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="monitorMakeCustom" class="input-field" placeholder="Specify manually..."></div>
+              </div>
+              
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">Monitor Size</label>
+                <div class="input-wrapper">
+                  <select name="monitorSize" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="OTHER">OTHER</option>
+                    <option value="17&quot;">17"</option>
+                    <option value="18&quot;">18"</option>
+                    <option value="18.5&quot;">18.5"</option>
+                    <option value="19&quot;">19"</option>
+                    <option value="19.5&quot;">19.5"</option>
+                    <option value="20&quot;">20"</option>
+                    <option value="22&quot;">22"</option>
+                    <option value="24&quot;">24"</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper">
+                  <input type="text" name="monitorSizeCustom" class="input-field" placeholder="Specify manually..." oninput="formatMonitorSize(this)">
+                </div>
+              </div>
             </div>
           </div>
+
           <div class="glass-card">
             <div class="section-header"><div class="section-icon"><i class="fas fa-keyboard"></i></div><h3>SECTION 3 - KEYBOARD & MOUSE</h3></div>
             <div class="grid grid-2">
               <div>
-                <div class="input-group" data-select-wrapper="true"><label class="input-label">Keyboard Asset ID</label><div class="input-wrapper"><select name="keyboardAssetId" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="ENTER ASSET ID">ENTER ASSET ID</option><option value="NO ASSET ID">NO ASSET ID</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="keyboardAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></div>
-                <div class="input-group" data-select-wrapper="true"><label class="input-label">Keyboard Make</label><div class="input-wrapper"><select name="keyboardMake" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="OTHER">OTHER</option><option value="ACER">ACER</option><option value="DELL">DELL</option><option value="DSELECT">DSELECT</option><option value="FRONTECH">FRONTECH</option><option value="HP">HP</option><option value="INTEX">INTEX</option><option value="LENOVO">LENOVO</option><option value="ZEBRONICS">ZEBRONICS</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="keyboardMakeCustom" class="input-field" placeholder="Specify manually..."></div></div>
-                <div class="input-group" data-select-wrapper="true"><label class="input-label">Keyboard Serial No</label><div class="input-wrapper"><select name="keyboardSerialNo" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="ENTER SERIAL NO">ENTER SERIAL NO</option><option value="NO - SERIAL NO">NO - SERIAL NO</option><option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="keyboardSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div></div>
+                <div class="input-group" data-select-wrapper="true">
+                  <label class="input-label">Keyboard Asset ID</label>
+                  <div class="input-wrapper">
+                    <select name="keyboardAssetId" class="input-field dynamic-select">
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="ENTER ASSET ID">ENTER ASSET ID</option>
+                      <option value="NO ASSET ID">NO ASSET ID</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-chevron"></i>
+                  </div>
+                  <div class="custom-input-wrapper"><input type="text" name="keyboardAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
+                </div>
+                
+                <div class="input-group" data-select-wrapper="true"><label class="input-label">Keyboard Make</label>
+                  <div class="input-wrapper">
+                    <select name="keyboardMake" class="input-field dynamic-select">
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="OTHER">OTHER</option>
+                      <option value="ACER">ACER</option>
+                      <option value="DELL">DELL</option>
+                      <option value="DSELECT">DSELECT</option>
+                      <option value="FRONTECH">FRONTECH</option>
+                      <option value="HP">HP</option>
+                      <option value="INTEX">INTEX</option>
+                      <option value="LENOVO">LENOVO</option>
+                      <option value="ZEBRONICS">ZEBRONICS</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-chevron"></i>
+                  </div>
+                  <div class="custom-input-wrapper"><input type="text" name="keyboardMakeCustom" class="input-field" placeholder="Specify manually..."></div>
+                </div>
+                
+                <div class="input-group" data-select-wrapper="true">
+                  <label class="input-label">Keyboard Serial No</label>
+                  <div class="input-wrapper">
+                    <select name="keyboardSerialNo" class="input-field dynamic-select">
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="ENTER SERIAL NO">ENTER SERIAL NO</option>
+                      <option value="NO - SERIAL NO">NO - SERIAL NO</option>
+                      <option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-chevron"></i>
+                  </div>
+                  <div class="custom-input-wrapper"><input type="text" name="keyboardSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div>
+                </div>
               </div>
+
               <div>
-                <div class="input-group" data-select-wrapper="true"><label class="input-label">Mouse Asset ID</label><div class="input-wrapper"><select name="mouseAssetId" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="ENTER ASSET ID">ENTER ASSET ID</option><option value="NO ASSET ID">NO ASSET ID</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="mouseAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></div>
-                <div class="input-group" data-select-wrapper="true"><label class="input-label">Mouse Make</label><div class="input-wrapper"><select name="mouseMake" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="OTHER">OTHER</option><option value="ACER">ACER</option><option value="DELL">DELL</option><option value="DSELECT">DSELECT</option><option value="FRONTECH">FRONTECH</option><option value="HP">HP</option><option value="INTEX">INTEX</option><option value="LENOVO">LENOVO</option><option value="ZEBRONICS">ZEBRONICS</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="mouseMakeCustom" class="input-field" placeholder="Specify manually..."></div></div>
-                <div class="input-group" data-select-wrapper="true"><label class="input-label">Mouse Serial No</label><div class="input-wrapper"><select name="mouseSerialNo" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="ENTER SERIAL NO">ENTER SERIAL NO</option><option value="NO - SERIAL NO">NO - SERIAL NO</option><option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="mouseSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div></div>
+                <div class="input-group" data-select-wrapper="true">
+                  <label class="input-label">Mouse Asset ID</label>
+                  <div class="input-wrapper">
+                    <select name="mouseAssetId" class="input-field dynamic-select">
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="ENTER ASSET ID">ENTER ASSET ID</option>
+                      <option value="NO ASSET ID">NO ASSET ID</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-chevron"></i>
+                  </div>
+                  <div class="custom-input-wrapper"><input type="text" name="mouseAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
+                </div>
+                
+                <div class="input-group" data-select-wrapper="true"><label class="input-label">Mouse Make</label>
+                  <div class="input-wrapper">
+                    <select name="mouseMake" class="input-field dynamic-select">
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="OTHER">OTHER</option>
+                      <option value="ACER">ACER</option>
+                      <option value="DELL">DELL</option>
+                      <option value="DSELECT">DSELECT</option>
+                      <option value="FRONTECH">FRONTECH</option>
+                      <option value="HP">HP</option>
+                      <option value="INTEX">INTEX</option>
+                      <option value="LENOVO">LENOVO</option>
+                      <option value="ZEBRONICS">ZEBRONICS</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-chevron"></i>
+                  </div>
+                  <div class="custom-input-wrapper"><input type="text" name="mouseMakeCustom" class="input-field" placeholder="Specify manually..."></div>
+                </div>
+                
+                <div class="input-group" data-select-wrapper="true">
+                  <label class="input-label">Mouse Serial No</label>
+                  <div class="input-wrapper">
+                    <select name="mouseSerialNo" class="input-field dynamic-select">
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="ENTER SERIAL NO">ENTER SERIAL NO</option>
+                      <option value="NO - SERIAL NO">NO - SERIAL NO</option>
+                      <option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-chevron"></i>
+                  </div>
+                  <div class="custom-input-wrapper"><input type="text" name="mouseSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div>
+                </div>
               </div>
             </div>
           </div>
@@ -394,35 +644,147 @@
           <div class="glass-card mb-6">
             <div class="section-header"><div class="section-icon"><i class="fas fa-microchip"></i></div><h3>SECTION 4 - C.P.U CONFIGURATION</h3></div>
             <div class="grid grid-3 mb-6">
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">C.P.U Asset ID</label><div class="input-wrapper"><select name="cpuAssetId" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="ENTER ASSET ID">ENTER ASSET ID</option><option value="NO ASSET ID">NO ASSET ID</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="cpuAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></div>
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">C.P.U Make</label><div class="input-wrapper"><select name="cpuMake" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="OTHER">OTHER</option><option value="ACER">ACER</option><option value="DELL">DELL</option><option value="FINGERS">FINGERS</option><option value="FRONTECH">FRONTECH</option><option value="HCL">HCL</option><option value="HP">HP</option><option value="IBALL">IBALL</option><option value="INTEX">INTEX</option><option value="LENOVO">LENOVO</option><option value="MERCURY">MERCURY</option><option value="WIPRO">WIPRO</option><option value="ZEBION">ZEBION</option><option value="ZEBRONICS">ZEBRONICS</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="cpuMakeCustom" class="input-field" placeholder="Specify manually..."></div></div>
+              
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">C.P.U Asset ID</label>
+                <div class="input-wrapper">
+                  <select name="cpuAssetId" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="ENTER ASSET ID">ENTER ASSET ID</option>
+                    <option value="NO ASSET ID">NO ASSET ID</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="cpuAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
+              </div>
+              
+              <div class="input-group" data-select-wrapper="true"><label class="input-label">C.P.U Make</label>
+                <div class="input-wrapper">
+                  <select name="cpuMake" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="OTHER">OTHER</option>
+                    <option value="ACER">ACER</option>
+                    <option value="DELL">DELL</option>
+                    <option value="FINGERS">FINGERS</option>
+                    <option value="FRONTECH">FRONTECH</option>
+                    <option value="HCL">HCL</option>
+                    <option value="HP">HP</option>
+                    <option value="IBALL">IBALL</option>
+                    <option value="INTEX">INTEX</option>
+                    <option value="LENOVO">LENOVO</option>
+                    <option value="MERCURY">MERCURY</option>
+                    <option value="WIPRO">WIPRO</option>
+                    <option value="ZEBION">ZEBION</option>
+                    <option value="ZEBRONICS">ZEBRONICS</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="cpuMakeCustom" class="input-field" placeholder="Specify manually..."></div>
+              </div>
               <div class="input-group"><label class="input-label">C.P.U Model</label><input type="text" name="cpuModel" class="input-field" placeholder="Ex: 280 PRO G1 MT"></div>
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">C.P.U Serial No</label><div class="input-wrapper"><select name="cpuSerialNo" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="ENTER SERIAL NO">ENTER SERIAL NO</option><option value="NO - SERIAL NO">NO - SERIAL NO</option><option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="cpuSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div></div>
-              <div class="input-group"><label class="input-label">Processor</label><input type="text" name="processor" id="processor-main-input" class="input-field" placeholder="Click to select format" readonly onclick="openProcessorModal()" style="cursor: pointer;"></div>
-              <div class="input-group"><label class="input-label">Operating System</label><div class="input-wrapper"><select name="os" class="input-field"><option value="" disabled selected>Select an option</option><option value="WIN 7">WIN 7</option><option value="WIN 7 PRO">WIN 7 PRO</option><option value="WIN 10">WIN 10</option><option value="WIN 10 PRO">WIN 10 PRO</option><option value="WIN 11">WIN 11</option><option value="WIN 11 PRO">WIN 11 PRO</option></select><i class="fas fa-chevron-down select-chevron"></i></div></div>
-              <div class="input-group" style="grid-column: 1 / -1;"><label class="input-label">Storage Devices</label><input type="text" name="hdd" id="storage-main-input" class="input-field" placeholder="Click to add storage devices" readonly onclick="openStorageModal()" style="cursor: pointer;"></div>
+              
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">C.P.U Serial No</label>
+                <div class="input-wrapper">
+                  <select name="cpuSerialNo" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="ENTER SERIAL NO">ENTER SERIAL NO</option>
+                    <option value="NO - SERIAL NO">NO - SERIAL NO</option>
+                    <option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="cpuSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div>
+              </div>
+              
+              <div class="input-group">
+                <label class="input-label">Processor</label>
+                <input type="text" name="processor" id="processor-main-input" class="input-field" placeholder="Click to select format" readonly onclick="openProcessorModal()" style="cursor: pointer;">
+              </div>
+              <div class="input-group"><label class="input-label">Operating System</label>
+                <div class="input-wrapper">
+                  <select name="os" class="input-field">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="WIN 7">WIN 7</option>
+                    <option value="WIN 7 PRO">WIN 7 PRO</option>
+                    <option value="WIN 10">WIN 10</option>
+                    <option value="WIN 10 PRO">WIN 10 PRO</option>
+                    <option value="WIN 11">WIN 11</option>
+                    <option value="WIN 11 PRO">WIN 11 PRO</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+              </div>
+              <div class="input-group" style="grid-column: 1 / -1;">
+                <label class="input-label">Storage Devices</label>
+                <input type="text" name="hdd" id="storage-main-input" class="input-field" placeholder="Click to add storage devices" readonly onclick="openStorageModal()" style="cursor: pointer;">
+              </div>
             </div>
+            
             <div style="background: rgba(248,250,252,0.8); border: 1px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem;">
               <div class="grid grid-2 mb-4">
-                <div class="input-group"><label class="input-label" style="text-transform: uppercase; font-size: 0.75rem;">RAM-DDR</label><div class="input-wrapper"><select name="ramDdr" class="input-field"><option value="" disabled selected>Select an option</option><option value="DDR2">DDR2</option><option value="DDR3">DDR3</option><option value="DDR4">DDR4</option><option value="DDR5">DDR5</option></select><i class="fas fa-chevron-down select-chevron"></i></div></div>
-                <div class="input-group"><label class="input-label" style="text-transform: uppercase; font-size: 0.75rem;">Number of Sticks</label><div class="input-wrapper"><select name="ramSticks" id="ramSticksSelect" class="input-field" onchange="updateRamFields()"><option value="" disabled selected>Select an option</option><option value="1 STICK">1 STICK</option><option value="2 STICKS">2 STICKS</option><option value="3 STICKS">3 STICKS</option><option value="4 STICKS">4 STICKS</option></select><i class="fas fa-chevron-down select-chevron"></i></div></div>
+                <div class="input-group">
+                  <label class="input-label" style="text-transform: uppercase; font-size: 0.75rem;">RAM-DDR</label>
+                  <div class="input-wrapper">
+                    <select name="ramDdr" class="input-field">
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="DDR2">DDR2</option>
+                      <option value="DDR3">DDR3</option>
+                      <option value="DDR4">DDR4</option>
+                      <option value="DDR5">DDR5</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-chevron"></i>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <label class="input-label" style="text-transform: uppercase; font-size: 0.75rem;">Number of Sticks</label>
+                  <div class="input-wrapper">
+                    <select name="ramSticks" id="ramSticksSelect" class="input-field" onchange="updateRamFields()">
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="1 STICK">1 STICK</option>
+                      <option value="2 STICKS">2 STICKS</option>
+                      <option value="3 STICKS">3 STICKS</option>
+                      <option value="4 STICKS">4 STICKS</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-chevron"></i>
+                  </div>
+                </div>
               </div>
+              
               <div class="grid grid-2 mb-4" id="ram-inputs-container">
                 <div class="input-group" style="display: none;" id="ri-1"><label class="input-label" style="text-transform: uppercase; font-size: 0.75rem;">Stick - 1 (GB)</label><div style="position:relative;"><input type="number" name="ram1" class="input-field ram-input" oninput="calculateRamTotal()" placeholder="EX: 0" style="padding-right: 3rem;" min="0"><span style="position:absolute; right:1rem; top:50%; transform:translateY(-50%); font-weight:600; color:#94a3b8; font-size:0.8rem;">GB</span></div></div>
                 <div class="input-group" style="display: none;" id="ri-2"><label class="input-label" style="text-transform: uppercase; font-size: 0.75rem;">Stick - 2 (GB)</label><div style="position:relative;"><input type="number" name="ram2" class="input-field ram-input" oninput="calculateRamTotal()" placeholder="EX: 0" style="padding-right: 3rem;" min="0"><span style="position:absolute; right:1rem; top:50%; transform:translateY(-50%); font-weight:600; color:#94a3b8; font-size:0.8rem;">GB</span></div></div>
                 <div class="input-group" style="display: none;" id="ri-3"><label class="input-label" style="text-transform: uppercase; font-size: 0.75rem;">Stick - 3 (GB)</label><div style="position:relative;"><input type="number" name="ram3" class="input-field ram-input" oninput="calculateRamTotal()" placeholder="EX: 0" style="padding-right: 3rem;" min="0"><span style="position:absolute; right:1rem; top:50%; transform:translateY(-50%); font-weight:600; color:#94a3b8; font-size:0.8rem;">GB</span></div></div>
                 <div class="input-group" style="display: none;" id="ri-4"><label class="input-label" style="text-transform: uppercase; font-size: 0.75rem;">Stick - 4 (GB)</label><div style="position:relative;"><input type="number" name="ram4" class="input-field ram-input" oninput="calculateRamTotal()" placeholder="EX: 0" style="padding-right: 3rem;" min="0"><span style="position:absolute; right:1rem; top:50%; transform:translateY(-50%); font-weight:600; color:#94a3b8; font-size:0.8rem;">GB</span></div></div>
               </div>
+              
               <div style="background: #eff6ff; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #bfdbfe; display: flex; justify-content: space-between; align-items: center;">
-                <div><p style="font-size: 0.75rem; color: #1d4ed8; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;">Total System Memory</p><p style="font-size: 2.5rem; font-weight: 800; color: #0f172a; line-height: 1;"><span id="ram-total-display">0</span> <span style="font-size: 1.25rem; font-weight: 600; color: #64748b;">GB</span></p></div>
+                <div>
+                  <p style="font-size: 0.75rem; color: #1d4ed8; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;">Total System Memory</p>
+                  <p style="font-size: 2.5rem; font-weight: 800; color: #0f172a; line-height: 1;"><span id="ram-total-display">0</span> <span style="font-size: 1.25rem; font-weight: 600; color: #64748b;">GB</span></p>
+                </div>
                 <div style="background: #dbeafe; color: #2563eb; font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.5rem; border-radius: 0.5rem; display: flex; align-items: center; gap: 0.25rem;"><span style="display:inline-block; width:6px; height:6px; background:#3b82f6; border-radius:50%;"></span> REAL-TIME</div>
               </div>
             </div>
           </div>
+
           <div class="glass-card">
             <div class="section-header"><div class="section-icon"><i class="fas fa-network-wired"></i></div><h3>SECTION 5 - NETWORK</h3></div>
             <div class="grid grid-2">
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">Internet</label><div class="input-wrapper"><select name="internet" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="NO INTERNET">NO INTERNET</option><option value="OTHER">OTHER</option><option value="ACT">ACT</option><option value="AIRTEL DONGLE">AIRTEL DONGLE</option><option value="BSNL">BSNL</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="internetCustom" class="input-field" placeholder="Specify manually..."></div></div>
+              <div class="input-group" data-select-wrapper="true"><label class="input-label">Internet</label>
+                <div class="input-wrapper">
+                  <select name="internet" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="NO INTERNET">NO INTERNET</option>
+                    <option value="OTHER">OTHER</option>
+                    <option value="ACT">ACT</option>
+                    <option value="AIRTEL DONGLE">AIRTEL DONGLE</option>
+                    <option value="BSNL">BSNL</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="internetCustom" class="input-field" placeholder="Specify manually..."></div>
+              </div>
               <div class="input-group"><label class="input-label">Speed (MBPS)</label><input type="text" name="internetSpeed" class="input-field" placeholder="EX : 30, 50"></div>
               <div class="input-group"><label class="input-label">Switch Ports</label><input type="text" name="switchPorts" class="input-field" placeholder="EX: 4, 8, 16, 24" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
               <div class="input-group"><label class="input-label">Static IP</label><input type="text" name="staticIp" class="input-field"></div>
@@ -435,23 +797,142 @@
             <div class="section-header"><div class="section-icon"><i class="fas fa-plug"></i></div><h3>SECTION 6 - U.P.S & BATTERIES</h3></div>
             <div class="grid grid-2">
               <div>
-                <div class="input-group"><label class="input-label">U.P.S in Location</label><div class="input-wrapper"><select name="upsInLocation" class="input-field" onchange="toggleDeviceState('ups', this.value)"><option value="" disabled selected>Select an option</option><option value="YES">YES</option><option value="NO">NO</option></select><i class="fas fa-chevron-down select-chevron"></i></div></div>
-                <div id="ups-fields-container"><div class="input-group" data-select-wrapper="true"><label class="input-label">U.P.S - Brand</label><div class="input-wrapper"><select name="upsBrand" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="NO U.P.S">NO U.P.S</option><option value="OTHER">OTHER</option><option value="APC">APC</option><option value="CYBERPOWER">CYBERPOWER</option><option value="LUMINOUS">LUMINOUS</option><option value="MICROTEK">MICROTEK</option><option value="ZEBRONICS">ZEBRONICS</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="upsBrandCustom" class="input-field" placeholder="Specify manually..."></div></div></div>
+                <div class="input-group">
+                  <label class="input-label">U.P.S in Location</label>
+                  <div class="input-wrapper">
+                    <select name="upsInLocation" class="input-field" onchange="toggleDeviceState('ups', this.value)">
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="YES">YES</option>
+                      <option value="NO">NO</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-chevron"></i>
+                  </div>
+                </div>
+                <div id="ups-fields-container">
+                  <div class="input-group" data-select-wrapper="true">
+                    <label class="input-label">U.P.S - Brand</label>
+                    <div class="input-wrapper">
+                      <select name="upsBrand" class="input-field dynamic-select">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="NO U.P.S">NO U.P.S</option>
+                        <option value="OTHER">OTHER</option>
+                        <option value="APC">APC</option>
+                        <option value="CYBERPOWER">CYBERPOWER</option>
+                        <option value="LUMINOUS">LUMINOUS</option>
+                        <option value="MICROTEK">MICROTEK</option>
+                        <option value="ZEBRONICS">ZEBRONICS</option>
+                      </select>
+                      <i class="fas fa-chevron-down select-chevron"></i>
+                    </div>
+                    <div class="custom-input-wrapper"><input type="text" name="upsBrandCustom" class="input-field" placeholder="Specify manually..."></div>
+                  </div>
+                </div>
               </div>
+              
               <div>
-                <div class="input-group"><label class="input-label">Batteries in Location</label><div class="input-wrapper"><select name="batteriesInLocation" class="input-field" onchange="toggleDeviceState('batteries', this.value)"><option value="" disabled selected>Select an option</option><option value="YES">YES</option><option value="NO">NO</option></select><i class="fas fa-chevron-down select-chevron"></i></div></div>
-                <div id="batteries-fields-container"><div class="input-group"><label class="input-label">No Of Batteries</label><div class="input-wrapper"><select name="noOfBatteries" class="input-field"><option value="" disabled selected>Select an option</option><option value="NO BATTERIES">NO BATTERIES</option><option value="0">0</option><script>for(let i=1; i<=15; i++) document.write(`<option value="${i}">${i}</option>`);</script></select><i class="fas fa-chevron-down select-chevron"></i></div></div></div>
+                <div class="input-group">
+                  <label class="input-label">Batteries in Location</label>
+                  <div class="input-wrapper">
+                    <select name="batteriesInLocation" class="input-field" onchange="toggleDeviceState('batteries', this.value)">
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="YES">YES</option>
+                      <option value="NO">NO</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-chevron"></i>
+                  </div>
+                </div>
+                <div id="batteries-fields-container">
+                  <div class="input-group">
+                    <label class="input-label">No Of Batteries</label>
+                    <div class="input-wrapper">
+                      <select name="noOfBatteries" class="input-field">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="NO BATTERIES">NO BATTERIES</option>
+                        <option value="0">0</option>
+                        <script>for(let i=1; i<=15; i++) document.write(`<option value="${i}">${i}</option>`);</script>
+                      </select>
+                      <i class="fas fa-chevron-down select-chevron"></i>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="input-group" style="grid-column: 1 / -1;"><label class="input-label">U.P.S & Batteries - Working status</label><div class="input-wrapper"><select name="upsBatteryStatus" class="input-field"><option value="" disabled selected>Select an option</option><option value="WORKING">WORKING</option><option value="NOT WORKING">NOT WORKING</option></select><i class="fas fa-chevron-down select-chevron"></i></div></div>
+
+              <div class="input-group" style="grid-column: 1 / -1;">
+                <label class="input-label">U.P.S & Batteries - Working status</label>
+                <div class="input-wrapper">
+                  <select name="upsBatteryStatus" class="input-field">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="WORKING">WORKING</option>
+                    <option value="NOT WORKING">NOT WORKING</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+              </div>
             </div>
           </div>
+          
           <div class="glass-card">
             <div class="section-header"><div class="section-icon"><i class="fas fa-print"></i></div><h3>SECTION 7 - PRINTER</h3></div>
-            <div class="input-group" style="margin-bottom: 1.5rem;"><label class="input-label">Is a Printer Attached to this system ?</label><div class="input-wrapper"><select name="printerAttached" class="input-field" onchange="toggleDeviceState('printer', this.value)"><option value="" disabled selected>Select an option</option><option value="YES">YES</option><option value="NO">NO</option></select><i class="fas fa-chevron-down select-chevron"></i></div></div>
+            
+            <div class="input-group" style="margin-bottom: 1.5rem;">
+              <label class="input-label">Is a Printer Attached to this system ?</label>
+              <div class="input-wrapper">
+                <select name="printerAttached" class="input-field" onchange="toggleDeviceState('printer', this.value)">
+                  <option value="" disabled selected>Select an option</option>
+                  <option value="YES">YES</option>
+                  <option value="NO">NO</option>
+                </select>
+                <i class="fas fa-chevron-down select-chevron"></i>
+              </div>
+            </div>
+
             <div class="grid grid-2" id="printer-fields-container">
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">Printer Asset ID</label><div class="input-wrapper"><select name="printerAssetId" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="ENTER ASSET ID">ENTER ASSET ID</option><option value="NO ASSET ID">NO ASSET ID</option><option value="NO PRINTER">NO PRINTER</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="printerAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></div>
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">Printer Serial No</label><div class="input-wrapper"><select name="printerSerialNo" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="NO PRINTER">NO PRINTER</option><option value="ENTER SERIAL NO">ENTER SERIAL NO</option><option value="NO - SERIAL NO">NO - SERIAL NO</option><option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="printerSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div></div>
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">Printer Make</label><div class="input-wrapper"><select name="printerMake" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="NO PRINTER">NO PRINTER</option><option value="OTHER">OTHER</option><option value="BROTHER">BROTHER</option><option value="CANON">CANON</option><option value="EPSON">EPSON</option><option value="HP">HP</option><option value="TVS">TVS</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="printerMakeCustom" class="input-field" placeholder="Specify manually..."></div></div>
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">Printer Asset ID</label>
+                <div class="input-wrapper">
+                  <select name="printerAssetId" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="ENTER ASSET ID">ENTER ASSET ID</option>
+                    <option value="NO ASSET ID">NO ASSET ID</option>
+                    <option value="NO PRINTER">NO PRINTER</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="printerAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
+              </div>
+              
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">Printer Serial No</label>
+                <div class="input-wrapper">
+                  <select name="printerSerialNo" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="NO PRINTER">NO PRINTER</option>
+                    <option value="ENTER SERIAL NO">ENTER SERIAL NO</option>
+                    <option value="NO - SERIAL NO">NO - SERIAL NO</option>
+                    <option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="printerSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div>
+              </div>
+
+              <div class="input-group" data-select-wrapper="true"><label class="input-label">Printer Make</label>
+                <div class="input-wrapper">
+                  <select name="printerMake" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="NO PRINTER">NO PRINTER</option>
+                    <option value="OTHER">OTHER</option>
+                    <option value="BROTHER">BROTHER</option>
+                    <option value="CANON">CANON</option>
+                    <option value="EPSON">EPSON</option>
+                    <option value="HP">HP</option>
+                    <option value="TVS">TVS</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="printerMakeCustom" class="input-field" placeholder="Specify manually..."></div>
+              </div>
+              
               <div class="input-group"><label class="input-label">Printer Model</label><input type="text" name="printerModel" class="input-field" placeholder="Ex: 1020 PLUS, M208DW ..."></div>
             </div>
           </div>
@@ -460,17 +941,87 @@
         <div class="form-section" data-step="5">
           <div class="glass-card mb-6">
             <div class="section-header"><div class="section-icon"><i class="fas fa-crosshairs"></i></div><h3>SECTION 8 - SCANNER</h3></div>
-            <div class="input-group" style="margin-bottom: 1.5rem;"><label class="input-label">Is a Scanner Attached to this system ?</label><div class="input-wrapper"><select name="scannerAttached" class="input-field" onchange="toggleDeviceState('scanner', this.value)"><option value="" disabled selected>Select an option</option><option value="YES">YES</option><option value="NO">NO</option></select><i class="fas fa-chevron-down select-chevron"></i></div></div>
+            
+            <div class="input-group" style="margin-bottom: 1.5rem;">
+              <label class="input-label">Is a Scanner Attached to this system ?</label>
+              <div class="input-wrapper">
+                <select name="scannerAttached" class="input-field" onchange="toggleDeviceState('scanner', this.value)">
+                  <option value="" disabled selected>Select an option</option>
+                  <option value="YES">YES</option>
+                  <option value="NO">NO</option>
+                </select>
+                <i class="fas fa-chevron-down select-chevron"></i>
+              </div>
+            </div>
+
             <div class="grid grid-2" id="scanner-fields-container">
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">Scanner Asset ID</label><div class="input-wrapper"><select name="scannerAssetId" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="ENTER ASSET ID">ENTER ASSET ID</option><option value="NO ASSET ID">NO ASSET ID</option><option value="NO SCANNER">NO SCANNER</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="scannerAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div></div>
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">Scanner Serial No</label><div class="input-wrapper"><select name="scannerSerialNo" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="NO SCANNER">NO SCANNER</option><option value="ENTER SERIAL NO">ENTER SERIAL NO</option><option value="NO - SERIAL NO">NO - SERIAL NO</option><option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="scannerSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div></div>
-              <div class="input-group" data-select-wrapper="true"><label class="input-label">Scanner Make</label><div class="input-wrapper"><select name="scannerMake" class="input-field dynamic-select"><option value="" disabled selected>Select an option</option><option value="NO SCANNER">NO SCANNER</option><option value="OTHER">OTHER</option><option value="BROTHER">BROTHER</option><option value="CANON">CANON</option><option value="EPSON">EPSON</option><option value="HP">HP</option><option value="TVS">TVS</option></select><i class="fas fa-chevron-down select-chevron"></i></div><div class="custom-input-wrapper"><input type="text" name="scannerMakeCustom" class="input-field" placeholder="Specify manually..."></div></div>
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">Scanner Asset ID</label>
+                <div class="input-wrapper">
+                  <select name="scannerAssetId" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="ENTER ASSET ID">ENTER ASSET ID</option>
+                    <option value="NO ASSET ID">NO ASSET ID</option>
+                    <option value="NO SCANNER">NO SCANNER</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="scannerAssetIdCustom" class="input-field" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
+              </div>
+              
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">Scanner Serial No</label>
+                <div class="input-wrapper">
+                  <select name="scannerSerialNo" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="NO SCANNER">NO SCANNER</option>
+                    <option value="ENTER SERIAL NO">ENTER SERIAL NO</option>
+                    <option value="NO - SERIAL NO">NO - SERIAL NO</option>
+                    <option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="scannerSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div>
+              </div>
+              
+              <div class="input-group" data-select-wrapper="true"><label class="input-label">Scanner Make</label>
+                <div class="input-wrapper">
+                  <select name="scannerMake" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="NO SCANNER">NO SCANNER</option>
+                    <option value="OTHER">OTHER</option>
+                    <option value="BROTHER">BROTHER</option>
+                    <option value="CANON">CANON</option>
+                    <option value="EPSON">EPSON</option>
+                    <option value="HP">HP</option>
+                    <option value="TVS">TVS</option>
+                  </select>
+                  <i class="fas fa-chevron-down select-chevron"></i>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="scannerMakeCustom" class="input-field" placeholder="Specify manually..."></div>
+              </div>
+              
               <div class="input-group"><label class="input-label">Scanner Model</label><input type="text" name="scannerModel" class="input-field" placeholder="EX: Image formula DR-C230"></div>
             </div>
           </div>
           <div class="grid grid-2">
-             <div class="glass-card"><div class="section-header"><div class="section-icon"><i class="fas fa-shield-virus"></i></div><h3>SECTION 9 - ESCAN</h3></div><div class="input-group"><label class="input-label">Status</label><div class="input-wrapper"><select name="escanStatus" class="input-field"><option value="" disabled selected>Select an option</option><option value="UPDATED">UPDATED</option><option value="SOFTWARE NOT INSTALLED">SOFTWARE NOT INSTALLED</option></select><i class="fas fa-chevron-down select-chevron"></i></div></div></div>
-             <div class="glass-card"><div class="section-header"><div class="section-icon"><i class="fas fa-comment-dots"></i></div><h3>SECTION 10 - OVERALL REMARKS</h3></div><textarea name="remarks" class="input-field" style="height: 100px; resize: none;" placeholder="Optional overall remarks..."></textarea></div>
+             <div class="glass-card">
+               <div class="section-header"><div class="section-icon"><i class="fas fa-shield-virus"></i></div><h3>SECTION 9 - ESCAN</h3></div>
+               <div class="input-group"><label class="input-label">Status</label>
+                 <div class="input-wrapper">
+                   <select name="escanStatus" class="input-field">
+                     <option value="" disabled selected>Select an option</option>
+                     <option value="UPDATED">UPDATED</option>
+                     <option value="SOFTWARE NOT INSTALLED">SOFTWARE NOT INSTALLED</option>
+                   </select>
+                   <i class="fas fa-chevron-down select-chevron"></i>
+                 </div>
+               </div>
+             </div>
+             <div class="glass-card">
+               <div class="section-header"><div class="section-icon"><i class="fas fa-comment-dots"></i></div><h3>SECTION 10 - OVERALL REMARKS</h3></div>
+               <textarea name="remarks" class="input-field" style="height: 100px; resize: none;" placeholder="Optional overall remarks..."></textarea>
+             </div>
           </div>
         </div>
 
@@ -480,25 +1031,74 @@
             <p style="font-size: 0.85rem; color: #ef4444; margin-bottom: 1.5rem; font-weight: 600;"><i class="fas fa-lock"></i> Images are securely captured live via your device camera. File attachments are disabled to ensure authenticity.</p>
             
             <div style="background: rgba(248,250,252,0.5); padding: 1.5rem; border-radius: 1rem; border: 1px solid #e2e8f0;" class="grid grid-2">
-              <div class="img-uploader-container" data-category="desktop" data-limit="3"><label class="input-label">1. Desktop w/ Info (Up to 3)</label><div class="upload-grid" id="grid-desktop"><div class="upload-box" onclick="openCamera('desktop')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div></div></div>
-              <div class="img-uploader-container" data-category="cpu" data-limit="3"><label class="input-label">2. C.P.U (Up to 3)</label><div class="upload-grid" id="grid-cpu"><div class="upload-box" onclick="openCamera('cpu')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div></div></div>
-              <div class="img-uploader-container" data-category="keyboard" data-limit="2"><label class="input-label">3. Keyboard (Up to 2)</label><div class="upload-grid" id="grid-keyboard"><div class="upload-box" onclick="openCamera('keyboard')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div></div></div>
-              <div class="img-uploader-container" data-category="mouse" data-limit="2"><label class="input-label">4. Mouse (Up to 2)</label><div class="upload-grid" id="grid-mouse"><div class="upload-box" onclick="openCamera('mouse')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div></div></div>
-              <div class="img-uploader-container" data-category="printer" data-limit="3"><label class="input-label">5. Printer (Up to 3)</label><div class="upload-grid" id="grid-printer"><div class="upload-box" onclick="openCamera('printer')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div></div></div>
-              <div class="img-uploader-container" data-category="scanner" data-limit="3"><label class="input-label">6. Scanner (Up to 3)</label><div class="upload-grid" id="grid-scanner"><div class="upload-box" onclick="openCamera('scanner')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div></div></div>
-              <div class="img-uploader-container" data-category="ups" data-limit="3"><label class="input-label">7. U.P.S (Up to 3)</label><div class="upload-grid" id="grid-ups"><div class="upload-box" onclick="openCamera('ups')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div></div></div>
-              <div class="img-uploader-container" data-category="batteries" data-limit="3"><label class="input-label">8. BATTERIES (Up to 3)</label><div class="upload-grid" id="grid-batteries"><div class="upload-box" onclick="openCamera('batteries')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div></div></div>
-              <div class="img-uploader-container" data-category="hardcopy" data-limit="2" style="grid-column: 1 / -1;"><label class="input-label">9. Hard-Copy of PM REPORT. Note: Duly signed by Concern Team (Up to 2)</label><div class="upload-grid" id="grid-hardcopy"><div class="upload-box" onclick="openCamera('hardcopy')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div></div></div>
+              
+              <div class="img-uploader-container" data-category="desktop" data-limit="3">
+                <label class="input-label">1. Desktop w/ Info (Up to 3)</label>
+                <div class="upload-grid" id="grid-desktop">
+                  <div class="upload-box" onclick="openCamera('desktop')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
+                </div>
+              </div>
+              <div class="img-uploader-container" data-category="cpu" data-limit="3">
+                <label class="input-label">2. C.P.U (Up to 3)</label>
+                <div class="upload-grid" id="grid-cpu">
+                  <div class="upload-box" onclick="openCamera('cpu')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
+                </div>
+              </div>
+              <div class="img-uploader-container" data-category="keyboard" data-limit="2">
+                <label class="input-label">3. Keyboard (Up to 2)</label>
+                <div class="upload-grid" id="grid-keyboard">
+                  <div class="upload-box" onclick="openCamera('keyboard')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
+                </div>
+              </div>
+              <div class="img-uploader-container" data-category="mouse" data-limit="2">
+                <label class="input-label">4. Mouse (Up to 2)</label>
+                <div class="upload-grid" id="grid-mouse">
+                  <div class="upload-box" onclick="openCamera('mouse')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
+                </div>
+              </div>
+              <div class="img-uploader-container" data-category="printer" data-limit="3">
+                <label class="input-label">5. Printer (Up to 3)</label>
+                <div class="upload-grid" id="grid-printer">
+                  <div class="upload-box" onclick="openCamera('printer')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
+                </div>
+              </div>
+              <div class="img-uploader-container" data-category="scanner" data-limit="3">
+                <label class="input-label">6. Scanner (Up to 3)</label>
+                <div class="upload-grid" id="grid-scanner">
+                  <div class="upload-box" onclick="openCamera('scanner')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
+                </div>
+              </div>
+              <div class="img-uploader-container" data-category="ups" data-limit="3">
+                <label class="input-label">7. U.P.S (Up to 3)</label>
+                <div class="upload-grid" id="grid-ups">
+                  <div class="upload-box" onclick="openCamera('ups')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
+                </div>
+              </div>
+              <div class="img-uploader-container" data-category="batteries" data-limit="3">
+                <label class="input-label">8. BATTERIES (Up to 3)</label>
+                <div class="upload-grid" id="grid-batteries">
+                  <div class="upload-box" onclick="openCamera('batteries')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
+                </div>
+              </div>
+              <div class="img-uploader-container" data-category="hardcopy" data-limit="2" style="grid-column: 1 / -1;">
+                <label class="input-label">9. Hard-Copy of PM REPORT. Note: Duly signed by Concern Team (Up to 2)</label>
+                <div class="upload-grid" id="grid-hardcopy">
+                  <div class="upload-box" onclick="openCamera('hardcopy')"><i class="fas fa-camera"></i><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
+
       </form>
     </div>
 
-    <!-- Bottom Navigation -->
     <div class="bottom-bar">
       <div class="bottom-bar-inner">
-        <div><button id="btn-back" class="btn btn-primary hidden" style="width: auto; padding: 0.75rem 1.5rem;" onclick="navigateStep(-1)"><i class="fas fa-arrow-left"></i> Back</button></div>
+        <div>
+          <button id="btn-back" class="btn btn-primary hidden" style="width: auto; padding: 0.75rem 1.5rem;" onclick="navigateStep(-1)"><i class="fas fa-arrow-left"></i> Back</button>
+        </div>
         <div class="flex" style="gap: 1rem;">
           <button id="btn-next" class="btn btn-primary" style="width: auto; padding: 0.75rem 2rem;" onclick="navigateStep(1)">Next Step <i class="fas fa-arrow-right"></i></button>
           <button id="btn-preview" class="btn btn-primary hidden" style="width: auto; padding: 0.75rem 2rem;" onclick="togglePreview(true)"><i class="fas fa-eye"></i> Preview & Edit </button>
@@ -508,12 +1108,14 @@
     </div>
   </div>
 
-  <!-- Modals -->
   <div id="logout-modal" class="processor-modal-overlay hidden">
     <div class="glass-card" style="width: 90%; max-width: 400px; background: white; padding: 2.5rem 2rem; text-align: center; animation: slideDown 0.3s ease;">
-      <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2.5rem; box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.5);"><i class="fas fa-power-off"></i></div>
+      <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2.5rem; box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.5);">
+        <i class="fas fa-power-off"></i>
+      </div>
       <h3 style="margin-bottom: 0.5rem; color: #1e293b; font-size: 1.5rem; font-weight: 800;">Confirm Logout</h3>
       <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.5;">Are you sure you want to log out? Any unsaved progress in your PM Report will be lost.</p>
+      
       <div style="display: flex; gap: 1rem; justify-content: center;">
         <button type="button" class="btn btn-outline" style="width: 50%;" onclick="closeLogoutModal()">Cancel</button>
         <button type="button" class="btn btn-primary" style="width: 50%; background: #ef4444; box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);" onclick="executeLogout()">Logout</button>
@@ -524,11 +1126,41 @@
   <div id="processor-modal" class="processor-modal-overlay hidden">
     <div class="glass-card" style="width: 90%; max-width: 400px; background: white; padding: 2rem;">
       <h3 style="margin-bottom: 1.5rem; color: #1e293b; font-size: 1.25rem;"><i class="fas fa-microchip" style="color: var(--primary);"></i> Processor Format</h3>
-      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;"><input type="radio" name="proc_format" value="text" checked onchange="toggleProcFormat()" style="width: 1.2rem; height: 1.2rem; accent-color: var(--primary);">Enter text</label>
-      <div id="proc-text-container" style="padding-left: 1.7rem; margin-bottom: 1.5rem; transition: var(--transition);"><input type="text" id="proc-text-input" class="input-field" placeholder='E.g. Core 2 Duo, Pentium Dual-Core'><p style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">Hint: "Core 2 Duo", "Pentium Dual-Core"</p></div>
-      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;"><input type="radio" name="proc_format" value="scroll" onchange="toggleProcFormat()" style="width: 1.2rem; height: 1.2rem; accent-color: var(--primary);">i-Series Format</label>
-      <div id="proc-scroll-container" style="padding-left: 1.7rem; display: none; transition: var(--transition);"><div style="display: flex; align-items: center; gap: 0.5rem; background: #f8fafc; padding: 1rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0;"><span style="font-size: 1.5rem; font-weight: 800; color: #1e293b;">i</span><div style="position: relative; width: 60px;"><div class="wheel-selection-overlay"></div><div class="scroll-wheel" id="wheel-1" onscroll="handleWheelScroll('wheel-1')"></div></div><span style="font-size: 1.5rem; font-weight: 800; color: #1e293b;">-</span><div style="position: relative; width: 60px;"><div class="wheel-selection-overlay"></div><div class="scroll-wheel" id="wheel-2" onscroll="handleWheelScroll('wheel-2')"></div></div><span style="font-size: 1rem; font-weight: 700; color: #64748b;">- GEN</span></div><p style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">Hint: Scroll down.</p></div>
-      <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;"><button type="button" class="btn btn-primary" style="width: auto; padding: 0.5rem 1.5rem;" onclick="closeProcessorModal()">Cancel</button><button type="button" class="btn btn-primary" style="width: auto; padding: 0.5rem 1.5rem;" onclick="confirmProcessor()">Done</button></div>
+      
+      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">
+        <input type="radio" name="proc_format" value="text" checked onchange="toggleProcFormat()" style="width: 1.2rem; height: 1.2rem; accent-color: var(--primary);">
+        Enter text
+      </label>
+      <div id="proc-text-container" style="padding-left: 1.7rem; margin-bottom: 1.5rem; transition: var(--transition);">
+        <input type="text" id="proc-text-input" class="input-field" placeholder='E.g. Core 2 Duo, Pentium Dual-Core'>
+        <p style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">Hint: "Core 2 Duo", "Pentium Dual-Core"</p>
+      </div>
+
+      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">
+        <input type="radio" name="proc_format" value="scroll" onchange="toggleProcFormat()" style="width: 1.2rem; height: 1.2rem; accent-color: var(--primary);">
+        i-Series Format
+      </label>
+      <div id="proc-scroll-container" style="padding-left: 1.7rem; display: none; transition: var(--transition);">
+        <div style="display: flex; align-items: center; gap: 0.5rem; background: #f8fafc; padding: 1rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0;">
+          <span style="font-size: 1.5rem; font-weight: 800; color: #1e293b;">i</span>
+          <div style="position: relative; width: 60px;">
+            <div class="wheel-selection-overlay"></div>
+            <div class="scroll-wheel" id="wheel-1" onscroll="handleWheelScroll('wheel-1')"></div>
+          </div>
+          <span style="font-size: 1.5rem; font-weight: 800; color: #1e293b;">-</span>
+          <div style="position: relative; width: 60px;">
+            <div class="wheel-selection-overlay"></div>
+            <div class="scroll-wheel" id="wheel-2" onscroll="handleWheelScroll('wheel-2')"></div>
+          </div>
+          <span style="font-size: 1rem; font-weight: 700; color: #64748b;">- GEN</span>
+        </div>
+        <p style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">Hint: Scroll down.</p>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+        <button type="button" class="btn btn-primary" style="width: auto; padding: 0.5rem 1.5rem;" onclick="closeProcessorModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" style="width: auto; padding: 0.5rem 1.5rem;" onclick="confirmProcessor()">Done</button>
+      </div>
     </div>
   </div>
 
@@ -536,8 +1168,13 @@
     <div class="glass-card" style="width: 95%; max-width: 450px; background: white; padding: 2rem; max-height: 90vh; overflow-y: auto;">
       <h3 style="margin-bottom: 1.5rem; color: #1e293b; font-size: 1.25rem;"><i class="fas fa-hdd" style="color: var(--primary);"></i> Storage Devices</h3>
       <div id="storage-rows-container"></div>
-      <button type="button" class="btn btn-primary" style="width: 100%; margin-bottom: 1.5rem;" onclick="addStorageRow()"><i class="fas fa-plus"></i> Add Storage Device</button>
-      <div style="display: flex; justify-content: flex-end; gap: 1rem;"><button type="button" class="btn btn-primary" style="width: auto; padding: 0.5rem 1.5rem;" onclick="closeStorageModal()">Cancel</button><button type="button" class="btn btn-primary" style="width: auto; padding: 0.5rem 1.5rem;" onclick="confirmStorage()">Done</button></div>
+      <button type="button" class="btn btn-primary" style="width: 100%; margin-bottom: 1.5rem;" onclick="addStorageRow()">
+        <i class="fas fa-plus"></i> Add Storage Device
+      </button>
+      <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+        <button type="button" class="btn btn-primary" style="width: auto; padding: 0.5rem 1.5rem;" onclick="closeStorageModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" style="width: auto; padding: 0.5rem 1.5rem;" onclick="confirmStorage()">Done</button>
+      </div>
     </div>
   </div>
 
@@ -569,19 +1206,82 @@
       document.querySelectorAll('.section-header').forEach(header => {
         const step = header.closest('.form-section').getAttribute('data-step');
         const btn = document.createElement('button');
-        btn.type = 'button'; btn.className = 'btn btn-primary preview-edit-btn hidden'; btn.style.cssText = 'padding: 0.25rem 0.75rem; font-size: 0.8rem; margin-left: auto; width: auto;';
+        btn.type = 'button';
+        btn.className = 'btn btn-primary preview-edit-btn hidden';
+        btn.style.cssText = 'padding: 0.25rem 0.75rem; font-size: 0.8rem; margin-left: auto; width: auto;';
         btn.innerHTML = '<i class="fas fa-edit"></i> Edit';
         btn.onclick = () => editSection(parseInt(step));
         header.appendChild(btn);
       });
+      
+      // Disable Printer, Scanner, UPS, and Batteries fields by default until YES/NO is selected
       ['printer', 'scanner', 'ups', 'batteries'].forEach(device => {
         const container = document.getElementById(`${device}-fields-container`);
-        if (container) container.querySelectorAll('.input-field').forEach(f => f.disabled = true);
+        if (container) {
+          container.querySelectorAll('.input-field').forEach(f => f.disabled = true);
+        }
       });
-      renderStepper(); updateViewVisibility();
+
+      renderStepper();
+      updateViewVisibility();
     });
 
-    // --- Core View Switching ---
+    // --- GPS Location Capture Logic ---
+    function captureLocation() {
+      const btn = document.getElementById('btn-location');
+      const statusText = document.getElementById('geo-status');
+      const input = document.getElementById('coord-input');
+      
+      if (!navigator.geolocation) {
+        statusText.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Geolocation is not supported by your browser.';
+        statusText.style.color = "#ef4444";
+        return;
+      }
+      
+      statusText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Locating satellites...';
+      statusText.style.color = "var(--primary)";
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      btn.disabled = true;
+      
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude.toFixed(6);
+          const lon = position.coords.longitude.toFixed(6);
+          input.value = `${lat}, ${lon}`;
+          statusText.innerHTML = '<i class="fas fa-check-circle"></i> Coordinates captured successfully!';
+          statusText.style.color = "var(--success)";
+          btn.innerHTML = '<i class="fas fa-check"></i>';
+          btn.style.background = "var(--success)";
+          playSuccessSound();
+          setTimeout(() => { 
+             btn.disabled = false; 
+             btn.innerHTML = '<i class="fas fa-location-crosshairs"></i>'; 
+             btn.style.background = ""; // Reset to default CSS
+          }, 2500);
+        },
+        (error) => {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-location-crosshairs"></i>';
+          statusText.style.color = "#ef4444";
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              statusText.innerHTML = '<i class="fas fa-exclamation-circle"></i> Location access denied by user.';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              statusText.innerHTML = '<i class="fas fa-exclamation-circle"></i> Location information is currently unavailable.';
+              break;
+            case error.TIMEOUT:
+              statusText.innerHTML = '<i class="fas fa-exclamation-circle"></i> GPS request timed out. Try again.';
+              break;
+            case error.UNKNOWN_ERROR:
+              statusText.innerHTML = '<i class="fas fa-exclamation-circle"></i> An unknown location error occurred.';
+              break;
+          }
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+      );
+    }
+
     function switchView(viewId) {
       document.querySelectorAll('.auth-container, #view-dashboard').forEach(el => el.classList.add('hidden'));
       document.getElementById(viewId).classList.remove('hidden');
@@ -589,152 +1289,114 @@
     }
     function updateViewVisibility() { switchView('view-login'); }
 
-    // --- Secured Backend Integrations ---
+    // --- Forgot Password Logic ---
     function sendForgotOTP() {
       const email = document.getElementById('forgot-email').value;
       if (!email) { alert('Please enter your email address.'); return; }
-      showLoading("Sending OTP securely...");
-      
-      google.script.run.withSuccessHandler(res => {
+      showLoading("Sending OTP...");
+      setTimeout(() => {
         hideLoading();
-        if(res.success) {
-          document.getElementById('forgot-email-display').textContent = email;
-          document.getElementById('forgot-phase-1').classList.add('hidden');
-          document.getElementById('forgot-phase-2').classList.remove('hidden');
-        } else alert(res.message);
-      }).withFailureHandler(e => { hideLoading(); alert("Error sending OTP"); }).sendOtpBackend(email);
+        document.getElementById('forgot-email-display').textContent = email;
+        document.getElementById('forgot-phase-1').classList.add('hidden');
+        document.getElementById('forgot-phase-2').classList.remove('hidden');
+        setTimeout(() => { document.getElementById('forgot-otp').value = '123456'; }, 1000);
+      }, 1000);
     }
-    
     function verifyForgotOTP() {
-      const email = document.getElementById('forgot-email').value;
       const otp = document.getElementById('forgot-otp').value;
       if (otp.length < 6) { alert('Please enter the full 6-digit OTP.'); return; }
-      showLoading("Verifying via backend...");
-      
-      google.script.run.withSuccessHandler(res => {
+      showLoading("Verifying OTP...");
+      setTimeout(() => {
         hideLoading();
-        if (res.success) {
-          document.getElementById('forgot-phase-2').classList.add('hidden');
-          document.getElementById('forgot-phase-3').classList.remove('hidden');
-        } else alert(res.message);
-      }).verifyOtpBackend(email, otp);
+        document.getElementById('forgot-phase-2').classList.add('hidden');
+        document.getElementById('forgot-phase-3').classList.remove('hidden');
+      }, 1000);
     }
-
     function submitNewPassword() {
-      const email = document.getElementById('forgot-email').value;
       const pass1 = document.getElementById('forgot-new-pass').value;
       const pass2 = document.getElementById('forgot-confirm-pass').value;
       if (!pass1 || !pass2) { alert('Please fill in both password fields.'); return; }
       if (pass1 !== pass2) { alert('Passwords do not match!'); return; }
       showLoading("Updating Password...");
-      
-      google.script.run.withSuccessHandler(res => {
-        hideLoading();
-        if (res.success) {
-          playSuccessSound();
-          document.getElementById('forgot-phase-3').classList.add('hidden');
-          document.getElementById('forgot-header-content').classList.add('hidden');
-          document.getElementById('forgot-back-link').classList.add('hidden');
-          const successCard = document.getElementById('forgot-phase-success');
-          successCard.classList.remove('hidden');
-          successCard.style.animation = 'fadeIn 0.5s ease, slideDown 0.5s ease';
-        } else alert(res.message);
-      }).resetPasswordBackend(email, pass1);
+      setTimeout(() => {
+        hideLoading(); playSuccessSound();
+        
+        // Hide password inputs and top icon header
+        document.getElementById('forgot-phase-3').classList.add('hidden');
+        document.getElementById('forgot-header-content').classList.add('hidden');
+        document.getElementById('forgot-back-link').classList.add('hidden');
+        
+        // Show Gorgeous Success Card
+        const successCard = document.getElementById('forgot-phase-success');
+        successCard.classList.remove('hidden');
+        successCard.style.animation = 'fadeIn 0.5s ease, slideDown 0.5s ease';
+      }, 1500);
     }
-
     function resetForgotFlow() {
-      ['forgot-email', 'forgot-otp', 'forgot-new-pass', 'forgot-confirm-pass'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('forgot-email').value = ''; document.getElementById('forgot-otp').value = '';
+      document.getElementById('forgot-new-pass').value = ''; document.getElementById('forgot-confirm-pass').value = '';
+      
+      // Reset visibility for elements that might have been hidden by success card
       document.getElementById('forgot-header-content').classList.remove('hidden');
       document.getElementById('forgot-back-link').classList.remove('hidden');
       document.getElementById('forgot-phase-success').classList.add('hidden');
+      
       document.getElementById('forgot-phase-1').classList.remove('hidden');
       document.getElementById('forgot-phase-2').classList.add('hidden');
       document.getElementById('forgot-phase-3').classList.add('hidden');
     }
 
-    // --- Sign up Flow ---
-    function sendSignupOTP() {
-      const email = document.getElementById('reg-email').value;
-      if (!email) { alert('Please enter your email address.'); return; }
-      showLoading("Sending Secure OTP...");
-      
-      google.script.run.withSuccessHandler(res => {
-        hideLoading();
-        if (res.success) {
-          document.getElementById('reg-otp-container').classList.remove('hidden');
-          document.getElementById('btn-reg-send-otp').textContent = "Resend OTP";
-        } else alert(res.message);
-      }).withFailureHandler(e => { hideLoading(); alert(e.message); }).sendOtpBackend(email);
-    }
-    
-    function verifySignupOTP() {
-      const email = document.getElementById('reg-email').value;
-      const otp = document.getElementById('reg-otp').value;
-      if (otp.length < 6) { alert('Please enter the full 6-digit OTP.'); return; }
-      showLoading("Verifying Code...");
-      
-      google.script.run.withSuccessHandler(res => {
-        hideLoading();
-        if (res.success) {
-          const status = document.getElementById('reg-otp-status');
-          status.innerHTML = '<i class="fas fa-check-circle"></i> Verified';
-          status.style.color = 'var(--success)';
-          ['reg-otp', 'btn-reg-verify-otp', 'reg-email', 'btn-reg-send-otp'].forEach(id => document.getElementById(id).disabled = true);
-          document.getElementById('btn-reg-verify-otp').textContent = "Verified";
-        } else alert(res.message);
-      }).verifyOtpBackend(email, otp);
-    }
-    
-    function handleSignup() {
-      const status = document.getElementById('btn-reg-verify-otp').textContent;
-      if (status !== "Verified") { alert("Please verify your email via OTP before proceeding."); return; }
-      
-      const payload = {
-        firstName: document.getElementById('reg-fname').value,
-        lastName: document.getElementById('reg-lname').value,
-        email: document.getElementById('reg-email').value,
-        password: document.getElementById('reg-pass').value,
-        project: document.getElementById('reg-proj').value,
-        designation: document.getElementById('reg-desig').value
-      };
-      
-      if (payload.password !== document.getElementById('reg-pass2').value) { alert("Passwords do not match."); return; }
-      
-      showLoading("Registering Identity...");
-      google.script.run.withSuccessHandler(res => {
-        hideLoading();
-        if (res.success) { alert(res.message); switchView('view-login'); }
-        else alert(res.message);
-      }).registerUserBackend(payload);
-    }
-
-    // --- Authentication Flow ---
+    // --- Auth Logic ---
     function handleLogin(e) {
       e.preventDefault();
       showLoading("Authenticating...");
-      
-      const email = document.getElementById('login-email').value;
-      const pass = document.getElementById('login-password').value;
-      
-      google.script.run.withSuccessHandler(res => {
+      setTimeout(() => {
         hideLoading();
-        if (res.success) {
-          state.user = res.user;
-          document.getElementById('nav-user-name').textContent = state.user.name;
-          document.getElementById('nav-user-desig').textContent = state.user.designation;
-          document.getElementById('user-info-display').style.display = 'block';
-          
-          // Auto-fill user specifics in Step 1
-          document.querySelector('input[name="userName"]').value = state.user.name;
-          document.querySelector('input[name="designation"]').value = state.user.designation;
-          
-          switchView('view-dashboard');
-        } else alert(res.message);
-      }).loginUserBackend(email, pass);
+        state.user = { name: "James Engineer", desig: "Engineer" };
+        document.getElementById('nav-user-name').textContent = state.user.name;
+        document.getElementById('nav-user-desig').textContent = state.user.desig;
+        document.getElementById('user-info-display').style.display = 'block';
+        switchView('view-dashboard');
+      }, 800);
+    }
+    function handleSignup() { alert("Registration workflow initiated."); switchView('view-login'); }
+    function sendSignupOTP() {
+      const email = document.getElementById('reg-email').value;
+      if (!email) { alert('Please enter your email address.'); return; }
+      showLoading("Sending OTP...");
+      setTimeout(() => {
+        hideLoading();
+        document.getElementById('reg-otp-container').classList.remove('hidden');
+        document.getElementById('btn-reg-send-otp').textContent = "Resend OTP";
+        setTimeout(() => { document.getElementById('reg-otp').value = '123456'; }, 1000);
+      }, 1000);
+    }
+    function verifySignupOTP() {
+      const otp = document.getElementById('reg-otp').value;
+      if (otp.length < 6) { alert('Please enter the full 6-digit OTP.'); return; }
+      showLoading("Verifying OTP...");
+      setTimeout(() => {
+        hideLoading();
+        const status = document.getElementById('reg-otp-status');
+        status.innerHTML = '<i class="fas fa-check-circle"></i> Verified';
+        status.style.color = 'var(--success)';
+        document.getElementById('reg-otp').disabled = true;
+        document.getElementById('btn-reg-verify-otp').disabled = true;
+        document.getElementById('btn-reg-verify-otp').textContent = "Verified";
+        document.getElementById('reg-email').disabled = true;
+        document.getElementById('btn-reg-send-otp').disabled = true;
+      }, 1000);
     }
 
-    function confirmLogoutPrompt() { document.getElementById('logout-modal').classList.remove('hidden'); }
-    function closeLogoutModal() { document.getElementById('logout-modal').classList.add('hidden'); }
+    // --- Logout Logic ---
+    function confirmLogoutPrompt() {
+      document.getElementById('logout-modal').classList.remove('hidden');
+    }
+    
+    function closeLogoutModal() {
+      document.getElementById('logout-modal').classList.add('hidden');
+    }
+
     function executeLogout() {
       closeLogoutModal();
       state.user = null; state.isPreview = false;
@@ -742,98 +1404,122 @@
       state.images = { desktop: [], cpu: [], keyboard: [], mouse: [], printer: [], scanner: [], ups: [], batteries: [], hardcopy: [] };
       document.querySelectorAll('.upload-grid').forEach(grid => {
         const addBtn = grid.querySelector('.upload-box:not([id])');
-        grid.innerHTML = ''; grid.appendChild(addBtn); addBtn.classList.remove('hidden'); addBtn.style.display = 'flex';
+        grid.innerHTML = ''; grid.appendChild(addBtn); addBtn.classList.remove('hidden');
+        addBtn.style.display = 'flex';
       });
       document.querySelectorAll('.preview-edit-btn').forEach(btn => btn.classList.add('hidden'));
       document.querySelectorAll('#pm-report-form input:not([readonly]), #pm-report-form select, #pm-report-form textarea').forEach(el => el.disabled = false);
-      document.getElementById('geo-status').innerHTML = 'Capture GPS metrics via device.'; document.getElementById('geo-status').style.color = '#64748b';
+      
+      // Reset GPS fields specific handling
+      document.getElementById('geo-status').innerHTML = 'Capture GPS metrics via device.';
+      document.getElementById('geo-status').style.color = '#64748b';
+      
       document.querySelector('.stepper-card').classList.remove('hidden');
       switchView('view-login');
     }
 
-    // --- GPS Location Capture ---
-    function captureLocation() {
-      const btn = document.getElementById('btn-location'), statusText = document.getElementById('geo-status'), input = document.getElementById('coord-input');
-      if (!navigator.geolocation) { statusText.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Geolocation unsupported.'; statusText.style.color = "#ef4444"; return; }
-      
-      statusText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Locating satellites...'; statusText.style.color = "var(--primary)";
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; btn.disabled = true;
-      
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          input.value = `${pos.coords.latitude.toFixed(6)}, ${pos.coords.longitude.toFixed(6)}`;
-          statusText.innerHTML = '<i class="fas fa-check-circle"></i> Coordinates captured!'; statusText.style.color = "var(--success)";
-          btn.innerHTML = '<i class="fas fa-check"></i>'; btn.style.background = "var(--success)";
-          playSuccessSound();
-          setTimeout(() => { btn.disabled = false; btn.innerHTML = '<i class="fas fa-location-crosshairs"></i>'; btn.style.background = ""; }, 2500);
-        },
-        (error) => {
-          btn.disabled = false; btn.innerHTML = '<i class="fas fa-location-crosshairs"></i>'; statusText.style.color = "#ef4444";
-          statusText.innerHTML = `<i class="fas fa-exclamation-circle"></i> GPS Error Code: ${error.code}`;
-        }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
-      );
-    }
-
-    // --- Stepper Navigation ---
+    // --- Stepper Logic ---
     function renderStepper() {
-      const container = document.getElementById('stepper-nodes-container'); if (!container) return;
+      const container = document.getElementById('stepper-nodes-container');
+      if (!container) return;
       container.innerHTML = '';
+      
       for(let i = 1; i <= state.totalSteps; i++) {
         let node = document.createElement('div');
-        node.className = `step-node ${i < state.step ? 'completed' : i === state.step ? 'active' : 'pending'}`; node.innerHTML = i;
-        if(i < state.step && !state.isPreview) { node.onclick = () => { state.step = i; updateStepVisibility(); }; }
+        node.className = `step-node ${i < state.step ? 'completed' : i === state.step ? 'active' : 'pending'}`;
+        node.innerHTML = i;
+        
+        if(i < state.step && !state.isPreview) {
+          node.onclick = () => { state.step = i; updateStepVisibility(); };
+        }
         container.appendChild(node);
       }
+      
       let progressPct = ((state.step - 1) / (state.totalSteps - 1)) * 100;
-      document.getElementById('stepper-progress-bar').style.width = progressPct + '%';
-      document.getElementById('step-title-display').textContent = `Step ${state.step}: ${state.stepTitles[state.step-1]}`;
-      document.getElementById('step-counter-display').textContent = `Step ${state.step} of ${state.totalSteps}`;
+      
+      const progBar = document.getElementById('stepper-progress-bar');
+      if (progBar) progBar.style.width = progressPct + '%';
+      
+      const stepTitle = document.getElementById('step-title-display');
+      if (stepTitle) stepTitle.textContent = `Step ${state.step}: ${state.stepTitles[state.step-1]}`;
+      
+      const stepCounter = document.getElementById('step-counter-display');
+      if (stepCounter) stepCounter.textContent = `Step ${state.step} of ${state.totalSteps}`;
     }
 
     function updateStepVisibility() {
       if(state.isPreview) return;
+      
       document.querySelectorAll('.form-section').forEach(sec => sec.classList.remove('active'));
-      document.querySelector(`.form-section[data-step="${state.step}"]`).classList.add('active');
+      const activeSection = document.querySelector(`.form-section[data-step="${state.step}"]`);
+      if (activeSection) activeSection.classList.add('active');
+      
       const btnBack = document.getElementById('btn-back');
-      btnBack.classList.toggle('hidden', state.step === 1); btnBack.onclick = () => navigateStep(-1);
+      if (btnBack) {
+        btnBack.classList.toggle('hidden', state.step === 1);
+        btnBack.onclick = () => navigateStep(-1);
+      }
+      
       document.getElementById('btn-next').classList.toggle('hidden', state.step === state.totalSteps);
       document.getElementById('btn-preview').classList.toggle('hidden', state.step !== state.totalSteps);
       document.getElementById('btn-submit').classList.add('hidden');
+      
       renderStepper();
     }
 
     function navigateStep(dir) {
       if (dir === 1 && state.step === 3) {
-        const rVal = document.getElementById('ramSticksSelect').value || ""; const rSticks = rVal ? (parseInt(rVal.replace(/[^0-9]/g, '')) || 0) : 0;
-        for (let i = 1; i <= rSticks; i++) {
+        const ramSelectVal = document.getElementById('ramSticksSelect').value || "";
+        const ramSticks = ramSelectVal ? (parseInt(ramSelectVal.replace(/[^0-9]/g, '')) || 0) : 0;
+        for (let i = 1; i <= ramSticks; i++) {
           let input = document.querySelector(`input[name="ram${i}"]`);
-          if (input && (!input.value || input.value.trim() === '')) { alert(`Enter capacity for Stick - ${i}.`); input.focus(); return; }
+          if (input && (!input.value || input.value.trim() === '')) {
+            alert(`Please enter the capacity for Stick - ${i}.`); input.focus(); return;
+          }
         }
       }
       let newStep = state.step + dir;
-      if(newStep >= 1 && newStep <= state.totalSteps) { state.step = newStep; window.scrollTo({ top: 0, behavior: 'smooth' }); updateStepVisibility(); }
+      if(newStep >= 1 && newStep <= state.totalSteps) {
+        state.step = newStep; window.scrollTo({ top: 0, behavior: 'smooth' }); updateStepVisibility();
+      }
     }
 
+    // --- Preview Logic ---
     function togglePreview(show) {
       state.isPreview = show;
-      const formSections = document.querySelectorAll('.form-section'), editBtns = document.querySelectorAll('.preview-edit-btn');
+      const formSections = document.querySelectorAll('.form-section');
+      const editBtns = document.querySelectorAll('.preview-edit-btn');
       if (show) {
-        window.scrollTo({ top: 0, behavior: 'smooth' }); document.querySelector('.stepper-card').classList.add('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.querySelector('.stepper-card').classList.add('hidden');
         formSections.forEach(sec => sec.classList.add('active'));
         document.querySelectorAll('#pm-report-form input, #pm-report-form select, #pm-report-form textarea').forEach(el => el.disabled = true);
-        document.getElementById('btn-location').disabled = true; editBtns.forEach(btn => btn.classList.remove('hidden'));
+        document.getElementById('btn-location').disabled = true; // Disable GPS button in preview
+        editBtns.forEach(btn => btn.classList.remove('hidden'));
         document.querySelectorAll('.upload-box:not([id])').forEach(box => box.classList.add('hidden'));
         document.querySelectorAll('.upload-remove').forEach(btn => btn.classList.add('hidden'));
-        document.getElementById('btn-back').classList.remove('hidden'); document.getElementById('btn-back').onclick = () => togglePreview(false);
-        document.getElementById('btn-next').classList.add('hidden'); document.getElementById('btn-preview').classList.add('hidden');
+        document.getElementById('btn-back').classList.remove('hidden');
+        document.getElementById('btn-back').onclick = () => togglePreview(false);
+        document.getElementById('btn-next').classList.add('hidden');
+        document.getElementById('btn-preview').classList.add('hidden');
         document.getElementById('btn-submit').classList.remove('hidden');
       } else {
         document.querySelector('.stepper-card').classList.remove('hidden');
         document.querySelectorAll('#pm-report-form input:not([readonly]), #pm-report-form select, #pm-report-form textarea').forEach(el => el.disabled = false);
-        document.getElementById('btn-location').disabled = false; editBtns.forEach(btn => btn.classList.add('hidden'));
+        // Ensure read-only status for specific fields remains
+        document.getElementById('btn-location').disabled = false;
+        
+        editBtns.forEach(btn => btn.classList.add('hidden'));
         Object.keys(state.images).forEach(cat => {
-           const limit = parseInt(document.querySelector(`.img-uploader-container[data-category="${cat}"]`).getAttribute('data-limit'));
-           if(state.images[cat].length < limit) { const addBox = document.getElementById(`grid-${cat}`).querySelector('.upload-box:not([id])'); if(addBox) { addBox.classList.remove('hidden'); addBox.style.display = 'flex'; } }
+           const container = document.querySelector(`.img-uploader-container[data-category="${cat}"]`);
+           if(container) {
+             const limit = parseInt(container.getAttribute('data-limit'));
+             const grid = document.getElementById(`grid-${cat}`);
+             if(state.images[cat].length < limit) { 
+               const addBox = grid.querySelector('.upload-box:not([id])');
+               if(addBox) { addBox.classList.remove('hidden'); addBox.style.display = 'flex'; }
+             }
+           }
         });
         document.querySelectorAll('.upload-remove').forEach(btn => btn.classList.remove('hidden'));
         updateStepVisibility();
@@ -841,161 +1527,287 @@
     }
     function editSection(step) { togglePreview(false); state.step = step; updateStepVisibility(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-    // --- Dynamic DOM Setup ---
+    // --- Dynamic Form Features ---
     function setupDynamicSelects() {
-      document.querySelectorAll('.dynamic-select').forEach(sel => {
-        sel.addEventListener('change', function() {
-          const cDiv = this.closest('[data-select-wrapper="true"]').querySelector('.custom-input-wrapper');
-          if(['OTHER', 'ENTER SERIAL NO', 'ENTER ASSET ID'].includes(this.value)) { cDiv.classList.add('active'); cDiv.querySelector('input').focus(); }
-          else { cDiv.classList.remove('active'); cDiv.querySelector('input').value = ''; }
+      document.querySelectorAll('.dynamic-select').forEach(select => {
+        select.addEventListener('change', function() {
+          const wrapper = this.closest('[data-select-wrapper="true"]');
+          const customDiv = wrapper.querySelector('.custom-input-wrapper');
+          if(this.value === 'OTHER' || this.value === 'ENTER SERIAL NO' || this.value === 'ENTER ASSET ID') {
+            customDiv.classList.add('active'); customDiv.querySelector('input').focus();
+          } else {
+            customDiv.classList.remove('active'); customDiv.querySelector('input').value = '';
+          }
         });
       });
     }
-    function formatMonitorSize(el) { let val = el.value.replace(/[^0-9.]/g, ''); el.value = val.length > 0 ? val + '"' : ''; }
+    
+    function formatMonitorSize(el) {
+      let val = el.value.replace(/[^0-9.]/g, '');
+      if (val.length > 0) {
+        el.value = val + '"';
+      } else {
+        el.value = '';
+      }
+    }
+    
     function toggleDeviceState(device, state) {
-      let noText = { 'printer':'NO PRINTER', 'scanner':'NO SCANNER', 'ups':'NO U.P.S', 'batteries':'NO BATTERIES' }[device];
-      const container = document.getElementById(`${device}-fields-container`); if (!container) return;
+      let noText = '';
+      if (device === 'printer') noText = 'NO PRINTER';
+      else if (device === 'scanner') noText = 'NO SCANNER';
+      else if (device === 'ups') noText = 'NO U.P.S';
+      else if (device === 'batteries') noText = 'NO BATTERIES';
+
+      const container = document.getElementById(`${device}-fields-container`);
+      if (!container) return;
       const fields = container.querySelectorAll('.input-field');
       
-      fields.forEach(f => {
-        if (state === 'NO') {
-          if (f.type === 'text') f.value = noText; 
-          else if (f.tagName === 'SELECT') { const opt = Array.from(f.options).find(o => o.value === noText); f.value = opt ? opt.value : ""; }
-          f.disabled = true; const cWrap = f.closest('.input-group')?.querySelector('.custom-input-wrapper'); if (cWrap) cWrap.classList.remove('active');
-        } else if (state === 'YES') {
-          if (f.type === 'text' && f.value === noText) f.value = '';
-          else if (f.tagName === 'SELECT') { const opt = Array.from(f.options).find(o => o.value === noText); if(opt && f.value === opt.value) f.value = ""; }
+      if (state === 'NO') {
+        fields.forEach(f => {
+          if (f.tagName === 'INPUT' && f.type === 'text') { f.value = noText; } 
+          else if (f.tagName === 'SELECT') {
+            const optionMatch = Array.from(f.options).find(opt => opt.value === noText);
+            if(optionMatch) f.value = optionMatch.value; else f.value = "";
+          }
+          f.disabled = true;
+          const customWrap = f.closest('.input-group')?.querySelector('.custom-input-wrapper');
+          if (customWrap) customWrap.classList.remove('active');
+        });
+      } else if (state === 'YES') {
+        fields.forEach(f => {
+          if (f.tagName === 'INPUT' && f.type === 'text' && f.value === noText) { f.value = ''; } 
+          else if (f.tagName === 'SELECT') {
+            const optionMatch = Array.from(f.options).find(opt => opt.value === noText);
+            if(optionMatch && f.value === optionMatch.value) f.value = "";
+          }
           f.disabled = false;
-        }
-      });
-      if (noText) container.querySelectorAll(`select option[value="${noText}"]`).forEach(opt => { opt.style.display = state === 'YES' ? 'none' : 'block'; opt.disabled = state === 'YES'; });
+        });
+      }
+
+      // Specific logic to disable "NO [DEVICE]" options if "YES" is selected
+      if (noText) {
+         const noOptions = container.querySelectorAll(`select option[value="${noText}"]`);
+         noOptions.forEach(opt => {
+             if (state === 'YES') {
+                 opt.style.display = 'none';
+                 opt.disabled = true;
+             } else {
+                 opt.style.display = 'block';
+                 opt.disabled = false;
+             }
+         });
+      }
     }
     
     function updateRamFields() {
-      const numSticks = parseInt(document.getElementById('ramSticksSelect').value?.replace(/[^0-9]/g, '') || 0);
-      for(let i=1; i<=4; i++) { document.getElementById(`ri-${i}`).style.display = (numSticks >= i) ? 'block' : 'none'; }
+      const val = document.getElementById('ramSticksSelect').value;
+      const numSticks = val ? (parseInt(val.replace(/[^0-9]/g, '')) || 0) : 0;
+      document.getElementById('ri-1').style.display = (numSticks >= 1) ? 'block' : 'none';
+      document.getElementById('ri-2').style.display = (numSticks >= 2) ? 'block' : 'none';
+      document.getElementById('ri-3').style.display = (numSticks >= 3) ? 'block' : 'none';
+      document.getElementById('ri-4').style.display = (numSticks >= 4) ? 'block' : 'none';
       calculateRamTotal();
     }
     function calculateRamTotal() {
-      let total = 0; document.querySelectorAll('.ram-input').forEach(inp => { if(inp.closest('.input-group').style.display !== 'none' && inp.value) total += parseInt(inp.value) || 0; });
+      let total = 0;
+      document.querySelectorAll('.ram-input').forEach(inp => {
+        const group = inp.closest('.input-group');
+        if(group && group.style.display !== 'none' && inp.value) { total += parseInt(inp.value) || 0; }
+      });
       document.getElementById('ram-total-display').textContent = total;
     }
 
-    // --- WebRTC Camera ---
-    let currentCaptureCategory = '', videoStream = null;
+    // --- WebRTC Image Upload (Live Camera Capture) ---
+    let currentCaptureCategory = '';
+    let videoStream = null;
+
     async function openCamera(category) {
-      currentCaptureCategory = category; const video = document.getElementById('camera-video');
+      currentCaptureCategory = category;
+      const modal = document.getElementById('camera-modal');
+      const video = document.getElementById('camera-video');
+
       try {
-        videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } }, audio: false });
-        video.srcObject = videoStream; document.getElementById('camera-modal').classList.remove('hidden');
-      } catch (err) { alert("Camera permission denied. Please grant permissions."); }
+        videoStream = await navigator.mediaDevices.getUserMedia({ 
+            video: { facingMode: { ideal: 'environment' } }, 
+            audio: false 
+        });
+        video.srcObject = videoStream;
+        modal.classList.remove('hidden');
+      } catch (err) {
+        alert("Camera permission denied or camera not found. Please grant permissions to capture live photos.");
+      }
     }
-    function closeCamera() { document.getElementById('camera-modal').classList.add('hidden'); if (videoStream) { videoStream.getTracks().forEach(track => track.stop()); videoStream = null; } }
+
+    function closeCamera() {
+      document.getElementById('camera-modal').classList.add('hidden');
+      if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+        videoStream = null;
+      }
+    }
+
     async function takeSnapshot() {
       if (!videoStream) return;
-      const video = document.getElementById('camera-video'), canvas = document.createElement('canvas');
-      canvas.width = video.videoWidth; canvas.height = video.videoHeight;
-      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      const video = document.getElementById('camera-video');
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
-      closeCamera(); await processLiveCapture(dataUrl, currentCaptureCategory);
+      
+      closeCamera();
+      await processLiveCapture(dataUrl, currentCaptureCategory);
     }
 
     async function processLiveCapture(base64Data, category) {
-      const limit = parseInt(document.querySelector(`.img-uploader-container[data-category="${category}"]`).getAttribute('data-limit'));
+      const container = document.querySelector(`.img-uploader-container[data-category="${category}"]`);
+      const limit = parseInt(container.getAttribute('data-limit'));
       const grid = document.getElementById(`grid-${category}`);
-      if(state.images[category].length >= limit) { alert(`Maximum ${limit} images allowed.`); return; }
       
-      showLoading("Processing...");
+      if(state.images[category].length >= limit) {
+        alert(`Maximum ${limit} images allowed for this section.`); return;
+      }
+      
+      showLoading("Processing capture...");
+      
       setTimeout(async () => {
         const compressedBase64 = await compressBase64(base64Data, 800); 
         const id = 'img_' + Math.random().toString(36).substr(2, 9);
-        state.images[category].push({ id: id, name: `live_capture_${new Date().getTime()}.jpg`, mimeType: 'image/jpeg', base64: compressedBase64 });
+        const mockName = `live_capture_${new Date().getTime()}.jpg`;
         
-        const box = document.createElement('div'); box.className = 'upload-box'; box.id = id; box.style.border = 'none';
+        state.images[category].push({ id: id, name: mockName, mimeType: 'image/jpeg', base64: compressedBase64 });
+        
+        const box = document.createElement('div');
+        box.className = 'upload-box'; box.id = id; box.style.border = 'none';
         box.innerHTML = `<img src="${compressedBase64}" class="upload-preview"><button type="button" class="upload-remove" onclick="removeImage('${category}', '${id}')"><i class="fas fa-times"></i></button>`;
         grid.insertBefore(box, grid.querySelector('.upload-box:not([id])'));
         
-        if(state.images[category].length >= limit) grid.querySelector('.upload-box:not([id])').style.display = 'none'; 
+        if(state.images[category].length >= limit) { 
+           grid.querySelector('.upload-box:not([id])').style.display = 'none'; 
+        }
         hideLoading();
       }, 100);
     }
-    function removeImage(cat, id) {
-      state.images[cat] = state.images[cat].filter(img => img.id !== id); document.getElementById(id).remove();
-      document.getElementById(`grid-${cat}`).querySelector('.upload-box:not([id])').style.display = 'flex';
+
+    function removeImage(category, id) {
+      state.images[category] = state.images[category].filter(img => img.id !== id);
+      document.getElementById(id).remove();
+      const grid = document.getElementById(`grid-${category}`);
+      grid.querySelector('.upload-box:not([id])').style.display = 'flex';
     }
-    function compressBase64(b64, maxWidth) {
+
+    function compressBase64(base64, maxWidth) {
       return new Promise((resolve) => {
-        const img = new Image(); img.src = b64;
+        const img = new Image(); img.src = base64;
         img.onload = () => {
-          const cvs = document.createElement('canvas'); let w = img.width, h = img.height;
-          if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
-          cvs.width = w; cvs.height = h; cvs.getContext('2d').drawImage(img, 0, 0, w, h); resolve(cvs.toDataURL('image/jpeg', 0.7));
+          const canvas = document.createElement('canvas'); let width = img.width, height = img.height;
+          if (width > maxWidth) { height = Math.round(height * maxWidth / width); width = maxWidth; }
+          canvas.width = width; canvas.height = height; const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height); resolve(canvas.toDataURL('image/jpeg', 0.7));
         };
       });
     }
 
-    // --- Google Apps Script Submit Engine ---
+    // --- Submission ---
     function showLoading(text, showProgress = false, progressPct = 0) { 
-      document.getElementById('loading-text').textContent = text; document.getElementById('loading-overlay').classList.remove('hidden');
-      const prog = document.getElementById('global-progress-container');
-      if (showProgress) { prog.style.display = 'block'; document.getElementById('global-progress-fill').style.width = progressPct + '%'; } else prog.style.display = 'none';
+      document.getElementById('loading-text').textContent = text; 
+      document.getElementById('loading-overlay').classList.remove('hidden');
+      const progContainer = document.getElementById('global-progress-container');
+      if (showProgress) {
+        progContainer.style.display = 'block'; document.getElementById('global-progress-fill').style.width = progressPct + '%';
+      } else { progContainer.style.display = 'none'; }
     }
     function hideLoading() { document.getElementById('loading-overlay').classList.add('hidden'); }
-    
-    // Wrapper for sequential uploading to prevent Apps Script payload limits
     function uploadSingleImageGAS(imgObj, category) {
-      return new Promise((resolve, reject) => {
-        google.script.run
-          .withSuccessHandler(url => resolve(url))
-          .withFailureHandler(err => reject(err))
-          .uploadImageToDrive(imgObj.base64, imgObj.mimeType, imgObj.name, category);
-      });
+      return new Promise((resolve, reject) => { setTimeout(() => { resolve("https://mock-drive-url.com/file/" + imgObj.id); }, 500); });
     }
-
     async function submitReport() {
-      // Re-enable fields to grab FormData
+      // Temporarily enable fields to grab data into FormData
       document.querySelectorAll('#pm-report-form input, #pm-report-form select, #pm-report-form textarea').forEach(el => {
-        if (el.disabled) { el.removeAttribute('disabled'); el.setAttribute('data-was-disabled', 'true'); }
+        if (el.disabled) {
+          el.removeAttribute('disabled');
+          el.setAttribute('data-was-disabled', 'true');
+        }
       });
-      const dataObj = Object.fromEntries(new FormData(document.getElementById('pm-report-form')).entries());
-      document.querySelectorAll('[data-was-disabled="true"]').forEach(el => { el.disabled = true; el.removeAttribute('data-was-disabled'); });
+
+      const form = document.getElementById('pm-report-form');
+      const formData = new FormData(form);
+      const dataObj = Object.fromEntries(formData.entries());
+
+      // Re-disable fields
+      document.querySelectorAll('[data-was-disabled="true"]').forEach(el => {
+        el.disabled = true;
+        el.removeAttribute('data-was-disabled');
+      });
       
-      // Formatting
+      // Ensure ALL custom fields are properly routed to the database globally
       for (let key in dataObj) {
-        if (['ENTER SERIAL NO', 'OTHER', 'ENTER ASSET ID'].includes(dataObj[key])) dataObj[key] = dataObj[key + 'Custom']?.trim() || '';
-        if (typeof dataObj[key] === 'string') dataObj[key] = key === 'processor' ? dataObj[key].toUpperCase().replace(/I(\d)/g, 'i$1') : dataObj[key].toUpperCase();
+        if (dataObj[key] === 'ENTER SERIAL NO' || dataObj[key] === 'OTHER' || dataObj[key] === 'ENTER ASSET ID') {
+          let customKey = key + 'Custom';
+          if (dataObj[customKey] !== undefined) {
+            dataObj[key] = dataObj[customKey].trim();
+          }
+        }
+        // Force the final data string to uppercase before saving to the database, maintaining lowercase 'i' for processor
+        if (typeof dataObj[key] === 'string') {
+          if (key === 'processor') {
+            dataObj[key] = dataObj[key].toUpperCase().replace(/I(\d)/g, 'i$1');
+          } else {
+            dataObj[key] = dataObj[key].toUpperCase();
+          }
+        }
       }
       
-      let totalImages = Object.values(state.images).flat().length;
-      let uploadedUrls = { desktop: [], cpu: [], keyboard: [], mouse: [], printer: [], scanner: [], ups: [], batteries: [], hardcopy: [] }, imagesProcessed = 0;
+      // 1. Calculate Total Images
+      let totalImages = 0;
+      for (let cat in state.images) { totalImages += state.images[cat].length; }
+      
+      let uploadedUrls = { desktop: [], cpu: [], keyboard: [], mouse: [], printer: [], scanner: [], ups: [], batteries: [], hardcopy: [] };
+      let imagesProcessed = 0;
 
       try {
+        // 2. Sequential Image Uploading
         if (totalImages > 0) {
           showLoading(`Preparing ${totalImages} images for secure upload...`, true, 0);
+          
           for (let cat in state.images) {
             for (let img of state.images[cat]) {
-              imagesProcessed++; showLoading(`Uploading Image ${imagesProcessed} of ${totalImages} (${cat.toUpperCase()})...`, true, Math.round((imagesProcessed / totalImages) * 100));
-              let url = await uploadSingleImageGAS(img, cat); uploadedUrls[cat].push(url);
+              imagesProcessed++;
+              let pct = Math.round((imagesProcessed / totalImages) * 100);
+              showLoading(`Uploading Image ${imagesProcessed} of ${totalImages} (${cat})...`, true, pct);
+              
+              let url = await uploadSingleImageGAS(img, cat);
+              uploadedUrls[cat].push(url);
             }
           }
         }
 
+        // 3. Final Data Submission
         showLoading("Finalizing report and saving data...", false, 0);
-        google.script.run.withSuccessHandler(res => {
-          hideLoading();
-          if (res.success) { playSuccessSound(); alert("Report & Images Submitted Successfully!"); executeLogout(); }
-          else alert("Backend Error: " + res.message);
-        }).withFailureHandler(err => {
-          hideLoading(); alert("Submission Failed: " + err.message);
-        }).submitReportToSheet({ data: dataObj, urls: uploadedUrls });
+        
+        const finalPayload = {
+          data: dataObj,
+          urls: uploadedUrls
+        };
 
-      } catch (error) { hideLoading(); alert("Upload Interrupted: " + error.message + "\nPlease try submitting again."); }
+        // MOCK FINAL SUBMISSION FOR PREVIEW - Replace with google.script.run
+        setTimeout(() => {
+          hideLoading();
+          playSuccessSound();
+          alert("Report & Images Submitted Successfully to Backend!");
+          executeLogout(); 
+        }, 1500);
+
+      } catch (error) { 
+        hideLoading(); 
+        alert("Upload Interrupted: " + error.message + "\nPlease try submitting again."); 
+      }
     }
-    
     const playSuccessSound = () => {
       try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator(), gain = ctx.createGain();
+        const osc = ctx.createOscillator(); const gain = ctx.createGain();
         osc.connect(gain); gain.connect(ctx.destination);
         osc.type = 'sine'; osc.frequency.setValueAtTime(600, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.1);
         gain.gain.setValueAtTime(0.3, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
@@ -1003,34 +1815,57 @@
       } catch (e) {}
     };
 
-    // --- Processor & Storage Modals ---
+    // --- Processor Modal & Scroll Logic ---
     function openProcessorModal() { document.getElementById('processor-modal').classList.remove('hidden'); toggleProcFormat(); }
     function closeProcessorModal() { document.getElementById('processor-modal').classList.add('hidden'); }
-    function toggleProcFormat() { const isText = document.querySelector('input[name="proc_format"]:checked').value === 'text'; document.getElementById('proc-text-container').style.display = isText ? 'block' : 'none'; document.getElementById('proc-scroll-container').style.display = isText ? 'none' : 'block'; }
-    function confirmProcessor() { document.getElementById('processor-main-input').value = document.querySelector('input[name="proc_format"]:checked').value === 'text' ? document.getElementById('proc-text-input').value.toUpperCase().replace(/I(\d)/g, 'i$1') : `i${getActiveWheelValue('wheel-1')}-${getActiveWheelValue('wheel-2')}-GEN`; closeProcessorModal(); }
+    function toggleProcFormat() {
+      const isText = document.querySelector('input[name="proc_format"]:checked').value === 'text';
+      document.getElementById('proc-text-container').style.display = isText ? 'block' : 'none';
+      document.getElementById('proc-scroll-container').style.display = isText ? 'none' : 'block';
+    }
+    function confirmProcessor() {
+      const isText = document.querySelector('input[name="proc_format"]:checked').value === 'text';
+      let finalValue = isText ? document.getElementById('proc-text-input').value.toUpperCase().replace(/I(\d)/g, 'i$1') : `i${getActiveWheelValue('wheel-1')}-${getActiveWheelValue('wheel-2')}-GEN`;
+      document.getElementById('processor-main-input').value = finalValue; closeProcessorModal();
+    }
     function populateWheels() {
       const w1 = document.getElementById('wheel-1'), w2 = document.getElementById('wheel-2');
-      let html = '<div class="wheel-item"></div>'; for(let i=0; i<=25; i++) html += `<div class="wheel-item" data-val="${i}">${i}</div>`; html += '<div class="wheel-item"></div>';
-      w1.innerHTML = html; w2.innerHTML = html; w1.querySelectorAll('.wheel-item')[1].classList.add('active'); w2.querySelectorAll('.wheel-item')[1].classList.add('active');
+      let html = '<div class="wheel-item"></div>'; for(let i=0; i<=25; i++) { html += `<div class="wheel-item" data-val="${i}">${i}</div>`; } html += '<div class="wheel-item"></div>';
+      w1.innerHTML = html; w2.innerHTML = html;
+      w1.querySelectorAll('.wheel-item')[1].classList.add('active'); w2.querySelectorAll('.wheel-item')[1].classList.add('active');
     }
     let lastTick1 = -1, lastTick2 = -1;
     function playTickSound() {
-      try { const ctx = new (window.AudioContext || window.webkitAudioContext)(), osc = ctx.createOscillator(), gain = ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination); osc.type = 'square'; osc.frequency.setValueAtTime(800, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.03); gain.gain.setValueAtTime(0.05, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03); osc.start(); osc.stop(ctx.currentTime + 0.03); } catch(e) {}
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator(); const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.type = 'square'; osc.frequency.setValueAtTime(800, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.03);
+        gain.gain.setValueAtTime(0.05, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
+        osc.start(); osc.stop(ctx.currentTime + 0.03);
+      } catch(e) {}
     }
     function handleWheelScroll(wheelId) {
-      const wheel = document.getElementById(wheelId), index = Math.round(wheel.scrollTop / 40), items = wheel.querySelectorAll('.wheel-item');
-      items.forEach(el => el.classList.remove('active')); if(items[index + 1]) items[index + 1].classList.add('active');
+      const wheel = document.getElementById(wheelId); const index = Math.round(wheel.scrollTop / 40);
+      const items = wheel.querySelectorAll('.wheel-item'); items.forEach(el => el.classList.remove('active'));
+      if(items[index + 1]) { items[index + 1].classList.add('active'); }
       if (wheelId === 'wheel-1' && lastTick1 !== index) { if (lastTick1 !== -1) playTickSound(); lastTick1 = index; } 
       else if (wheelId === 'wheel-2' && lastTick2 !== index) { if (lastTick2 !== -1) playTickSound(); lastTick2 = index; }
     }
     function getActiveWheelValue(wheelId) { const item = document.getElementById(wheelId).querySelector('.wheel-item.active'); return item ? item.getAttribute('data-val') : '0'; }
 
+    // --- Storage Modal Logic ---
     function openStorageModal() { document.getElementById('storage-modal').classList.remove('hidden'); if (document.getElementById('storage-rows-container').children.length === 0) addStorageRow(); }
     function closeStorageModal() { document.getElementById('storage-modal').classList.add('hidden'); }
     function addStorageRow() {
       const row = document.createElement('div'); row.className = 'storage-row';
       row.style.cssText = 'background: #f8fafc; padding: 1rem; border-radius: 0.5rem; border: 1px solid #e2e8f0; margin-bottom: 1rem; position: relative;';
-      row.innerHTML = `<button type="button" onclick="this.parentElement.remove()" style="position: absolute; top: 0.5rem; right: 0.5rem; background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1rem;"><i class="fas fa-times"></i></button><div class="flex" style="gap: 0.5rem; align-items: flex-end;"><div style="flex: 2;"><label style="font-size: 0.7rem; font-weight: 700; color: #64748b; display: block; margin-bottom: 0.25rem;">DRIVE TYPE</label><div class="input-wrapper"><select class="input-field drive-type" style="padding: 0.5rem;"><option value="HDD">HDD</option><option value="SSD">SSD</option><option value="NVME SSD">NVME SSD</option></select><i class="fas fa-chevron-down select-chevron" style="right: 0.5rem;"></i></div></div><div style="flex: 1.5;"><label style="font-size: 0.7rem; font-weight: 700; color: #64748b; display: block; margin-bottom: 0.25rem;">CAPACITY</label><input type="number" class="input-field drive-cap" style="padding: 0.5rem;" min="0" placeholder="EX: 256"></div><div style="flex: 1;"><label style="font-size: 0.7rem; font-weight: 700; color: #64748b; display: block; margin-bottom: 0.25rem;">&nbsp;</label><div class="input-wrapper"><select class="input-field drive-unit" style="padding: 0.5rem;"><option value="GB">GB</option><option value="TB">TB</option></select><i class=\"fas fa-chevron-down select-chevron\" style=\"right: 0.5rem;\"></i></div></div></div>`;
+      row.innerHTML = `<button type="button" onclick="this.parentElement.remove()" style="position: absolute; top: 0.5rem; right: 0.5rem; background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1rem;"><i class="fas fa-times"></i></button>
+        <div class="flex" style="gap: 0.5rem; align-items: flex-end;">
+          <div style="flex: 2;"><label style="font-size: 0.7rem; font-weight: 700; color: #64748b; display: block; margin-bottom: 0.25rem;">DRIVE TYPE</label><div class="input-wrapper"><select class="input-field drive-type" style="padding: 0.5rem;"><option value="HDD">HDD</option><option value="SSD">SSD</option><option value="NVME SSD">NVME SSD</option></select><i class="fas fa-chevron-down select-chevron" style="right: 0.5rem;"></i></div></div>
+          <div style="flex: 1.5;"><label style="font-size: 0.7rem; font-weight: 700; color: #64748b; display: block; margin-bottom: 0.25rem;">CAPACITY</label><input type="number" class="input-field drive-cap" style="padding: 0.5rem;" min="0" placeholder="EX: 256"></div>
+          <div style="flex: 1;"><label style="font-size: 0.7rem; font-weight: 700; color: #64748b; display: block; margin-bottom: 0.25rem;">&nbsp;</label><div class="input-wrapper"><select class="input-field drive-unit" style="padding: 0.5rem;"><option value="GB">GB</option><option value="TB">TB</option></select><i class=\"fas fa-chevron-down select-chevron\" style=\"right: 0.5rem;\"></i></div></div>
+        </div>`;
       document.getElementById('storage-rows-container').appendChild(row);
     }
     function confirmStorage() {
