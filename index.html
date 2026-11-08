@@ -877,20 +877,22 @@
               <h3>DIVISION & USER DETAILS</h3>
             </div>
             <div class="grid grid-3">
-              <div class="input-group">
+              <div class="input-group" data-select-wrapper="true">
                 <label class="input-label">Select the Floor</label>
                 <div class="input-wrapper">
-                  <select name="floor" id="floor-select" class="input-field">
+                  <select name="floor" id="floor-select" class="input-field dynamic-select">
                     <option value="" disabled selected>Select an option</option>
-                    <option value="Ground-floor">Ground-floor</option>
-                    <option value="First-floor">First-floor</option>
-                    <option value="second-floor">second-floor</option>
-                    <option value="Third-floor">Third-floor</option>
-                    <option value="forth-floor">forth-floor</option>
-                    <option value="fifth-floor">fifth-floor</option>
+                    <option value="GROUND-FLOOR">GROUND-FLOOR</option>
+                    <option value="FIRST-FLOOR">FIRST-FLOOR</option>
+                    <option value="SECOND-FLOOR">SECOND-FLOOR</option>
+                    <option value="THIRD-FLOOR">THIRD-FLOOR</option>
+                    <option value="FORTH-FLOOR">FORTH-FLOOR</option>
+                    <option value="FIFTH-FLOOR">FIFTH-FLOOR</option>
+                    <option value="OTHER">OTHER</option>
                   </select>
                   <span class="material-symbols-rounded select-chevron">expand_more</span>
                 </div>
+                <div class="custom-input-wrapper"><input type="text" name="floorCustom" class="input-field" placeholder="Specify manually..."></div>
               </div>
               <div class="input-group" data-select-wrapper="true">
                 <label class="input-label">Department</label>
@@ -923,6 +925,7 @@
                 </div>
                 <p id="geo-status" style="font-size: 0.75rem; color: #64748b; margin-top: 0.5rem; font-weight: 500;">Capture GPS metrics via device.</p>
               </div>
+              <div class="input-group"><label class="input-label">SYSTEM HOST NAME</label><input type="text" name="systemHostName" class="input-field"></div>
             </div>
           </div>
         </div>
@@ -1584,21 +1587,6 @@
                 </div>
                 <div class="custom-input-wrapper"><input type="text" name="printerAssetIdCustom" class="input-field" inputmode="numeric" placeholder="Enter Asset ID manually..." oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
               </div>
-              
-              <div class="input-group" data-select-wrapper="true">
-                <label class="input-label">Printer Serial No</label>
-                <div class="input-wrapper">
-                  <select name="printerSerialNo" class="input-field dynamic-select">
-                    <option value="" disabled selected>Select an option</option>
-                    <option value="NO PRINTER">NO PRINTER</option>
-                    <option value="ENTER SERIAL NO">ENTER SERIAL NO</option>
-                    <option value="NO - SERIAL NO">NO - SERIAL NO</option>
-                    <option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option>
-                  </select>
-                  <span class="material-symbols-rounded select-chevron">expand_more</span>
-                </div>
-                <div class="custom-input-wrapper"><input type="text" name="printerSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div>
-              </div>
 
               <div class="input-group" data-select-wrapper="true">
                 <label class="input-label">Printer Make</label>
@@ -1619,6 +1607,21 @@
               </div>
               
               <div class="input-group"><label class="input-label">Printer Model</label><input type="text" name="printerModel" class="input-field" placeholder="Ex: 1020 PLUS, M208DW ..."></div>
+
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">Printer Serial No</label>
+                <div class="input-wrapper">
+                  <select name="printerSerialNo" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="NO PRINTER">NO PRINTER</option>
+                    <option value="ENTER SERIAL NO">ENTER SERIAL NO</option>
+                    <option value="NO - SERIAL NO">NO - SERIAL NO</option>
+                    <option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option>
+                  </select>
+                  <span class="material-symbols-rounded select-chevron">expand_more</span>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="printerSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div>
+              </div>
             </div>
           </div>
 
@@ -1656,21 +1659,6 @@
               </div>
               
               <div class="input-group" data-select-wrapper="true">
-                <label class="input-label">Scanner Serial No</label>
-                <div class="input-wrapper">
-                  <select name="scannerSerialNo" class="input-field dynamic-select">
-                    <option value="" disabled selected>Select an option</option>
-                    <option value="NO SCANNER">NO SCANNER</option>
-                    <option value="ENTER SERIAL NO">ENTER SERIAL NO</option>
-                    <option value="NO - SERIAL NO">NO - SERIAL NO</option>
-                    <option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option>
-                  </select>
-                  <span class="material-symbols-rounded select-chevron">expand_more</span>
-                </div>
-                <div class="custom-input-wrapper"><input type="text" name="scannerSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div>
-              </div>
-              
-              <div class="input-group" data-select-wrapper="true">
                 <label class="input-label">Scanner Make</label>
                 <div class="input-wrapper">
                   <select name="scannerMake" class="input-field dynamic-select">
@@ -1689,6 +1677,21 @@
               </div>
               
               <div class="input-group"><label class="input-label">Scanner Model</label><input type="text" name="scannerModel" class="input-field" placeholder="EX: Image formula DR-C230"></div>
+
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">Scanner Serial No</label>
+                <div class="input-wrapper">
+                  <select name="scannerSerialNo" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="NO SCANNER">NO SCANNER</option>
+                    <option value="ENTER SERIAL NO">ENTER SERIAL NO</option>
+                    <option value="NO - SERIAL NO">NO - SERIAL NO</option>
+                    <option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option>
+                  </select>
+                  <span class="material-symbols-rounded select-chevron">expand_more</span>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="scannerSerialNoCustom" class="input-field" placeholder="Enter Serial No manually..."></div>
+              </div>
             </div>
           </div>
 
@@ -1699,7 +1702,7 @@
                 <h3>K7-ANTIVIRUS</h3>
               </div>
               <div class="input-group">
-                <label class="input-label">Status</label>
+                <label class="input-label">K7-ANTIVIRUS STATUS</label>
                 <div class="input-wrapper">
                   <select name="escanStatus" class="input-field">
                     <option value="" disabled selected>Select an option</option>
@@ -1732,7 +1735,7 @@
             
             <div style="background: rgba(248,250,252,0.5); padding: 1.25rem; border-radius: 1rem; border: 1px solid #e2e8f0;" class="grid grid-2">
               <div class="img-uploader-container" data-category="desktop" data-limit="3">
-                <label class="input-label">1. Desktop w/ Info (Up to 3)</label>
+                <label class="input-label">1. Monitor (up to 3)</label>
                 <div class="upload-grid" id="grid-desktop">
                   <div class="upload-box" onclick="openCamera('desktop')"><span class="material-symbols-rounded">photo_camera</span><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
                 </div>
