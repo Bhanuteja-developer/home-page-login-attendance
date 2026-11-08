@@ -859,7 +859,7 @@
       <div class="glass-card stepper-card">
         <div class="stepper-header">
           <span style="font-size: 1.1rem; font-weight: 700; color: #1e293b;" id="step-title-display">Step 1: DIVISION & USER DETAILS</span>
-          <span style="font-size: 0.85rem; font-weight: 600; color: #64748b;" id="step-counter-display">Step 1 of 6</span>
+          <span style="font-size: 0.85rem; font-weight: 600; color: #64748b;" id="step-counter-display">Step 1 of 7</span>
         </div>
         <div class="stepper-track-container">
           <div class="stepper-bg-track"></div>
@@ -1246,7 +1246,7 @@
             </div>
           </div>
 
-          <div class="glass-card mb-6">
+          <div class="glass-card">
             <div class="section-header">
               <div class="section-icon"><span class="material-symbols-rounded">memory_alt</span></div>
               <h3>RAM</h3>
@@ -1299,7 +1299,10 @@
               </div>
             </div>
           </div>
+        </div>
 
+        <!-- STEP 4 -->
+        <div class="form-section" data-step="4">
           <div class="glass-card mb-6">
             <div class="section-header">
               <div class="section-icon"><span class="material-symbols-rounded">language</span></div>
@@ -1384,7 +1387,7 @@
             </div>
           </div>
 
-          <div class="glass-card">
+          <div class="glass-card mb-6">
             <div class="section-header">
               <div class="section-icon"><span class="material-symbols-rounded">lan</span></div>
               <h3>SWITCH</h3>
@@ -1445,9 +1448,9 @@
           </div>
         </div>
 
-        <!-- STEP 4 -->
-        <div class="form-section" data-step="4">
-          <div class="glass-card mb-6">
+        <!-- STEP 5 -->
+        <div class="form-section" data-step="5">
+          <div class="glass-card">
             <div class="section-header">
               <div class="section-icon"><span class="material-symbols-rounded">power</span></div>
               <h3>U.P.S & BATTERIES</h3>
@@ -1526,8 +1529,11 @@
               </div>
             </div>
           </div>
-          
-          <div class="glass-card">
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="form-section" data-step="6">
+          <div class="glass-card mb-6">
             <div class="section-header">
               <div class="section-icon"><span class="material-symbols-rounded">print</span></div>
               <h3>PRINTER</h3>
@@ -1596,10 +1602,7 @@
               <div class="input-group"><label class="input-label">Printer Model</label><input type="text" name="printerModel" class="input-field" placeholder="Ex: 1020 PLUS, M208DW ..."></div>
             </div>
           </div>
-        </div>
 
-        <!-- STEP 5 -->
-        <div class="form-section" data-step="5">
           <div class="glass-card mb-6">
             <div class="section-header">
               <div class="section-icon"><span class="material-symbols-rounded">scanner</span></div>
@@ -1674,15 +1677,15 @@
             <div class="glass-card">
               <div class="section-header">
                 <div class="section-icon"><span class="material-symbols-rounded">verified_user</span></div>
-                <h3>ESCAN</h3>
+                <h3>K7-ANTIVIRUS</h3>
               </div>
               <div class="input-group">
                 <label class="input-label">Status</label>
                 <div class="input-wrapper">
                   <select name="escanStatus" class="input-field">
                     <option value="" disabled selected>Select an option</option>
-                    <option value="UPDATED">UPDATED</option>
-                    <option value="SOFTWARE NOT INSTALLED">SOFTWARE NOT INSTALLED</option>
+                    <option value="INSTALLED">INSTALLED</option>
+                    <option value="NOT INSTALLED">NOT INSTALLED</option>
                   </select>
                   <span class="material-symbols-rounded select-chevron">expand_more</span>
                 </div>
@@ -1698,8 +1701,8 @@
           </div>
         </div>
 
-        <!-- STEP 6 -->
-        <div class="form-section" data-step="6">
+        <!-- STEP 7 -->
+        <div class="form-section" data-step="7">
           <div class="glass-card">
             <div class="section-header">
               <div class="section-icon"><span class="material-symbols-rounded">photo_camera</span></div>
@@ -1897,13 +1900,14 @@
     const state = {
       view: 'login',
       step: 1,
-      totalSteps: 6,
+      totalSteps: 7,
       stepTitles: [
         'DIVISION & USER DETAILS',
         'MONITOR, KEYBOARD & MOUSE DETAILS',
         'SYSTEM & NETWORK',
-        'POWER & PRINTER',
-        'SCANNER & STATUS',
+        'NETWORK DETAILS',
+        'U.P.S & BATTERIES',
+        'PRINTER, SCANNER & ANTIVIRUS STATUS',
         'CAPTURE IMAGES'
       ],
       images: {
