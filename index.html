@@ -878,13 +878,31 @@
             </div>
             <div class="grid grid-3">
               <div class="input-group">
-                <label class="input-label">Division No</label>
+                <label class="input-label">Select the Floor</label>
                 <div class="input-wrapper">
-                  <select name="divisionNo" id="division-select" class="input-field">
+                  <select name="floor" id="floor-select" class="input-field">
                     <option value="" disabled selected>Select an option</option>
+                    <option value="Ground-floor">Ground-floor</option>
+                    <option value="First-floor">First-floor</option>
+                    <option value="second-floor">second-floor</option>
+                    <option value="Third-floor">Third-floor</option>
+                    <option value="forth-floor">forth-floor</option>
+                    <option value="fifth-floor">fifth-floor</option>
                   </select>
                   <span class="material-symbols-rounded select-chevron">expand_more</span>
                 </div>
+              </div>
+              <div class="input-group" data-select-wrapper="true">
+                <label class="input-label">Department</label>
+                <div class="input-wrapper">
+                  <select name="department" id="department-select" class="input-field dynamic-select">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="EDP IT WING">EDP IT WING</option>
+                    <option value="OTHER">OTHER</option>
+                  </select>
+                  <span class="material-symbols-rounded select-chevron">expand_more</span>
+                </div>
+                <div class="custom-input-wrapper"><input type="text" name="departmentCustom" class="input-field" placeholder="Specify manually..."></div>
               </div>
               <div class="input-group"><label class="input-label">User Name</label><input type="text" name="userName" class="input-field" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g,'')"></div>
               <div class="input-group"><label class="input-label">Designation</label><input type="text" name="designation" class="input-field"></div>
@@ -1267,7 +1285,7 @@
                   </div>
                 </div>
                 <div class="input-group">
-                  <label class="input-label" style="text-transform: uppercase; font-size: 0.75rem;">Number of Sticks</label>
+                  <label class="input-label" style="text-transform: uppercase; font-size: 0.75rem;">How many RAM sticks are installed?</label>
                   <div class="input-wrapper">
                     <select name="ramSticks" id="ramSticksSelect" class="input-field" onchange="updateRamFields()">
                       <option value="" disabled selected>Select an option</option>
@@ -1375,7 +1393,6 @@
                 <div class="input-wrapper">
                   <select name="routerSerialNo" id="router-sno-select" class="input-field dynamic-select">
                     <option value="" disabled selected>Select an option</option>
-                    <option value="NO - ROUTER">NO - ROUTER</option>
                     <option value="ENTER SERIAL NO">ENTER SERIAL NO</option>
                     <option value="NO - SERIAL NO">NO - SERIAL NO</option>
                     <option value="NOT VISIBLE OR ERASED">NOT VISIBLE OR ERASED</option>
@@ -1396,7 +1413,7 @@
               <div class="input-group" data-select-wrapper="true">
                 <label class="input-label">Switch Company</label>
                 <div class="input-wrapper">
-                  <select name="switchCompany" class="input-field dynamic-select">
+                  <select name="switchCompany" id="switch-company-select" class="input-field dynamic-select" onchange="handleSwitchChange(this.value)">
                     <option value="" disabled selected>Select an option</option>
                     <option value="NO - SWITCH">NO - SWITCH</option>
                     <option value="OTHER">OTHER</option>
@@ -1418,7 +1435,7 @@
               <div class="input-group" data-select-wrapper="true">
                 <label class="input-label">Switch Model</label>
                 <div class="input-wrapper">
-                  <select name="switchModel" class="input-field dynamic-select">
+                  <select name="switchModel" id="switch-model-select" class="input-field dynamic-select">
                     <option value="" disabled selected>Select an option</option>
                     <option value="ENTER MODEL NO">ENTER MODEL NO</option>
                     <option value="NO - MODEL NO">NO - MODEL NO</option>
@@ -1431,7 +1448,7 @@
               <div class="input-group" data-select-wrapper="true">
                 <label class="input-label">Switch Ports</label>
                 <div class="input-wrapper">
-                  <select name="switchPorts" class="input-field dynamic-select">
+                  <select name="switchPorts" id="switch-ports-select" class="input-field dynamic-select">
                     <option value="" disabled selected>Select an option</option>
                     <option value="OTHER">OTHER</option>
                     <option value="2">2</option>
@@ -1516,16 +1533,18 @@
                 </div>
               </div>
 
-              <div class="input-group" style="grid-column: 1 / -1;">
+              <div class="input-group" style="grid-column: 1 / -1;" data-select-wrapper="true">
                 <label class="input-label">U.P.S & Batteries - Working status</label>
                 <div class="input-wrapper">
-                  <select name="upsBatteryStatus" class="input-field">
+                  <select name="upsBatteryStatus" class="input-field dynamic-select">
                     <option value="" disabled selected>Select an option</option>
+                    <option value="OTHER">OTHER</option>
                     <option value="WORKING">WORKING</option>
                     <option value="NOT WORKING">NOT WORKING</option>
                   </select>
                   <span class="material-symbols-rounded select-chevron">expand_more</span>
                 </div>
+                <div class="custom-input-wrapper"><input type="text" name="upsBatteryStatusCustom" class="input-field" placeholder="Specify manually..."></div>
               </div>
             </div>
           </div>
@@ -1684,8 +1703,7 @@
                 <div class="input-wrapper">
                   <select name="escanStatus" class="input-field">
                     <option value="" disabled selected>Select an option</option>
-                    <option value="INSTALLED">INSTALLED</option>
-                    <option value="NOT INSTALLED">NOT INSTALLED</option>
+                    <option value="UPDATED">UPDATED</option>
                   </select>
                   <span class="material-symbols-rounded select-chevron">expand_more</span>
                 </div>
@@ -1725,44 +1743,56 @@
                   <div class="upload-box" onclick="openCamera('cpu')"><span class="material-symbols-rounded">photo_camera</span><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
                 </div>
               </div>
+              <div class="img-uploader-container" data-category="cpuProperties" data-limit="2">
+                <label class="input-label">3. C.P.U - Properties (Up to 2)</label>
+                <div class="upload-grid" id="grid-cpuProperties">
+                  <div class="upload-box" onclick="openCamera('cpuProperties')"><span class="material-symbols-rounded">photo_camera</span><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
+                </div>
+              </div>
+              <div class="img-uploader-container" data-category="diskManagement" data-limit="2">
+                <label class="input-label">4. Disk Management (Up to 2)</label>
+                <div class="upload-grid" id="grid-diskManagement">
+                  <div class="upload-box" onclick="openCamera('diskManagement')"><span class="material-symbols-rounded">photo_camera</span><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
+                </div>
+              </div>
               <div class="img-uploader-container" data-category="keyboard" data-limit="2">
-                <label class="input-label">3. Keyboard (Up to 2)</label>
+                <label class="input-label">5. Keyboard (Up to 2)</label>
                 <div class="upload-grid" id="grid-keyboard">
                   <div class="upload-box" onclick="openCamera('keyboard')"><span class="material-symbols-rounded">photo_camera</span><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
                 </div>
               </div>
               <div class="img-uploader-container" data-category="mouse" data-limit="2">
-                <label class="input-label">4. Mouse (Up to 2)</label>
+                <label class="input-label">6. Mouse (Up to 2)</label>
                 <div class="upload-grid" id="grid-mouse">
                   <div class="upload-box" onclick="openCamera('mouse')"><span class="material-symbols-rounded">photo_camera</span><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
                 </div>
               </div>
               <div class="img-uploader-container" data-category="printer" data-limit="3">
-                <label class="input-label">5. Printer (Up to 3)</label>
+                <label class="input-label">7. Printer (Up to 3)</label>
                 <div class="upload-grid" id="grid-printer">
                   <div class="upload-box" onclick="openCamera('printer')"><span class="material-symbols-rounded">photo_camera</span><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
                 </div>
               </div>
               <div class="img-uploader-container" data-category="scanner" data-limit="3">
-                <label class="input-label">6. Scanner (Up to 3)</label>
+                <label class="input-label">8. Scanner (Up to 3)</label>
                 <div class="upload-grid" id="grid-scanner">
                   <div class="upload-box" onclick="openCamera('scanner')"><span class="material-symbols-rounded">photo_camera</span><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
                 </div>
               </div>
               <div class="img-uploader-container" data-category="ups" data-limit="3">
-                <label class="input-label">7. U.P.S (Up to 3)</label>
+                <label class="input-label">9. U.P.S (Up to 3)</label>
                 <div class="upload-grid" id="grid-ups">
                   <div class="upload-box" onclick="openCamera('ups')"><span class="material-symbols-rounded">photo_camera</span><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
                 </div>
               </div>
               <div class="img-uploader-container" data-category="batteries" data-limit="3">
-                <label class="input-label">8. BATTERIES (Up to 3)</label>
+                <label class="input-label">10. BATTERIES (Up to 3)</label>
                 <div class="upload-grid" id="grid-batteries">
                   <div class="upload-box" onclick="openCamera('batteries')"><span class="material-symbols-rounded">photo_camera</span><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
                 </div>
               </div>
               <div class="img-uploader-container" data-category="hardcopy" data-limit="2" style="grid-column: 1 / -1;">
-                <label class="input-label">9. Hard-Copy of PM REPORT. Note: Duly signed by Concern Team (Up to 2)</label>
+                <label class="input-label">11. Hard-Copy of PM REPORT. Note: Duly signed by Concern Team (Up to 2)</label>
                 <div class="upload-grid" id="grid-hardcopy">
                   <div class="upload-box" onclick="openCamera('hardcopy')"><span class="material-symbols-rounded">photo_camera</span><span style="font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Capture</span></div>
                 </div>
@@ -1911,7 +1941,7 @@
         'CAPTURE IMAGES'
       ],
       images: {
-        desktop: [], cpu: [], keyboard: [], mouse: [],
+        desktop: [], cpu: [], cpuProperties: [], diskManagement: [], keyboard: [], mouse: [],
         printer: [], scanner: [], ups: [], batteries: [], hardcopy: []
       },
       user: null,
@@ -2194,7 +2224,7 @@
       document.getElementById('pm-report-form').reset();
       document.querySelectorAll('.custom-input-wrapper').forEach((wrap) => wrap.classList.remove('active'));
       state.images = {
-        desktop: [], cpu: [], keyboard: [], mouse: [],
+        desktop: [], cpu: [], cpuProperties: [], diskManagement: [], keyboard: [], mouse: [],
         printer: [], scanner: [], ups: [], batteries: [], hardcopy: []
       };
       document.querySelectorAll('.upload-grid').forEach((grid) => {
@@ -2206,6 +2236,8 @@
           addBtn.style.display = 'flex';
         }
       });
+      document.querySelectorAll('.img-uploader-container').forEach((el) => el.classList.remove('hidden'));
+      updateImageSectionNumbers();
       document.querySelectorAll('.preview-edit-btn').forEach((btn) => btn.classList.add('hidden'));
       document.querySelectorAll('#pm-report-form input:not([readonly]), #pm-report-form select, #pm-report-form textarea').forEach((el) => {
         el.disabled = false;
@@ -2328,12 +2360,15 @@
         });
         document.getElementById('btn-location').disabled = false;
 
-        // Re-apply conditional disable states for Internet, Router, and Device sections
+        // Re-apply conditional disable states for Internet, Router, Switch, and Device sections
         const internetSelect = document.getElementById('internet-select');
         if (internetSelect) handleInternetChange(internetSelect.value);
 
         const routerSelect = document.getElementById('router-make-select');
         if (routerSelect) handleRouterChange(routerSelect.value);
+
+        const switchSelect = document.getElementById('switch-company-select');
+        if (switchSelect) handleSwitchChange(switchSelect.value);
 
         ['ups', 'batteries', 'printer', 'scanner'].forEach((dev) => {
           const selName = dev === 'ups' ? 'upsInLocation' : dev === 'batteries' ? 'batteriesInLocation' : `${dev}Attached`;
@@ -2419,6 +2454,14 @@
       const customWrap = routerSnoSelect.closest('[data-select-wrapper="true"]')?.querySelector('.custom-input-wrapper');
 
       if (val === 'NO - ROUTER' || val === 'NO-ROUTER') {
+        let noOpt = routerSnoSelect.querySelector('option[value="NO - ROUTER"]');
+        if (!noOpt) {
+          noOpt = document.createElement('option');
+          noOpt.value = 'NO - ROUTER';
+          noOpt.textContent = 'NO - ROUTER';
+          noOpt.hidden = true;
+          routerSnoSelect.appendChild(noOpt);
+        }
         routerSnoSelect.value = 'NO - ROUTER';
         routerSnoSelect.disabled = true;
         if (customWrap) {
@@ -2431,12 +2474,61 @@
         if (routerSnoSelect.value === 'NO - ROUTER' || routerSnoSelect.value === 'NO-ROUTER') {
           routerSnoSelect.value = '';
         }
+        const noOpt = routerSnoSelect.querySelector('option[value="NO - ROUTER"]');
+        if (noOpt) noOpt.remove();
       }
+    };
+
+    const handleSwitchChange = (val) => {
+      const switchModelSelect = document.getElementById('switch-model-select');
+      const switchPortsSelect = document.getElementById('switch-ports-select');
+      if (!switchModelSelect || !switchPortsSelect) return;
+
+      [switchModelSelect, switchPortsSelect].forEach((sel) => {
+        const customWrap = sel.closest('[data-select-wrapper="true"]')?.querySelector('.custom-input-wrapper');
+        if (val === 'NO - SWITCH' || val === 'NO-SWITCH') {
+          let noOpt = sel.querySelector('option[value="NO - SWITCH"]');
+          if (!noOpt) {
+            noOpt = document.createElement('option');
+            noOpt.value = 'NO - SWITCH';
+            noOpt.textContent = 'NO - SWITCH';
+            noOpt.hidden = true;
+            sel.appendChild(noOpt);
+          }
+          sel.value = 'NO - SWITCH';
+          sel.disabled = true;
+          if (customWrap) {
+            customWrap.classList.remove('active');
+            const customInp = customWrap.querySelector('input');
+            if (customInp) customInp.value = '';
+          }
+        } else {
+          sel.disabled = false;
+          if (sel.value === 'NO - SWITCH' || sel.value === 'NO-SWITCH') {
+            sel.value = '';
+          }
+          const noOpt = sel.querySelector('option[value="NO - SWITCH"]');
+          if (noOpt) noOpt.remove();
+        }
+      });
     };
 
     const formatMonitorSize = (el) => {
       const val = el.value.replace(/[^0-9.]/g, '');
       el.value = val.length > 0 ? `${val}"` : '';
+    };
+
+    const updateImageSectionNumbers = () => {
+      let count = 1;
+      document.querySelectorAll('.img-uploader-container').forEach((container) => {
+        if (!container.classList.contains('hidden')) {
+          const label = container.querySelector('.input-label');
+          if (label) {
+            label.textContent = label.textContent.replace(/^\d+\.\s*/, `${count}. `);
+            count++;
+          }
+        }
+      });
     };
 
     const toggleDeviceState = (device, deviceState) => {
@@ -2485,6 +2577,30 @@
             opt.disabled = false;
           }
         });
+      }
+
+      // Show/Hide Printer & Scanner Image Capture sections when YES/NO is selected
+      if (device === 'printer' || device === 'scanner') {
+        const imgContainer = document.querySelector(`.img-uploader-container[data-category="${device}"]`);
+        if (imgContainer) {
+          if (deviceState === 'NO') {
+            imgContainer.classList.add('hidden');
+            state.images[device] = [];
+            const grid = document.getElementById(`grid-${device}`);
+            if (grid) {
+              const addBtn = grid.querySelector('.upload-box:not([id])');
+              grid.innerHTML = '';
+              if (addBtn) {
+                grid.appendChild(addBtn);
+                addBtn.classList.remove('hidden');
+                addBtn.style.display = 'flex';
+              }
+            }
+          } else if (deviceState === 'YES') {
+            imgContainer.classList.remove('hidden');
+          }
+          updateImageSectionNumbers();
+        }
       }
     };
 
@@ -2694,7 +2810,7 @@
       }
 
       const uploadedUrls = {
-        desktop: [], cpu: [], keyboard: [], mouse: [],
+        desktop: [], cpu: [], cpuProperties: [], diskManagement: [], keyboard: [], mouse: [],
         printer: [], scanner: [], ups: [], batteries: [], hardcopy: []
       };
       let imagesProcessed = 0;
